@@ -52,7 +52,7 @@ msgstr ""
 #: ../private.php:210
 msgid ""
 "Select a page to use as a login page for your website. You should add "
-"\"[thrive_login]\" shortcode to the selected page<br> to show the login form"
+"\"[task_breaker_login]\" shortcode to the selected page<br> to show the login form"
 msgstr ""
 
 #: ../shortcodes.php:38
