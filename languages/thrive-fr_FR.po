@@ -1,0 +1,492 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Thrive Intranet l10n\n"
+"POT-Creation-Date: 2015-12-23 16:03+0800\n"
+"PO-Revision-Date: 2015-12-23 17:00+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__;_n;esc_attr_e;"
+"esc_attr__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../private.php:118
+msgid "Pages Visibility Settings"
+msgstr ""
+
+#: ../private.php:126
+msgid "Display the following pages and posts in public"
+msgstr ""
+
+#: ../private.php:135
+msgid "Make my Intranet public"
+msgstr ""
+
+#: ../private.php:144
+msgid "Login Page"
+msgstr ""
+
+#: ../private.php:177
+msgid ""
+"Enter the IDs of posts and/or pages that you wanted to show in public. You "
+"need to separate it by \",\"(comma), <br>for example: 143,123,213. "
+"Alternatively, you can enable public viewing of all of your pages and posts "
+"by checking <br>the option below."
+msgstr ""
+
+#: ../private.php:190
+msgid ""
+"Pages like user profile, members, and groups are still only available to the "
+"rightful owner of the profile"
+msgstr ""
+
+#: ../private.php:207 ../core/functions.php:218 ../core/functions.php:374
+msgid "Select Page"
+msgstr ""
+
+#: ../private.php:210
+msgid ""
+"Select a page to use as a login page for your website. You should add "
+"\"[thrive_login]\" shortcode to the selected page<br> to show the login form"
+msgstr ""
+
+#: ../shortcodes.php:38
+msgid "Username"
+msgstr ""
+
+#: ../shortcodes.php:39
+msgid "Password"
+msgstr ""
+
+#: ../shortcodes.php:40
+msgid "Remember Me"
+msgstr ""
+
+#: ../shortcodes.php:41
+msgid "Log In"
+msgstr ""
+
+#: ../shortcodes.php:61
+msgid "Required: Username and Password cannot not be empty."
+msgstr ""
+
+#: ../shortcodes.php:65
+msgid "Required: Username cannot not be empty."
+msgstr ""
+
+#: ../shortcodes.php:69
+msgid "Required: Password cannot not be empty."
+msgstr ""
+
+#: ../shortcodes.php:73
+msgid ""
+"Error: There was an error trying to sign-in to your account. Make sure your "
+"credentials are correct."
+msgstr ""
+
+#: ../shortcodes.php:78
+msgid "Error: Invalid username and password combination."
+msgstr ""
+
+#: ../shortcodes.php:85
+msgid "Oops! Looks like you need to login in order to view the page."
+msgstr "哎呀！看起来你需要，以查看该页面登录。"
+
+#: ../shortcodes.php:102
+msgid "Forgot Password"
+msgstr ""
+
+#: ../updater.php:434
+msgid ""
+"The plugin has been updated, but could not be reactivated. Please reactivate "
+"it manually."
+msgstr ""
+
+#: ../updater.php:435
+msgid "Plugin reactivated successfully."
+msgstr ""
+
+#: ../core/functions.php:21 ../includes/project-component.php:118
+#: ../includes/project-post-type.php:13 ../includes/project-post-type.php:15
+#: ../includes/project-screens.php:187
+msgid "Projects"
+msgstr ""
+
+#: ../core/functions.php:139
+#, php-format
+msgid "Search result for: \"%s\""
+msgstr ""
+
+#: ../core/functions.php:142
+#, php-format
+msgid "Currently showing %d task "
+msgstr ""
+
+#: ../core/functions.php:143 ../core/functions.php:148
+#, php-format
+msgid "out of %d"
+msgstr ""
+
+#: ../core/functions.php:147
+#, php-format
+msgid "Currently showing %d completed task "
+msgstr ""
+
+#: ../core/functions.php:155
+msgid "No results found. Try another filter or add new task."
+msgstr ""
+
+#: ../core/functions.php:162
+msgid "Title"
+msgstr ""
+
+#: ../core/functions.php:163
+msgid "Priority"
+msgstr ""
+
+#: ../core/functions.php:164
+msgid "Date"
+msgstr ""
+
+#: ../core/functions.php:196
+msgid "N/A"
+msgstr ""
+
+#: ../core/functions.php:211 ../core/functions.php:368
+#, php-format
+msgid "%s task"
+msgstr ""
+
+#: ../core/functions.php:215 ../core/functions.php:372
+msgid "Go to the first page"
+msgstr ""
+
+#: ../core/functions.php:216 ../core/functions.php:373
+msgid "Go to the previous page"
+msgstr ""
+
+#: ../core/functions.php:222 ../core/functions.php:378
+msgid "Go to the next page"
+msgstr ""
+
+#: ../core/functions.php:223 ../core/functions.php:379
+msgid "Go to the last page"
+msgstr ""
+
+#: ../core/functions.php:350
+msgid ""
+"No tasks found. If you're trying to find a task, kindly try different "
+"keywords and/or filters."
+msgstr ""
+
+#: ../core/functions.php:399
+msgid "Normal"
+msgstr ""
+
+#: ../core/functions.php:400
+msgid "High"
+msgstr ""
+
+#: ../core/functions.php:401
+msgid "Critical"
+msgstr ""
+
+#: ../core/functions.php:418
+msgid "Tasks List"
+msgstr ""
+
+#: ../core/functions.php:419
+msgid "&larr; Tasks List"
+msgstr ""
+
+#: ../core/functions.php:422
+msgid "Edit"
+msgstr ""
+
+#: ../core/functions.php:432
+msgid "Discussion"
+msgstr ""
+
+#: ../core/functions.php:457 ../core/functions.php:497
+msgid "In Progress"
+msgstr ""
+
+#: ../core/functions.php:464 ../core/functions.php:481
+#: ../core/functions.php:741
+msgid "Completed"
+msgstr ""
+
+#: ../core/functions.php:471 ../core/functions.php:487
+msgid "Reopen Task"
+msgstr ""
+
+#: ../core/functions.php:503
+msgid "Complete"
+msgstr ""
+
+#: ../core/functions.php:517
+msgid "Update Priority:"
+msgstr ""
+
+#: ../core/functions.php:524 ../templates/task-edit.php:35
+msgid "Update Task"
+msgstr ""
+
+#: ../core/functions.php:544
+msgid "New Progress by"
+msgstr ""
+
+#: ../core/functions.php:548
+msgid "Completed by"
+msgstr ""
+
+#: ../core/functions.php:552
+msgid "Reopened by"
+msgstr ""
+
+#: ../core/functions.php:572
+msgid "Delete comment"
+msgstr ""
+
+#: ../core/functions.php:573 ../templates/project-settings.php:60
+#: ../templates/task-edit.php:31
+msgid "Delete"
+msgstr ""
+
+#: ../core/functions.php:691
+msgid "Page:"
+msgstr ""
+
+#: ../core/functions.php:697
+#, php-format
+msgid "Go to page %d &raquo;"
+msgstr ""
+
+#: ../core/functions.php:734
+#, php-format
+msgid "%s Task"
+msgstr ""
+
+#: ../core/functions.php:767
+msgid "Started by "
+msgstr ""
+
+#: ../core/functions.php:769
+msgid "Visit User Profile"
+msgstr ""
+
+#: ../core/functions.php:774
+msgid "under &raquo;"
+msgstr ""
+
+#: ../core/functions.php:813 ../includes/project-component.php:158
+#: ../includes/project-post-type.php:19 ../includes/project-screens.php:236
+msgid "New Project"
+msgstr ""
+
+#: ../core/functions.php:828 ../includes/project-post-type.php:18
+msgid "Add New Project"
+msgstr ""
+
+#: ../core/functions.php:850
+msgid "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form"
+msgstr ""
+
+#: ../includes/project-component.php:119
+msgid "Search Projects..."
+msgstr ""
+
+#: ../includes/project-component.php:148
+msgid "My Projects"
+msgstr ""
+
+#: ../includes/project-post-type.php:14 ../includes/project-post-type.php:16
+msgid "Project"
+msgstr ""
+
+#: ../includes/project-post-type.php:17
+msgid "Add New"
+msgstr ""
+
+#: ../includes/project-post-type.php:20
+msgid "Edit Project"
+msgstr ""
+
+#: ../includes/project-post-type.php:21
+msgid "View Project"
+msgstr ""
+
+#: ../includes/project-post-type.php:22
+msgid "All Projects"
+msgstr ""
+
+#: ../includes/project-post-type.php:23
+msgid "Search Projects"
+msgstr ""
+
+#: ../includes/project-post-type.php:24
+msgid "Parent Projects:"
+msgstr ""
+
+#: ../includes/project-post-type.php:25
+msgid "No projects found."
+msgstr ""
+
+#: ../includes/project-post-type.php:26
+msgid "No projects found in Trash."
+msgstr ""
+
+#: ../includes/project-post-type.php:60
+msgid "Tasks"
+msgstr ""
+
+#: ../includes/project-post-type.php:73
+msgid "Loading"
+msgstr ""
+
+#: ../includes/project-screens.php:183
+msgid "Menu Header"
+msgstr ""
+
+#: ../includes/project-screens.php:274
+msgid "Projects Directory"
+msgstr ""
+
+#: ../models/comments.php:203
+msgid "posted new updated in"
+msgstr ""
+
+#: ../models/comments.php:204
+msgid "completed"
+msgstr ""
+
+#: ../models/comments.php:205
+msgid "reopened"
+msgstr ""
+
+#: ../models/comments.php:210
+#, php-format
+msgid "%s %s the task: %s - "
+msgstr ""
+
+#: ../models/tasks.php:502
+#, php-format
+msgid "%s added new task under %s"
+msgstr ""
+
+#: ../models/tasks.php:615
+#, php-format
+msgid "%s Completed"
+msgstr ""
+
+#: ../templates/project-add.php:15 ../templates/project-settings.php:9
+msgid "Enter the new title for this project"
+msgstr "Entrez le nouveau titre pour ce projet"
+
+#: ../templates/project-add.php:96 ../templates/project-add.php:120
+msgid "Save Project"
+msgstr ""
+
+#: ../templates/project-add.php:110
+msgid ""
+"Looks like you don't have any groups yet. Please join or create new group to "
+"start a project.?"
+msgstr ""
+
+#: ../templates/project-loop-content.php:57
+msgid "There are no projects found. Why not add one?"
+msgstr ""
+
+#: ../templates/project-settings.php:25
+msgid "Explain what this project is all about"
+msgstr ""
+
+#: ../templates/project-settings.php:34
+msgid "Assign to Group:"
+msgstr ""
+
+#: ../templates/project-settings.php:55
+msgid "Update Project"
+msgstr ""
+
+#: ../templates/project.php:17
+msgid "About"
+msgstr ""
+
+#: ../templates/project.php:37
+msgid "At a Glance"
+msgstr ""
+
+#: ../templates/project.php:50
+msgid "Total Tasks"
+msgstr ""
+
+#: ../templates/project.php:65
+msgid "Task(s) remaining"
+msgstr ""
+
+#: ../templates/project.php:79
+msgid "Task(s) Completed"
+msgstr ""
+
+#: ../templates/task-add.php:14 ../templates/task-edit.php:7
+msgid "Enter the title of this task. Max 160 characters"
+msgstr "Entrez le titre de cette tâche . Max 160 caractères"
+
+#: ../templates/task-add.php:26 ../templates/task-edit.php:19
+msgid "In few words, explain what this task is all about"
+msgstr ""
+
+#: ../templates/task-add.php:31 ../templates/task-edit.php:24
+msgid "Priority:"
+msgstr ""
+
+#: ../templates/task-add.php:38
+msgid "Save Task"
+msgstr ""
+
+#: ../templates/task-filter.php:15
+msgid "Show All"
+msgstr ""
+
+#: ../templates/task-filter.php:16
+msgid "Normal Priority"
+msgstr ""
+
+#: ../templates/task-filter.php:17
+msgid "High Priority"
+msgstr ""
+
+#: ../templates/task-filter.php:18
+msgid "Critical Priority"
+msgstr ""
+
+#: ../templates/task-filter.php:25
+msgid "Search Tasks:"
+msgstr ""
+
+#: ../templates/task-filter.php:27
+msgid "Search Task"
+msgstr ""
+
+#: ../templates/task-filter.php:28
+msgid "Apply"
+msgstr ""
+
+#: ../transactions/controller.php:63
+msgid ""
+"Invalid Request. Your session has already expired (invalid nonce). \n"
+"\t\t\t\tPlease go back and refresh your browser. Thanks!"
+msgstr ""
+
+#: ../transactions/controller.php:139
+msgid ""
+"There was an error trying to add this task. \n"
+"\t\t\t\tTitle and Description fields are required or there was \n"
+"\t\t\t\tan unexpected error."
+msgstr ""
