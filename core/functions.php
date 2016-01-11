@@ -1,7 +1,7 @@
 <?php
 /**
  * This file contains core functions that are use
- * as help logic in thrive projects component
+ * as help logic in task_breaker projects component
  *
  * @since  1.0
  * @package Thrive Intranet
@@ -10,22 +10,22 @@
 if ( ! defined( 'ABSPATH' ) ) { die(); }
 
 /**
- * Returns the thrive component id or slug
- * @return string the thrive component id or slug
+ * Returns the task_breaker component id or slug
+ * @return string the task_breaker component id or slug
  */
-function thrive_component_id() {
-	return apply_filters( 'thrive_component_id', 'projects' );
+function task_breaker_component_id() {
+	return apply_filters( 'task_breaker_component_id', 'projects' );
 }
 
-function thrive_component_name() {
-	return apply_filters( 'thrive_component_name', __( 'Projects', 'thrive' ) );
+function task_breaker_component_name() {
+	return apply_filters( 'task_breaker_component_name', __( 'Projects', 'task_breaker' ) );
 }
 
-function thrive_template_dir() {
+function task_breaker_template_dir() {
 	return plugin_dir_path( __FILE__ ) . '../templates';
 }
 
-function thrive_include_dir() {
+function task_breaker_include_dir() {
 	return plugin_dir_path( __FILE__ ) . '../includes';
 }
 
@@ -36,15 +36,15 @@ function thrive_include_dir() {
  * @param  string  $select_id   the id of the select field
  * @return void
  */
-function thrive_task_priority_select($default = 1, $select_name = 'thrive_task_priority', $select_id = 'thrive-task-priority-select') {
+function task_breaker_task_priority_select($default = 1, $select_name = 'task_breaker_task_priority', $select_id = 'task_breaker-task-priority-select') {
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
-	$thrive_tasks = new ThriveProjectTasksController();
+	$task_breaker_tasks = new ThriveProjectTasksController();
 
-	$priorities = $thrive_tasks->getPriorityCollection();
+	$priorities = $task_breaker_tasks->getPriorityCollection();
 
-	echo '<select name="'.esc_attr( $select_name ).'" id="'.esc_attr( $select_id ).'" class="thrive-task-select">';
+	echo '<select name="'.esc_attr( $select_name ).'" id="'.esc_attr( $select_id ).'" class="task_breaker-task-select">';
 
 	foreach ( $priorities as $priority_id => $priority_label ) {
 
@@ -58,35 +58,35 @@ function thrive_task_priority_select($default = 1, $select_name = 'thrive_task_p
 	return;
 }
 
-function thrive_count_tasks($project_id, $type = 'all') {
+function task_breaker_count_tasks($project_id, $type = 'all') {
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
-	$thrive_tasks = new ThriveProjectTasksModel();
+	$task_breaker_tasks = new ThriveProjectTasksModel();
 
-	return $thrive_tasks->getCount( $project_id, $type );
+	return $task_breaker_tasks->getCount( $project_id, $type );
 
 }
 
-function thrive_add_task_form() {
+function task_breaker_add_task_form() {
 
 	include plugin_dir_path( __FILE__ ) . '../templates/task-add.php';
 
 }
 
-function thrive_edit_task_form() {
+function task_breaker_edit_task_form() {
 
 	include plugin_dir_path( __FILE__ ) . '../templates/task-edit.php';
 
 }
 
-function thrive_task_filters() {
+function task_breaker_task_filters() {
 
 	include plugin_dir_path( __FILE__ ) . '../templates/task-filter.php';
 
 }
 /**
- * thrive_render_task($echo = true, $page = 1, $limit = 10)
+ * task_breaker_render_task($echo = true, $page = 1, $limit = 10)
  *
  * Renders a table that enables admin to manage
  * tickets under a project. Only use this function
@@ -97,7 +97,7 @@ function thrive_task_filters() {
  * @param  integer $limit limits the number of task displayed
  * @return void if $echo is set to true other wise returns the constructed markup for tasks
  */
-function thrive_render_task($args = array()) {
+function task_breaker_render_task($args = array()) {
 
 	$defaults = array(
 			'project_id' => 0,
@@ -118,55 +118,55 @@ function thrive_render_task($args = array()) {
 			$$option = $value;
 		}
 	}
-	// todo convert thrive_render_task params to array
+	// todo convert task_breaker_render_task params to array
 	if ( $echo === 'no' ) { ob_start(); }
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
-	$thrive_tasks = new ThriveProjectTasksController();
-	$tasks = $thrive_tasks->renderTasks( $args );
+	$task_breaker_tasks = new ThriveProjectTasksController();
+	$tasks = $task_breaker_tasks->renderTasks( $args );
 	$stats = $tasks['stats'];
 	$tasks = $tasks['results'];
 	$current_user_id = get_current_user_id();
 
-	echo '<div id="thrive-task-list-canvas">';
+	echo '<div id="task_breaker-task-list-canvas">';
 
-	$open_tasks_no     = thrive_count_tasks( $project_id, $type = 'open' );
-	$completed_task_no = thrive_count_tasks( $project_id, $type = 'completed' );
-	$all_tasks_no      = thrive_count_tasks( $project_id, $type = 'all' );
+	$open_tasks_no     = task_breaker_count_tasks( $project_id, $type = 'open' );
+	$completed_task_no = task_breaker_count_tasks( $project_id, $type = 'completed' );
+	$all_tasks_no      = task_breaker_count_tasks( $project_id, $type = 'all' );
 
 	if ( ! empty( $search ) ) {
-		echo '<p id="thrive-view-info">'.sprintf( __( 'Search result for: "%s"' ), esc_html( $search ) ).'</p>';
+		echo '<p id="task_breaker-view-info">'.sprintf( __( 'Search result for: "%s"' ), esc_html( $search ) ).'</p>';
 	} else {
 		if ( $show_completed == 'no' ) {
-			echo '<p id="thrive-view-info">'.sprintf( _n( 'Currently showing %d task ', 'Currently showing %d tasks ', $open_tasks_no, 'thrive' ), $open_tasks_no );
-			echo sprintf( __( 'out of %d', 'thrive' ), $all_tasks_no ) . '</p>';
+			echo '<p id="task_breaker-view-info">'.sprintf( _n( 'Currently showing %d task ', 'Currently showing %d tasks ', $open_tasks_no, 'task_breaker' ), $open_tasks_no );
+			echo sprintf( __( 'out of %d', 'task_breaker' ), $all_tasks_no ) . '</p>';
 		}
 
 		if ( $show_completed == 'yes' ) {
-			echo '<p id="thrive-view-info">'.sprintf( _n( 'Currently showing %d completed task ', 'Currently showing %d completed tasks ', $completed_task_no, 'thrive' ), $completed_task_no );
-			echo sprintf( __( 'out of %d', 'thrive' ), $all_tasks_no ) . '</p>';
+			echo '<p id="task_breaker-view-info">'.sprintf( _n( 'Currently showing %d completed task ', 'Currently showing %d completed tasks ', $completed_task_no, 'task_breaker' ), $completed_task_no );
+			echo sprintf( __( 'out of %d', 'task_breaker' ), $all_tasks_no ) . '</p>';
 		}
 	}
 
 	if ( empty( $tasks ) ) {
 
-		echo '<p class="bp-template-notice error" id="thrive-message">';
-			echo __( 'No results found. Try another filter or add new task.', 'thrive' );
+		echo '<p class="bp-template-notice error" id="task_breaker-message">';
+			echo __( 'No results found. Try another filter or add new task.', 'task_breaker' );
 		echo '</p>';
 
 	} else {
 
-		echo '<table class="wp-list-table widefat fixed striped pages" id="thrive-core-functions-render-task">';
+		echo '<table class="wp-list-table widefat fixed striped pages" id="task_breaker-core-functions-render-task">';
 		echo '<tr>';
-			echo '<th width="70%">'.__( 'Title', 'thrive' ).'</th>';
-			echo '<th>'.__( 'Priority', 'thrive' ).'</th>';
-			echo '<th>'.__( 'Date', 'thrive' ).'</th>';
+			echo '<th width="70%">'.__( 'Title', 'task_breaker' ).'</th>';
+			echo '<th>'.__( 'Priority', 'task_breaker' ).'</th>';
+			echo '<th>'.__( 'Date', 'task_breaker' ).'</th>';
 		echo '</tr>';
 
 		foreach ( (array) $tasks as $task ) {
 
-			$priority_label = $thrive_tasks->getPriority( $task->priority );
+			$priority_label = $task_breaker_tasks->getPriority( $task->priority );
 
 			$completed = '';
 			if ( $task->completed_by != 0 ) {
@@ -178,11 +178,11 @@ function thrive_render_task($args = array()) {
 			$row_actions = '<div class="row-actions">';
 				$row_actions .= '<span class="edit"><a href="#tasks/edit/'.intval( $task->id ).'">Edit</a> | </span>';
 			if ( empty( $completed ) ) {
-				$row_actions .= '<span data-user_id="'.intval( $current_user_id ).'" data-task_id="'.intval( $task->id ).'" class="thrive-complete-ticket"><a href="#">Complete</a> | </span>';
+				$row_actions .= '<span data-user_id="'.intval( $current_user_id ).'" data-task_id="'.intval( $task->id ).'" class="task_breaker-complete-ticket"><a href="#">Complete</a> | </span>';
 			} else {
-				$row_actions .= '<span data-task_id="'.intval( $task->id ).'" class="thrive-renew-task"><a href="#">Renew Task</a> | </span>';
+				$row_actions .= '<span data-task_id="'.intval( $task->id ).'" class="task_breaker-renew-task"><a href="#">Renew Task</a> | </span>';
 			}
-				$row_actions .= '<span class="trash"><a data-ticket-id="'.intval( $task->id ).'" class="thrive-delete-ticket-btn" href="#">Delete</a> </span>';
+				$row_actions .= '<span class="trash"><a data-ticket-id="'.intval( $task->id ).'" class="task_breaker-delete-ticket-btn" href="#">Delete</a> </span>';
 			$row_actions .= '</div>';
 
 			echo '<tr class="'.$classes.'">';
@@ -193,7 +193,7 @@ function thrive_render_task($args = array()) {
 				if ( "0000-00-00 00:00:00" !== $task->date_created ) {
 					echo '<td>'.esc_html( date( 'M d, o @H:i', strtotime( $task->date_created ) ) ).'</h3></td>';
 				} else {
-					echo '<td>'.__('N/A','thrive').'</td>';
+					echo '<td>'.__('N/A','task_breaker').'</td>';
 				}
 
 			echo '</tr>';
@@ -208,18 +208,18 @@ function thrive_render_task($args = array()) {
 		$max_page   = intval( $stats['max_page'] );
 
 		echo '<div class="tablenav"><div class="tablenav-pages">';
-		echo '<span class="displaying-num">'.sprintf( _n( '%s task', '%s tasks', $total, 'thrive' ),$total ).'</span>';
+		echo '<span class="displaying-num">'.sprintf( _n( '%s task', '%s tasks', $total, 'task_breaker' ),$total ).'</span>';
 
 		if ( $total_page >= 1 ) {
 			echo '<span id="trive-task-paging" class="pagination-links">';
-				echo '<a class="first-page disabled" title="'.__( 'Go to the first page', 'thrive' ).'" href="#tasks/page/'.$min_page.'">«</a>';
-				echo '<a class="prev-page disabled" title="'.__( 'Go to the previous page', 'thrive' ).'" href="#">‹</a>';
+				echo '<a class="first-page disabled" title="'.__( 'Go to the first page', 'task_breaker' ).'" href="#tasks/page/'.$min_page.'">«</a>';
+				echo '<a class="prev-page disabled" title="'.__( 'Go to the previous page', 'task_breaker' ).'" href="#">‹</a>';
 
-						echo '<span class="paging-input"><label for="thrive-task-current-page-selector" class="screen-reader-text">'.__( 'Select Page', 'thrive' ).'</label>';
-						echo '<input readonly class="current-page" id="thrive-task-current-page-selector" type="text" maxlength="'.strlen( $total_page ).'" size="'.strlen( $total_page ).'"value="'.intval( $currpage ).'">';
+						echo '<span class="paging-input"><label for="task_breaker-task-current-page-selector" class="screen-reader-text">'.__( 'Select Page', 'task_breaker' ).'</label>';
+						echo '<input readonly class="current-page" id="task_breaker-task-current-page-selector" type="text" maxlength="'.strlen( $total_page ).'" size="'.strlen( $total_page ).'"value="'.intval( $currpage ).'">';
 						echo ' of <span class="total-pages">'.$total_page.'</span></span>';
 
-				echo '<a class="next-page" title="'.__( 'Go to the next page', 'thrive' ).'" href="#">›</a>';
+				echo '<a class="next-page" title="'.__( 'Go to the next page', 'task_breaker' ).'" href="#">›</a>';
 				echo '<a class="last-page" title="'.__( 'Go to the last page', 'trive' ).'" href="#tasks/page/'.$max_page.'">»</a></span>';
 			echo '</span>';
 		}
@@ -227,13 +227,13 @@ function thrive_render_task($args = array()) {
 		echo '</div></div><!--.tablenav--><!--.tablenav-pages-->';
 	}
 
-	echo '</div><!--#thrive-task-list-canvas-->';
+	echo '</div><!--#task_breaker-task-list-canvas-->';
 
 	?>
 	<script>
-	var thriveProjectSettings = {
+	var task_breakerProjectSettings = {
 		project_id: '<?php echo absint($post->ID);?>',
-		nonce: '<?php echo wp_create_nonce( "thrive-transaction-request" ); ?>'
+		nonce: '<?php echo wp_create_nonce( "task_breaker-transaction-request" ); ?>'
 	};
 	</script>
 	<?php
@@ -250,7 +250,7 @@ function thrive_render_task($args = array()) {
  * @param  [type] $args [description]
  * @return [type]       [description]
  */
-function thrive_the_tasks($args) {
+function task_breaker_the_tasks($args) {
 
 	ob_start();
 
@@ -276,9 +276,9 @@ function thrive_the_tasks($args) {
 		}
 	}
 
-	$thrive_tasks = new ThriveProjectTasksController();
+	$task_breaker_tasks = new ThriveProjectTasksController();
 
-	$tasks = $thrive_tasks->renderTasks( $args );
+	$tasks = $task_breaker_tasks->renderTasks( $args );
 
 	// Fallback to default values when there are no tasks.
 	if ( empty( $tasks ) ) {
@@ -299,23 +299,23 @@ function thrive_the_tasks($args) {
 
 <div class="clearfix"></div>
 
-<div id="thrive-project-tasks">
+<div id="task_breaker-project-tasks">
 	<?php if ( ! empty( $tasks['results'] ) ) { ?>
 		<ul>
 		<?php foreach ( $tasks['results'] as $task ) { ?>
 			<?php
-			$priority_label = $thrive_tasks->getPriority( $task->priority );
+			$priority_label = $task_breaker_tasks->getPriority( $task->priority );
 			$completed = '';
 			if ( $task->completed_by != 0 ) {
 				$completed = 'completed';
 			}
 			$classes = implode( ' ', array( esc_attr( sanitize_title( $priority_label ) ), $completed ) );
 			?>
-			<li class="thrive-task-item <?php echo esc_attr( $classes ); ?>">
-				<ul class="thrive-task-item-details">
+			<li class="task_breaker-task-item <?php echo esc_attr( $classes ); ?>">
+				<ul class="task_breaker-task-item-details">
 					<li class="priority">
 						<span>
-							<?php $priority_collection = $thrive_tasks->getPriorityCollection(); ?>
+							<?php $priority_collection = $task_breaker_tasks->getPriorityCollection(); ?>
 							<?php echo $priority_collection[$task->priority]; ?>
 						</span>
 					</li>
@@ -347,7 +347,7 @@ function thrive_the_tasks($args) {
 	<?php } else { ?>
 		<div class="error" id="message">
 			<p>
-				<?php _e( 'No tasks found. If you\'re trying to find a task, kindly try different keywords and/or filters.', 'thrive' ); ?>
+				<?php _e( 'No tasks found. If you\'re trying to find a task, kindly try different keywords and/or filters.', 'task_breaker' ); ?>
 			</p>
 		</div>
 	<?php } ?>
@@ -365,17 +365,17 @@ $max_page   = intval( $stats['max_page'] );
 if ( 0 !== $total ) {
 
 	echo '<div class="tablenav"><div class="tablenav-pages">';
-	echo '<span class="displaying-num">'.sprintf( _n( '%s task', '%s tasks', $total, 'thrive' ),$total ).'</span>';
+	echo '<span class="displaying-num">'.sprintf( _n( '%s task', '%s tasks', $total, 'task_breaker' ),$total ).'</span>';
 
 	if ( $total_page >= 1 ) {
-		echo '<span id="thrive-task-paging" class="pagination-links">';
-			echo '<a class="first-page disabled" title="'.__( 'Go to the first page', 'thrive' ).'" href="#tasks/page/'.$min_page.'">«</a>';
-			echo '<a class="prev-page disabled" title="'.__( 'Go to the previous page', 'thrive' ).'" href="#">‹</a>';
-				echo '<span class="paging-input"><label for="thrive-task-current-page-selector" class="screen-reader-text">'.__( 'Select Page', 'thrive' ).'</label>';
-				echo '<input readonly class="current-page" id="thrive-task-current-page-selector" type="text" maxlength="'.strlen( $total_page ).'" size="'.strlen( $total_page ).'"value="'.intval( $currpage ).'">';
+		echo '<span id="task_breaker-task-paging" class="pagination-links">';
+			echo '<a class="first-page disabled" title="'.__( 'Go to the first page', 'task_breaker' ).'" href="#tasks/page/'.$min_page.'">«</a>';
+			echo '<a class="prev-page disabled" title="'.__( 'Go to the previous page', 'task_breaker' ).'" href="#">‹</a>';
+				echo '<span class="paging-input"><label for="task_breaker-task-current-page-selector" class="screen-reader-text">'.__( 'Select Page', 'task_breaker' ).'</label>';
+				echo '<input readonly class="current-page" id="task_breaker-task-current-page-selector" type="text" maxlength="'.strlen( $total_page ).'" size="'.strlen( $total_page ).'"value="'.intval( $currpage ).'">';
 				echo ' of <span class="total-pages">'.$total_page.'</span></span>';
 
-				echo '<a class="next-page" title="'.__( 'Go to the next page', 'thrive' ).'" href="#">›</a>';
+				echo '<a class="next-page" title="'.__( 'Go to the next page', 'task_breaker' ).'" href="#">›</a>';
 				echo '<a class="last-page" title="'.__( 'Go to the last page', 'trive' ).'" href="#tasks/page/'.$max_page.'">»</a></span>';
 			echo '</span>';
 	}
@@ -384,21 +384,21 @@ if ( 0 !== $total ) {
 
 	?>
 <?php } // End if ( 0 !== $total ). ?>
-</div><!--#thrive-project-tasks-->
+</div><!--#task_breaker-project-tasks-->
 <?php
 return ob_get_clean();
 }
 
-function thrive_ticket_single($task) {
+function task_breaker_ticket_single($task) {
 	ob_start(); ?>
-	<div id="thrive-single-task">
+	<div id="task_breaker-single-task">
 		
-		<div id="thrive-single-task-details">
+		<div id="task_breaker-single-task-details">
 			<?php
 				$priority_label = array(
-					'1' => __( 'Normal', 'thrive' ),
-					'2' => __( 'High', 'thrive' ),
-					'3' => __( 'Critical', 'thrive' ),
+					'1' => __( 'Normal', 'task_breaker' ),
+					'2' => __( 'High', 'task_breaker' ),
+					'3' => __( 'Critical', 'task_breaker' ),
 				);
 			?>
 			<div class="task-priority <?php echo sanitize_title( $priority_label[$task->priority] ); ?>">
@@ -415,27 +415,27 @@ function thrive_ticket_single($task) {
 
 			<div class="task-content-meta">
 				<div class="alignright">
-					<a href="#tasks" title="<?php _e( 'Tasks List', 'thrive' ); ?>" class="button">
-						<?php _e( '&larr; Tasks List', 'thrive' ); ?>
+					<a href="#tasks" title="<?php _e( 'Tasks List', 'task_breaker' ); ?>" class="button">
+						<?php _e( '&larr; Tasks List', 'task_breaker' ); ?>
 					</a>
 					<a href="#tasks/edit/<?php echo intval( $task->id ); ?>" class="button">
-						<?php _e( 'Edit', 'thrive' ); ?>
+						<?php _e( 'Edit', 'task_breaker' ); ?>
 					</a>
 				</div>
 				<div class="clearfix"></div>
 			</div>
-		</div><!--#thrive-single-task-details-->
+		</div><!--#task_breaker-single-task-details-->
 
 		<ul id="task-lists">
-			<li class="thrive-task-discussion">
+			<li class="task_breaker-task-discussion">
 				<h3>
-					<?php _e( 'Discussion', 'thrive' ); ?>
+					<?php _e( 'Discussion', 'task_breaker' ); ?>
 				</h3>
 			</li>
-			<?php $comments = thrive_get_tasks_comments( $task->id ); ?>
+			<?php $comments = task_breaker_get_tasks_comments( $task->id ); ?>
 			<?php if ( ! empty( $comments ) ) { ?>
 				<?php foreach ( $comments as $comment ) { ?>
-					<?php echo thrive_comments_template( $comment, (array) $task ); ?>
+					<?php echo task_breaker_comments_template( $comment, (array) $task ); ?>
 				<?php } ?>
 			<?php } ?>
 
@@ -454,53 +454,53 @@ function thrive_ticket_single($task) {
 						<div class="alignleft">
 							<label for="ticketStatusInProgress"> 
 								<input <?php echo $completed === 'no' ?  'checked': ''; ?> id="ticketStatusInProgress" type="radio" value="no" name="task_commment_completed">
-								<small><?php _e( 'In Progress', 'thrive' ); ?></small>
+								<small><?php _e( 'In Progress', 'task_breaker' ); ?></small>
 							</label>
 						</div>
 						<?php } ?>
 						<div class="alignleft">
 							<label for="ticketStatusComplete">
 								<input <?php echo $completed === 'yes' ? 'checked': ''; ?> id="ticketStatusComplete" type="radio" value="yes" name="task_commment_completed">
-								<small><?php _e( 'Completed', 'thrive' ); ?></small>
+								<small><?php _e( 'Completed', 'task_breaker' ); ?></small>
 							</label>
 						</div>
 						<?php if ( $completed === 'yes' ) { ?>
 						<div class="alignleft">
 							<label for="ticketStatusReOpen">
 								<input id="ticketStatusReOpen" type="radio" value="reopen" name="task_commment_completed">
-								<small><?php _e( 'Reopen Task', 'thrive' ); ?></small>
+								<small><?php _e( 'Reopen Task', 'task_breaker' ); ?></small>
 							</label>
 						</div>
 						<?php } ?>
 					</div>
 					<!--On Complete -->
-					<div id="thrive-comment-completed-radio" class="hide">
+					<div id="task_breaker-comment-completed-radio" class="hide">
 						<div class="alignleft">
 							<label for="ticketStatusCompleteUpdate">
 								<input disabled id="ticketStatusCompleteUpdate" type="radio" value="yes" name="task_commment_completed">
-								<small><?php _e( 'Completed', 'thrive' ); ?></small>
+								<small><?php _e( 'Completed', 'task_breaker' ); ?></small>
 							</label>
 						</div>
 						<div class="alignleft">
 							<label for="ticketStatusReOpenUpdate">
 								<input disabled id="ticketStatusReOpenUpdate" type="radio" value="reopen" name="task_commment_completed">
-								<small><?php _e( 'Reopen Task', 'thrive' ); ?></small>
+								<small><?php _e( 'Reopen Task', 'task_breaker' ); ?></small>
 							</label>
 						</div>						
 					</div>
 
 					<!-- On ReOpen -->
-					<div id="thrive-comment-reopen-radio" class="hide">
+					<div id="task_breaker-comment-reopen-radio" class="hide">
 						<div class="alignleft">
 							<label disabled for="ticketStatusReOpenInProgress">
 								<input id="ticketStatusReOpenInProgress" type="radio" value="yes" name="task_commment_completed">
-								<small><?php _e( 'In Progress', 'thrive' ); ?></small>
+								<small><?php _e( 'In Progress', 'task_breaker' ); ?></small>
 							</label>
 						</div>
 						<div class="alignleft">
 							<label disabled for="ticketStatusReOpenComplete">
 								<input disabled id="ticketStatusReOpenComplete" type="radio" value="reopen" name="task_commment_completed">
-								<small><?php _e( 'Complete', 'thrive' ); ?></small>
+								<small><?php _e( 'Complete', 'task_breaker' ); ?></small>
 							</label>
 						</div>						
 					</div>
@@ -513,15 +513,15 @@ function thrive_ticket_single($task) {
 			</div>
 
 			<div id="task-editor_update-priority">
-				<label for="thrive-task-priority-select">
-					<?php _e( 'Update Priority:', 'thrive' ); ?>
-					<?php thrive_task_priority_select( $select = absint( $task->priority ), $name = 'thrive-task-priority-update-select', $id = 'thrive-task-priority-update-select' );?>
+				<label for="task_breaker-task-priority-select">
+					<?php _e( 'Update Priority:', 'task_breaker' ); ?>
+					<?php task_breaker_task_priority_select( $select = absint( $task->priority ), $name = 'task_breaker-task-priority-update-select', $id = 'task_breaker-task-priority-update-select' );?>
 				</label>
 			</div>
 			
 			<div id="task-editor_update-submit">
 				<button type="button" id="updateTaskBtn" class="button">
-					<?php _e( 'Update Task', 'thrive' ); ?>
+					<?php _e( 'Update Task', 'task_breaker' ); ?>
 				</button>
 			</div>
 		</div>
@@ -530,7 +530,7 @@ function thrive_ticket_single($task) {
 	return ob_get_clean();
 }
 
-function thrive_comments_template($args = array(), $task = array()) {
+function task_breaker_comments_template($args = array(), $task = array()) {
 	ob_start(); ?>
 <?php $user = get_userdata( intval( $args['user'] ) ); ?>
 <li class="task-lists-item comment" id="task-update-{$args['id']}">
@@ -541,15 +541,15 @@ function thrive_comments_template($args = array(), $task = array()) {
 		<div class="task-update-details">
 			<div class="task-meta">
 				
-				<?php $progress_label = __( 'New Progress by', 'thrive' ); ?>
+				<?php $progress_label = __( 'New Progress by', 'task_breaker' ); ?>
 				<?php $task_progress = absint( $args['status'] ); ?>
 				
 				<?php if ( 1 === $task_progress ) { ?>
-					<?php $progress_label = __( 'Completed by', 'thrive' );?>
+					<?php $progress_label = __( 'Completed by', 'task_breaker' );?>
 				<?php } ?>
 				
 				<?php if ( 2 === $task_progress ) { ?>
-					<?php $progress_label = __( 'Reopened by', 'thrive' );?>
+					<?php $progress_label = __( 'Reopened by', 'task_breaker' );?>
 				<?php } ?>
 				
 				<p class="<?php echo sanitize_title( $progress_label ); ?>">
@@ -569,8 +569,8 @@ function thrive_comments_template($args = array(), $task = array()) {
 				<?php // Check if current user can delete the comment ?>
 				<?php if ( $current_user_id == $args['user'] or current_user_can( 'administrator' ) ) { ?>
 					<?php // Delete link. ?>
-					<a href="#" title="<?php _e( 'Delete comment', 'thrive' ); ?>" data-comment-id="<?php echo absint( $args['id'] ); ?>" class="thrive-delete-comment">
-						<?php _e( 'Delete', 'thrive' ); ?>
+					<a href="#" title="<?php _e( 'Delete comment', 'task_breaker' ); ?>" data-comment-id="<?php echo absint( $args['id'] ); ?>" class="task_breaker-delete-comment">
+						<?php _e( 'Delete', 'task_breaker' ); ?>
 					</a>
 
 				<?php } ?>
@@ -583,23 +583,23 @@ function thrive_comments_template($args = array(), $task = array()) {
 return ob_get_clean();
 }
 
-function thrive_get_tasks_comments($ticket_id = 0) {
+function task_breaker_get_tasks_comments($ticket_id = 0) {
 
 	global $wpdb;
 
-	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}thrive_comments WHERE ticket_id = $ticket_id", 'ARRAY_A' );
+	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}task_breaker_comments WHERE ticket_id = $ticket_id", 'ARRAY_A' );
 
 	return $results;
 }
 
-function thrive_project_settings() {
+function task_breaker_project_settings() {
 
 	include plugin_dir_path( __FILE__ ) . '../templates/project-settings.php';
 
 	return;
 }
 
-function thrive_get_config_base_prefix() {
+function task_breaker_get_config_base_prefix() {
 	
 	global $wpdb;
 
@@ -611,11 +611,11 @@ function thrive_get_config_base_prefix() {
 	return $wpdb->prefix;
 }
 
-function thrive_get_current_user_groups() {
+function task_breaker_get_current_user_groups() {
 
 	global $wpdb;
 
-	$prefix = thrive_get_config_base_prefix();
+	$prefix = task_breaker_get_config_base_prefix();
 
 	$current_user_id = intval( get_current_user_id() );
 
@@ -643,7 +643,7 @@ function thrive_get_current_user_groups() {
 
 }
 
-function thrive_get_displayed_user_groups() {
+function task_breaker_get_displayed_user_groups() {
 
 	global $wpdb;
 
@@ -677,7 +677,7 @@ function thrive_get_displayed_user_groups() {
 
 }
 
-function thrive_project_nav( WP_Query $object ) {
+function task_breaker_project_nav( WP_Query $object ) {
 	// Maximum page.
 	$maximum_page = absint( $object->max_num_pages );
 	// Current page.
@@ -688,13 +688,13 @@ function thrive_project_nav( WP_Query $object ) {
 	}
 	?>
 	<nav>
-		<?php echo esc_html( apply_filters( 'thrive_projects_page_label', __( 'Page:', 'thrive' ) ) ); ?>
+		<?php echo esc_html( apply_filters( 'task_breaker_projects_page_label', __( 'Page:', 'task_breaker' ) ) ); ?>
 		<?php for ( $page = 1; $page <= $maximum_page; $page++ ) { ?>
 			<?php $active = ''; ?>
 			<?php if ( $page === $current_page ) { ?>
 				<?php $active = 'active '; ?>
 			<?php } ?>
-		<a class="<?php echo $active;?>project-nav-link" title="<?php echo sprintf( __( 'Go to page %d &raquo;', 'thrive' ), $page ); ?>" href="?paged=<?php echo $page; ?>">
+		<a class="<?php echo $active;?>project-nav-link" title="<?php echo sprintf( __( 'Go to page %d &raquo;', 'task_breaker' ), $page ); ?>" href="?paged=<?php echo $page; ?>">
 			<?php echo $page; ?>
 		</a>
 		<?php } ?>
@@ -703,20 +703,20 @@ function thrive_project_nav( WP_Query $object ) {
 	return;
 }
 
-function thrive_new_project_form( $group_id = 0 ) {
+function task_breaker_new_project_form( $group_id = 0 ) {
 
 	include plugin_dir_path( __FILE__ ) . '../templates/project-add.php';
 
 	return;
 }
 
-function thrive_project_meta( $project_id = 0 ) {
+function task_breaker_project_meta( $project_id = 0 ) {
 	?>
 
 	<?php if ( 0 === $project_id ) { return; } ?>
 
-	<?php $tasks_total = absint( thrive_count_tasks( $project_id, $type = 'all' ) ); ?>
-	<?php $tasks_completed  = absint( thrive_count_tasks( $project_id, $type = 'completed' ) ); ?>
+	<?php $tasks_total = absint( task_breaker_count_tasks( $project_id, $type = 'all' ) ); ?>
+	<?php $tasks_completed  = absint( task_breaker_count_tasks( $project_id, $type = 'completed' ) ); ?>
 	<?php $tasks_remaining = absint( $tasks_total - $tasks_completed ); ?>
 
 	<?php if ( 0 !== $tasks_total ) { ?>
@@ -731,14 +731,14 @@ function thrive_project_meta( $project_id = 0 ) {
 				<div class="task-progress-task-count-wrap">
 					<div class="task-progress-task-count">
 						<?php 
-							printf( _n( '%s Task', '%s Tasks', $tasks_total, 'thrive' ), '<span class="thrive-total-tasks">'. $tasks_total .'</span>' ); 
+							printf( _n( '%s Task', '%s Tasks', $tasks_total, 'task_breaker' ), '<span class="task_breaker-total-tasks">'. $tasks_total .'</span>' ); 
 						?>
 					</div>
 				</div>
 				<div class="task-progress-percentage-label">
 					<span>
 						<?php echo absint( $tasks_progress ); ?>% 
-						<?php _e( 'Completed', 'thrive' ); ?>
+						<?php _e( 'Completed', 'task_breaker' ); ?>
 					</span>
 				</div>
 			</div>
@@ -749,7 +749,7 @@ function thrive_project_meta( $project_id = 0 ) {
 <?php return; ?>
 <?php }
 
-function thrive_project_user( $user_id = 0, $post_id = 0 ) {
+function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 	?>
 	
 	<?php if ( $post_id === 0 ) { return; } ?>
@@ -765,16 +765,16 @@ function thrive_project_user( $user_id = 0, $post_id = 0 ) {
 		<?php $user_profile_url = bp_core_get_user_domain( $user_id ); ?>
 	<?php } ?>
 
-	<?php _e( 'Started by ', 'thrive' ); ?>
+	<?php _e( 'Started by ', 'task_breaker' ); ?>
 
-	<a href="<?php echo esc_url( $user_profile_url ); ?>" title="<?php _e( 'Visit User Profile', 'thrive' ); ?>">
+	<a href="<?php echo esc_url( $user_profile_url ); ?>" title="<?php _e( 'Visit User Profile', 'task_breaker' ); ?>">
 		<?php echo get_avatar( $user_id, 32 ); ?> 
 		<?php echo esc_html( get_the_author_meta( 'display_name' ) ); ?>
 	</a>
 
 	<?php _e( 'under &raquo;' ); ?>
 
-	<?php $group_id = absint( get_post_meta( $post_id, 'thrive_project_group_id', true ) ); ?>
+	<?php $group_id = absint( get_post_meta( $post_id, 'task_breaker_project_group_id', true ) ); ?>
 	
 	<?php if ( function_exists( 'groups_get_group ') ) { ?>
 	
@@ -795,7 +795,7 @@ function thrive_project_user( $user_id = 0, $post_id = 0 ) {
 return;
 }
 
-function thrive_project_loop( $args = array() ) {
+function task_breaker_project_loop( $args = array() ) {
 
 	if ( ! is_array( $args ) ) {
 		return;
@@ -811,30 +811,30 @@ function thrive_project_loop( $args = array() ) {
 
 }
 
-function thrive_new_project_modal( $group_id = 0 ) {
+function task_breaker_new_project_modal( $group_id = 0 ) {
 	?>
-	<a id="thrive-new-project-btn" class="button" href="#">
+	<a id="task_breaker-new-project-btn" class="button" href="#">
 
-		<?php _e( 'New Project', 'thrive' ); ?>
+		<?php _e( 'New Project', 'task_breaker' ); ?>
 
 	</a>
 
 	<div class="clearfix"></div>
 
 
-	<div id="thrive-new-project-modal">
+	<div id="task_breaker-new-project-modal">
 
-		<div id="thrive-modal-content">
+		<div id="task_breaker-modal-content">
 
-			<div id="thrive-modal-heading">
+			<div id="task_breaker-modal-heading">
 				
 				<h5 class="alignleft">
 
-					<?php _e( 'Add New Project', 'thrive' ); ?>
+					<?php _e( 'Add New Project', 'task_breaker' ); ?>
 
 				</h5>
 
-				<span id="thrive-modal-close" class="alignright">
+				<span id="task_breaker-modal-close" class="alignright">
 					&times;
 				</span>
 
@@ -842,17 +842,17 @@ function thrive_new_project_modal( $group_id = 0 ) {
 
 			</div>
 
-			<div id="thrive-modal-body">
+			<div id="task_breaker-modal-body">
 
-				<?php thrive_new_project_form( $group_id ); ?>
+				<?php task_breaker_new_project_form( $group_id ); ?>
 
 			</div>
 
-			<div id="thrive-modal-footer">
+			<div id="task_breaker-modal-footer">
 
 				<small>
 
-					<?php _e( "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form", 'thrive' ); ?>
+					<?php _e( "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form", 'task_breaker' ); ?>
 
 				</small>
 
@@ -866,7 +866,7 @@ function thrive_new_project_modal( $group_id = 0 ) {
 }
 
 
-function thrive_settings_display_editor() {
+function task_breaker_settings_display_editor() {
 
 	global $post;
 
@@ -878,11 +878,11 @@ function thrive_settings_display_editor() {
 		'media_buttons' => false,
 	); 
 		
-	return wp_editor( $content, $editor_id = "thriveProjectContent", $args );
+	return wp_editor( $content, $editor_id = "task_breakerProjectContent", $args );
 
 }
 
-function thrive_pre( $mixed ) {
+function task_breaker_pre( $mixed ) {
 
 	echo '<pre>';
 		print_r( $mixed );
