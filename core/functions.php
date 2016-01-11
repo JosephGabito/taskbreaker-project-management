@@ -772,23 +772,23 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 		<?php echo esc_html( get_the_author_meta( 'display_name' ) ); ?>
 	</a>
 
-	<?php _e( 'under &raquo;' ); ?>
-
 	<?php $group_id = absint( get_post_meta( $post_id, 'task_breaker_project_group_id', true ) ); ?>
 	
-	<?php if ( function_exists( 'groups_get_group ') ) { ?>
-	
+	<?php if ( function_exists( 'groups_get_group') ) { ?>
+
+		<?php _e( 'under &raquo;' ); ?>
+
 		<?php $group = groups_get_group( array( 'group_id' => $group_id ) ); ?>
 	
+		<a href="<?php echo esc_url( bp_get_group_permalink( $group ) ); ?>" title="<?php echo esc_attr( $group->name ); ?>">
+
+			<?php echo bp_core_fetch_avatar( array( 'object' => 'group', 'item_id' => $group_id ) ) ?>
+
+			<?php echo esc_html( $group->name ); ?>
+
+		</a>
+
 	<?php } ?>
-	
-	<a href="<?php echo esc_url( bp_get_group_permalink( $group ) ); ?>" title="<?php echo esc_attr( $group->name ); ?>">
-
-		<?php echo bp_core_fetch_avatar( array( 'object' => 'group', 'item_id' => $group_id ) ) ?>
-
-		<?php echo esc_html( $group->name ); ?>
-
-	</a>	
 	<?php // End Project User ?>
 
 <?php
