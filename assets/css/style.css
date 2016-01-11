@@ -744,6 +744,7 @@
     border-radius: 50%;
     max-width: 32px;
     height: auto;
+    display: inline;
 }
 .task_breaker-project-meta .task-progress {
     display: block;
