@@ -47,13 +47,13 @@ class Thrive_Projects_Component extends BP_Component {
 	 */
 	function __construct() {
 
-		$this->id = thrive_component_id();
-		$this->name = thrive_component_name();
+		$this->id = task_breaker_component_id();
+		$this->name = task_breaker_component_name();
 
 		parent::start(
 			$this->id,
 			$this->name,
-			thrive_include_dir()
+			task_breaker_include_dir()
 		);
 
 		$this->includes();
@@ -71,7 +71,7 @@ class Thrive_Projects_Component extends BP_Component {
 	 */
 	private function actions() {
 
-		// Enable thrive projects component.
+		// Enable task_breaker projects component.
 		buddypress()->active_components[ $this->id ] = '1';
 
 		return;
@@ -115,7 +115,7 @@ class Thrive_Projects_Component extends BP_Component {
 			'slug' => BP_PROJECTS_SLUG,
 			'root_slug' => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_PROJECTS_SLUG,
 			'has_directory' => true,
-			'directory_title' => __( 'Projects', 'component directory title', 'thrive' ),
+			'directory_title' => __( 'Projects', 'component directory title', 'task_breaker' ),
 			'search_string' => __( 'Search Projects...', 'buddypress' ),
 		);
 
@@ -145,7 +145,7 @@ class Thrive_Projects_Component extends BP_Component {
 
 		// Add a few subnav items under the main tab.
 		$sub_nav[] = array(
-			'name'            => __( 'My Projects', 'thrive' ),
+			'name'            => __( 'My Projects', 'task_breaker' ),
 			'slug'            => 'all',
 			'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
 			'parent_slug'     => 'projects',
@@ -155,7 +155,7 @@ class Thrive_Projects_Component extends BP_Component {
 
 		// Edit subnav.
 		$sub_nav[] = array(
-			'name'            => __( 'New Project', 'thrive' ),
+			'name'            => __( 'New Project', 'task_breaker' ),
 			'slug'            => 'new',
 			'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
 			'parent_slug'     => 'projects',
@@ -174,13 +174,13 @@ class Thrive_Projects_Component extends BP_Component {
  *
  * @return void
  */
-function thrive_setup_project_component() {
+function task_breaker_setup_project_component() {
 
 	buddypress()->projects = new Thrive_Projects_Component;
 
 }
 
-add_action( 'bp_loaded', 'thrive_setup_project_component', 1 );
+add_action( 'bp_loaded', 'task_breaker_setup_project_component', 1 );
 
 /**
  * Extends the BP_Group_Extension to create new 'Project' component.
@@ -221,21 +221,21 @@ class Thrive_Projects_Group extends BP_Group_Extension {
 		$group_id = bp_get_group_id(); ?>
 			
 			<h3>
-				<?php esc_html_e( 'Projects', 'thrive' ); ?>
+				<?php esc_html_e( 'Projects', 'task_breaker' ); ?>
 			</h3>
 			
-			<div id="thrive-intranet-projects">
+			<div id="task_breaker-intranet-projects">
 				
-				<?php thrive_new_project_modal( $group_id ); ?>
+				<?php task_breaker_new_project_modal( $group_id ); ?>
 
 				<?php
 					$args = array(
-						'meta_key'   => 'thrive_project_group_id',
+						'meta_key'   => 'task_breaker_project_group_id',
 						'meta_value' => absint( $group_id ),
 					);
 				?>
 
-				<?php thrive_project_loop( $args ); ?>
+				<?php task_breaker_project_loop( $args ); ?>
 			</div>
 
 		<?php
