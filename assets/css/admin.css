@@ -1,5 +1,5 @@
-#thrive-edit-task-message,
-#thrive-add-task-message {
+#task_breaker-edit-task-message,
+#task_breaker-add-task-message {
   padding: 10px 20px;
   background-color: #3EA11D;
   color: #FFF;
@@ -8,17 +8,17 @@
   display: none;
 }
 
-#thrive-edit-task-message.error,
-#thrive-add-task-message.error {
+#task_breaker-edit-task-message.error,
+#task_breaker-add-task-message.error {
 	background: #E50C24;
 }
 
-#thrive-task-current-page-selector{
+#task_breaker-task-current-page-selector{
 	padding: 2.5px 5px;
 	margin: 0 5px;
 }
 
-#thrive-action-preloader {
+#task_breaker-action-preloader {
 	display: inline-block;
 	text-align: center;
 	width: 100%;
@@ -26,7 +26,7 @@
 	display: none;
 }
 
-#thrive-action-preloader span {
+#task_breaker-action-preloader span {
 	  background: #FFE800;
   color: #8C8A7B;
   padding: 5px 15px;
@@ -37,8 +37,8 @@
   border: 1px solid #DDCB0D;
 }
 
-#thrive-edit-task,
-#thrive-add-task {
+#task_breaker-edit-task,
+#task_breaker-add-task {
 	padding: 20px;
 	background: #eee;
 }
@@ -51,22 +51,22 @@
   font-size: 16px;
 }
 
-.thrive-clearfix {
+.task_breaker-clearfix {
 	display: block;
 	width: 100%;
 	clear: both;
 }
-.thrive-tabs {
+.task_breaker-tabs {
 	display: inline-block;
 	margin-bottom: -5px;
 	width: 100%;
 }
-.thrive-tabs .thrive-tabs-tabs,
-.thrive-tabs .thrive-tabs-content {
+.task_breaker-tabs .task_breaker-tabs-tabs,
+.task_breaker-tabs .task_breaker-tabs-content {
 
 }
 
-.thrive-tabs .thrive-tabs-tabs ul{
+.task_breaker-tabs .task_breaker-tabs-tabs ul{
 	margin-top: 0;
 	padding-top: 0;
 	margin-bottom: -4px;
@@ -74,13 +74,13 @@
 
 }
 
-	.thrive-tabs .thrive-tabs-tabs li {
+	.task_breaker-tabs .task_breaker-tabs-tabs li {
 		margin-bottom: -1px;
 		margin-right: -1px;
 		float: left;
 	}
 
-		.thrive-tabs .thrive-tabs-tabs li a {
+		.task_breaker-tabs .task_breaker-tabs-tabs li a {
 			color: #444;
 			text-decoration: none;
 			font-weight: 700;
@@ -93,38 +93,38 @@
 		    margin-bottom: 10px;
 		}
 
-		.thrive-tabs .thrive-tabs-tabs li.ui-state-active a{
+		.task_breaker-tabs .task_breaker-tabs-tabs li.ui-state-active a{
 			background: #A00;
 			color: #fff;
 		}
 
-		#thrive-tasks.thrive-tabs li.ui-state-active a {
+		#task_breaker-tasks.task_breaker-tabs li.ui-state-active a {
 			background: #0079BF;
 			border-color: #0079BF;
 			color: #fff;
 		}
 
-			.thrive-tabs .thrive-tabs-tabs li:focus,
-			.thrive-tabs .thrive-tabs-tabs li a:focus {
+			.task_breaker-tabs .task_breaker-tabs-tabs li:focus,
+			.task_breaker-tabs .task_breaker-tabs-tabs li a:focus {
 				outline: 0;
 				box-shadow: none;
 			}
 
-.thrive-tabs .thrive-tabs-content {
+.task_breaker-tabs .task_breaker-tabs-content {
 }
 
-.thrive-tabs .thrive-tab-item-content {
+.task_breaker-tabs .task_breaker-tab-item-content {
 	display: none;
 }
 
-.thrive-tabs .thrive-tab-item-content input[type=text],
-.thrive-tabs .thrive-tab-item-content textarea {
+.task_breaker-tabs .task_breaker-tab-item-content input[type=text],
+.task_breaker-tabs .task_breaker-tab-item-content textarea {
 	padding: 10px 15px;
 	border-radius: 5px;
 	margin-bottom: 5px;
 }
 
-.thrive-tabs .thrive-tab-item-content.active {
+.task_breaker-tabs .task_breaker-tab-item-content.active {
 	display: block;
 }
 
@@ -145,13 +145,13 @@
 	text-align: center;
 }
 
-#thrive-tasks-filter {
+#task_breaker-tasks-filter {
 	margin-bottom: 10px;
 	display: inline-block;
 	width: 100%;
 }
 
-.thrive-search-box {
+.task_breaker-search-box {
 	margin-top: 0;
 	margin-bottom: 0;
 }
@@ -161,26 +161,26 @@
 #ui-datepicker-div table td{ background: #fff; padding: 10px; }
 #ui-datepicker-div table td a{ text-decoration: none; font-weight: bold; }
 
-#thrive-core-functions-render-task tr.normal   strong a{color: #088399;}
-#thrive-core-functions-render-task tr.high     strong a{color: #B2A633;}
-#thrive-core-functions-render-task tr.critical strong a{color: #A91515;}
+#task_breaker-core-functions-render-task tr.normal   strong a{color: #088399;}
+#task_breaker-core-functions-render-task tr.high     strong a{color: #B2A633;}
+#task_breaker-core-functions-render-task tr.critical strong a{color: #A91515;}
 
-#thrive-core-functions-render-task tr.completed strong a{
+#task_breaker-core-functions-render-task tr.completed strong a{
 	text-decoration: line-through;
 	opacity: 0.70;
 	color: #0A911B;
 }
 
-#thrive-core-functions-render-task tr td {
+#task_breaker-core-functions-render-task tr td {
 	position: relative;
 }
 
-#thrive-core-functions-render-task tr .row-actions,
-#thrive-core-functions-render-task tr strong a {
+#task_breaker-core-functions-render-task tr .row-actions,
+#task_breaker-core-functions-render-task tr strong a {
 	padding-left: 25px;
 	display: block;
 }
-#thrive-core-functions-render-task tr strong a:before {
+#task_breaker-core-functions-render-task tr strong a:before {
 	content: "\f159";
 	font-family: 'dashicons';
 	position: absolute;
@@ -188,6 +188,6 @@
 	top: 10px;
 }
 
-#thrive-core-functions-render-task tr.completed strong a:before {
+#task_breaker-core-functions-render-task tr.completed strong a:before {
 	content: "\f147";
 }
