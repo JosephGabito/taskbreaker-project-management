@@ -1,6 +1,6 @@
 <?php global $post; ?>
 
-<div id="thrive-preloader">
+<div id="task_breaker-preloader">
 	
 	<div class="la-ball-clip-rotate la-sm">
 	    
@@ -10,65 +10,65 @@
 
 </div>
 
-<div class="active thrive-project-tab-content-item" data-content="thrive-project-dashboard" id="thrive-project-dashboard-context">
+<div class="active task_breaker-project-tab-content-item" data-content="task_breaker-project-dashboard" id="task_breaker-project-dashboard-context">
 	
-	<div id="thrive-dashboard-about">
+	<div id="task_breaker-dashboard-about">
 
-		<h3><?php _e('About', 'thrive'); ?></h3>
+		<h3><?php _e('About', 'task_breaker'); ?></h3>
 		
 		<?php echo $content; ?>
 		
 		<div class="clearfix"></div>
 
-	</div><!--#thrive-dashboard-about-->
+	</div><!--#task_breaker-dashboard-about-->
 
-	<div id="thrive-dashboard-at-a-glance">
+	<div id="task_breaker-dashboard-at-a-glance">
 		<?php 
 		// Total tasks.
-		$total     = intval( thrive_count_tasks( $post->ID ) ); 
+		$total     = intval( task_breaker_count_tasks( $post->ID ) ); 
 
 		// Completed tasks.
-		$completed = intval( thrive_count_tasks( $post->ID, $type = 'completed' ) );
+		$completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
 
 		// Remaining Tasks.
 		$remaining = absint( $total - $completed );
 		?>
 		<h3>
-			<?php _e('At a Glance', 'thrive'); ?>
+			<?php _e('At a Glance', 'task_breaker'); ?>
 		</h3>
 		<ul>
 			<li>
-				<div class="thrive-dashboard-at-a-glance-box">
+				<div class="task_breaker-dashboard-at-a-glance-box">
 					
 					<h4>
-						<span id="thrive-total-tasks-count" class="thrive-total-tasks">
+						<span id="task_breaker-total-tasks-count" class="task_breaker-total-tasks">
 							<?php printf('%d', $total); ?>
 						</span>
 					</h4>
 
 					<p>
-						<?php _e('Total Tasks', 'thrive'); ?>
+						<?php _e('Total Tasks', 'task_breaker'); ?>
 					</p>
 
 				</div>
 			</li>
 			
 			<li>
-				<a href="#tasks" class="thrive-dashboard-at-a-glance-box">
+				<a href="#tasks" class="task_breaker-dashboard-at-a-glance-box">
 					
 					<h4>
-						<span id="thrive-remaining-tasks-count" class="thrive-remaining-tasks-count">
+						<span id="task_breaker-remaining-tasks-count" class="task_breaker-remaining-tasks-count">
 							<?php printf('%d', $remaining); ?>
 						</span>
 					</h4>
 
-					<p><?php _e('Task(s) remaining', 'thrive'); ?></p>
+					<p><?php _e('Task(s) remaining', 'task_breaker'); ?></p>
 
 				</a>
 			</li>
 
 			<li>
-				<a href="#tasks/completed" class="thrive-dashboard-at-a-glance-box">
+				<a href="#tasks/completed" class="task_breaker-dashboard-at-a-glance-box">
 
 					<h4>
 						<span id="task-progress-completed-count" class="task-progress-completed">
@@ -76,7 +76,7 @@
 						</span>
 					</h4>
 
-					<p><?php _e('Task(s) Completed', 'thrive'); ?></p>
+					<p><?php _e('Task(s) Completed', 'task_breaker'); ?></p>
 
 				</a>
 			</li>
@@ -85,10 +85,10 @@
 
 		<div class="clearfix"></div>
 		
-	</div><!--#thrive-dashboard-at-a-glance-->
+	</div><!--#task_breaker-dashboard-at-a-glance-->
 </div>
 
-<div class="thrive-project-tab-content-item" data-content="thrive-project-tasks" id="thrive-project-tasks-context">
+<div class="task_breaker-project-tab-content-item" data-content="task_breaker-project-tasks" id="task_breaker-project-tasks-context">
 	
 	<?php
 		$args = array(
@@ -98,27 +98,27 @@
 			);
 	?>
 	
-	<?php thrive_task_filters(); ?>
+	<?php task_breaker_task_filters(); ?>
 	
-	<?php echo thrive_the_tasks( $args ); ?>
+	<?php echo task_breaker_the_tasks( $args ); ?>
 
-</div><!--#thrive-project-tasks-context-->
+</div><!--#task_breaker-project-tasks-context-->
 
-<div class="thrive-project-tab-content-item" data-content="thrive-project-settings" id="thrive-project-settings-context">
-	<?php thrive_project_settings(); ?>
+<div class="task_breaker-project-tab-content-item" data-content="task_breaker-project-settings" id="task_breaker-project-settings-context">
+	<?php task_breaker_project_settings(); ?>
 </div>
 
-<div class="thrive-project-tab-content-item" data-content="thrive-project-add-new" id="thrive-project-add-new-context">
-	<?php thrive_add_task_form(); ?>
+<div class="task_breaker-project-tab-content-item" data-content="task_breaker-project-add-new" id="task_breaker-project-add-new-context">
+	<?php task_breaker_add_task_form(); ?>
 </div>
 
-<div class="thrive-project-tab-content-item" id="thrive-project-edit-context">
-	<?php thrive_edit_task_form(); ?>
+<div class="task_breaker-project-tab-content-item" id="task_breaker-project-edit-context">
+	<?php task_breaker_edit_task_form(); ?>
 </div>
 
 <script>
-var thriveProjectSettings = {
+var task_breakerProjectSettings = {
 	project_id: '<?php echo absint($post->ID);?>',
-	nonce: '<?php echo wp_create_nonce( "thrive-transaction-request" ); ?>'
+	nonce: '<?php echo wp_create_nonce( "task_breaker-transaction-request" ); ?>'
 };
 </script>
