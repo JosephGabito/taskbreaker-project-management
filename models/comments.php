@@ -68,7 +68,7 @@ class ThriveComments {
 	 */
 	public function __construct() {
 		global $wpdb;
-		$this->model = $wpdb->prefix . 'thrive_comments';
+		$this->model = $wpdb->prefix . 'task_breaker_comments';
 		$this->date_added = date( 'Y-m-d g:i:s' );
 
 	}
@@ -200,22 +200,22 @@ class ThriveComments {
 			 	}
 
 			 	$status_label = array(
-			 			__( 'posted new updated in', 'thrive' ),
-			 			__( 'completed', 'thrive' ),
+			 			__( 'posted new updated in', 'task_breaker' ),
+			 			__( 'completed', 'task_breaker' ),
 			 			__( 'reopened', 'theive' ),
 			 		);
 
 			 	$type = $status_label[$this->get_status()];
 
-			 	$action = sprintf( __( '%s %s the task: %s - ', 'thrive' ), $bp_user_link, $type, '#' . $this->ticket_id );
+			 	$action = sprintf( __( '%s %s the task: %s - ', 'task_breaker' ), $bp_user_link, $type, '#' . $this->ticket_id );
 
 			 	bp_activity_add(
 			 		array(
 						'user_id' => $this->user,
-						'action' => apply_filters( 'thrive_update_task_activity_action', $action, $this->user ),
+						'action' => apply_filters( 'task_breaker_update_task_activity_action', $action, $this->user ),
 						'component' => 'project',
 						'content' => $this->details,
-						'type' => sanitize_title( 'thrive-'.$type ),
+						'type' => sanitize_title( 'task_breaker-'.$type ),
 					)
 				);
 			} // End function_exists ( 'bp_activity_add' ).
