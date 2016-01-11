@@ -4,16 +4,16 @@ jQuery(document).ready( function($) {
 
 	$( window ).load( function() {
 
-		if ( typeof thriveAjaxUrl === 'undefined' ) {
+		if ( typeof task_breakerAjaxUrl === 'undefined' ) {
 			return;
 		}
 
-		var ajaxurl = thriveAjaxUrl;
+		var ajaxurl = task_breakerAjaxUrl;
 
 		/**
 		 * Delete Event
 		 */
-		$('body').on('click', '.thrive-delete-ticket-btn', function(e){
+		$('body').on('click', '.task_breaker-delete-ticket-btn', function(e){
 
 			e.preventDefault();
 
@@ -27,9 +27,9 @@ jQuery(document).ready( function($) {
 					method: 'post',
 					data: {
 						id: element.attr('data-ticket-id'),
-						action: 'thrive_transactions_request',
-						method: 'thrive_transaction_delete_ticket',
-						nonce: thriveProjectSettings.nonce
+						action: 'task_breaker_transactions_request',
+						method: 'task_breaker_transaction_delete_ticket',
+						nonce: task_breakerProjectSettings.nonce
 					},
 					success: function(response) {
 						
@@ -45,7 +45,7 @@ jQuery(document).ready( function($) {
 		/**
 		 * Delete Event
 		 */
-		$('#thrive-delete-btn').click(function(e){
+		$('#task_breaker-delete-btn').click(function(e){
 			
 			e.preventDefault();
 
@@ -56,12 +56,12 @@ jQuery(document).ready( function($) {
 			}
 
 			var element = $(this);
-			var task_id = $('#thriveTaskId').val();
+			var task_id = $('#task_breakerTaskId').val();
 			var http_params = {
 				id: task_id,
-				action: 'thrive_transactions_request',
-				method: 'thrive_transaction_delete_ticket',
-				nonce: thriveProjectSettings.nonce
+				action: 'task_breaker_transactions_request',
+				method: 'task_breaker_transaction_delete_ticket',
+				nonce: task_breakerProjectSettings.nonce
 			};
 
 			element.attr('disabled', true).text('Deleting Task...');
@@ -86,7 +86,7 @@ jQuery(document).ready( function($) {
 		/**
 		 * Edit Event
 		 */
-		$('#thrive-edit-btn').click(function(e){
+		$('#task_breaker-edit-btn').click(function(e){
 
 			e.preventDefault();
 
@@ -96,15 +96,15 @@ jQuery(document).ready( function($) {
 
 			var taskDescription = "";
 
-			var MCEthriveTaskDescription = tinymce.get( 'thriveTaskEditDescription' );
+			var MCEtask_breakerTaskDescription = tinymce.get( 'task_breakerTaskEditDescription' );
 
-			if ( MCEthriveTaskDescription ) {
+			if ( MCEtask_breakerTaskDescription ) {
 
-				taskDescription = MCEthriveTaskDescription.getContent();
+				taskDescription = MCEtask_breakerTaskDescription.getContent();
 
 			} else {
 
-				taskDescription = $('#thriveTaskEditDescription').val();
+				taskDescription = $('#task_breakerTaskEditDescription').val();
 
 			}
 
@@ -112,16 +112,16 @@ jQuery(document).ready( function($) {
 				
 				url: ajaxurl,
 				data: {
-					action: 'thrive_transactions_request',
-					method: 'thrive_transaction_edit_ticket',
-					title: $('#thriveTaskEditTitle').val(),
+					action: 'task_breaker_transactions_request',
+					method: 'task_breaker_transaction_edit_ticket',
+					title: $('#task_breakerTaskEditTitle').val(),
 					description: taskDescription,
-					milestone_id: $('#thriveTaskMilestone').val(),
-					id: $('#thriveTaskId').val(),
-					project_id: thriveTaskConfig.currentProjectId,
-					user_id: thriveTaskConfig.currentUserId,
-					priority: $('#thrive-task-edit-select-id').val(),
-					nonce: thriveProjectSettings.nonce,
+					milestone_id: $('#task_breakerTaskMilestone').val(),
+					id: $('#task_breakerTaskId').val(),
+					project_id: task_breakerTaskConfig.currentProjectId,
+					user_id: task_breakerTaskConfig.currentUserId,
+					priority: $('#task_breaker-task-edit-select-id').val(),
+					nonce: task_breakerProjectSettings.nonce,
 				},
 				
 				method: 'post',
@@ -132,16 +132,16 @@ jQuery(document).ready( function($) {
 
 					if ( "fail" === response.message && "no_changes" !== response.type ) {
 
-						$('#thrive-edit-task-message').addClass('error').text('There was an error updating the task').show();
+						$('#task_breaker-edit-task-message').addClass('error').text('There was an error updating the task').show();
 
 					} else {
 
-						$('#thrive-edit-task-message').removeClass('error').text('Task successfully updated').show();
+						$('#task_breaker-edit-task-message').removeClass('error').text('Task successfully updated').show();
 
 					}
 
 					setTimeout( function() {
-						$('#thrive-edit-task-message').removeClass('error').text('').hide();
+						$('#task_breaker-edit-task-message').removeClass('error').text('').hide();
 					}, 5000);
 					
 					element.attr('disabled', false).text('Update Task');
@@ -151,10 +151,10 @@ jQuery(document).ready( function($) {
 				},
 				error: function() {
 
-					$('#thrive-edit-task-message').addClass('error').text('Ops! Network Error. Please try again later').show();
+					$('#task_breaker-edit-task-message').addClass('error').text('Ops! Network Error. Please try again later').show();
 
 					setTimeout( function() {
-						$('#thrive-edit-task-message').removeClass('error').text('').hide();
+						$('#task_breaker-edit-task-message').removeClass('error').text('').hide();
 					}, 5000);
 
 					element.attr('disabled', false).text('Update Task');
@@ -167,7 +167,7 @@ jQuery(document).ready( function($) {
 		/**
 		 * Save Event
 		 */
-		$('#thrive-submit-btn').click(function(e){
+		$('#task_breaker-submit-btn').click(function(e){
 			
 			e.preventDefault();
 			
@@ -177,15 +177,15 @@ jQuery(document).ready( function($) {
 
 			var taskDescription = "";
 
-			var MCEthriveTaskDescription = tinymce.get( 'thriveTaskDescription' );
+			var MCEtask_breakerTaskDescription = tinymce.get( 'task_breakerTaskDescription' );
 
-			if ( MCEthriveTaskDescription ) {
+			if ( MCEtask_breakerTaskDescription ) {
 
-				taskDescription = MCEthriveTaskDescription.getContent();
+				taskDescription = MCEtask_breakerTaskDescription.getContent();
 
 			} else {
 
-				taskDescription = $('#thriveTaskDescription').val();
+				taskDescription = $('#task_breakerTaskDescription').val();
 
 			}
 
@@ -194,15 +194,15 @@ jQuery(document).ready( function($) {
 				url: ajaxurl,
 
 				data: {
-					action: 'thrive_transactions_request',
-					method: 'thrive_transaction_add_ticket',
-					title: $('#thriveTaskTitle').val(),
+					action: 'task_breaker_transactions_request',
+					method: 'task_breaker_transaction_add_ticket',
+					title: $('#task_breakerTaskTitle').val(),
 					description: taskDescription,
-					milestone_id: $('#thriveTaskMilestone').val(),
-					project_id: thriveTaskConfig.currentProjectId,
-					user_id: thriveTaskConfig.currentUserId,
-					priority: $('#thrive-task-priority-select').val(),
-					nonce: thriveProjectSettings.nonce
+					milestone_id: $('#task_breakerTaskMilestone').val(),
+					project_id: task_breakerTaskConfig.currentProjectId,
+					user_id: task_breakerTaskConfig.currentUserId,
+					priority: $('#task_breaker-task-priority-select').val(),
+					nonce: task_breakerProjectSettings.nonce
 				},
 
 				method: 'post',
@@ -215,17 +215,17 @@ jQuery(document).ready( function($) {
 						element.text('Save Task');
 							element.removeAttr('disabled');
 						
-						$('#thriveTaskDescription').val('');
-							$('#thriveTaskTitle').val('');
+						$('#task_breakerTaskDescription').val('');
+							$('#task_breakerTaskTitle').val('');
 
 						location.href="#tasks/edit/"+message.response.id;	
 
 					} else {
 
-						$('#thrive-add-task-message').text(message.response).show().addClass('error');
+						$('#task_breaker-add-task-message').text(message.response).show().addClass('error');
 						
 						setTimeout(function(){
-							$('#thrive-add-task-message').text('').hide().removeClass('error');
+							$('#task_breaker-add-task-message').text('').hide().removeClass('error');
 						}, 3000);
 
 						element.text('Save Task');
@@ -253,39 +253,39 @@ jQuery(document).ready( function($) {
 			
 			renderAddForm: function() {
 
-				$('.thrive-tab-item-content').removeClass('active');
-				$('#thrive-edit-task-list').addClass('hidden');
+				$('.task_breaker-tab-item-content').removeClass('active');
+				$('#task_breaker-edit-task-list').addClass('hidden');
 
-				$('#thrive-add-task').addClass('active');
+				$('#task_breaker-add-task').addClass('active');
 			},
 			
 			renderEditForm: function( task_id ) {
 
-				$('#thrive-edit-task-list').removeClass('hidden');
-				$('.thrive-tab-item-content').removeClass('active');
-				$('#thrive-edit-task').addClass('active');
-				$('#thriveTaskEditTitle').val('').attr('disabled', true).val('loading...');
-				$('#thrive-task-edit-select-id').attr('disabled', true);
+				$('#task_breaker-edit-task-list').removeClass('hidden');
+				$('.task_breaker-tab-item-content').removeClass('active');
+				$('#task_breaker-edit-task').addClass('active');
+				$('#task_breakerTaskEditTitle').val('').attr('disabled', true).val('loading...');
+				$('#task_breaker-task-edit-select-id').attr('disabled', true);
 
-				$('#thriveTaskId').val(task_id);
+				$('#task_breakerTaskId').val(task_id);
 
-				var initThriveTaskEditDescription = tinymce.get('thriveTaskEditDescription');
+				var initThriveTaskEditDescription = tinymce.get('task_breakerTaskEditDescription');
 
 				// Reset the editor
 				if ( initThriveTaskEditDescription ) {
 					initThriveTaskEditDescription.setContent('');
 				} else {
-					$('#thriveTaskEditDescription').val('');
+					$('#task_breakerTaskEditDescription').val('');
 				}
 
 				$.ajax({
 					url: ajaxurl,
 					method: 'get',
 					data: {
-						action: 'thrive_transactions_request',
-						method: 'thrive_transaction_fetch_task',
+						action: 'task_breaker_transactions_request',
+						method: 'task_breaker_transaction_fetch_task',
 						id: task_id,
-						nonce: thriveProjectSettings.nonce
+						nonce: task_breakerProjectSettings.nonce
 					},
 
 					success: function(__response) {
@@ -294,15 +294,15 @@ jQuery(document).ready( function($) {
 						
 						if ( response.message === "success" ) {
 							
-							$('#thriveTaskEditTitle').val(response.task.title).removeAttr('disabled');
+							$('#task_breakerTaskEditTitle').val(response.task.title).removeAttr('disabled');
 
-							$('#thrive-task-edit-select-id').val(response.task.priority).removeAttr('disabled');
+							$('#task_breaker-task-edit-select-id').val(response.task.priority).removeAttr('disabled');
 
-							var thriveTaskEditDescription = tinymce.get('thriveTaskEditDescription');
-							if ( thriveTaskEditDescription ) {
-								thriveTaskEditDescription.setContent( response.task.description );
+							var task_breakerTaskEditDescription = tinymce.get('task_breakerTaskEditDescription');
+							if ( task_breakerTaskEditDescription ) {
+								task_breakerTaskEditDescription.setContent( response.task.description );
 							} else {
-								$('#thriveTaskEditDescription').val( response.task.description );
+								$('#task_breakerTaskEditDescription').val( response.task.description );
 							}
 
 						}
@@ -322,18 +322,18 @@ jQuery(document).ready( function($) {
 		var __ThriveTaskView = Backbone.View.extend({
 			model: ThriveModel,
 			el: 'body',
-			id: 'thrive_tasks_metabox',
+			id: 'task_breaker_tasks_metabox',
 			priority: -1,
 			search: '',
 			showCompleted: 'no',
 			events: {
-				"click .thrive-task-tabs": 'switchView',
+				"click .task_breaker-task-tabs": 'switchView',
 				"click .next-page": "nextPage",
 				"click .prev-page": "prevPage",
-				"click #thrive-task-search-submit": "searchTasks",
-				"click .thrive-complete-ticket": 'completeTicket',
-				"click .thrive-renew-task": 'renewTask',
-				"change #thrive-task-filter-select": "filterByPriority",
+				"click #task_breaker-task-search-submit": "searchTasks",
+				"click .task_breaker-complete-ticket": 'completeTicket',
+				"click .task_breaker-renew-task": 'renewTask',
+				"change #task_breaker-task-filter-select": "filterByPriority",
 			},
 			
 			switchView: function(e, targetID) {
@@ -344,8 +344,8 @@ jQuery(document).ready( function($) {
 					element = $(e.target);
 				}
 
-				$('#thrive-task-edit-tab').hide();
-				$('.thrive-task-tabs').removeClass('ui-state-active');
+				$('#task_breaker-task-edit-tab').hide();
+				$('.task_breaker-task-tabs').removeClass('ui-state-active');
 					
 				if ( targetID ) {
 					$( targetID ).addClass('ui-state-active');
@@ -420,7 +420,7 @@ jQuery(document).ready( function($) {
 
 			searchTasks: function(e){
 
-				var keywords = $('#thrive-task-search-field').val();
+				var keywords = $('#task_breaker-task-search-field').val();
 				
 				if (keywords.length >= 1) {
 					location.href = '#tasks/search/' + encodeURIComponent(keywords);
@@ -436,34 +436,34 @@ jQuery(document).ready( function($) {
 				var model = ThriveModel;
 				var view = this;
 
-				$('.thrive-tab-item-content').removeClass('active');
-				$('#thrive-edit-task-list').addClass('hidden');
-				$('#thrive-task-list').addClass('active');
+				$('.task_breaker-tab-item-content').removeClass('active');
+				$('#task_breaker-edit-task-list').addClass('hidden');
+				$('#task_breaker-task-list').addClass('active');
 
-				$('#thrive-action-preloader').css('display', 'block');
+				$('#task_breaker-action-preloader').css('display', 'block');
 
-				$('#thrive-task-list-canvas').css('opacity', 0.25);
-				$('#thrive-tasks-filter').css('opacity', 0.25);
+				$('#task_breaker-task-list-canvas').css('opacity', 0.25);
+				$('#task_breaker-tasks-filter').css('opacity', 0.25);
 
 				if (this.search.length === 0) {
-					$('#thrive-task-search-field').val('');
+					$('#task_breaker-task-search-field').val('');
 				} else {
-					$('#thrive-task-search-field').val(this.search);
+					$('#task_breaker-task-search-field').val(this.search);
 				}
 
 				$.ajax({
 					url: ajaxurl,
 					method: 'get',
 					data: {
-						action: 'thrive_transactions_request',
-						method: 'thrive_transaction_fetch_task',
+						action: 'task_breaker_transactions_request',
+						method: 'task_breaker_transaction_fetch_task',
 						page: model.get('page'),
-						project_id: thriveTaskConfig.currentProjectId,
+						project_id: task_breakerTaskConfig.currentProjectId,
 						priority: this.priority,
 						search: this.search,
 						show_completed: this.showCompleted,
 						id: 0,
-						nonce: thriveProjectSettings.nonce
+						nonce: task_breakerProjectSettings.nonce
 					},
 					success: function( __response ) {
 						
@@ -477,24 +477,24 @@ jQuery(document).ready( function($) {
 								});
 							}
 							
-							$('#thrive-task-list-canvas').html(response.html);
-							$('#thrive-action-preloader').css('display', 'none');
+							$('#task_breaker-task-list-canvas').html(response.html);
+							$('#task_breaker-action-preloader').css('display', 'none');
 							
-							$('#thrive-task-list-canvas').css('opacity',1);
-							$('#thrive-tasks-filter').css('opacity', 1);
+							$('#task_breaker-task-list-canvas').css('opacity',1);
+							$('#task_breaker-tasks-filter').css('opacity', 1);
 
 							setTimeout(function(){
-								$('#thrive-task-current-page-selector').val(model.get('page'));
+								$('#task_breaker-task-current-page-selector').val(model.get('page'));
 							}, 2000);
 
-							$('#thrive-task-filter-select').val(view.priority);
+							$('#task_breaker-task-filter-select').val(view.priority);
 							
 						return;
 
 					},
 					error: function(error, errormessage) {
 						console.log(errormessage);
-						$('#thrive-action-preloader').css('display', 'none');
+						$('#task_breaker-action-preloader').css('display', 'none');
 					}
 				});
 			},
@@ -511,11 +511,11 @@ jQuery(document).ready( function($) {
 					url: ajaxurl,
 					method: 'post',
 					data: {
-						action: 'thrive_transactions_request',
-						method: 'thrive_transaction_complete_task',
+						action: 'task_breaker_transactions_request',
+						method: 'task_breaker_transaction_complete_task',
 						task_id: item_task_id,
 						user_id: item_user_id,
-						nonce: thriveProjectSettings.nonce
+						nonce: task_breakerProjectSettings.nonce
 					},
 					success: function( __response ) {
 						
@@ -531,7 +531,7 @@ jQuery(document).ready( function($) {
 
 								item_row.addClass('completed');
 
-								$('a', item).text('Renew Task').parent().removeAttr('data-user_id').removeClass('thrive-complete-ticket').addClass('thrive-renew-task');
+								$('a', item).text('Renew Task').parent().removeAttr('data-user_id').removeClass('task_breaker-complete-ticket').addClass('task_breaker-renew-task');
 
 						} else {
 
@@ -562,8 +562,8 @@ jQuery(document).ready( function($) {
 						url: ajaxurl,
 						method: 'post',
 						data: {
-							action: 'thrive_transactions_request',
-							method: 'thrive_transaction_renew_task',
+							action: 'task_breaker_transactions_request',
+							method: 'task_breaker_transaction_renew_task',
 							task_id: item_task_id,
 						},
 						success: function( __response ){
@@ -578,7 +578,7 @@ jQuery(document).ready( function($) {
 									item_row.removeClass('completed');
 
 									
-									$('a', item).text('Complete Task').parent().attr('data-user_id', current_user_id).addClass('thrive-complete-ticket').removeClass('thrive-renew-task');
+									$('a', item).text('Complete Task').parent().attr('data-user_id', current_user_id).addClass('task_breaker-complete-ticket').removeClass('task_breaker-renew-task');
 							}
 						},
 						error: function(){}
@@ -586,8 +586,8 @@ jQuery(document).ready( function($) {
 			},
 
 			initialize: function() {
-				$('#thrive-task-current-page-selector').val(this.model.get('page'));
-				$('#thrive-task-filter-select').val(this.priority);
+				$('#task_breaker-task-current-page-selector').val(this.model.get('page'));
+				$('#task_breaker-task-filter-select').val(this.priority);
 			}
 		});
 		
@@ -657,7 +657,7 @@ jQuery(document).ready( function($) {
 
 			search: function(keywords) {
 				
-				this.view.switchView(null, '#thrive-task-completed-tab');
+				this.view.switchView(null, '#task_breaker-task-completed-tab');
 
 				this.model.set({
 					page: 1
@@ -670,22 +670,22 @@ jQuery(document).ready( function($) {
 
 			showCompleted: function() {
 				this.view.showCompleted = "yes";
-				this.view.switchView(null, '#thrive-task-completed-tab');
+				this.view.switchView(null, '#task_breaker-task-completed-tab');
 				
 				this.view.render();
 			},
 
 			add: function() {
 				
-				this.view.switchView(null, '#thrive-task-add-tab');
+				this.view.switchView(null, '#task_breaker-task-add-tab');
 				ThriveModel.renderAddForm();
 				
-				var MCEthriveTaskDescription = tinymce.get( 'thriveTaskDescription' );
+				var MCEtask_breakerTaskDescription = tinymce.get( 'task_breakerTaskDescription' );
 
-					if ( MCEthriveTaskDescription ) {
-						MCEthriveTaskDescription.setContent('');
+					if ( MCEtask_breakerTaskDescription ) {
+						MCEtask_breakerTaskDescription.setContent('');
 					} else {
-						$('#thriveTaskDescription').text('');
+						$('#task_breakerTaskDescription').text('');
 					}
 
 				return;
@@ -693,8 +693,8 @@ jQuery(document).ready( function($) {
 			},
 
 			edit: function(id) {
-				this.view.switchView(null, '#thrive-task-edit-tab');
-				$('#thrive-task-edit-tab').show();
+				this.view.switchView(null, '#task_breaker-task-edit-tab');
+				$('#task_breaker-task-edit-tab').show();
 				ThriveModel.renderEditForm(id);
 				// call the post
 			},
@@ -709,7 +709,7 @@ jQuery(document).ready( function($) {
 		Backbone.history.start();
 
 		// prevent form submission
-		$('#thrive-task-search-field').keypress(function(e){
+		$('#task_breaker-task-search-field').keypress(function(e){
 		    if ( e.which == 13 ) e.preventDefault();
 		}); 
 	});//Window Onload.
