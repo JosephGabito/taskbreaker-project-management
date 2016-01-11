@@ -24,13 +24,13 @@ grunt.initConfig({
 
                     'dist/footer.js',
                 ],
-            dest: "thrive.dev.js"
+            dest: "task-breaker.dev.js"
         }
     },
     uglify: {
         my_target: {
             files: {
-                "thrive.min.js": ["thrive.dev.js"]
+                "task-breaker.min.js": ["task_breaker.dev.js"]
             }
         },
         options: {
@@ -79,7 +79,7 @@ grunt.initConfig({
     },
 
     jshint: {
-        all: ['thrive.dev.js']
+        all: ['task_breaker.dev.js']
     }
 
 });
