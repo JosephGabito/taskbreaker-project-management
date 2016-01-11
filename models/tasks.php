@@ -65,7 +65,7 @@ class ThriveProjectTasksModel {
 
 		global $wpdb;
 
-		$this->model = sprintf( '%sthrive_tasks', $wpdb->prefix );
+		$this->model = sprintf( '%stask_breaker_tasks', $wpdb->prefix );
 	}
 
 	/**
@@ -153,9 +153,9 @@ class ThriveProjectTasksModel {
 
 	public function getPriorityCollection() {
 		return array(
-			'1' => apply_filters( 'thrive_task_priority_1_label', 'Normal' ),
-			'2' => apply_filters( 'thrive_task_priority_2_label', 'High' ),
-			'3' => apply_filters( 'thrive_task_priority_3_label', 'Critical' ),
+			'1' => apply_filters( 'task_breaker_task_priority_1_label', 'Normal' ),
+			'2' => apply_filters( 'task_breaker_task_priority_2_label', 'High' ),
+			'3' => apply_filters( 'task_breaker_task_priority_3_label', 'Critical' ),
 		);
 	}
 
@@ -337,7 +337,7 @@ class ThriveProjectTasksModel {
 			$filters = substr( $filters, 0, strlen( $filters ) - 4 );
 
 			// limit claused
-			$limit = THRIVE_PROJECT_LIMIT;
+			$limit = TASK_BREAKER_PROJECT_LIMIT;
 
 			// total number of task per page
 			$perpage = ceil( $limit );
@@ -489,25 +489,25 @@ class ThriveProjectTasksModel {
 			 			$bp_user_link = bp_core_get_userlink( $this->user_id );
 			 		}
 
-			 		$thrive_project_post = get_post( $this->project_id, OBJECT );
+			 		$task_breaker_project_post = get_post( $this->project_id, OBJECT );
 
-			 		$thrive_project_name = '';
+			 		$task_breaker_project_name = '';
 
 			 		$permalink = get_permalink( $this->project_id );
 
-			 		if ( ! empty( $thrive_project_post ) ) {
-			 			$thrive_project_name = sprintf( '<a href="%s" title="%s">%s<a/>', $permalink, $thrive_project_post->post_title, $thrive_project_post->post_title );
+			 		if ( ! empty( $task_breaker_project_post ) ) {
+			 			$task_breaker_project_name = sprintf( '<a href="%s" title="%s">%s<a/>', $permalink, $task_breaker_project_post->post_title, $task_breaker_project_post->post_title );
 			 		}
 
-			 		$action = sprintf( __( '%s added new task under %s', 'thrive' ), $bp_user_link, $thrive_project_name );
+			 		$action = sprintf( __( '%s added new task under %s', 'task_breaker' ), $bp_user_link, $task_breaker_project_name );
 
 			 		bp_activity_add(
 			 			array(
 							'user_id' => $this->user_id,
-							'action' => apply_filters( 'thrive_new_task_activity_action', $action, $this->user_id ),
+							'action' => apply_filters( 'task_breaker_new_task_activity_action', $action, $this->user_id ),
 							'component' => 'project',
-							'content' => apply_filters( 'thrive_new_task_activity_descriptioin', sprintf( '<a href="%s" title="%s">#%d - %s</a>', $permalink . '#tasks/view/' . $last_insert_id, $this->title, $last_insert_id, $this->title ) ),
-							'type' => 'thrive_new_task',
+							'content' => apply_filters( 'task_breaker_new_task_activity_descriptioin', sprintf( '<a href="%s" title="%s">#%d - %s</a>', $permalink . '#tasks/view/' . $last_insert_id, $this->title, $last_insert_id, $this->title ) ),
+							'type' => 'task_breaker_new_task',
 						)
 					);
 			 	}
@@ -612,7 +612,7 @@ class ThriveProjectTasksModel {
 				'total' 	=> $task_total,
 				'completed' => $task_total_completed,
 				'remaining' => $task_total_open,
-				'progress'  => sprintf( __('%s Completed', 'thrive'), $task_progress )
+				'progress'  => sprintf( __('%s Completed', 'task_breaker'), $task_progress )
 			); 
 		
 
