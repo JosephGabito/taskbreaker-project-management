@@ -5,7 +5,7 @@
  * Version: 0.1
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
- * Text Domain: thrive
+ * Text Domain: task_breaker
  * License: GPL2
  *
  * PHP version 5
@@ -17,18 +17,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-define( 'THRIVE_PROJECT_LIMIT', 10 );
-define( 'THRIVE_PROJECT_SLUG', 'project' );
+define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
+define( 'TASK_BREAKER_PROJECT_SLUG', 'project' );
+define( 'TASK_BREAKER_ASSET_URL', plugin_dir_url(__FILE__) . 'assets/' );
 
 // Setup the tables on activation.
-register_activation_hook( __FILE__, 'thrive_install' );
+register_activation_hook( __FILE__, 'task_breaker_install' );
 
 // Plugin l10n.
-add_action( 'plugins_loaded', 'thrive_localize_plugin' );
-// Include thrive projects transactions.
-add_action( 'init', 'thrive_register_transactions' );
-// Include thrive projects component.
-add_action( 'bp_loaded', 'thrive_register_projects_component' );
+add_action( 'plugins_loaded', 'task_breaker_localize_plugin' );
+// Include task_breaker projects transactions.
+add_action( 'init', 'task_breaker_register_transactions' );
+// Include task_breaker projects component.
+add_action( 'bp_loaded', 'task_breaker_register_projects_component' );
 
 require_once plugin_dir_path( __FILE__ ) . 'core/enqueue.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/project-post-type.php';
@@ -38,11 +39,11 @@ require_once plugin_dir_path( __FILE__ ) . 'install/table.php';
  * TaskBreaker l10n callback.
  * @return void
  */
-function thrive_localize_plugin() {
+function task_breaker_localize_plugin() {
 
 	$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
 	
-    load_plugin_textdomain( 'thrive', FALSE, $rel_path );
+    load_plugin_textdomain( 'task_breaker', FALSE, $rel_path );
 
     return;
 }
@@ -51,7 +52,7 @@ function thrive_localize_plugin() {
  * Register our transactions.
  * @return void
  */
-function thrive_register_transactions() {
+function task_breaker_register_transactions() {
 
 	include_once plugin_dir_path( __FILE__ ) . 'transactions/controller.php';
 
@@ -62,7 +63,7 @@ function thrive_register_transactions() {
  * Register our project components.
  * @return void
  */
-function thrive_register_projects_component() {
+function task_breaker_register_projects_component() {
 
 	include_once plugin_dir_path( __FILE__ ) . '/includes/project-component.php';
 
