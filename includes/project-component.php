@@ -218,6 +218,8 @@ class Thrive_Projects_Group extends BP_Group_Extension {
 	 */
 	function display( $group_id = null ) {
 
+		do_action('task_breaker_before_projects_archive');
+
 		$group_id = bp_get_group_id(); ?>
 			
 			<h3>
@@ -240,6 +242,8 @@ class Thrive_Projects_Group extends BP_Group_Extension {
 			</div>
 
 		<?php
+
+		do_action('task_breaker_after_projects_archive');
 
 		return;
 	}
