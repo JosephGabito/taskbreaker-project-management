@@ -831,6 +831,7 @@
 .task-progress-percentage-label {
     padding-right: 15px;
     font-size: 12px;
+    min-width: 125px;
 }
 .task-progress-percentage-label > span {
     min-width: 80px;
