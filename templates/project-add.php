@@ -1,42 +1,42 @@
-<div id="thrive-project-add-new-form">
+<div id="task_breaker-project-add-new-form">
 	
 	<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post">
 
-		<input type="hidden" name="method"  value="thrive_transactions_update_project" />
+		<input type="hidden" name="method"  value="task_breaker_transactions_update_project" />
 
-		<input type="hidden" name="action"  value="thrive_transactions_request" />
+		<input type="hidden" name="action"  value="task_breaker_transactions_request" />
 		
 		<input type="hidden" name="no_json" value="yes" />
 
-		<?php wp_nonce_field( 'thrive-transaction-request', 'nonce' ); ?>
+		<?php wp_nonce_field( 'task_breaker-transaction-request', 'nonce' ); ?>
 
-		<div class="thrive-form-field">
+		<div class="task_breaker-form-field">
 
-			<?php $placeholder = __( 'Enter the new title for this project', 'thrive' ); ?>
+			<?php $placeholder = __( 'Enter the new title for this project', 'task_breaker' ); ?>
 			
-			<label for="thrive-project-name">
+			<label for="task_breaker-project-name">
 
-				<?php esc_html_e( 'Project Name', 'thrive' ); ?>
+				<?php esc_html_e( 'Project Name', 'task_breaker' ); ?>
 				
 			</label>
 			
-			<input required placeholder="<?php esc_attr_e( $placeholder ); ?>" type="text" name="title" id="thrive-project-name" />
+			<input required placeholder="<?php esc_attr_e( $placeholder ); ?>" type="text" name="title" id="task_breaker-project-name" />
 
 		</div>
 
-		<div class="thrive-form-field">
+		<div class="task_breaker-form-field">
 
-			<label for="thrive-project-content">
+			<label for="task_breaker-project-content">
 				
-				<?php esc_html_e( 'Project Details', 'thrive' ); ?>
+				<?php esc_html_e( 'Project Details', 'task_breaker' ); ?>
 
 			</label>
 
-			<textarea id="thrive-project-content" name="content" rows="5" placeholder="<?php esc_html_e( 'Describe what this project is all about. You can edit this later.', 'thrive' );?>" required ></textarea>
+			<textarea id="task_breaker-project-content" name="content" rows="5" placeholder="<?php esc_html_e( 'Describe what this project is all about. You can edit this later.', 'task_breaker' );?>" required ></textarea>
 
 		</div>
 
-		<?php $current_user_groups = thrive_get_current_user_groups(); ?>
+		<?php $current_user_groups = task_breaker_get_current_user_groups(); ?>
 		
 		<?php $group_id = 0; ?>
 		
@@ -48,17 +48,17 @@
 
 		<?php if ( ! empty( $current_user_groups ) ) { ?>
 
-			<div class="thrive-form-field">
+			<div class="task_breaker-form-field">
 
-				<label for="thrive-project-assigned-group">
+				<label for="task_breaker-project-assigned-group">
 					
-					<?php esc_html_e( 'Assign to Group:', 'thrive' ); ?>
+					<?php esc_html_e( 'Assign to Group:', 'task_breaker' ); ?>
 
 				</label>
 
 				<?php if ( ! empty( $current_user_groups ) ) { ?>
 
-					<select name="group_id" id="thrive-project-assigned-group">
+					<select name="group_id" id="task_breaker-project-assigned-group">
 						
 						<?php foreach ( $current_user_groups as $group ) { ?>
 						
@@ -87,13 +87,13 @@
 
 			</div>
 
-			<div class="thrive-form-field">
+			<div class="task_breaker-form-field">
 
 				<div class="alignright">
 
-					<button id="thriveSaveProjectBtn" type="submit" class="button">
+					<button id="task_breakerSaveProjectBtn" type="submit" class="button">
 
-						<?php esc_attr_e( 'Save Project', 'thrive' ); ?>
+						<?php esc_attr_e( 'Save Project', 'task_breaker' ); ?>
 
 					</button>
 
@@ -107,17 +107,17 @@
 
 			<div id="message" class="error">
 
-				<?php esc_attr_e( 'Looks like you don\'t have any groups yet. Please join or create new group to start a project.?', 'thrive' ); ?>
+				<?php esc_attr_e( 'Looks like you don\'t have any groups yet. Please join or create new group to start a project.?', 'task_breaker' ); ?>
 			
 			</div>
 			
-			<div class="thrive-form-field">
+			<div class="task_breaker-form-field">
 
 				<div class="alignright">
 
 					<button type="button" disabled class="button danger">
 
-						<?php esc_attr_e( 'Save Project', 'thrive' ); ?>
+						<?php esc_attr_e( 'Save Project', 'task_breaker' ); ?>
 
 					</button>
 
