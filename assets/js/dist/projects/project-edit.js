@@ -1,11 +1,11 @@
 // Update Project
-$('body').on('click', '#thriveUpdateProjectBtn', function() {
+$('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
     var element = $(this);
 
     var projectContent = "";
 
-    var __projectContentObj = tinymce.get( 'thriveProjectContent' );
+    var __projectContentObj = tinymce.get( 'task_breakerProjectContent' );
 
         if ( __projectContentObj ) {
 
@@ -13,25 +13,25 @@ $('body').on('click', '#thriveUpdateProjectBtn', function() {
 
         } else {
 
-            projectContent = $('#thriveProjectContent').val();
+            projectContent = $('#task_breakerProjectContent').val();
 
         }
 
     var __http_params = {
-        action: 'thrive_transactions_request',
-        method: 'thrive_transactions_update_project',
-        id: parseInt( $('#thrive-project-id').val() ),
-        title: $( '#thrive-project-name' ).val(),
+        action: 'task_breaker_transactions_request',
+        method: 'task_breaker_transactions_update_project',
+        id: parseInt( $('#task_breaker-project-id').val() ),
+        title: $( '#task_breaker-project-name' ).val(),
         content: projectContent,
-        group_id: parseInt( $('select[name=thrive-project-assigned-group]').val() ),
-        nonce: thriveProjectSettings.nonce
+        group_id: parseInt( $('select[name=task_breaker-project-assigned-group]').val() ),
+        nonce: task_breakerProjectSettings.nonce
     };
 
     element.attr('disabled', true).text('Updating ...');
 
     ThriveProjectView.progress(true);
 
-    $('.thrive-project-updated').remove();
+    $('.task_breaker-project-updated').remove();
 
     $.ajax({
         url: ajaxurl,
@@ -48,10 +48,10 @@ $('body').on('click', '#thriveUpdateProjectBtn', function() {
             if (response.message === 'success') {
 
                 // Update the project title.
-                $('article .entry-header > .entry-title').text($('#thrive-project-name').val());
+                $('article .entry-header > .entry-title').text($('#task_breaker-project-name').val());
 
                 element.parent().parent().prepend(
-                    '<div id="message" class="thrive-project-updated success updated">' +
+                    '<div id="message" class="task_breaker-project-updated success updated">' +
                     '<p>Project details successfully updated.</p>' +
                     '</div>'
                 );
@@ -59,7 +59,7 @@ $('body').on('click', '#thriveUpdateProjectBtn', function() {
             } else {
 
                 element.parent().parent().prepend(
-                    '<div id="message" class="thrive-project-updated success updated">' +
+                    '<div id="message" class="task_breaker-project-updated success updated">' +
                     '<p>There was an error saving the project. All fields are required.</p>' +
                     '</div>'
                 );
@@ -70,7 +70,7 @@ $('body').on('click', '#thriveUpdateProjectBtn', function() {
 
             setTimeout(function() {
 
-                $('.thrive-project-updated').fadeOut();
+                $('.task_breaker-project-updated').fadeOut();
 
             }, 3000);
 
