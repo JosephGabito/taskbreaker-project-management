@@ -1,12 +1,10 @@
 jQuery(document).ready(function($) {
-
 	'use strict'
-
 	$(window).load( function() { 
 
 var __ThriveProjectModel = Backbone.View.extend({
     id: 0,
-    project_id: thriveProjectSettings.project_id,
+    project_id: task_breakerProjectSettings.project_id,
     page: 1,
     priority: -1,
     current_page: 1,
@@ -26,20 +24,20 @@ var __ThriveProjectView = Backbone.View.extend({
     search: '',
     template: '',
     events: {
-        "click .thrive-project-tab-li-item-a": "switchView",
+        "click .task_breaker-project-tab-li-item-a": "switchView",
         "click .next-page": "next",
         "click .prev-page": "prev",
-        "click #thrive-task-search-submit": "searchTasks",
-        "change #thrive-task-filter-select": "filter"
+        "click #task_breaker-task-search-submit": "searchTasks",
+        "change #task_breaker-task-filter-select": "filter"
     },
 
     switchView: function(e, elementID) {
 
-        $('#thrive-project-edit-tab').css('display', 'none');
-        $('#thrive-project-add-new').css('display', 'none');
+        $('#task_breaker-project-edit-tab').css('display', 'none');
+        $('#task_breaker-project-add-new').css('display', 'none');
 
-        $('.thrive-project-tab-li-item').removeClass('active');
-        $('.thrive-project-tab-content-item').removeClass('active');
+        $('.task_breaker-project-tab-li-item').removeClass('active');
+        $('.task_breaker-project-tab-content-item').removeClass('active');
 
         var $active_content = "";
 
@@ -65,16 +63,16 @@ var __ThriveProjectView = Backbone.View.extend({
     },
 
     hideFilters: function() {
-        $('#thrive-tasks-filter').hide();
+        $('#task_breaker-tasks-filter').hide();
     },
 
     showFilters: function() {
-        $('#thrive-tasks-filter').show();
+        $('#task_breaker-tasks-filter').show();
     },
 
     searchTasks: function() {
         
-        var keywords = $('#thrive-task-search-field').val();
+        var keywords = $('#task_breaker-task-search-field').val();
 
         if ( 0 === keywords.length ) {
             location.href = '#tasks';
@@ -117,7 +115,7 @@ var __ThriveProjectView = Backbone.View.extend({
     single: function(ticket_id) {
         this.progress(true);
         var __this = this;
-        this.template = 'thrive_ticket_single';
+        this.template = 'task_breaker_ticket_single';
         // load the task
         this.renderTask(function( httpResponse ) {
 
@@ -125,7 +123,7 @@ var __ThriveProjectView = Backbone.View.extend({
             var response = JSON.parse( httpResponse );
 
             if (response.html) {
-                $('#thrive-project-tasks').html(response.html);
+                $('#task_breaker-project-tasks').html(response.html);
             }
         });
     },
@@ -135,22 +133,22 @@ var __ThriveProjectView = Backbone.View.extend({
         this.progress(true);
         var __this = this;
 
-        var __taskEditor = tinymce.get('thriveTaskEditDescription');
+        var __taskEditor = tinymce.get('task_breakerTaskEditDescription');
 
         if ( __taskEditor ) {
             __taskEditor.setContent( '' );
         } else {
-            $( '#thriveTaskEditDescription' ).val( '' );
+            $( '#task_breakerTaskEditDescription' ).val( '' );
         }
 
-        $('.thrive-project-tab-content-item').removeClass('active');
-        $('.thrive-project-tab-li-item').removeClass('active');
-        $('a#thrive-project-edit-tab').css('display', 'block').parent().addClass('active');
-        $('#thrive-project-edit-context').addClass('active');
+        $('.task_breaker-project-tab-content-item').removeClass('active');
+        $('.task_breaker-project-tab-li-item').removeClass('active');
+        $('a#task_breaker-project-edit-tab').css('display', 'block').parent().addClass('active');
+        $('#task_breaker-project-edit-context').addClass('active');
 
-        $('#thriveTaskId').attr('disabled', true).val('loading...');
-        $('#thriveTaskEditTitle').attr('disabled', true).val('loading...');
-        $("#thrive-task-edit-select-id").attr('disabled', true);
+        $('#task_breakerTaskId').attr('disabled', true).val('loading...');
+        $('#task_breakerTaskEditTitle').attr('disabled', true).val('loading...');
+        $("#task_breaker-task-edit-select-id").attr('disabled', true);
 
         this.model.id = task_id;
 
@@ -165,18 +163,18 @@ var __ThriveProjectView = Backbone.View.extend({
                 
                 var task = response.task;
 
-                var taskEditor = tinymce.get('thriveTaskEditDescription');
+                var taskEditor = tinymce.get('task_breakerTaskEditDescription');
 
-                $('#thriveTaskId').val(task.id).removeAttr("disabled");
-                $('#thriveTaskEditTitle').val(task.title).removeAttr("disabled");
+                $('#task_breakerTaskId').val(task.id).removeAttr("disabled");
+                $('#task_breakerTaskEditTitle').val(task.title).removeAttr("disabled");
                 
                 if ( taskEditor ) {
                     taskEditor.setContent( task.description );
                 } else {
-                    $( '#thriveTaskEditDescription' ).val( task.description );
+                    $( '#task_breakerTaskEditDescription' ).val( task.description );
                 }
 
-                $( "#thrive-task-edit-select-id" ).val( task.priority ).change().removeAttr("disabled");
+                $( "#task_breaker-task-edit-select-id" ).val( task.priority ).change().removeAttr("disabled");
 
             }
 
@@ -191,11 +189,11 @@ var __ThriveProjectView = Backbone.View.extend({
             url: ajaxurl,
             method: 'get',
             data: {
-                action: 'thrive_transactions_request',
-                method: 'thrive_transaction_fetch_task',
+                action: 'task_breaker_transactions_request',
+                method: 'task_breaker_transaction_fetch_task',
                 id: this.model.id,
                 template: this.template,
-                nonce: thriveProjectSettings.nonce
+                nonce: task_breakerProjectSettings.nonce
             },
             success: function( httpResponse ) {
                 __callback( httpResponse );
@@ -212,16 +210,16 @@ var __ThriveProjectView = Backbone.View.extend({
             url: ajaxurl,
             method: 'get',
             data: {
-                action: 'thrive_transactions_request',
-                method: 'thrive_transaction_fetch_task',
+                action: 'task_breaker_transactions_request',
+                method: 'task_breaker_transaction_fetch_task',
                 id: this.model.id,
                 project_id: this.model.project_id,
                 page: this.model.page,
                 search: this.search,
                 priority: this.model.priority,
-                template: 'thrive_the_tasks',
+                template: 'task_breaker_the_tasks',
                 show_completed: this.model.show_completed,
-                nonce: thriveProjectSettings.nonce
+                nonce: task_breakerProjectSettings.nonce
             },
             success: function( httpResponse ) {
 
@@ -236,11 +234,11 @@ var __ThriveProjectView = Backbone.View.extend({
                         ThriveProjectModel.min_page = response.task.stats.min_page;
                     }
                     // render the result
-                    $('#thrive-project-tasks').html(response.html);
+                    $('#task_breaker-project-tasks').html(response.html);
                 }
 
                 if (0 === response.task.length) {
-                    $('#thrive-project-tasks').html('<div class="error" id="message"><p>No tasks found. If you\'re trying to find a task, kindly try different keywords and/or filters.</p></div>');
+                    $('#task_breaker-project-tasks').html('<div class="error" id="message"><p>No tasks found. If you\'re trying to find a task, kindly try different keywords and/or filters.</p></div>');
                 }
 
             },
@@ -264,11 +262,11 @@ var __ThriveProjectView = Backbone.View.extend({
             __opacity = 0.25;
         }
 
-        $('#thrive-preloader').css({
+        $('#task_breaker-preloader').css({
             display: __display
         });
 
-        $('#thrive-project-tasks').css({
+        $('#task_breaker-project-tasks').css({
             opacity: __opacity
         });
 
@@ -277,8 +275,8 @@ var __ThriveProjectView = Backbone.View.extend({
 
     updateStats: function( stats ) {
 
-        $( '.thrive-total-tasks' ).text( stats.total );
-        $( '.thrive-remaining-tasks-count' ).text( stats.remaining );
+        $( '.task_breaker-total-tasks' ).text( stats.total );
+        $( '.task_breaker-remaining-tasks-count' ).text( stats.remaining );
         $( '.task-progress-completed' ).text( stats.completed );
         $( '.task-progress-percentage-label > span' ).text( stats.progress );
 
@@ -309,7 +307,7 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     model: ThriveProjectModel,
     index: function() {
 
-        this.view.switchView(null, '#thrive-project-tasks-context');
+        this.view.switchView(null, '#task_breaker-project-tasks-context');
 
         this.model.page = 1;
         this.model.id = 0;
@@ -320,29 +318,29 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     },
 
     dashboard: function() {
-        this.view.switchView(null, '#thrive-project-dashboard-context');
+        this.view.switchView(null, '#task_breaker-project-dashboard-context');
     },
     settings: function() {
-        this.view.switchView(null, '#thrive-project-settings-context');
+        this.view.switchView(null, '#task_breaker-project-settings-context');
     },
     add: function() {
-        this.view.switchView(null, '#thrive-project-add-new-context');
-        $('#thrive-project-add-new').css('display', 'block');
+        this.view.switchView(null, '#task_breaker-project-add-new-context');
+        $('#task_breaker-project-add-new').css('display', 'block');
         
-        if ( tinymce.editors.thriveTaskDescription ) {
-            tinymce.editors.thriveTaskDescription.setContent('');
+        if ( tinymce.editors.task_breakerTaskDescription ) {
+            tinymce.editors.task_breakerTaskDescription.setContent('');
         }
     },
     completed_tasks: function() {
 
-        this.view.switchView(null, '#thrive-project-tasks-context');
+        this.view.switchView(null, '#task_breaker-project-tasks-context');
 
         this.model.show_completed = 'yes';
         this.view.render();
     },
     edit: function(task_id) {
         this.view.showEditForm(task_id);
-        $('#thrive-edit-task-message').html('');
+        $('#task_breaker-edit-task-message').html('');
     },
     next: function(page) {
         this.model.page = page;
@@ -351,7 +349,7 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     view_task: function(task_id) {
         this.model.id = task_id;
         this.view.single(task_id);
-        this.view.switchView(null, '#thrive-project-tasks-context');
+        this.view.switchView(null, '#task_breaker-project-tasks-context');
     },
     search: function(keywords) {
         this.model.page = 1;
@@ -373,7 +371,7 @@ ThriveProjectRoute.on('route', function(route) {
 
 Backbone.history.start();
 
-$('#thrive-submit-btn').click(function(e) {
+$('#task_breaker-submit-btn').click(function(e) {
 
     e.preventDefault();
 
@@ -383,31 +381,31 @@ $('#thrive-submit-btn').click(function(e) {
     element.text('Loading ...');
 
     var taskDescription = "";
-    var __taskEditor = tinymce.get( 'thriveTaskDescription' );
+    var __taskEditor = tinymce.get( 'task_breakerTaskDescription' );
 
     if ( __taskEditor ) {
        taskDescription =  __taskEditor.getContent();
     } else {
-       taskDescription = $( '#thriveTaskDescription' ).val();
+       taskDescription = $( '#task_breakerTaskDescription' ).val();
     }
 
     $.ajax({
         url: ajaxurl,
         data: {
             
-            action: 'thrive_transactions_request',
-            method: 'thrive_transaction_add_ticket',
+            action: 'task_breaker_transactions_request',
+            method: 'task_breaker_transaction_add_ticket',
             
             description: taskDescription,
             
-            title: $('#thriveTaskTitle').val(),
-            milestone_id: $('#thriveTaskMilestone').val(),
-            priority: $('#thrive-task-priority-select').val(),
+            title: $('#task_breakerTaskTitle').val(),
+            milestone_id: $('#task_breakerTaskMilestone').val(),
+            priority: $('#task_breaker-task-priority-select').val(),
 
-            nonce: thriveProjectSettings.nonce,
+            nonce: task_breakerProjectSettings.nonce,
 
-            project_id: thriveTaskConfig.currentProjectId,
-            user_id: thriveTaskConfig.currentUserId
+            project_id: task_breakerTaskConfig.currentProjectId,
+            user_id: task_breakerTaskConfig.currentUserId
         },
 
         method: 'post',
@@ -415,10 +413,10 @@ $('#thrive-submit-btn').click(function(e) {
         success: function( message ) {
 
             // Total tasks view.
-            var total_tasks = parseInt( $('.thrive-total-tasks').text().trim() );
+            var total_tasks = parseInt( $('.task_breaker-total-tasks').text().trim() );
 
             // Remaining tasks view
-            var remaining_tasks = parseInt( $('.thrive-remaining-tasks-count').text().trim() );
+            var remaining_tasks = parseInt( $('.task_breaker-remaining-tasks-count').text().trim() );
 
             message = JSON.parse( message );
 
@@ -430,9 +428,9 @@ $('#thrive-submit-btn').click(function(e) {
 
                 element.removeAttr('disabled');
 
-                $('#thriveTaskDescription').val('');
+                $('#task_breakerTaskDescription').val('');
 
-                $('#thriveTaskTitle').val('');
+                $('#task_breakerTaskTitle').val('');
                 
                 ThriveProjectView.updateStats( message.stats );
 
@@ -441,7 +439,7 @@ $('#thrive-submit-btn').click(function(e) {
 
             } else {
 
-                $('#thrive-add-task-message').html('<p class="error">'+message.response+'</p>').show().addClass('error');
+                $('#task_breaker-add-task-message').html('<p class="error">'+message.response+'</p>').show().addClass('error');
 
               
 
@@ -455,9 +453,9 @@ $('#thrive-submit-btn').click(function(e) {
 
         }
     }); // end $.ajax
-}); // end $('#thrive-submit-btn').click()
+}); // end $('#task_breaker-submit-btn').click()
 
-$('#thrive-edit-btn').click(function(e) {
+$('#task_breaker-edit-btn').click(function(e) {
 
     e.preventDefault();
 
@@ -467,12 +465,12 @@ $('#thrive-edit-btn').click(function(e) {
     element.text('Loading ...');
 
     var taskDescription = "";
-    var taskDescriptionObject = tinymce.get( 'thriveTaskEditDescription' );
+    var taskDescriptionObject = tinymce.get( 'task_breakerTaskEditDescription' );
 
     if ( taskDescriptionObject ) {
         taskDescription = taskDescriptionObject.getContent();
     } else {
-        taskDescription = $('#thriveTaskEditDescription').val();
+        taskDescription = $('#task_breakerTaskEditDescription').val();
     }
 
     $.ajax({
@@ -481,17 +479,17 @@ $('#thrive-edit-btn').click(function(e) {
         data: {
 
             description: taskDescription,
-            nonce: thriveProjectSettings.nonce,
-            project_id: thriveTaskConfig.currentProjectId,
-            user_id: thriveTaskConfig.currentUserId,
+            nonce: task_breakerProjectSettings.nonce,
+            project_id: task_breakerTaskConfig.currentProjectId,
+            user_id: task_breakerTaskConfig.currentUserId,
 
-            action: 'thrive_transactions_request',
-            method: 'thrive_transaction_edit_ticket',
+            action: 'task_breaker_transactions_request',
+            method: 'task_breaker_transaction_edit_ticket',
 
-            title: $('#thriveTaskEditTitle').val(),
-            milestone_id: $('#thriveTaskMilestone').val(),
-            id: $('#thriveTaskId').val(),
-            priority: $('select[name="thrive-task-edit-priority"]').val()
+            title: $('#task_breakerTaskEditTitle').val(),
+            milestone_id: $('#task_breakerTaskMilestone').val(),
+            id: $('#task_breakerTaskId').val(),
+            priority: $('select[name="task_breaker-task-edit-priority"]').val()
 
         }, 
 
@@ -509,7 +507,7 @@ $('#thrive-edit-btn').click(function(e) {
 
             }
  
-            $('#thrive-edit-task-message').html(message).show();
+            $('#task_breaker-edit-task-message').html(message).show();
 
             element.attr('disabled', false);
 
@@ -522,15 +520,15 @@ $('#thrive-edit-btn').click(function(e) {
         error: function() {
 
             // Todo: Better handling of http errors and timeouts.
-            console.log('An Error Occured [thrive.js]#311');
+            console.log('An Error Occured [task_breaker.js]#311');
 
             return;
         }
     });
-}); // end $('#thrive-edit-btn').click()
+}); // end $('#task_breaker-edit-btn').click()
 
  // Delete Task Single
- $('body').on('click', '#thrive-delete-btn', function() {
+ $('body').on('click', '#task_breaker-delete-btn', function() {
 
     var _delete_confirm = confirm("Are you sure you want to delete this task? This action is irreversible");
 
@@ -546,11 +544,11 @@ $('#thrive-edit-btn').click(function(e) {
 
     var __http_params = {
 
-       action: 'thrive_transactions_request',
-       method: 'thrive_transaction_delete_ticket',
+       action: 'task_breaker_transactions_request',
+       method: 'task_breaker_transaction_delete_ticket',
        id: task_id,
        project_id: task_project_id,
-       nonce: thriveProjectSettings.nonce
+       nonce: task_breakerProjectSettings.nonce
 
    };
 
@@ -573,7 +571,7 @@ $('#thrive-edit-btn').click(function(e) {
 
             location.href = "#tasks";
 
-            ThriveProjectView.switchView(null, '#thrive-project-tasks-context');
+            ThriveProjectView.switchView(null, '#task_breaker-project-tasks-context');
 
             $element.text('Delete');
 
@@ -582,7 +580,7 @@ $('#thrive-edit-btn').click(function(e) {
        error: function() {
            ThriveProjectView.progress(false);
            location.href = "#tasks";
-           ThriveProjectView.switchView(null, '#thrive-project-tasks-context');
+           ThriveProjectView.switchView(null, '#task_breaker-project-tasks-context');
            $element.text('Delete');
 
        }
@@ -593,7 +591,7 @@ $('#thrive-edit-btn').click(function(e) {
 
       var comment_ticket = ThriveProjectModel.id,
           comment_details = $('#task-comment-content').val(),
-          task_priority = $('#thrive-task-priority-update-select').val(),
+          task_priority = $('#task_breaker-task-priority-update-select').val(),
           comment_completed = $('input[name=task_commment_completed]:checked').val(),
           task_project_id = parseInt( ThriveProjectModel.project_id );
 
@@ -609,14 +607,14 @@ $('#thrive-edit-btn').click(function(e) {
       ThriveProjectView.progress(true);
 
       var __http_params = {
-          action: 'thrive_transactions_request',
-          method: 'thrive_transaction_add_comment_to_ticket',
+          action: 'task_breaker_transactions_request',
+          method: 'task_breaker_transaction_add_comment_to_ticket',
           ticket_id: comment_ticket,
           priority: task_priority,
           details: comment_details,
           completed: comment_completed,
           project_id: task_project_id,
-          nonce: thriveProjectSettings.nonce
+          nonce: task_breakerProjectSettings.nonce 
       };
 
       $.ajax({
@@ -642,7 +640,7 @@ $('#thrive-edit-btn').click(function(e) {
                   // enable new radios
                   $('#ticketStatusCompleteUpdate').attr('disabled', false).attr('checked', true);
                   $('#ticketStatusReOpenUpdate').attr('disabled', false);
-                  $('#thrive-comment-completed-radio').removeClass('hide');
+                  $('#task_breaker-comment-completed-radio').removeClass('hide');
 
               }
 
@@ -655,7 +653,7 @@ $('#thrive-edit-btn').click(function(e) {
                   // Disable new radios
                   $('#ticketStatusCompleteUpdate').attr('disabled', true).attr('checked', false);
                   $('#ticketStatusReOpenUpdate').attr('disabled', true);
-                  $('#thrive-comment-completed-radio').addClass('hide');
+                  $('#task_breaker-comment-completed-radio').addClass('hide');
 
               }
 
@@ -672,7 +670,7 @@ $('#thrive-edit-btn').click(function(e) {
   }); // end UpdateTask
 
 // Delete Comment Event.
-$('body').on('click', 'a.thrive-delete-comment', function(e) {
+$('body').on('click', 'a.task_breaker-delete-comment', function(e) {
 
     e.preventDefault();
 
@@ -689,10 +687,10 @@ $('body').on('click', 'a.thrive-delete-comment', function(e) {
     var comment_ticket = parseInt($(this).attr('data-comment-id'));
 
     var __http_params = {
-        action: 'thrive_transactions_request',
-        method: 'thrive_transaction_delete_comment',
+        action: 'task_breaker_transactions_request',
+        method: 'task_breaker_transaction_delete_comment',
         comment_id: comment_ticket,
-        nonce: thriveProjectSettings.nonce
+        nonce: task_breakerProjectSettings.nonce
     };
 
     // Send request to server to delete the comment.
@@ -728,13 +726,13 @@ $('body').on('click', 'a.thrive-delete-comment', function(e) {
 }); // end Delete Comment
 
 // Update Project
-$('body').on('click', '#thriveUpdateProjectBtn', function() {
+$('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
     var element = $(this);
 
     var projectContent = "";
 
-    var __projectContentObj = tinymce.get( 'thriveProjectContent' );
+    var __projectContentObj = tinymce.get( 'task_breakerProjectContent' );
 
         if ( __projectContentObj ) {
 
@@ -742,25 +740,25 @@ $('body').on('click', '#thriveUpdateProjectBtn', function() {
 
         } else {
 
-            projectContent = $('#thriveProjectContent').val();
+            projectContent = $('#task_breakerProjectContent').val();
 
         }
 
     var __http_params = {
-        action: 'thrive_transactions_request',
-        method: 'thrive_transactions_update_project',
-        id: parseInt( $('#thrive-project-id').val() ),
-        title: $( '#thrive-project-name' ).val(),
+        action: 'task_breaker_transactions_request',
+        method: 'task_breaker_transactions_update_project',
+        id: parseInt( $('#task_breaker-project-id').val() ),
+        title: $( '#task_breaker-project-name' ).val(),
         content: projectContent,
-        group_id: parseInt( $('select[name=thrive-project-assigned-group]').val() ),
-        nonce: thriveProjectSettings.nonce
+        group_id: parseInt( $('select[name=task_breaker-project-assigned-group]').val() ),
+        nonce: task_breakerProjectSettings.nonce
     };
 
     element.attr('disabled', true).text('Updating ...');
 
     ThriveProjectView.progress(true);
 
-    $('.thrive-project-updated').remove();
+    $('.task_breaker-project-updated').remove();
 
     $.ajax({
         url: ajaxurl,
@@ -777,10 +775,10 @@ $('body').on('click', '#thriveUpdateProjectBtn', function() {
             if (response.message === 'success') {
 
                 // Update the project title.
-                $('article .entry-header > .entry-title').text($('#thrive-project-name').val());
+                $('article .entry-header > .entry-title').text($('#task_breaker-project-name').val());
 
                 element.parent().parent().prepend(
-                    '<div id="message" class="thrive-project-updated success updated">' +
+                    '<div id="message" class="task_breaker-project-updated success updated">' +
                     '<p>Project details successfully updated.</p>' +
                     '</div>'
                 );
@@ -788,7 +786,7 @@ $('body').on('click', '#thriveUpdateProjectBtn', function() {
             } else {
 
                 element.parent().parent().prepend(
-                    '<div id="message" class="thrive-project-updated success updated">' +
+                    '<div id="message" class="task_breaker-project-updated success updated">' +
                     '<p>There was an error saving the project. All fields are required.</p>' +
                     '</div>'
                 );
@@ -799,7 +797,7 @@ $('body').on('click', '#thriveUpdateProjectBtn', function() {
 
             setTimeout(function() {
 
-                $('.thrive-project-updated').fadeOut();
+                $('.task_breaker-project-updated').fadeOut();
 
             }, 3000);
 
@@ -816,20 +814,20 @@ $('body').on('click', '#thriveUpdateProjectBtn', function() {
     });
 }); // Project Update End.
 
- $('body').on('click', '#thriveDeleteProjectBtn', function() {
+ $('body').on('click', '#task_breakerDeleteProjectBtn', function() {
 
 
      if ( !confirm('Are you sure you want to delete this project? All the tickets under this project will be deleted as well. This action cannot be undone.')) {
          return;
      }
 
-     var project_id = $('#thrive-project-id').val();
+     var project_id = $('#task_breaker-project-id').val();
 
      var __http_params = {
-         action: 'thrive_transactions_request',
-         method: 'thrive_transactions_delete_project',
+         action: 'task_breaker_transactions_request',
+         method: 'task_breaker_transactions_delete_project',
          id: project_id,
-         nonce: thriveProjectSettings.nonce
+         nonce: task_breakerProjectSettings.nonce
      };
 
      $(this).text('Deleting...');
