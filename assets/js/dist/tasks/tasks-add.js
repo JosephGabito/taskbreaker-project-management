@@ -1,4 +1,4 @@
-$('#thrive-submit-btn').click(function(e) {
+$('#task_breaker-submit-btn').click(function(e) {
 
     e.preventDefault();
 
@@ -8,31 +8,31 @@ $('#thrive-submit-btn').click(function(e) {
     element.text('Loading ...');
 
     var taskDescription = "";
-    var __taskEditor = tinymce.get( 'thriveTaskDescription' );
+    var __taskEditor = tinymce.get( 'task_breakerTaskDescription' );
 
     if ( __taskEditor ) {
        taskDescription =  __taskEditor.getContent();
     } else {
-       taskDescription = $( '#thriveTaskDescription' ).val();
+       taskDescription = $( '#task_breakerTaskDescription' ).val();
     }
 
     $.ajax({
         url: ajaxurl,
         data: {
             
-            action: 'thrive_transactions_request',
-            method: 'thrive_transaction_add_ticket',
+            action: 'task_breaker_transactions_request',
+            method: 'task_breaker_transaction_add_ticket',
             
             description: taskDescription,
             
-            title: $('#thriveTaskTitle').val(),
-            milestone_id: $('#thriveTaskMilestone').val(),
-            priority: $('#thrive-task-priority-select').val(),
+            title: $('#task_breakerTaskTitle').val(),
+            milestone_id: $('#task_breakerTaskMilestone').val(),
+            priority: $('#task_breaker-task-priority-select').val(),
 
-            nonce: thriveProjectSettings.nonce,
+            nonce: task_breakerProjectSettings.nonce,
 
-            project_id: thriveTaskConfig.currentProjectId,
-            user_id: thriveTaskConfig.currentUserId
+            project_id: task_breakerTaskConfig.currentProjectId,
+            user_id: task_breakerTaskConfig.currentUserId
         },
 
         method: 'post',
@@ -40,10 +40,10 @@ $('#thrive-submit-btn').click(function(e) {
         success: function( message ) {
 
             // Total tasks view.
-            var total_tasks = parseInt( $('.thrive-total-tasks').text().trim() );
+            var total_tasks = parseInt( $('.task_breaker-total-tasks').text().trim() );
 
             // Remaining tasks view
-            var remaining_tasks = parseInt( $('.thrive-remaining-tasks-count').text().trim() );
+            var remaining_tasks = parseInt( $('.task_breaker-remaining-tasks-count').text().trim() );
 
             message = JSON.parse( message );
 
@@ -55,9 +55,9 @@ $('#thrive-submit-btn').click(function(e) {
 
                 element.removeAttr('disabled');
 
-                $('#thriveTaskDescription').val('');
+                $('#task_breakerTaskDescription').val('');
 
-                $('#thriveTaskTitle').val('');
+                $('#task_breakerTaskTitle').val('');
                 
                 ThriveProjectView.updateStats( message.stats );
 
@@ -66,7 +66,7 @@ $('#thrive-submit-btn').click(function(e) {
 
             } else {
 
-                $('#thrive-add-task-message').html('<p class="error">'+message.response+'</p>').show().addClass('error');
+                $('#task_breaker-add-task-message').html('<p class="error">'+message.response+'</p>').show().addClass('error');
 
               
 
@@ -80,4 +80,4 @@ $('#thrive-submit-btn').click(function(e) {
 
         }
     }); // end $.ajax
-}); // end $('#thrive-submit-btn').click()
+}); // end $('#task_breaker-submit-btn').click()
