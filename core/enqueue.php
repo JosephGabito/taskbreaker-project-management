@@ -19,7 +19,7 @@ function task_breaker_admin_stylesheet() {
 		return;
 	}
 
-	wp_enqueue_style( 'task-breaker-admin-style', TASK_BREAKER_ASSET_URL . '/assets/css/admin.css' );
+	wp_enqueue_style( 'task-breaker-admin-style', TASK_BREAKER_ASSET_URL . 'css/admin.css' );
 
 	return;
 }
@@ -35,7 +35,7 @@ function task_breaker_admin_scripts() {
 	if ( "project" === $post->post_type ) {
 
 		wp_enqueue_script( 'backbone' );
-		wp_enqueue_script( 'task_breaker-admin', TASK_BREAKER_ASSET_URL . '/assets/js/admin.js', array( 'jquery', 'backbone' ), $ver = 1.0, $in_footer = true );
+		wp_enqueue_script( 'task_breaker-admin', TASK_BREAKER_ASSET_URL . 'js/admin.js', array( 'jquery', 'backbone' ), $ver = 1.0, $in_footer = true );
 		// Deregister the culprit.
 		wp_deregister_script( 'vc_accordion_script' );
 		
