@@ -15,7 +15,7 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     model: ThriveProjectModel,
     index: function() {
 
-        this.view.switchView(null, '#thrive-project-tasks-context');
+        this.view.switchView(null, '#task_breaker-project-tasks-context');
 
         this.model.page = 1;
         this.model.id = 0;
@@ -26,29 +26,29 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     },
 
     dashboard: function() {
-        this.view.switchView(null, '#thrive-project-dashboard-context');
+        this.view.switchView(null, '#task_breaker-project-dashboard-context');
     },
     settings: function() {
-        this.view.switchView(null, '#thrive-project-settings-context');
+        this.view.switchView(null, '#task_breaker-project-settings-context');
     },
     add: function() {
-        this.view.switchView(null, '#thrive-project-add-new-context');
-        $('#thrive-project-add-new').css('display', 'block');
+        this.view.switchView(null, '#task_breaker-project-add-new-context');
+        $('#task_breaker-project-add-new').css('display', 'block');
         
-        if ( tinymce.editors.thriveTaskDescription ) {
-            tinymce.editors.thriveTaskDescription.setContent('');
+        if ( tinymce.editors.task_breakerTaskDescription ) {
+            tinymce.editors.task_breakerTaskDescription.setContent('');
         }
     },
     completed_tasks: function() {
 
-        this.view.switchView(null, '#thrive-project-tasks-context');
+        this.view.switchView(null, '#task_breaker-project-tasks-context');
 
         this.model.show_completed = 'yes';
         this.view.render();
     },
     edit: function(task_id) {
         this.view.showEditForm(task_id);
-        $('#thrive-edit-task-message').html('');
+        $('#task_breaker-edit-task-message').html('');
     },
     next: function(page) {
         this.model.page = page;
@@ -57,7 +57,7 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     view_task: function(task_id) {
         this.model.id = task_id;
         this.view.single(task_id);
-        this.view.switchView(null, '#thrive-project-tasks-context');
+        this.view.switchView(null, '#task_breaker-project-tasks-context');
     },
     search: function(keywords) {
         this.model.page = 1;
