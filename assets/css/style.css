@@ -1,0 +1,920 @@
+/**
+ * Load Awesome CSS
+ * @package Ball Clip Rotate
+ */
+.la-ball-clip-rotate {
+    position: relative;
+}
+.la-ball-clip-rotate > div {
+    position: relative;
+    -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+            box-sizing: content-box;
+    color: #fff;
+    background: #fff;
+    border-color: #333;
+    border-style: solid;
+    border-width: 0;
+}
+.la-ball-clip-rotate:after {
+    display: table;
+    line-height: 0;
+    clear: both;
+    content: "";
+}
+.la-ball-clip-rotate.la-dark > div {
+    color: #444;
+    background: #444;
+    border-color: #444;
+}
+
+/*
+ * Animation
+ */
+@-webkit-keyframes ball-clip-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+                transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+    }
+}
+@-moz-keyframes ball-clip-rotate {
+    0% {
+        -moz-transform: rotate(0deg);
+             transform: rotate(0deg);
+    }
+    50% {
+        -moz-transform: rotate(180deg);
+             transform: rotate(180deg);
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+             transform: rotate(360deg);
+    }
+}
+@-o-keyframes ball-clip-rotate {
+    0% {
+        -o-transform: rotate(0deg);
+           transform: rotate(0deg);
+    }
+    50% {
+        -o-transform: rotate(180deg);
+           transform: rotate(180deg);
+    }
+    100% {
+        -o-transform: rotate(360deg);
+           transform: rotate(360deg);
+    }
+}
+@keyframes ball-clip-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+           -moz-transform: rotate(0deg);
+             -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+           -moz-transform: rotate(180deg);
+             -o-transform: rotate(180deg);
+                transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+           -moz-transform: rotate(360deg);
+             -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+    }
+}
+.la-ball-clip-rotate {
+    width: 32px;
+    height: 32px;
+}
+.la-ball-clip-rotate > div {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    float: left;
+    background: transparent !important;
+    border-style: solid;
+    border-width: 2px;
+    border-bottom-color: transparent !important;
+    border-radius: 100%;
+    -webkit-animation: ball-clip-rotate .75s linear infinite;
+       -moz-animation: ball-clip-rotate .75s linear infinite;
+         -o-animation: ball-clip-rotate .75s linear infinite;
+            animation: ball-clip-rotate .75s linear infinite;
+}
+.la-ball-clip-rotate.la-sm {
+    width: 16px;
+    height: 16px;
+}
+.la-ball-clip-rotate.la-sm > div {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    border-width: 1px;
+}
+.la-ball-clip-rotate.la-lg {
+    width: 48px;
+    height: 48px;
+}
+.la-ball-clip-rotate.la-lg > div {
+    width: 42px;
+    height: 42px;
+    margin: 0;
+    border-width: 3px;
+}
+.la-ball-clip-rotate.la-2x {
+    width: 64px;
+    height: 64px;
+}
+.la-ball-clip-rotate.la-2x > div {
+    width: 56px;
+    height: 56px;
+    margin: 0;
+    border-width: 4px;
+}
+/**
+ * Load Awesome CSS End
+ */
+
+/*
+ * Animation
+ */
+@-webkit-keyframes ball-clip-rotate-multiple-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+                transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+    }
+}
+@-moz-keyframes ball-clip-rotate-multiple-rotate {
+    0% {
+        -moz-transform: rotate(0deg);
+             transform: rotate(0deg);
+    }
+    50% {
+        -moz-transform: rotate(180deg);
+             transform: rotate(180deg);
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+             transform: rotate(360deg);
+    }
+}
+@-o-keyframes ball-clip-rotate-multiple-rotate {
+    0% {
+        -o-transform: rotate(0deg);
+           transform: rotate(0deg);
+    }
+    50% {
+        -o-transform: rotate(180deg);
+           transform: rotate(180deg);
+    }
+    100% {
+        -o-transform: rotate(360deg);
+           transform: rotate(360deg);
+    }
+}
+@keyframes ball-clip-rotate-multiple-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+           -moz-transform: rotate(0deg);
+             -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+           -moz-transform: rotate(180deg);
+             -o-transform: rotate(180deg);
+                transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+           -moz-transform: rotate(360deg);
+             -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+    }
+}
+
+/**
+ * ====== 
+ */
+.clearfix{
+    clear: both;
+}
+.hide {
+    display: none;
+}
+
+#thrive-project .html-active .switch-html, 
+#thrive-project .tmce-active .switch-tmce,
+#thrive-project .mce-toolbar .mce-btn button, 
+#thrive-project .qt-dfw,
+#thrive-project .wp-core-ui .quicktags-toolbar input.button.button-small,
+#thrive-project .wp-switch-editor{
+    box-shadow: none;
+    border-radius: 0;
+}
+
+#thrive-project .html-active .switch-html:hover, 
+#thrive-project .tmce-active .switch-tmce:hover,
+#thrive-project .mce-toolbar .mce-btn button:hover, 
+#thrive-project .qt-dfw:hover,
+#thrive-project .wp-core-ui .quicktags-toolbar input.button.button-small:hover,
+#thrive-project .wp-switch-editor:hover {
+    background: #f7f7f7;
+    color: #333;
+}
+
+#thrive-project .wp-editor-area,
+#thrive-project div.mce-panel {
+    border: 1px solid #f7f7f7;
+}
+
+#thrive-preloader{
+	display: none;
+	position: absolute;
+  	z-index: 10;
+  	left: 49%;
+  	top: 49%;
+}
+#thrive-project-tab-li {
+	padding-left: 0;
+	width: 100%;
+	display: inline-block;
+	margin: 0 0 -7px 0;
+}
+
+#thrive-project-tab-li li {
+	list-style: none;
+	display: block;
+	float: left;
+	margin: 0;
+}
+
+#thrive-project-tab-li li a {
+	padding: 10px 20px;
+	background: #eee;
+	border:1px solid #ddd;
+	border-right: 0;
+	display: block;
+}
+
+#thrive-project-tab-li li a#thrive-project-edit-tab {
+	display: none;
+}
+
+#thrive-project-tab-li li.active a {
+	background: #fff;
+	padding: 10.5px 20px;
+	position: relative;
+	border-bottom: 0;
+	z-index: 2;
+	margin-bottom: -1px;
+}
+
+#thrive-project-tab-li li:last-child a{
+	border-right: 1px solid #ddd;
+}
+
+#thrive-project-tab-li li a#thrive-project-add-new {
+    display: none;
+}
+
+/**
+ * Tab Contents
+ */
+#thrive-project-tab-content {
+	position: relative;
+}
+
+#thrive-project-tab-content .thrive-project-tab-content-item {
+	background: #fff;
+	padding: 25px;
+	border: 1px solid #ddd;
+	width: 100%;
+	display: none;
+}
+
+#thrive-project-tab-content .thrive-project-tab-content-item.active {
+	display: block;
+}
+
+#thrive-project-tasks li.thrive-task-item {
+	border-bottom: 1px solid #EEE;
+	padding: 15px 0;
+}
+
+#thrive-project-tasks li.thrive-task-discussion {
+    margin: 0;
+    padding: 0;
+}
+
+#thrive-project-tasks li.thrive-task-discussion  h3 {
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+#thrive-project-tasks ul.thrive-task-item-details:after {
+    content: " ";
+    display: block;
+    clear: both;
+    width: 100%;
+}
+
+#thrive-project-tasks ul.thrive-task-item-details li {
+    list-style: none;
+    margin-bottom: 0;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+/**
+ * Meta
+ */
+.single-project .type-project .entry-footer {
+	display: none;
+}
+
+.single-project #thrive-task-current-page-selector {
+	display: inline-block;
+	width: 25px;
+	text-align: center;
+    padding: 0 5px;
+    margin: 0 5px;
+
+}
+
+.single-project #thrive-project-tasks h3 {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 1.3;
+}
+
+.single-project #thrive-project-tasks ul {
+	padding-left: 0;
+    margin-left: 0;
+    display: table;
+    width: 100%;
+}
+
+.single-project #thrive-project-tasks ul li.thrive-task-item:hover{
+    background: #F7F7F7;
+}
+
+.single-project #thrive-project-tasks ul li .task-user-name {
+    position: absolute;
+    background: #333;
+    color: #fff;
+    padding: 0 10px;
+    border-radius: 5px;
+    left: 95px;
+    top: 5px;
+    display: inline-table;
+    z-index: 2;
+    opacity: 0;
+    text-align: center;
+
+    transition: opacity 0.25 ease-in-out;
+    -moz-transition: opacity 0.25 ease-in-out;
+    -webkit-transition: opacity 0.25 ease-in-out;
+}
+
+.single-project #thrive-single-task-details {
+    padding: 25px;
+    background-color: #F9FBE7;
+    margin-bottom: 35px;
+    border: 1px solid #F0F4C3;
+}
+
+.single-project #thrive-single-task-details .task-content-meta {
+    padding-top: 35px;
+    border-top: 2px dashed rgba(0, 0, 0, 0.1);
+}
+
+.single-project #thrive-single-task-details .task-content {
+    padding: 0 0 35px;
+}
+
+.single-project #thrive-project-tasks ul li .task-user img.avatar {
+    border-radius: 50%;
+}
+
+.single-project .thrive-tabs-tabs ul {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.single-project .thrive-tabs-tabs ul li {
+    float: left;
+    list-style: none;
+}
+
+.single-project .thrive-tabs-tabs ul li a {
+      padding: 5px 15px;
+      display: inline-block;
+      border: 1px solid;
+      margin-right: 15px;
+      border-radius: 25px;
+}
+
+.single-project .thrive-tabs-tabs ul li a.active {
+    color: #4B933E;
+}
+
+.single-project .thrive-tabs-tabs ul li a .dashicons {
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.single-project #thrive-project-tasks ul li .task-user {
+    position: relative;
+}
+
+.single-project #thrive-project-tasks ul li .task-user:hover .task-user-name {
+    opacity: 1;
+}
+.single-project #thrive-project-tasks ul li.thrive-task-item {
+	list-style: none;
+    margin-bottom: 0;
+}
+
+.single-project #thrive-project-tasks ul li.priority {
+    width: 10%;
+    margin-right: 2%;
+}   
+    .task-priority,
+    .single-project #thrive-project-tasks ul li.priority span {
+        background-color: #4CAF50;
+        font-size: 12px;
+        color: #FFF;
+        display: block;
+        padding: 2.5px 10px;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    .task-priority.high,
+    .single-project #thrive-project-tasks li.high ul li.priority span {
+        background: #FB8C00;
+    }
+
+    .task-priority.critical,
+    .single-project #thrive-project-tasks li.critical ul li.priority span {
+        background: #f44336;
+    }
+
+    .task-priority {
+        padding: 10px 20px;
+        display: inline-block;
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+
+.single-project #thrive-project-tasks ul li.details {
+    padding-left: 20px;
+}
+
+.single-project #thrive-project-tasks ul li.details h3 {
+    margin: 0;
+}
+
+.single-project #thrive-project-tasks ul li.last-user-update {
+    width: 15%;
+    text-align: right;
+}
+
+.single-project #thrive-project-tasks h3 a {
+	color: #4B933E;
+}
+
+/**
+ * Navigation
+ */
+.single-project #thrive-project-tasks #thrive-task-paging .next-page,
+.single-project #thrive-project-tasks #thrive-task-paging .prev-page {
+	padding: 10px;
+}
+
+/**
+ * Filters
+ */
+.single-project #thrive-project #thrive-tasks-filter{
+	display: inline-block;
+	width: 100%;
+}
+
+.single-project #thrive-project .screen-reader-text {
+    height: 0;
+    display: block;
+    position: absolute;
+    z-index: -2;
+}
+
+.single-project #thrive-project #thrive-tasks-filter .alignleft,
+.single-project #thrive-project #thrive-tasks-filter .alignright {
+	width: 50%;
+	margin: 0;
+}
+.single-project #thrive-project #thrive-tasks-filter #thrive-task-search-field {
+	width: 65%;
+	float: left;
+	  border: 1px solid #EEE;
+  border-radius: 25px;
+  padding: 7.5px 20px;
+  line-height: 1.3em;
+}
+
+.single-project #thrive-project #thrive-tasks-filter #thrive-task-search-submit {
+	float: left;
+	width: 30%;
+	margin-left: 5%;
+}
+
+/**
+ * Single View
+ */
+#thrive-single-task h2 {
+	line-height: 1.3;
+}
+
+
+#thrive-single-task .task-content ul,
+#thrive-single-task .task-content ol {
+    padding-left: 0;
+}
+
+#thrive-single-task .task-content ol li, 
+#thrive-single-task .task-content ul li {
+    padding: 0;
+    padding-left: 0;
+    list-style: disc;
+    margin: 5px 0 5px 20px;
+}
+
+#thrive-single-task .task-content ol li ol li, 
+#thrive-single-task .task-content ol li ul li, 
+#thrive-single-task .task-content ul li ol li, 
+#thrive-single-task .task-content ul li ul li{
+    margin-left: 3em;
+}
+
+#thrive-single-task .task-content ol li {
+    list-style: decimal;
+}
+
+ #thrive-single-task li {
+        padding: 35px 0;
+        list-style: none;
+    }
+
+    #thrive-single-task li.comment {
+        padding-left: 25px;
+        padding-right: 25px;
+        background-color: #F7F7F7;
+        margin-bottom: 0;
+        border-bottom: 1px solid #E7E7E7;
+    }
+
+    #thrive-single-task li:last-child {
+        border-bottom: 0;
+    }
+
+.task-meta {
+	font-size: 14px;
+	border: 2px solid #EEE;
+	background: #fff;
+	margin-bottom: 30px;
+	padding: 5px 10px;
+}
+	.task-meta p {
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+
+        .task-meta .opened-by {
+            font-weight: bold;
+        }
+
+        .task-meta .added-on {
+            float: right;
+        }
+.task-update-owner {
+	float: left;
+	width: 10%;
+	margin-right: 2.5%;
+}
+.task-update-details {
+	float: left;
+	width: 87.5%;
+}
+/**
+ * Task Editor
+ */
+#task-editor {
+	border: 2px solid #EEE;
+	background: #F7F7F7;
+	padding: 0 25px 25px 25px;
+}
+
+	#task-editor #thrive-task-priority-update-select {
+		background: #fff;
+	}
+
+	#task-editor #task-comment-content {
+		background: #fff;
+	}
+
+    .thrive-edit-comment,
+    .thrive-delete-comment {
+        color: #F44336;
+        font-size: 80%;
+        font-weight: bold;
+    }
+
+    .thrive-edit-comment {
+        color: #d8d8d8;
+    }
+
+/**
+ * Task At A Glance
+ */
+
+#thrive-dashboard-at-a-glance ul {
+    margin: 0;
+    padding: 0;
+}
+
+#thrive-dashboard-at-a-glance ul li {
+    text-align: center;
+    float: left;
+    padding: 0;
+    margin: 0;
+    width: 30%;
+    margin-right: 5%;
+    list-style: none;
+}
+
+#thrive-dashboard-at-a-glance ul li:nth-child(3n) {
+    margin-right: 0;
+}
+
+#thrive-dashboard-at-a-glance ul li .thrive-dashboard-at-a-glance-box {
+    border: 1px solid #D5D1D1;
+    margin: 20px 0 35px;
+    padding: 25px 0;
+    display: block;
+    border-radius: 4px;
+    background-color: #EEE;
+}
+
+/**
+ * Single
+ */
+#thrive-project .group-avatar {
+    float: left;
+    width: 5%;
+}
+
+    #thrive-project .group-avatar img {
+        border-radius: 50%;
+        max-width: 100%;
+    }
+
+#thrive-project .group-details {
+    width: 95%;
+    float: left;
+    padding: 0 20px;
+}
+
+#thrive-project #thrive-single-project-group-details {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/**
+ * Projects Archive
+ */
+
+#thrive-intranet-projects ul#thrive-projects-lists,
+#thrive-intranet-projects ul#thrive-projects-lists li,
+#thrive-intranet-projects ul.thrive-project-meta-stats {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#thrive-intranet-projects ul#thrive-projects-lists li.type-project {
+    margin-bottom: 25px;
+    padding: 25px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+#thrive-intranet-projects ul#thrive-projects-lists li.type-project .thrive-project-title h3 {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+#thrive-intranet-projects ul#thrive-projects-lists li.type-project img.avatar {
+    border-radius: 50%;
+    max-width: 32px;
+    height: auto;
+}
+.thrive-project-meta .task-progress {
+    display: block;
+    width: 100%;
+    position: relative;
+    margin: 40px 0 15px 0;
+}
+
+.thrive-project-meta .task-progress-task-count {
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #616161;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+    .thrive-project-meta .task-progress-task-count {
+        position: relative;
+        background: #616161;
+        border: 1px solid #616161;
+    }
+        .thrive-project-meta .task-progress-task-count:after, .thrive-project-meta .task-progress-task-count:before {
+            top: 100%;
+            left: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+            .thrive-project-meta .task-progress-task-count:after {
+                border-color: rgba(68, 68, 68, 0);
+                border-top-color: #616161;
+                border-width: 5px;
+                margin-left: -5px;
+            }
+                .thrive-project-meta .task-progress-task-count:before {
+                    border-color: rgba(0, 0, 0, 0);
+                    border-top-color: #616161;
+                    border-width: 6px;
+                    margin-left: -6px;
+                }
+
+.thrive-project-meta .task-progress-task-count-wrap {
+    position: absolute;
+    top: -40px;
+    min-width: 100px;
+}
+.thrive-project-meta .task-progress-bar {
+  background: #E0E0E0;
+  border-radius: 25px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border: 1px solid #9E9E9E;
+  box-shadow: inset -2px 2px 1px #BDBDBD;
+}
+
+.thrive-project-meta .task-progress-percentage {
+    background: repeating-linear-gradient(
+      -55deg,
+      #8BC34A,
+      #8BC34A 10px,
+      #9CCC65 10px,
+      #9CCC65 20px
+    );
+    position: relative;
+  color: #38572C;
+  border-radius: 25px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  display: inline-block;
+  margin-bottom: -6px;
+  padding: 0 5px;
+  box-shadow: 1px 0px 0px 0px #538D4D;
+}
+
+.task-progress-percentage-label {
+    padding-right: 15px;
+    font-size: 12px;
+}
+.task-progress-percentage-label > span {
+    min-width: 80px;
+    display: block; 
+}
+/**
+ * Modal
+ */
+
+#thrive-new-project-modal {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.25);
+    display: none;
+}
+
+#thrive-new-project-modal #thrive-modal-content {
+    padding: 25px;
+    background: #fff;
+    box-shadow: 0 1.5px 1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.12);
+    width: 100%;
+    max-width: 500px;
+    margin: 30px auto;
+    position: relative;
+    top: 200px;
+    opacity: 0;
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.675s ease-in-out;
+}
+
+#thrive-new-project-modal #thrive-modal-content.active {
+    opacity: 1;
+    top: 25px;
+}
+
+#thrive-modal-heading {
+    background-color: #03A9F4;
+    margin: -25px -25px 25px -25px;
+    padding: 15px 25px;
+    color: #fff;
+}
+
+#thrive-modal-heading  #thrive-modal-close,
+#thrive-modal-heading  h5{
+    margin: 0;
+    padding: 0;
+}
+
+.thrive-login-lost-password {
+    display: block;
+    float: right;
+    margin: 0;
+}
+
+.thrive-notifier {
+    display: block;
+}
+    .thrive-notifier p {
+        background: #FFFDE7;
+        color: #000;
+        padding: 10px 15px;
+        display: block;
+    }
+        .thrive-notifier p a {
+            text-decoration: underline;
+        }
+
+        .thrive-notifier p.success {
+            background: #689F38;
+            color: #fff;
+        }
+
+            .thrive-notifier p.success a {
+                color: #fff;
+            }
+
+        .thrive-notifier p.error {
+            background: #BF360C;
+            color: rgba(255, 255, 255, 0.870588);
+        }
+            .thrive-notifier p.error a {
+                rgba(255, 255, 255, 0.870588);
+            }
