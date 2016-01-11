@@ -2,7 +2,7 @@
 
 <?php if ( $projects->have_posts() ) { ?>
 
-<ul id="thrive-projects-lists">
+<ul id="task_breaker-projects-lists">
 
 	<?php while ( $projects->have_posts() ) { ?>
 
@@ -12,7 +12,7 @@
 
 		<?php the_post_thumbnail('thumbnail'); ?>
 		
-		<div class="thrive-project-title">
+		<div class="task_breaker-project-title">
 			<h3>
 				<a href="<?php echo the_permalink(); ?>">
 					<?php the_title(); ?>
@@ -20,13 +20,13 @@
 			</h3>
 		</div>
 
-		<div class="thrive-project-meta">
+		<div class="task_breaker-project-meta">
 
-			<?php thrive_project_meta( get_the_ID() ); ?>
+			<?php task_breaker_project_meta( get_the_ID() ); ?>
 
 		</div>
 		
-		<div class="thrive-project-excerpt">
+		<div class="task_breaker-project-excerpt">
 
 			<?php the_excerpt(); ?>
 
@@ -34,27 +34,27 @@
 
 	
 
-		<div class="thrive-project-author">
+		<div class="task_breaker-project-author">
 
-			<?php thrive_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
+			<?php task_breaker_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
 
 		</div>
 	</li>
 
 	<?php } // endwhile ?>
 
-</ul> <!--#thrive-projects-lists-->
+</ul> <!--#task_breaker-projects-lists-->
 
 <div id="project-navigation">
 
-	<?php thrive_project_nav( $projects ); ?>
+	<?php task_breaker_project_nav( $projects ); ?>
 	
 </div>	
 
 <?php } else {  ?>
 
 	<div id="message" class="error">
-		<?php _e( 'There are no projects found. Why not add one?', 'thrive' ); ?>
+		<?php _e( 'There are no projects found. Why not add one?', 'task_breaker' ); ?>
 	</div>
 
 <?php // No Project Found. ?>
