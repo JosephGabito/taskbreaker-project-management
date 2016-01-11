@@ -1,6 +1,6 @@
 var __ThriveProjectModel = Backbone.View.extend({
     id: 0,
-    project_id: thriveProjectSettings.project_id,
+    project_id: task_breakerProjectSettings.project_id,
     page: 1,
     priority: -1,
     current_page: 1,
