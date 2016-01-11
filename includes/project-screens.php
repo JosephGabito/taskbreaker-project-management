@@ -37,7 +37,7 @@ function bp_projects_load_template_filter( $found_template, $templates ) {
 
 		} else {
 
-			$filtered_templates[] = thrive_template_dir() . '/' . $template;
+			$filtered_templates[] = task_breaker_template_dir() . '/' . $template;
 
 		}
 	}
@@ -104,7 +104,7 @@ function bp_projects_add_template_stack( $templates ) {
 	// add our path to the template path array
 	if ( bp_is_current_component( 'projects' ) && ! bp_projects_is_bp_default() ) {
 
-		$templates[] = thrive_template_dir();
+		$templates[] = task_breaker_template_dir();
 	}
 	return $templates;
 }
@@ -180,21 +180,21 @@ function bp_projects_user_template_part( $templates, $slug, $name ) {
 }
 
 function bp_projects_menu_header() {
-	_e( 'Menu Header', 'thrive' );
+	_e( 'Menu Header', 'task_breaker' );
 }
 
 function bp_projects_title() {
-	_e( 'Projects', 'thrive' );
+	_e( 'Projects', 'task_breaker' );
 }
 
 
 function bp_projects_content() {
 
-	echo '<div id="thrive-intranet-projects">';
+	echo '<div id="task_breaker-intranet-projects">';
 
-			$user_groups = thrive_get_displayed_user_groups();
+			$user_groups = task_breaker_get_displayed_user_groups();
 
-			$current_user_groups = thrive_get_current_user_groups();
+			$current_user_groups = task_breaker_get_current_user_groups();
 
 			$groups_collection = array();
 
@@ -218,14 +218,14 @@ function bp_projects_content() {
 			$args = array(
 					'meta_query' => array(
 						array(
-							'key'     => 'thrive_project_group_id',
+							'key'     => 'task_breaker_project_group_id',
 							'value'   => $groups_collection,
 							'compare' => 'IN',
 						),
 					),
 				);
 
-			thrive_project_loop( $args );
+			task_breaker_project_loop( $args );
 
 	echo '</div>';
 
@@ -233,11 +233,11 @@ function bp_projects_content() {
 }
 
 function bp_projects_add_new_title() {
-	_e( 'New Project', 'thrive' );
+	_e( 'New Project', 'task_breaker' );
 }
 
 function bp_projects_add_new_content() {
-	thrive_new_project_form();
+	task_breaker_new_project_form();
 }
 
 /**
@@ -271,7 +271,7 @@ class BP_Projects_Theme_Compat {
 	public function directory_dummy_post() {
 		bp_theme_compat_reset_post( array(
 			'ID'             => 0,
-			'post_title'     => apply_filters( 'thrive_projects_dir_title', __( 'Projects Directory', 'thrive' ) ),
+			'post_title'     => apply_filters( 'task_breaker_projects_dir_title', __( 'Projects Directory', 'task_breaker' ) ),
 			'post_author'    => 0,
 			'post_date'      => 0,
 			'post_content'   => '',
