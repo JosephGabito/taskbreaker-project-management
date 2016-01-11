@@ -442,7 +442,7 @@ function task_breaker_ticket_single($task) {
 		</ul><!--#task-lists-->
 
 		<div id="task-editor">
-			<div id="task-editor_update-status">
+			<div id="task-editor_update-status" class="task_breaker-form-field">
 				<?php
 				$completed = 'no';
 				if ( absint( $task->completed_by ) !== 0 ) {
@@ -508,12 +508,12 @@ function task_breaker_ticket_single($task) {
 				<div class="clearfix"></div>	
 			</div>
 			
-			<div id="task-editor_update-content">
+			<div id="task-editor_update-content" class="task_breaker-form-field">
 				<textarea id="task-comment-content" rows="5" width="100"></textarea>
 			</div>
 
-			<div id="task-editor_update-priority">
-				<label for="task_breaker-task-priority-select">
+			<div id="task-editor_update-priority" class="task_breaker-form-field">
+				<label for="task_breaker-task-priority-select" class="task_breaker-form-field">
 					<?php _e( 'Update Priority:', 'task_breaker' ); ?>
 					<?php task_breaker_task_priority_select( $select = absint( $task->priority ), $name = 'task_breaker-task-priority-update-select', $id = 'task_breaker-task-priority-update-select' );?>
 				</label>
@@ -534,14 +534,21 @@ function task_breaker_comments_template($args = array(), $task = array()) {
 	ob_start(); ?>
 <?php $user = get_userdata( intval( $args['user'] ) ); ?>
 <li class="task-lists-item comment" id="task-update-{$args['id']}">
+	
 	<div class="task-item-update">
+		
 		<div class="task-update-owner">
+			
 			<?php echo get_avatar( $args['user'], 60 ); ?>
+
 		</div>
+		
 		<div class="task-update-details">
+
 			<div class="task-meta">
 				
 				<?php $progress_label = __( 'New Progress by', 'task_breaker' ); ?>
+
 				<?php $task_progress = absint( $args['status'] ); ?>
 				
 				<?php if ( 1 === $task_progress ) { ?>
@@ -773,7 +780,7 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 	</a>
 
 	<?php $group_id = absint( get_post_meta( $post_id, 'task_breaker_project_group_id', true ) ); ?>
-	
+
 	<?php if ( function_exists( 'groups_get_group') ) { ?>
 
 		<?php _e( 'under &raquo;' ); ?>
