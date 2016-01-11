@@ -1,4 +1,4 @@
-$('#thrive-edit-btn').click(function(e) {
+$('#task_breaker-edit-btn').click(function(e) {
 
     e.preventDefault();
 
@@ -8,12 +8,12 @@ $('#thrive-edit-btn').click(function(e) {
     element.text('Loading ...');
 
     var taskDescription = "";
-    var taskDescriptionObject = tinymce.get( 'thriveTaskEditDescription' );
+    var taskDescriptionObject = tinymce.get( 'task_breakerTaskEditDescription' );
 
     if ( taskDescriptionObject ) {
         taskDescription = taskDescriptionObject.getContent();
     } else {
-        taskDescription = $('#thriveTaskEditDescription').val();
+        taskDescription = $('#task_breakerTaskEditDescription').val();
     }
 
     $.ajax({
@@ -22,17 +22,17 @@ $('#thrive-edit-btn').click(function(e) {
         data: {
 
             description: taskDescription,
-            nonce: thriveProjectSettings.nonce,
-            project_id: thriveTaskConfig.currentProjectId,
-            user_id: thriveTaskConfig.currentUserId,
+            nonce: task_breakerProjectSettings.nonce,
+            project_id: task_breakerTaskConfig.currentProjectId,
+            user_id: task_breakerTaskConfig.currentUserId,
 
-            action: 'thrive_transactions_request',
-            method: 'thrive_transaction_edit_ticket',
+            action: 'task_breaker_transactions_request',
+            method: 'task_breaker_transaction_edit_ticket',
 
-            title: $('#thriveTaskEditTitle').val(),
-            milestone_id: $('#thriveTaskMilestone').val(),
-            id: $('#thriveTaskId').val(),
-            priority: $('select[name="thrive-task-edit-priority"]').val()
+            title: $('#task_breakerTaskEditTitle').val(),
+            milestone_id: $('#task_breakerTaskMilestone').val(),
+            id: $('#task_breakerTaskId').val(),
+            priority: $('select[name="task_breaker-task-edit-priority"]').val()
 
         }, 
 
@@ -50,7 +50,7 @@ $('#thrive-edit-btn').click(function(e) {
 
             }
  
-            $('#thrive-edit-task-message').html(message).show();
+            $('#task_breaker-edit-task-message').html(message).show();
 
             element.attr('disabled', false);
 
@@ -63,9 +63,9 @@ $('#thrive-edit-btn').click(function(e) {
         error: function() {
 
             // Todo: Better handling of http errors and timeouts.
-            console.log('An Error Occured [thrive.js]#311');
+            console.log('An Error Occured [task_breaker.js]#311');
 
             return;
         }
     });
-}); // end $('#thrive-edit-btn').click()
+}); // end $('#task_breaker-edit-btn').click()
