@@ -1,5 +1,5 @@
 // Delete Comment Event.
-$('body').on('click', 'a.thrive-delete-comment', function(e) {
+$('body').on('click', 'a.task_breaker-delete-comment', function(e) {
 
     e.preventDefault();
 
@@ -16,10 +16,10 @@ $('body').on('click', 'a.thrive-delete-comment', function(e) {
     var comment_ticket = parseInt($(this).attr('data-comment-id'));
 
     var __http_params = {
-        action: 'thrive_transactions_request',
-        method: 'thrive_transaction_delete_comment',
+        action: 'task_breaker_transactions_request',
+        method: 'task_breaker_transaction_delete_comment',
         comment_id: comment_ticket,
-        nonce: thriveProjectSettings.nonce
+        nonce: task_breakerProjectSettings.nonce
     };
 
     // Send request to server to delete the comment.
