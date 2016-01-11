@@ -41,6 +41,7 @@ require_once plugin_dir_path( __FILE__ ) . 'install/table.php';
 function thrive_localize_plugin() {
 
 	$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
+	
     load_plugin_textdomain( 'thrive', FALSE, $rel_path );
 
     return;
