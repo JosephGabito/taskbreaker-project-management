@@ -236,6 +236,7 @@ class Thrive_Projects_Group extends BP_Group_Extension {
 				?>
 
 				<?php task_breaker_project_loop( $args ); ?>
+				
 			</div>
 
 		<?php
