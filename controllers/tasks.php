@@ -50,7 +50,7 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel{
 
 		// delete the ticket
 		if ( 0 === $id ) {
-			echo 'INVALID [ID] PROVIDED #controllers/thrive-project-tasks@line:34';
+			echo 'INVALID [ID] PROVIDED #controllers/task_breaker-project-tasks@line:34';
 		}
 
 		return $this->setId( $id )->prepare()->delete();
