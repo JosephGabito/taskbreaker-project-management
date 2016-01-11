@@ -2,7 +2,7 @@
 
       var comment_ticket = ThriveProjectModel.id,
           comment_details = $('#task-comment-content').val(),
-          task_priority = $('#thrive-task-priority-update-select').val(),
+          task_priority = $('#task_breaker-task-priority-update-select').val(),
           comment_completed = $('input[name=task_commment_completed]:checked').val(),
           task_project_id = parseInt( ThriveProjectModel.project_id );
 
@@ -18,14 +18,14 @@
       ThriveProjectView.progress(true);
 
       var __http_params = {
-          action: 'thrive_transactions_request',
-          method: 'thrive_transaction_add_comment_to_ticket',
+          action: 'task_breaker_transactions_request',
+          method: 'task_breaker_transaction_add_comment_to_ticket',
           ticket_id: comment_ticket,
           priority: task_priority,
           details: comment_details,
           completed: comment_completed,
           project_id: task_project_id,
-          nonce: thriveProjectSettings.nonce
+          nonce: task_breakerProjectSettings.nonce 
       };
 
       $.ajax({
@@ -51,7 +51,7 @@
                   // enable new radios
                   $('#ticketStatusCompleteUpdate').attr('disabled', false).attr('checked', true);
                   $('#ticketStatusReOpenUpdate').attr('disabled', false);
-                  $('#thrive-comment-completed-radio').removeClass('hide');
+                  $('#task_breaker-comment-completed-radio').removeClass('hide');
 
               }
 
@@ -64,7 +64,7 @@
                   // Disable new radios
                   $('#ticketStatusCompleteUpdate').attr('disabled', true).attr('checked', false);
                   $('#ticketStatusReOpenUpdate').attr('disabled', true);
-                  $('#thrive-comment-completed-radio').addClass('hide');
+                  $('#task_breaker-comment-completed-radio').addClass('hide');
 
               }
 
