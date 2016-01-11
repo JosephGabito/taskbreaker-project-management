@@ -11,20 +11,20 @@
 
 // @reference <https://codex.wordpress.org/Creating_Tables_with_Plugins>
 
-define( 'THRIVE_TASKS_TABLE', 'thrive_tasks' );
-define( 'THRIVE_COMMENTS_TABLE', 'thrive_comments' );
+define( 'TASK_BREAKER_TASKS_TABLE', 'task_breaker_tasks' );
+define( 'TASK_BREAKER_COMMENTS_TABLE', 'task_breaker_comments' );
 
-define( 'THRIVE_TASKS_TABLE_VERSION', '1.0' );
-define( 'THRIVE_COMMENTS_TABLE_VERSION', '1.0' );
+define( 'TASK_BREAKER_TASKS_TABLE_VERSION', '1.0' );
+define( 'TASK_BREAKER_COMMENTS_TABLE_VERSION', '1.0' );
 
-function thrive_install() 
+function task_breaker_install() 
 {
 	
 	// Setup our tasks table.
-	thrive_tasks_setup_table();
+	task_breaker_tasks_setup_table();
 
 	// Setup our tasks comments/discussion table.
-	thrive_comments_setup_table();
+	task_breaker_comments_setup_table();
 
 	return;
 }
@@ -34,11 +34,11 @@ function thrive_install()
  * 
  * @return void
  */
-function thrive_tasks_setup_table() 
+function task_breaker_tasks_setup_table() 
 {
 	global $wpdb;
 
-	$tasks_table_name = $wpdb->prefix . THRIVE_TASKS_TABLE;
+	$tasks_table_name = $wpdb->prefix . TASK_BREAKER_TASKS_TABLE;
 	
 	$charset_collate = $wpdb->get_charset_collate();
 
@@ -61,7 +61,7 @@ function thrive_tasks_setup_table()
 	// Run the dbDelta function with our table specification.
 	dbDelta( $tasks_table_structure );
 
-	add_option( 'thrive_tasks_table_version', THRIVE_TASKS_TABLE_VERSION );
+	add_option( 'task_breaker_tasks_table_version', TASK_BREAKER_TASKS_TABLE_VERSION );
 
 	return;
 }
@@ -71,11 +71,11 @@ function thrive_tasks_setup_table()
  * 
  * @return void
  */
-function thrive_comments_setup_table() 
+function task_breaker_comments_setup_table() 
 {
 	global $wpdb;
 
-	$comments_table_name = $wpdb->prefix . THRIVE_COMMENTS_TABLE;
+	$comments_table_name = $wpdb->prefix . TASK_BREAKER_COMMENTS_TABLE;
 	
 	$charset_collate = $wpdb->get_charset_collate();
 
@@ -95,7 +95,7 @@ function thrive_comments_setup_table()
 	// Run the dbDelta function with our table specification.
 	dbDelta( $comments_table_structure );
 
-	add_option( 'thrive_comments_table_version', THRIVE_COMMENTS_TABLE_VERSION );
+	add_option( 'task_breaker_comments_table_version', TASK_BREAKER_COMMENTS_TABLE_VERSION );
 
 	return;
 }
