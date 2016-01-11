@@ -88,7 +88,7 @@ class ThriveProject {
 		$project_config = array(
 			'post_title'   => $this->get_title(),
 			'post_content' => $this->get_content(),
-			'post_type'    => THRIVE_PROJECT_SLUG,
+			'post_type'    => TASK_BREAKER_PROJECT_SLUG,
 			'post_status'  => 'publish',
 		);
 
@@ -105,8 +105,8 @@ class ThriveProject {
 		if ( $is_returned_ok ) {
 			// If succesfully saved the details into database
 			$this->set_id( $is_returned_ok );
-			// update the thrive_project_group_id custom field
-			update_post_meta( $is_returned_ok, 'thrive_project_group_id', $this->get_group_id() );
+			// update the task_breaker_project_group_id custom field
+			update_post_meta( $is_returned_ok, 'task_breaker_project_group_id', $this->get_group_id() );
 
 			return true;
 
@@ -145,7 +145,7 @@ class ThriveProject {
 			$is_returned_ok = wp_delete_post( $this->get_id() );
 
 			// delete all the task under that project
-			$wpdb->delete( $wpdb->prefix . 'thrive_tasks', array( 'project_id' => $this->get_id() ), array( '%d' ) );
+			$wpdb->delete( $wpdb->prefix . 'task_breaker_tasks', array( 'project_id' => $this->get_id() ), array( '%d' ) );
 
 		}
 
