@@ -4,19 +4,19 @@
  *
  * @since ThriveIntranet 1.0
  */
-do_action( 'thrive_before_projects_directory' ); ?>
+do_action( 'task_breaker_before_projects_directory' ); ?>
 
 <div id="buddypress">
 	
-	<div id="thrive-intranet-projects">
+	<div id="task_breaker-intranet-projects">
 		
-		<?php thrive_new_project_modal(); ?>
+		<?php task_breaker_new_project_modal(); ?>
 
-		<?php thrive_project_loop( array() ); ?>
+		<?php task_breaker_project_loop( array() ); ?>
 		
-	</div><!--#thrive-intranet-projects-->
+	</div><!--#task_breaker-intranet-projects-->
 
 </div><!-- #buddypress -->
 
 <?php
-do_action( 'thrive_after_projects_directory' );
+do_action( 'task_breaker_after_projects_directory' );
