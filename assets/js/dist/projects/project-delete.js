@@ -1,17 +1,17 @@
- $('body').on('click', '#thriveDeleteProjectBtn', function() {
+ $('body').on('click', '#task_breakerDeleteProjectBtn', function() {
 
 
      if ( !confirm('Are you sure you want to delete this project? All the tickets under this project will be deleted as well. This action cannot be undone.')) {
          return;
      }
 
-     var project_id = $('#thrive-project-id').val();
+     var project_id = $('#task_breaker-project-id').val();
 
      var __http_params = {
-         action: 'thrive_transactions_request',
-         method: 'thrive_transactions_delete_project',
+         action: 'task_breaker_transactions_request',
+         method: 'task_breaker_transactions_delete_project',
          id: project_id,
-         nonce: thriveProjectSettings.nonce
+         nonce: task_breakerProjectSettings.nonce
      };
 
      $(this).text('Deleting...');
