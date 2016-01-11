@@ -12,7 +12,7 @@ define( 'WP_TESTS_DIR', '/Applications/MAMP/htdocs/trunk/tests/phpunit/' );
 /**
  * The path to the main file of the plugin to test.
  */
-define( 'TEST_PLUGIN_FILE', '../thrive-intranet.php' );
+define( 'TEST_PLUGIN_FILE', '../task_breaker-intranet.php' );
  
 /**
  * The WordPress tests functions.
