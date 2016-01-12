@@ -276,7 +276,7 @@ function task_breaker_transaction_edit_ticket() {
 
 		$json_response['type'] = 'required';
 
-		if ( !empty( $title ) && !empty( $description ) ) {
+		if ( ! empty( $title ) && ! empty( $description ) ) {
 
 			$json_response['type'] = 'no_changes';
 
