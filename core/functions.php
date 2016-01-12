@@ -322,9 +322,9 @@ function task_breaker_the_tasks($args) {
 					<li class="details">
 						<h3>
 							<a href="#tasks/view/<?php echo intval( $task->id ); ?>">
-								<span class="task-id">#<?php echo intval( $task->id );?></span> - 
 								<?php echo esc_html( stripslashes( $task->title ) ); ?>
-								
+								 - 
+								<span class="task-id"> #<?php echo intval( $task->id );?></span>  
 							</a>
 						</h3>
 					</li>
@@ -389,11 +389,14 @@ if ( 0 !== $total ) {
 return ob_get_clean();
 }
 
-function task_breaker_ticket_single($task) {
+function task_breaker_ticket_single( $task ) {
+
 	ob_start(); ?>
+
 	<div id="task_breaker-single-task">
-		
+
 		<div id="task_breaker-single-task-details">
+			
 			<?php
 				$priority_label = array(
 					'1' => __( 'Normal', 'task_breaker' ),
@@ -401,9 +404,20 @@ function task_breaker_ticket_single($task) {
 					'3' => __( 'Critical', 'task_breaker' ),
 				);
 			?>
+
 			<div class="task-priority <?php echo sanitize_title( $priority_label[$task->priority] ); ?>">
 				<?php echo esc_html( $priority_label[$task->priority] ); ?>
 			</div>
+			
+			<?php if ( 0 != $task->completed_by ) { ?>
+				<div class="task-status completed">
+					<?php esc_html_e( 'Completed', 'task_breaker' ); ?>
+				</div>
+			<?php } else { ?>
+				<div class="task-status open">
+					<?php esc_html_e( 'Open', 'task_breaker' ); ?>
+				</div>
+			<?php } ?>	
 			<h2>
 				<?php echo esc_html( $task->title ); ?>
 				<span class="clearfix"></span>
