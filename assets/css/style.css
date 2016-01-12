@@ -282,7 +282,6 @@
 
 #task_breaker-project-tab-li li.active a {
 	background: #fff;
-	padding: 10.5px 20px;
 	position: relative;
 	border-bottom: 0;
 	z-index: 2;
@@ -952,11 +951,12 @@
     display: inline-block;
     font-size: 11px;
     text-align: center;
-    padding: 1px 2.5px 0 2.5px;
+    padding: 0 2.5px 0 2.5px;
     border-radius: 20px;
     margin-left: 5px;
     position: relative;
     top: -1px;
     min-width: 25px;
     min-height: 25px;
+    line-height: 25px;
 }           
