@@ -10,10 +10,6 @@
           return;
       }
 
-      if (0 === comment_details.length) {
-          return;
-      }
-
       // notify the user when submitting the comment form
       ThriveProjectView.progress(true);
 
