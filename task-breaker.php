@@ -23,6 +23,8 @@ define( 'TASK_BREAKER_ASSET_URL', plugin_dir_url(__FILE__) . 'assets/' );
 
 // Setup the tables on activation.
 register_activation_hook( __FILE__, 'task_breaker_install' );
+// Migration over the old version
+register_activation_hook( __FILE__, 'task_breaker_import_thrive_intranet_data' );
 
 // Plugin l10n.
 add_action( 'plugins_loaded', 'task_breaker_localize_plugin' );
