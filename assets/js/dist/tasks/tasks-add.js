@@ -27,7 +27,7 @@ $('#task_breaker-submit-btn').click(function(e) {
             
             title: $('#task_breakerTaskTitle').val(),
             milestone_id: $('#task_breakerTaskMilestone').val(),
-            priority: $('#task_breaker-task-priority-select').val(),
+            priority: $('select#task_breaker-task-priority-select').val(),
 
             nonce: task_breakerProjectSettings.nonce,
 
