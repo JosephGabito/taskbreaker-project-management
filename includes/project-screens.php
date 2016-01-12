@@ -207,8 +207,8 @@ function bp_projects_content() {
 		}
 	}
 
-			// If there are no groups found assign negative value
-			// so that WP_Query will return empty result
+	// If there are no groups found assign negative value
+	// so that WP_Query will return empty result
 	if ( empty( $groups_collection ) ) {
 
 		$groups_collection = array( -1 );

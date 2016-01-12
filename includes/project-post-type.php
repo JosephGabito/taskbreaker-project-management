@@ -39,7 +39,6 @@ function task_breaker_projects_register_post_type() {
 		'has_archive'        => false,
 		'hierarchical'       => false,
 		'menu_position'      => null,
-		'register_meta_box_cb'      => 'task_breaker_project_meta_box',
 		'supports'           => array( 'title', 'editor', 'custom-fields' ),
 	);
 
@@ -47,67 +46,6 @@ function task_breaker_projects_register_post_type() {
 
 	return;
 }
-
-
-add_action( 'add_meta_boxes_post' ,'task_breaker_project_meta_box' );
-
-function task_breaker_project_meta_box() {
-	
-	wp_enqueue_script( 'jquery-ui-datepicker' );
-
-	add_meta_box(
-		'task_breaker_tasks_metabox',
-		__( 'Tasks', 'task_breaker' ),
-		'task_breaker_tasks_metabox_content',
-		'project',
-		'advanced',
-		'high'
-	);
-
-}
-
-function task_breaker_tasks_metabox_content() {
-	?>
-	<div id="task_breaker-tasks" class="task_breaker-tabs">
-		<div id="task_breaker-action-preloader" class="active">
-			<span><?php _e( 'Loading', 'task_breaker' ); ?> &hellip;</span>
-		</div> 
-		<div class="task_breaker-tabs-tabs">
-			<ul>
-			    <li id="task_breaker-task-list-tab" class="task_breaker-task-tabs ui-state-active"><a href="#tasks"><span class="dashicons dashicons-list-view"></span> Tasks List</a></li>
-			    <li id="task_breaker-task-completed-tab" class="task_breaker-task-tabs"><a href="#tasks/completed"><span class="dashicons dashicons-yes"></span> Completed</a></li>
-			    <li id="task_breaker-task-add-tab" class="task_breaker-task-tabs"><a href="#tasks/add"><span class="dashicons dashicons-plus"></span> New Task</a></li>
-			    <li id="task_breaker-task-edit-tab" class="task_breaker-task-tabs hidden" id="task_breaker-edit-task-list"><a href="#task_breaker-edit-task">Edit Task</a></li>
-			</ul>
-		</div>
-		<div class="task_breaker-tabs-content">
-			<div id="task_breaker-task-list" class="task_breaker-tab-item-content active">
-				<?php if ( function_exists( 'task_breaker_render_task' ) ) {?>
-					<?php task_breaker_render_task(); ?>
-				<?php } ?>
-			</div>
-
-			<div id="task_breaker-add-task" class="task_breaker-tab-item-content">
-				<?php task_breaker_add_task_form(); ?>
-			</div><!--.#task_breaker-add-task-->
-
-			<div id="task_breaker-edit-task" class="task_breaker-tab-item-content">
-				<?php task_breaker_edit_task_form(); ?>
-			</div><!--.#task_breaker-edit-task-->
-			
-		</div>
-	</div>
-	<script>
-		<?php global $post; ?>
-		var task_breakerAjaxUrl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
-		var task_breakerTaskConfig = {
-			currentProjectId: '<?php echo $post->ID; ?>',
-			currentUserId: '<?php echo get_current_user_id(); ?>',
-		}
-	</script>
-	<?php
-}
-
 
 add_action( 'wp', 'task_breaker_filter_single_project' );
 
