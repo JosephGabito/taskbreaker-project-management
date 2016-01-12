@@ -592,7 +592,7 @@ class ThriveProjectTasksModel {
 		return $this;
 	}
 
-	public function getTaskStatistics( $project_id = 0 ) {
+	public function getTaskStatistics( $project_id = 0, $task_id = 0 ) {
 
 		if ( 0 === $project_id ) {
 
@@ -612,9 +612,37 @@ class ThriveProjectTasksModel {
 				'total' 	=> $task_total,
 				'completed' => $task_total_completed,
 				'remaining' => $task_total_open,
+				'status'    => null,
 				'progress'  => sprintf( __('%s Completed', 'task_breaker'), $task_progress )
 			); 
 		
+
+		// If there is a task id, fetch the task using its ID
+		if ( $task_id > 0 ) {
+
+			$the_task = $this->fetch( array( 'id' => intval( $task_id ) ) );
+
+			if ( $the_task ) {
+
+				$priority = $this->getPriority( $the_task->priority );
+				
+				$completed_by = $the_task->completed_by;
+
+				$task_status = __('Open', 'task_breaker');
+
+				if ( $completed_by >= 1 ) {
+					
+					$task_status = __('Completed', 'task_breaker');
+
+				}
+
+				$stats['status'] = array(
+						'task_id' => intval( $task_id ),
+						'task_status' => $task_status,
+						'priority' => $priority
+					);
+			}
+		}
 
 		return $stats;
 	}
