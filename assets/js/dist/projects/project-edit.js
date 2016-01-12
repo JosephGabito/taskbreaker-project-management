@@ -56,6 +56,8 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
                     '</div>'
                 );
 
+                location.reload();
+
             } else {
 
                 element.parent().parent().prepend(
