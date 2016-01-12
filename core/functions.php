@@ -124,6 +124,7 @@ function task_breaker_render_task($args = array()) {
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
 	$task_breaker_tasks = new ThriveProjectTasksController();
+	
 	$tasks = $task_breaker_tasks->renderTasks( $args );
 	$stats = $tasks['stats'];
 	$tasks = $tasks['results'];
@@ -405,16 +406,16 @@ function task_breaker_ticket_single( $task ) {
 				);
 			?>
 
-			<div class="task-priority <?php echo sanitize_title( $priority_label[$task->priority] ); ?>">
+			<div id="task-details-priority" class="task-priority <?php echo sanitize_title( $priority_label[$task->priority] ); ?>">
 				<?php echo esc_html( $priority_label[$task->priority] ); ?>
 			</div>
 			
 			<?php if ( 0 != $task->completed_by ) { ?>
-				<div class="task-status completed">
+				<div id="task-details-status" class="task-status completed">
 					<?php esc_html_e( 'Completed', 'task_breaker' ); ?>
 				</div>
 			<?php } else { ?>
-				<div class="task-status open">
+				<div id="task-details-status" class="task-status open">
 					<?php esc_html_e( 'Open', 'task_breaker' ); ?>
 				</div>
 			<?php } ?>	
