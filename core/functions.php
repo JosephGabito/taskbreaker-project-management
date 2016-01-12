@@ -592,7 +592,7 @@ function task_breaker_comments_template($args = array(), $task = array()) {
 				<?php if ( $current_user_id == $args['user'] or current_user_can( 'administrator' ) ) { ?>
 					<?php // Delete link. ?>
 					<a href="#" title="<?php _e( 'Delete comment', 'task_breaker' ); ?>" data-comment-id="<?php echo absint( $args['id'] ); ?>" class="task_breaker-delete-comment">
-						<?php _e( 'Delete', 'task_breaker' ); ?>
+						<?php _e( 'Remove Comment', 'task_breaker' ); ?>
 					</a>
 
 				<?php } ?>
