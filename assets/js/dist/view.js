@@ -256,6 +256,17 @@ var __ThriveProjectView = Backbone.View.extend({
 
     updateStats: function( stats ) {
 
+        var priority = stats.status.priority;
+        var task_status = stats.status.task_status;
+
+        if ( task_status ) {
+            $('#task-details-status').text( task_status ).removeClass("open close").addClass( task_status.toLowerCase() );
+        }
+        
+        if ( priority ) { 
+            $('#task-details-priority').text( priority ).removeClass("normal high critical").addClass( priority.toLowerCase() );
+        }
+
         $( '.task_breaker-total-tasks' ).text( stats.total );
         $( '.task_breaker-remaining-tasks-count' ).text( stats.remaining );
         $( '.task-progress-completed' ).text( stats.completed );
