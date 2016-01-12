@@ -453,11 +453,11 @@ class ThriveProjectTasksModel {
 				'date_created' => date("Y-m-d H:i:s")
 			);
 
-		if ( empty( $this->title ) ) {
+		if ( empty( trim( $this->title ) ) ) {
 			return false;
 		}
 
-		if ( empty( $this->description ) ) {
+		if ( empty( trim( $this->description ) ) ) {
 			return false;
 		}
 
