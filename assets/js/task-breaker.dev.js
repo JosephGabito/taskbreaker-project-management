@@ -275,6 +275,17 @@ var __ThriveProjectView = Backbone.View.extend({
 
     updateStats: function( stats ) {
 
+        var priority = stats.status.priority;
+        var task_status = stats.status.task_status;
+
+        if ( task_status ) {
+            $('#task-details-status').text( task_status ).removeClass("open close").addClass( task_status.toLowerCase() );
+        }
+        
+        if ( priority ) { 
+            $('#task-details-priority').text( priority ).removeClass("normal high critical").addClass( priority.toLowerCase() );
+        }
+
         $( '.task_breaker-total-tasks' ).text( stats.total );
         $( '.task_breaker-remaining-tasks-count' ).text( stats.remaining );
         $( '.task-progress-completed' ).text( stats.completed );
@@ -589,13 +600,13 @@ $('#task_breaker-edit-btn').click(function(e) {
 
   $('body').on('click', '#updateTaskBtn', function() {
 
-      var comment_ticket = ThriveProjectModel.id,
+      var comment_ticket_id = ThriveProjectModel.id,
           comment_details = $('#task-comment-content').val(),
           task_priority = $('#task_breaker-task-priority-update-select').val(),
           comment_completed = $('input[name=task_commment_completed]:checked').val(),
           task_project_id = parseInt( ThriveProjectModel.project_id );
 
-      if (0 === comment_ticket) {
+      if (0 === comment_ticket_id) {
           return;
       }
 
@@ -609,7 +620,7 @@ $('#task_breaker-edit-btn').click(function(e) {
       var __http_params = {
           action: 'task_breaker_transactions_request',
           method: 'task_breaker_transaction_add_comment_to_ticket',
-          ticket_id: comment_ticket,
+          ticket_id: comment_ticket_id,
           priority: task_priority,
           details: comment_details,
           completed: comment_completed,
@@ -656,11 +667,8 @@ $('#task_breaker-edit-btn').click(function(e) {
                   $('#task_breaker-comment-completed-radio').addClass('hide');
 
               }
-
-             // console.log(response.stats);
-
+              // console.log(response.stats);
               ThriveProjectView.updateStats( response.stats );
-              
           },
           error: function() {
 
