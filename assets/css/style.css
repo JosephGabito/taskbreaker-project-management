@@ -287,6 +287,7 @@
 	border-bottom: 0;
 	z-index: 2;
 	margin-bottom: -1px;
+    border-top: 1px solid;
 }
 
 #task_breaker-project-tab-li li:last-child a{
@@ -328,7 +329,8 @@
 
 #task_breaker-project-tasks li.task_breaker-task-discussion  h3 {
     margin-bottom: 20px;
-    font-size: 32px;
+    font-size: 24px;
+    font-weight: normal;
 }
 
 #task_breaker-project-tasks ul.task_breaker-task-item-details:after {
@@ -364,7 +366,7 @@
 
 .single-project #task_breaker-project-tasks h3 {
 	font-size: 16px;
-	font-weight: bold;
+	font-weight: normal;
 	line-height: 1.3;
 }
 
@@ -373,6 +375,7 @@
     margin-left: 0;
     display: table;
     width: 100%;
+    margin-bottom: 0;
 }
 
 .single-project #task_breaker-project-tasks ul li.task_breaker-task-item:hover{
@@ -400,12 +403,12 @@
 
 
 .single-project #task_breaker-single-task-details .task-content-meta {
-    padding-top: 35px;
+    padding-top: 15px;
     border-top: 2px dashed rgba(0, 0, 0, 0.1);
 }
 
 .single-project #task_breaker-single-task-details .task-content {
-    padding: 0 0 35px;
+    padding: 0 0 15px;
 }
 
 .single-project #task_breaker-project-tasks ul li .task-user img.avatar {
@@ -426,11 +429,15 @@
 }
 
 .single-project .task_breaker-tabs-tabs ul li a {
-      padding: 5px 15px;
+      padding: 5px 5px 5px 15px;
       display: inline-block;
       border: 1px solid;
       margin-right: 15px;
       border-radius: 25px;
+}
+
+.single-project li#task_breaker-task-add-tab a {
+    padding-right: 15px;
 }
 
 .single-project .task_breaker-tabs-tabs ul li a.active {
@@ -438,8 +445,8 @@
 }
 
 .single-project .task_breaker-tabs-tabs ul li a .dashicons {
-    font-size: 16px;
-    padding-top: 5px;
+    font-size: 20px;
+    padding-top: 0.5px;
 }
 
 .single-project #task_breaker-project-tasks ul li .task-user {
@@ -465,7 +472,7 @@
         color: #FFF;
         display: block;
         padding: 2.5px 10px;
-        border-radius: 4px;
+        border-radius: 0;
         text-align: center;
     }
 
@@ -483,7 +490,24 @@
         padding: 10px 20px;
         display: inline-block;
         margin-bottom: 15px;
-        font-size: 16px;
+        font-size: 14px;
+    }
+
+    .task-status {
+         padding: 10px 20px;
+        display: inline-block;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    .task-status.completed {
+        background: #FF5722;
+        color: #fff;
+    }
+
+    .task-status.open {
+        background: #3F51B5;
+        color: #fff;
     }
 
 .single-project #task_breaker-project-tasks ul li.details {
@@ -550,7 +574,9 @@
  * Single View
  */
 #task_breaker-single-task h2 {
-	line-height: 1.3;
+    line-height: 1.3;
+    font-weight: normal;
+    font-size: 24px;
 }
 
 
@@ -918,4 +944,19 @@
 
 .task_breaker-form-field {
     margin: 15px 0;
-}            
+}
+
+.task_breaker-task-count {
+    background: #FF5722;
+    color: #FFF;
+    display: inline-block;
+    font-size: 11px;
+    text-align: center;
+    padding: 1px 2.5px 0 2.5px;
+    border-radius: 20px;
+    margin-left: 5px;
+    position: relative;
+    top: -1px;
+    min-width: 25px;
+    min-height: 25px;
+}           
