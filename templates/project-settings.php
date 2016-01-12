@@ -31,18 +31,31 @@
 	<div class="task_breaker-form-field">
 
 		<label for="task_breaker-project-assigned-group">
+			
 			<?php _e('Assign to Group:', 'task_breaker'); ?>
+
 		</label>
 		
 		<?php $current_user_groups = task_breaker_get_current_user_groups(); ?>
-		<?php //print_r($current_user_groups); ?>
+		
+		<?php $current_project_group = intval( get_post_meta( $post->ID, 'task_breaker_project_group_id', true ) ); ?>
+
 		<?php if ( !empty($current_user_groups) ) { ?>
+
 			<select name="task_breaker-project-assigned-group" id="task_breaker-project-assigned-group">
+
 				<?php foreach( $current_user_groups as $group ) { ?>
-					<option value="<?php echo absint( $group['group_id'] ); ?>">
+
+					<?php $selected = absint( $group['group_id'] ) == $current_project_group ? 'selected' : '';?>
+
+					<option <?php echo $selected; ?> value="<?php echo absint( $group['group_id'] ); ?>">
+
 						<?php echo esc_html( $group['name'] ); ?>
+
 					</option>
+
 				<?php } ?>
+
 			</select>
 		<?php } ?>
 	
