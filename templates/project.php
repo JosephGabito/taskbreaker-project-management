@@ -24,14 +24,14 @@
 
 	<div id="task_breaker-dashboard-at-a-glance">
 		<?php 
+
 		// Total tasks.
 		$total     = intval( task_breaker_count_tasks( $post->ID ) ); 
-
 		// Completed tasks.
 		$completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
-
 		// Remaining Tasks.
 		$remaining = absint( $total - $completed );
+		
 		?>
 		<h3>
 			<?php _e('At a Glance', 'task_breaker'); ?>
