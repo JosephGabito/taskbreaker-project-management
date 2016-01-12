@@ -11,8 +11,8 @@
 
 	<div class="task_breaker-form-field">
 		<input placeholder="Task Title" type="text" id="task_breakerTaskTitle" maxlength="160" name="title" class="widefat"/>
-		<br><span class="description"><?php _e('Enter the title of this task. Max 160 characters', 'task_breaker'); ?></span>
-	</div><br/>
+		<span class="description"><?php _e('Enter the title of this task. Max 160 characters', 'task_breaker'); ?></span>
+	</div>
 	
 	<div class="task_breaker-form-field">
 		<?php $args = array(
@@ -22,9 +22,11 @@
 		); ?>
 		
 		<?php echo wp_editor($content = null, $editor_id = "task_breakerTaskDescription", $args); ?>
-
-		<br><span class="description"><?php _e('In few words, explain what this task is all about', 'task_breaker'); ?></span>
-	</div><br />
+		<span class="description">
+			<br>
+			<?php _e('In few words, explain what this task is all about', 'task_breaker'); ?>
+		</span>
+	</div>
 
 	<div class="task_breaker-form-field">
 		<label for="task_breaker-task-priority-select">
