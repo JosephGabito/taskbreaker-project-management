@@ -274,14 +274,19 @@ var __ThriveProjectView = Backbone.View.extend({
     },
 
     updateStats: function( stats ) {
+        
+        var priority = null;
+        var task_status = null;
 
-        var priority = stats.status.priority;
-        var task_status = stats.status.task_status;
-
+        if ( stats.status ) {
+            priority = stats.status.priority;
+            task_status = stats.status.task_status;
+        }
+        
         if ( task_status ) {
             $('#task-details-status').text( task_status ).removeClass("open close").addClass( task_status.toLowerCase() );
         }
-        
+
         if ( priority ) { 
             $('#task-details-priority').text( priority ).removeClass("normal high critical").addClass( priority.toLowerCase() );
         }
@@ -411,7 +416,7 @@ $('#task_breaker-submit-btn').click(function(e) {
             
             title: $('#task_breakerTaskTitle').val(),
             milestone_id: $('#task_breakerTaskMilestone').val(),
-            priority: $('#task_breaker-task-priority-select').val(),
+            priority: $('select#task_breaker-task-priority-select').val(),
 
             nonce: task_breakerProjectSettings.nonce,
 
@@ -610,10 +615,6 @@ $('#task_breaker-edit-btn').click(function(e) {
           return;
       }
 
-      if (0 === comment_details.length) {
-          return;
-      }
-
       // notify the user when submitting the comment form
       ThriveProjectView.progress(true);
 
@@ -790,6 +791,8 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
                     '<p>Project details successfully updated.</p>' +
                     '</div>'
                 );
+
+                location.reload();
 
             } else {
 
