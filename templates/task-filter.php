@@ -1,9 +1,44 @@
+<?php
+/**
+ * This file handles the filter for tasks
+ * 
+ * @since  1.0 
+ */
+
+global $post;
+
+// Total tasks.
+$total = intval( task_breaker_count_tasks( $post->ID ) ); 
+
+// Completed tasks.
+$completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
+
+// Remaining Tasks.
+$remaining = absint( $total - $completed );
+
+?>	
 	<div id="task_breaker-tasks-filter">
 		<div class="clearfix">
 			<div class="task_breaker-tabs-tabs">
 				<ul>
-				    <li id="task_breaker-task-list-tab" class="task_breaker-task-tabs active"><a href="#tasks"><span class="dashicons dashicons-list-view"></span> Tasks List</a></li>
-				    <li id="task_breaker-task-completed-tab" class="task_breaker-task-tabs"><a href="#tasks/completed"><span class="dashicons dashicons-yes"></span> Completed</a></li>
+				    <li id="task_breaker-task-list-tab" class="task_breaker-task-tabs active">
+				    	<a href="#tasks" title="<?php _e('Tasks', 'task_breaker'); ?>">
+				    		<span class="dashicons dashicons-list-view"></span> 
+				    		<?php _e('Tasks', 'task_breaker'); ?>
+			    			<span class="task_breaker-remaining-tasks-count task_breaker-task-count">
+			    				<?php echo esc_html( $remaining ); ?>
+			    			</span>
+				    	</a>
+				    </li>
+				    <li id="task_breaker-task-completed-tab" class="task_breaker-task-tabs">
+				    	<a href="#tasks/completed" title="<?php _e('Tasks', 'tasl_breaker'); ?>">
+				    		<span class="dashicons dashicons-yes"></span> 
+				    		<?php _e('Completed', 'task_breaker'); ?>
+			    			<span class="task-progress-completed task_breaker-task-count">
+			    				<?php echo esc_html( $completed ); ?>
+			    			</span>
+				    	</a>
+				    </li>
 				    <li id="task_breaker-task-add-tab" class="task_breaker-task-tabs"><a href="#tasks/add"><span class="dashicons dashicons-plus"></span> New Task</a></li>
 				    <li id="task_breaker-task-edit-tab" class="task_breaker-task-tabs hidden" style="display: none;"><a href="#task_breaker-edit-task">Edit Task</a></li>
 				</ul>
