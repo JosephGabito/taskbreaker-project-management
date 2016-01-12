@@ -255,14 +255,19 @@ var __ThriveProjectView = Backbone.View.extend({
     },
 
     updateStats: function( stats ) {
+        
+        var priority = null;
+        var task_status = null;
 
-        var priority = stats.status.priority;
-        var task_status = stats.status.task_status;
-
+        if ( stats.status ) {
+            priority = stats.status.priority;
+            task_status = stats.status.task_status;
+        }
+        
         if ( task_status ) {
             $('#task-details-status').text( task_status ).removeClass("open close").addClass( task_status.toLowerCase() );
         }
-        
+
         if ( priority ) { 
             $('#task-details-priority').text( priority ).removeClass("normal high critical").addClass( priority.toLowerCase() );
         }
