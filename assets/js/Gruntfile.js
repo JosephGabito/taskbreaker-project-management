@@ -30,7 +30,7 @@ grunt.initConfig({
     uglify: {
         my_target: {
             files: {
-                "task-breaker.min.js": ["task_breaker.dev.js"]
+                "task-breaker.min.js": ["task-breaker.dev.js"]
             }
         },
         options: {
@@ -79,7 +79,7 @@ grunt.initConfig({
     },
 
     jshint: {
-        all: ['task_breaker.dev.js']
+        all: ['task-breaker.dev.js']
     }
 
 });
