@@ -371,15 +371,16 @@ function task_breaker_transaction_add_comment_to_ticket() {
 	if ( $completed === 'yes' ) {
 		$task->completeTask( $ticket_id, $user_id );
 	}
-		// Reopen task
+	
+	// Reopen task
 	if ( $completed === 'reopen' ) {
 		$task->renewTask( $ticket_id );
 	}
 
 	if ( empty( $user_id ) ) {
 		task_breaker_api_message(array(
-				'message' => 'fail',
-			));
+			'message' => 'fail',
+		));
 	}
 
 	$new_comment = $comment->set_details( $details )
@@ -394,7 +395,7 @@ function task_breaker_transaction_add_comment_to_ticket() {
 
 		task_breaker_api_message(array(
 				'message' => 'success',
-				'stats' => $task->getTaskStatistics( $project_id ),
+				'stats' => $task->getTaskStatistics( $project_id, $ticket_id ),
 				'result' => task_breaker_comments_template( $added_comment ),
 			));
 	}
