@@ -98,10 +98,6 @@ class ThriveComments {
 	 */
 	public function set_details($details = '') {
 
-		if ( empty( $details ) ) {
-			throw new Exception( 'Model/Comments/:details must not be empty' );
-		}
-
 		$this->details = $details;
 
 		return $this;
@@ -162,7 +158,6 @@ class ThriveComments {
 	 */
 	public function save() {
 
-		if ( empty( $this->details ) ) { return false; }
 		if ( empty( $this->user ) ) { return false; }
 		if ( empty( $this->ticket_id ) ) { return false; }
 
