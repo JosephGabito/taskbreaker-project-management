@@ -214,7 +214,7 @@
 }
 
 /**
- * ====== 
+ * ======
  */
 .clearfix{
     clear: both;
@@ -223,9 +223,9 @@
     display: none;
 }
 
-#task_breaker-project .html-active .switch-html, 
+#task_breaker-project .html-active .switch-html,
 #task_breaker-project .tmce-active .switch-tmce,
-#task_breaker-project .mce-toolbar .mce-btn button, 
+#task_breaker-project .mce-toolbar .mce-btn button,
 #task_breaker-project .qt-dfw,
 #task_breaker-project .wp-core-ui .quicktags-toolbar input.button.button-small,
 #task_breaker-project .wp-switch-editor{
@@ -233,9 +233,9 @@
     border-radius: 0;
 }
 
-#task_breaker-project .html-active .switch-html:hover, 
+#task_breaker-project .html-active .switch-html:hover,
 #task_breaker-project .tmce-active .switch-tmce:hover,
-#task_breaker-project .mce-toolbar .mce-btn button:hover, 
+#task_breaker-project .mce-toolbar .mce-btn button:hover,
 #task_breaker-project .qt-dfw:hover,
 #task_breaker-project .wp-core-ui .quicktags-toolbar input.button.button-small:hover,
 #task_breaker-project .wp-switch-editor:hover {
@@ -463,7 +463,7 @@
 .single-project #task_breaker-project-tasks ul li.priority {
     width: 10%;
     margin-right: 2%;
-}   
+}
     .task-priority,
     .single-project #task_breaker-project-tasks ul li.priority span {
         background-color: #4CAF50;
@@ -584,7 +584,7 @@
     padding-left: 0;
 }
 
-#task_breaker-single-task .task-content ol li, 
+#task_breaker-single-task .task-content ol li,
 #task_breaker-single-task .task-content ul li {
     padding: 0;
     padding-left: 0;
@@ -592,9 +592,9 @@
     margin: 5px 0 5px 20px;
 }
 
-#task_breaker-single-task .task-content ol li ol li, 
-#task_breaker-single-task .task-content ol li ul li, 
-#task_breaker-single-task .task-content ul li ol li, 
+#task_breaker-single-task .task-content ol li ol li,
+#task_breaker-single-task .task-content ol li ul li,
+#task_breaker-single-task .task-content ul li ol li,
 #task_breaker-single-task .task-content ul li ul li{
     margin-left: 3em;
 }
@@ -657,9 +657,9 @@
 	padding: 0 25px 25px 25px;
 }
 
-	#task-editor #task_breaker-task-priority-update-select {
-		background: #fff;
-	}
+    #task-editor label[for=ticketStatusInProgress] {
+        margin-right: 10px;
+    }
 
 	#task-editor #task-comment-content {
 		background: #fff;
@@ -853,7 +853,7 @@
 }
 .task-progress-percentage-label > span {
     min-width: 80px;
-    display: block; 
+    display: block;
 }
 /**
  * Modal
@@ -959,4 +959,4 @@
     min-width: 25px;
     min-height: 25px;
     line-height: 25px;
-}           
+}
