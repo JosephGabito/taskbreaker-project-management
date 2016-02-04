@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the Thrive_Projects_Component
+ * This file contains the Task_Breaker_Projects_Component
  * which is responsible for our project component
  * structre and at the same time make it possible
  * to be used in buddypress profiles
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
 require_once( plugin_dir_path( __FILE__ ) . '../core/functions.php' );
 
 /**
- * Thrive_Projects_Component
+ * Task_Breaker_Projects_Component
  *
  * BP Projects Components extends the
  * BP Component object which is provided
@@ -29,7 +29,7 @@ require_once( plugin_dir_path( __FILE__ ) . '../core/functions.php' );
  * @since  1.0
  * @uses  BP_Component the boilerplate
  */
-class Thrive_Projects_Component extends BP_Component {
+class Task_Breaker_Projects_Component extends BP_Component {
 
 	/**
 	 * Holds the ID of our 'Projects' component
@@ -64,7 +64,7 @@ class Thrive_Projects_Component extends BP_Component {
 
 	/**
 	 * All actions and hooks that are related to
-	 * Thrive_Projects_Component are listed here
+	 * Task_Breaker_Projects_Component are listed here
 	 *
 	 * @uses  buddypress()
 	 * @return void
@@ -176,7 +176,7 @@ class Thrive_Projects_Component extends BP_Component {
  */
 function task_breaker_setup_project_component() {
 
-	buddypress()->projects = new Thrive_Projects_Component;
+	buddypress()->projects = new Task_Breaker_Projects_Component;
 
 }
 
@@ -187,7 +187,7 @@ add_action( 'bp_loaded', 'task_breaker_setup_project_component', 1 );
  */
 if ( ! class_exists( 'BP_Group_Extension' ) ) { return; }
 
-class Thrive_Projects_Group extends BP_Group_Extension {
+class Task_Breaker_Projects_Group extends BP_Group_Extension {
 
 	/**
 	 * Here you can see more customization of the config options
@@ -221,13 +221,13 @@ class Thrive_Projects_Group extends BP_Group_Extension {
 		do_action('task_breaker_before_projects_archive');
 
 		$group_id = bp_get_group_id(); ?>
-			
+
 			<h3>
 				<?php esc_html_e( 'Projects', 'task_breaker' ); ?>
 			</h3>
-			
+
 			<div id="task_breaker-intranet-projects">
-				
+
 				<?php task_breaker_new_project_modal( $group_id ); ?>
 
 				<?php
@@ -238,7 +238,7 @@ class Thrive_Projects_Group extends BP_Group_Extension {
 				?>
 
 				<?php task_breaker_project_loop( $args ); ?>
-				
+
 			</div>
 
 		<?php
@@ -250,6 +250,6 @@ class Thrive_Projects_Group extends BP_Group_Extension {
 
 }
 
-bp_register_group_extension( 'Thrive_Projects_Group' );
+bp_register_group_extension( 'Task_Breaker_Projects_Group' );
 
 ?>
