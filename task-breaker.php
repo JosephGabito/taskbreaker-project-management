@@ -9,13 +9,16 @@
  * License: GPL2
  *
  * PHP version 5
- * 
+ *
  * @since     1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
+
+// Deactivate Thrive Intranet in case it is used
+deactivate_plugins( '/thrive-intranet/thrive-intranet.php' );
 
 define( 'TASK_BREAKER_VERSION', '0.1.1' );
 
@@ -56,7 +59,7 @@ require_once plugin_dir_path( __FILE__ ) . 'install/table.php';
 function task_breaker_localize_plugin() {
 
 	$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
-	
+
     load_plugin_textdomain( 'task_breaker', FALSE, $rel_path );
 
     return;
@@ -64,7 +67,7 @@ function task_breaker_localize_plugin() {
 
 /**
  * Register our middle man API transactions.
- * 
+ *
  * @return void
  */
 function task_breaker_register_transactions() {
@@ -76,7 +79,7 @@ function task_breaker_register_transactions() {
 
 /**
  * Register our project components.
- * 
+ *
  * @return void
  */
 function task_breaker_register_projects_component() {
