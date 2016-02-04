@@ -124,7 +124,7 @@ function task_breaker_render_task($args = array()) {
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
 	$task_breaker_tasks = new ThriveProjectTasksController();
-	
+
 	$tasks = $task_breaker_tasks->renderTasks( $args );
 	$stats = $tasks['stats'];
 	$tasks = $tasks['results'];
@@ -187,7 +187,7 @@ function task_breaker_render_task($args = array()) {
 			$row_actions .= '</div>';
 
 			echo '<tr class="'.$classes.'">';
-				
+
 				echo '<td><strong><a class="row-title" href="#tasks/edit/'.intval( $task->id ).'">'. stripslashes( esc_html( $task->title ) ).'</a></strong>'.$row_actions.'</td>';
 				echo '<td>'.esc_html( $priority_label ).'</h3></td>';
 
@@ -324,8 +324,8 @@ function task_breaker_the_tasks($args) {
 						<h3>
 							<a href="#tasks/view/<?php echo intval( $task->id ); ?>">
 								<?php echo esc_html( stripslashes( $task->title ) ); ?>
-								 - 
-								<span class="task-id"> #<?php echo intval( $task->id );?></span>  
+								 -
+								<span class="task-id"> #<?php echo intval( $task->id );?></span>
 							</a>
 						</h3>
 					</li>
@@ -341,7 +341,7 @@ function task_breaker_the_tasks($args) {
 						</div>
 					</li>
 				</ul>
-				
+
 			</li>
 		<?php } ?>
 		</ul>
@@ -397,7 +397,7 @@ function task_breaker_ticket_single( $task ) {
 	<div id="task_breaker-single-task">
 
 		<div id="task_breaker-single-task-details">
-			
+
 			<?php
 				$priority_label = array(
 					'1' => __( 'Normal', 'task_breaker' ),
@@ -409,7 +409,7 @@ function task_breaker_ticket_single( $task ) {
 			<div id="task-details-priority" class="task-priority <?php echo sanitize_title( $priority_label[$task->priority] ); ?>">
 				<?php echo esc_html( $priority_label[$task->priority] ); ?>
 			</div>
-			
+
 			<?php if ( 0 != $task->completed_by ) { ?>
 				<div id="task-details-status" class="task-status completed">
 					<?php esc_html_e( 'Completed', 'task_breaker' ); ?>
@@ -418,7 +418,7 @@ function task_breaker_ticket_single( $task ) {
 				<div id="task-details-status" class="task-status open">
 					<?php esc_html_e( 'Open', 'task_breaker' ); ?>
 				</div>
-			<?php } ?>	
+			<?php } ?>
 			<h2>
 				<?php echo esc_html( $task->title ); ?>
 				<span class="clearfix"></span>
@@ -466,14 +466,14 @@ function task_breaker_ticket_single( $task ) {
 				?>
 					<div id="comment-completed-radio">
 						<?php if ( $completed === 'no' ) { ?>
-						<div class="alignleft">
-							<label for="ticketStatusInProgress"> 
+						<div class="pull-left">
+							<label for="ticketStatusInProgress">
 								<input <?php echo $completed === 'no' ?  'checked': ''; ?> id="ticketStatusInProgress" type="radio" value="no" name="task_commment_completed">
 								<small><?php _e( 'In Progress', 'task_breaker' ); ?></small>
 							</label>
 						</div>
 						<?php } ?>
-						<div class="alignleft">
+						<div class="pull-left">
 							<label for="ticketStatusComplete">
 								<input <?php echo $completed === 'yes' ? 'checked': ''; ?> id="ticketStatusComplete" type="radio" value="yes" name="task_commment_completed">
 								<small><?php _e( 'Completed', 'task_breaker' ); ?></small>
@@ -501,7 +501,7 @@ function task_breaker_ticket_single( $task ) {
 								<input disabled id="ticketStatusReOpenUpdate" type="radio" value="reopen" name="task_commment_completed">
 								<small><?php _e( 'Reopen Task', 'task_breaker' ); ?></small>
 							</label>
-						</div>						
+						</div>
 					</div>
 
 					<!-- On ReOpen -->
@@ -517,12 +517,12 @@ function task_breaker_ticket_single( $task ) {
 								<input disabled id="ticketStatusReOpenComplete" type="radio" value="reopen" name="task_commment_completed">
 								<small><?php _e( 'Complete', 'task_breaker' ); ?></small>
 							</label>
-						</div>						
+						</div>
 					</div>
 
-				<div class="clearfix"></div>	
+				<div class="clearfix"></div>
 			</div>
-			
+
 			<div id="task-editor_update-content" class="task_breaker-form-field">
 				<textarea id="task-comment-content" rows="5" width="100"></textarea>
 			</div>
@@ -533,7 +533,7 @@ function task_breaker_ticket_single( $task ) {
 					<?php task_breaker_task_priority_select( $select = absint( $task->priority ), $name = 'task_breaker-task-priority-update-select', $id = 'task_breaker-task-priority-update-select' );?>
 				</label>
 			</div>
-			
+
 			<div id="task-editor_update-submit">
 				<button type="button" id="updateTaskBtn" class="button">
 					<?php _e( 'Update Task', 'task_breaker' ); ?>
@@ -545,64 +545,13 @@ function task_breaker_ticket_single( $task ) {
 	return ob_get_clean();
 }
 
-function task_breaker_comments_template($args = array(), $task = array()) {
-	ob_start(); ?>
-<?php $user = get_userdata( intval( $args['user'] ) ); ?>
-<li class="task-lists-item comment" id="task-update-{$args['id']}">
-	
-	<div class="task-item-update">
-		
-		<div class="task-update-owner">
-			
-			<?php echo get_avatar( $args['user'], 60 ); ?>
+function task_breaker_comments_template( $args = array(), $task = array() ) {
 
-		</div>
-		
-		<div class="task-update-details">
+	ob_start();
 
-			<div class="task-meta">
-				
-				<?php $progress_label = __( 'New Progress by', 'task_breaker' ); ?>
+	task_breaker_locate_template( 'task-comment-item', $args );
 
-				<?php $task_progress = absint( $args['status'] ); ?>
-				
-				<?php if ( 1 === $task_progress ) { ?>
-					<?php $progress_label = __( 'Completed by', 'task_breaker' );?>
-				<?php } ?>
-				
-				<?php if ( 2 === $task_progress ) { ?>
-					<?php $progress_label = __( 'Reopened by', 'task_breaker' );?>
-				<?php } ?>
-				
-				<p class="<?php echo sanitize_title( $progress_label ); ?>">
-					<span class="opened-by">
-						<?php echo esc_html( $progress_label ); ?>
-					</span> 
-						<?php echo $user->display_name; ?>    
-					
-					<span class="added-on"> <?php echo date( sprintf( '%s / g:i:s a', get_option( 'date_format' ) ), strtotime( $args['date_added'] ) ); ?> </span>
-				</p>
-			</div>
-			<div class="task-content">
-				<?php echo wpautop( nl2br( $args['details'] ) ); ?>
-				
-				<?php $current_user_id = get_current_user_id(); ?>
-
-				<?php // Check if current user can delete the comment ?>
-				<?php if ( $current_user_id == $args['user'] or current_user_can( 'administrator' ) ) { ?>
-					<?php // Delete link. ?>
-					<a href="#" title="<?php _e( 'Delete comment', 'task_breaker' ); ?>" data-comment-id="<?php echo absint( $args['id'] ); ?>" class="task_breaker-delete-comment">
-						<?php _e( 'Remove Comment', 'task_breaker' ); ?>
-					</a>
-
-				<?php } ?>
-			</div>
-		</div>
-		<div class="clearfix"></div>
-	</div><!--task-item-update-->
-</li>
-<?php
-return ob_get_clean();
+	return ob_get_clean();
 }
 
 function task_breaker_get_tasks_comments($ticket_id = 0) {
@@ -622,10 +571,10 @@ function task_breaker_project_settings() {
 }
 
 function task_breaker_get_config_base_prefix() {
-	
+
 	global $wpdb;
 
-	if ( is_multisite() ) 
+	if ( is_multisite() )
 	{
 		return	$wpdb->base_prefix;
 	}
@@ -648,10 +597,10 @@ function task_breaker_get_current_user_groups() {
 	$bp_groups = $prefix . 'bp_groups';
 	$bp_group_members = $prefix . 'bp_groups_members';
 
-	$stmt = sprintf( "SELECT {$bp_group_members}.group_id, {$bp_groups}.name 
+	$stmt = sprintf( "SELECT {$bp_group_members}.group_id, {$bp_groups}.name
 			FROM {$bp_group_members }
 			INNER JOIN {$bp_groups}
-			ON {$bp_groups}.id = {$bp_group_members}.group_id 
+			ON {$bp_groups}.id = {$bp_group_members}.group_id
 			WHERE user_id = %d
 			ORDER BY {$bp_groups}.name asc", $current_user_id );
 
@@ -682,10 +631,10 @@ function task_breaker_get_displayed_user_groups() {
 	$bp_groups = $wpdb->prefix . 'bp_groups';
 	$bp_group_members = $wpdb->prefix . 'bp_groups_members';
 
-	$stmt = sprintf( "SELECT {$bp_group_members}.group_id, {$bp_groups}.name 
+	$stmt = sprintf( "SELECT {$bp_group_members}.group_id, {$bp_groups}.name
 			FROM {$bp_group_members }
 			INNER JOIN {$bp_groups}
-			ON {$bp_groups}.id = {$bp_group_members}.group_id 
+			ON {$bp_groups}.id = {$bp_group_members}.group_id
 			WHERE user_id = %d
 			ORDER BY {$bp_groups}.name asc", $current_user_id );
 
@@ -745,27 +694,7 @@ function task_breaker_project_meta( $project_id = 0 ) {
 
 	<?php $tasks_progress = ceil( ( $tasks_completed / $tasks_total ) * 100 ); ?>
 
-
-	<div class="task-progress">
-		
-		<div class="task-progress-bar">
-			<div class="task-progress-percentage" style="width:<?php echo absint( $tasks_progress ); ?>%;">
-				<div class="task-progress-task-count-wrap">
-					<div class="task-progress-task-count">
-						<?php 
-							printf( _n( '%s Task', '%s Tasks', $tasks_total, 'task_breaker' ), '<span class="task_breaker-total-tasks">'. $tasks_total .'</span>' ); 
-						?>
-					</div>
-				</div>
-				<div class="task-progress-percentage-label">
-					<span>
-						<?php echo absint( $tasks_progress ); ?>% 
-						<?php _e( 'Completed', 'task_breaker' ); ?>
-					</span>
-				</div>
-			</div>
-		</div>
-	</div>
+	<?php task_breaker_locate_template( 'task-meta' ); ?>
 
 <?php } // end if  ?>
 <?php return; ?>
@@ -773,9 +702,9 @@ function task_breaker_project_meta( $project_id = 0 ) {
 
 function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 	?>
-	
+
 	<?php if ( $post_id === 0 ) { return; } ?>
-	
+
 	<?php if ( $user_id === 0 ) { return; } ?>
 
 	<?php // Project User ?>
@@ -790,7 +719,7 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 	<?php _e( 'Started by ', 'task_breaker' ); ?>
 
 	<a href="<?php echo esc_url( $user_profile_url ); ?>" title="<?php _e( 'Visit User Profile', 'task_breaker' ); ?>">
-		<?php echo get_avatar( $user_id, 32 ); ?> 
+		<?php echo get_avatar( $user_id, 32 ); ?>
 		<?php echo esc_html( get_the_author_meta( 'display_name' ) ); ?>
 	</a>
 
@@ -801,7 +730,7 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 		<?php _e( 'under &raquo;' ); ?>
 
 		<?php $group = groups_get_group( array( 'group_id' => $group_id ) ); ?>
-	
+
 		<a href="<?php echo esc_url( bp_get_group_permalink( $group ) ); ?>" title="<?php echo esc_attr( $group->name ); ?>">
 
 			<?php echo bp_core_fetch_avatar( array( 'object' => 'group', 'item_id' => $group_id ) ) ?>
@@ -815,6 +744,17 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 
 <?php
 return;
+}
+
+function task_breaker_locate_template( $file_name = '', $args = array() ) {
+
+	if ( empty( $file_name ) ) {
+		return;
+	}
+
+	include plugin_dir_path( __FILE__ ) . '../templates/'.esc_attr( $file_name ).'.php';
+
+	return;
 }
 
 function task_breaker_project_loop( $args = array() ) {
@@ -834,57 +774,7 @@ function task_breaker_project_loop( $args = array() ) {
 }
 
 function task_breaker_new_project_modal( $group_id = 0 ) {
-	?>
-	<a id="task_breaker-new-project-btn" class="button" href="#">
-
-		<?php _e( 'New Project', 'task_breaker' ); ?>
-
-	</a>
-
-	<div class="clearfix"></div>
-
-
-	<div id="task_breaker-new-project-modal">
-
-		<div id="task_breaker-modal-content">
-
-			<div id="task_breaker-modal-heading">
-				
-				<h5 class="alignleft">
-
-					<?php _e( 'Add New Project', 'task_breaker' ); ?>
-
-				</h5>
-
-				<span id="task_breaker-modal-close" class="alignright">
-					&times;
-				</span>
-
-				<div class="clearfix"></div>
-
-			</div>
-
-			<div id="task_breaker-modal-body">
-
-				<?php task_breaker_new_project_form( $group_id ); ?>
-
-			</div>
-
-			<div id="task_breaker-modal-footer">
-
-				<small>
-
-					<?php _e( "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form", 'task_breaker' ); ?>
-
-				</small>
-
-			</div>
-
-		</div>
-
-	</div>
-
-	<?php
+	include plugin_dir_path( __FILE__ ) . '../templates/project-add-modal.php';
 }
 
 
@@ -893,13 +783,13 @@ function task_breaker_settings_display_editor() {
 	global $post;
 
 	$content = $post->post_content;
-	
+
 	$args = array(
 		'teeny' => true,
 		'editor_height' => 100,
 		'media_buttons' => false,
-	); 
-		
+	);
+
 	return wp_editor( $content, $editor_id = "task_breakerProjectContent", $args );
 
 }

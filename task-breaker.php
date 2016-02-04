@@ -17,9 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-// Deactivate Thrive Intranet in case it is used
-deactivate_plugins( '/thrive-intranet/thrive-intranet.php' );
-
 define( 'TASK_BREAKER_VERSION', '0.1.1' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
@@ -85,6 +82,16 @@ function task_breaker_register_transactions() {
 function task_breaker_register_projects_component() {
 
 	include_once plugin_dir_path( __FILE__ ) . '/includes/project-component.php';
+
+	return;
+}
+
+register_activation_hook( __FILE__, array( 'task_breaker_deactivate_thrive_intranet' ) );
+
+function task_breaker_deactivate_thrive_intranet() {
+	// Deactivate Thrive Intranet in case it is used to prevent conflict
+	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	deactivate_plugins( '/thrive-intranet/thrive-intranet.php' );
 
 	return;
 }
