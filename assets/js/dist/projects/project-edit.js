@@ -60,11 +60,23 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
             } else {
 
-                element.parent().parent().prepend(
-                    '<div id="message" class="task_breaker-project-updated success updated">' +
-                    '<p>There was an error saving the project. All fields are required.</p>' +
-                    '</div>'
-                );
+                if ("authentication_error" === response.type ) {
+
+                    element.parent().parent().prepend(
+                        '<div id="message" class="task_breaker-project-updated error updated">' +
+                        '<p>Only group administrators and moderators can update the project settings.</p>' +
+                        '</div>'
+                    );
+
+                } else {
+
+                    element.parent().parent().prepend(
+                        '<div id="message" class="task_breaker-project-updated success updated">' +
+                        '<p>There was an error saving the project. All fields are required.</p>' +
+                        '</div>'
+                    );
+
+                }
 
             }
 
