@@ -1,5 +1,5 @@
 var __ThriveProjectRoute = Backbone.Router.extend({
-    
+
     routes: {
         "tasks": "index",
         "tasks/dashboard": "dashboard",
@@ -16,7 +16,6 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     index: function() {
 
         this.view.switchView(null, '#task_breaker-project-tasks-context');
-
         this.model.page = 1;
         this.model.id = 0;
         this.model.show_completed = 'no';
@@ -34,7 +33,7 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     add: function() {
         this.view.switchView(null, '#task_breaker-project-add-new-context');
         $('#task_breaker-project-add-new').css('display', 'block');
-        
+
         if ( tinymce.editors.task_breakerTaskDescription ) {
             tinymce.editors.task_breakerTaskDescription.setContent('');
         }
