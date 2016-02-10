@@ -60,7 +60,7 @@ function task_breaker_filter_single_project() {
 	}
 
 	return;
-	
+
 }
 
 function task_breaker_project_content_filter( $content ) {
@@ -69,40 +69,8 @@ function task_breaker_project_content_filter( $content ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . '../core/functions.php' );
 
-	$container = '<div id="task_breaker-project">';
+	task_breaker_locate_template('project-single', $post);
 
-	$container_end = '</div><!--#task_breaker-project-->';
-
-		ob_start();
-		
-		include task_breaker_template_dir(). '/project-heading.php';
-		
-		$heading = ob_get_clean();
-
-	    $project_tabs = '<div class="task_breaker-project-tabs">';
-	    	$project_tabs .= '<ul id="task_breaker-project-tab-li">';
-	    		$project_tabs .= '<li class="task_breaker-project-tab-li-item active"><a data-content="task_breaker-project-dashboard" class="task_breaker-project-tab-li-item-a" href="#tasks/dashboard">Dashboard</a></li>';
-	    		$project_tabs .= '<li class="task_breaker-project-tab-li-item"><a data-content="task_breaker-project-tasks" class="task_breaker-project-tab-li-item-a" href="#tasks">Tasks</a></li>';
-	    		$project_tabs .= '<li class="task_breaker-project-tab-li-item"><a data-content="task_breaker-project-add-new" id="task_breaker-project-add-new" class="task_breaker-project-tab-li-item-a" href="#tasks/add">Add New</a></li>';
-	    		$project_tabs .= '<li class="task_breaker-project-tab-li-item"><a data-content="task_breaker-project-edit" id="task_breaker-project-edit-tab" class="task_breaker-project-tab-li-item-a" href="#">Edit</a></li>';
-	    		$project_tabs .= '<li class="task_breaker-project-tab-li-item"><a data-content="task_breaker-project-settings" class="task_breaker-project-tab-li-item-a" href="#tasks/settings">Settings</a></li>';
-	    	$project_tabs .= '</ul>';
-	    $project_tabs .= '</div>';
-
-	    $tab_content  = '<div id="task_breaker-project-tab-content">';
-
-		ob_start();
-
-		if ( $post->post_type == 'project' ) {
-			include task_breaker_template_dir(). '/project.php';
-		} 
-
-    	$project_contents = ob_get_clean();
-
-		$tab_content .= $project_contents;
-
-	    $tab_content .= '</div><!--#task_breaker-project-tab-content-->';
-
-	return  $container . $heading . $project_tabs . $tab_content .  $container_end;
+	return;
 }
 ?>
