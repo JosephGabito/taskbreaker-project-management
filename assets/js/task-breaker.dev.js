@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 	'use strict'
-	$(window).load( function() { 
+	$(window).load( function() {  
 
 var __ThriveProjectModel = Backbone.View.extend({
     id: 0,
@@ -42,11 +42,11 @@ var __ThriveProjectView = Backbone.View.extend({
         var $active_content = "";
 
         if (e) {
-            
+
             var $element = $(e.currentTarget);
-            
+
             $active_content = $element.attr('data-content');
-            
+
             // Activate selected tab.
             $element.parent().addClass('active');
 
@@ -71,7 +71,7 @@ var __ThriveProjectView = Backbone.View.extend({
     },
 
     searchTasks: function() {
-        
+
         var keywords = $('#task_breaker-task-search-field').val();
 
         if ( 0 === keywords.length ) {
@@ -120,9 +120,14 @@ var __ThriveProjectView = Backbone.View.extend({
         this.renderTask(function( httpResponse ) {
 
             __this.progress( false );
+
             var response = JSON.parse( httpResponse );
 
-            if (response.html) {
+            if ( response.message == 'fail' ) {
+                $('#task_breaker-project-tasks').html("<p class='info' id='message'>"+response.message_long+"</p>");
+            }
+
+            if ( response.html ) {
                 $('#task_breaker-project-tasks').html(response.html);
             }
         });
@@ -160,14 +165,14 @@ var __ThriveProjectView = Backbone.View.extend({
             var response = JSON.parse( httpResponse );
 
             if ( response.task ) {
-                
+
                 var task = response.task;
 
                 var taskEditor = tinymce.get('task_breakerTaskEditDescription');
 
                 $('#task_breakerTaskId').val(task.id).removeAttr("disabled");
                 $('#task_breakerTaskEditTitle').val(task.title).removeAttr("disabled");
-                
+
                 if ( taskEditor ) {
                     taskEditor.setContent( task.description );
                 } else {
@@ -179,12 +184,12 @@ var __ThriveProjectView = Backbone.View.extend({
             }
 
             return;
-            
+
         });
 
     },
 
-    renderTask: function(__callback) {
+    renderTask: function( __callback ) {
         $.ajax({
             url: ajaxurl,
             method: 'get',
@@ -192,6 +197,7 @@ var __ThriveProjectView = Backbone.View.extend({
                 action: 'task_breaker_transactions_request',
                 method: 'task_breaker_transaction_fetch_task',
                 id: this.model.id,
+                project_id: this.model.project_id,
                 template: this.template,
                 nonce: task_breakerProjectSettings.nonce
             },
@@ -274,7 +280,7 @@ var __ThriveProjectView = Backbone.View.extend({
     },
 
     updateStats: function( stats ) {
-        
+
         var priority = null;
         var task_status = null;
 
@@ -282,12 +288,12 @@ var __ThriveProjectView = Backbone.View.extend({
             priority = stats.status.priority;
             task_status = stats.status.task_status;
         }
-        
+
         if ( task_status ) {
             $('#task-details-status').text( task_status ).removeClass("open close").addClass( task_status.toLowerCase() );
         }
 
-        if ( priority ) { 
+        if ( priority ) {
             $('#task-details-priority').text( priority ).removeClass("normal high critical").addClass( priority.toLowerCase() );
         }
 
@@ -300,14 +306,14 @@ var __ThriveProjectView = Backbone.View.extend({
         $( '.task-progress-percentage' ).css({
             width: Math.ceil( ( ( stats.completed / stats.total ) * 100 ) ) + '%'
         });
-        
+
     }
 });
 
 var ThriveProjectView = new __ThriveProjectView();
 
 var __ThriveProjectRoute = Backbone.Router.extend({
-    
+
     routes: {
         "tasks": "index",
         "tasks/dashboard": "dashboard",
@@ -324,7 +330,6 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     index: function() {
 
         this.view.switchView(null, '#task_breaker-project-tasks-context');
-
         this.model.page = 1;
         this.model.id = 0;
         this.model.show_completed = 'no';
@@ -342,7 +347,7 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     add: function() {
         this.view.switchView(null, '#task_breaker-project-add-new-context');
         $('#task_breaker-project-add-new').css('display', 'block');
-        
+
         if ( tinymce.editors.task_breakerTaskDescription ) {
             tinymce.editors.task_breakerTaskDescription.setContent('');
         }
@@ -734,6 +739,12 @@ $('body').on('click', 'a.task_breaker-delete-comment', function(e) {
     });
 }); // end Delete Comment
 
+/**
+ * Add new project script
+ *
+ * @Todo: Current handle for adding project is inside archive.js
+ */
+
 // Update Project
 $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
@@ -796,11 +807,23 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
             } else {
 
-                element.parent().parent().prepend(
-                    '<div id="message" class="task_breaker-project-updated success updated">' +
-                    '<p>There was an error saving the project. All fields are required.</p>' +
-                    '</div>'
-                );
+                if ("authentication_error" === response.type ) {
+
+                    element.parent().parent().prepend(
+                        '<div id="message" class="task_breaker-project-updated error updated">' +
+                        '<p>Only group administrators and moderators can update the project settings.</p>' +
+                        '</div>'
+                    );
+
+                } else {
+
+                    element.parent().parent().prepend(
+                        '<div id="message" class="task_breaker-project-updated success updated">' +
+                        '<p>There was an error saving the project. All fields are required.</p>' +
+                        '</div>'
+                    );
+
+                }
 
             }
 
