@@ -489,6 +489,15 @@ function task_breaker_transactions_update_project() {
 	// The callback format.
 	$no_json = filter_input( INPUT_POST, 'no_json', FILTER_SANITIZE_STRING );
 
+	// Check if current user can add project to group
+	if ( ! task_breaker_can_add_project_to_group( $project_group_id ) ) {
+		task_breaker_api_message( array(
+				'message' => 'failure',
+				'project_id' => 0,
+				'type' => 'authentication_error'
+			));
+	}
+
 	if ( ! empty( $project_id ) ) {
 		$project->set_id( $project_id );
 	}
@@ -543,6 +552,16 @@ function task_breaker_transactions_delete_project() {
 	$project->set_id( absint( $project_id ) );
 
 	$redirect = home_url();
+
+	if ( ! task_breaker_can_delete_project( $project_id ) ) {
+		
+		task_breaker_api_message( array(
+				'message' => 'fail',
+				'response' => __("Permission Denied. Unauthorized.")
+			));
+
+		return;
+	}
 
 	if ( $project->delete() ) {
 
