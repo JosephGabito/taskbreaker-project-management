@@ -17,11 +17,11 @@
      $(this).text('Deleting...');
 
      $.ajax({
-         
+
          url: ajaxurl,
-         
+
          method: 'post',
-         
+
          data: __http_params,
 
          success: function( httpResponse ) {
@@ -33,9 +33,8 @@
                  window.location = response.redirect;
 
              } else {
-                 console.log('__success_callback');
 
-                 this.error();
+                this.error();
 
              }
 
