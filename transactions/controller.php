@@ -13,13 +13,13 @@ $action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
 
 // Try getting post request if $action is empty when getting request via 'get' method.
 if ( empty( $action ) ) {
-	
+
 	$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
 
 }
 
 if ( 'task_breaker_transactions_request' !== $action ) {
-	
+
 	return;
 
 }
@@ -56,12 +56,12 @@ function task_breaker_transactions_callblack() {
 
 	}
 
-	if ( ! wp_verify_nonce( $nonce, 'task_breaker-transaction-request' ) ) 
+	if ( ! wp_verify_nonce( $nonce, 'task_breaker-transaction-request' ) )
 	{
 
-		die( 
-			__( 'Invalid Request. Your session has already expired (invalid nonce). 
-				Please go back and refresh your browser. Thanks!', 'task_breaker' ) 
+		die(
+			__( 'Invalid Request. Your session has already expired (invalid nonce).
+				Please go back and refresh your browser. Thanks!', 'task_breaker' )
 		);
 
 	}
@@ -123,8 +123,15 @@ function task_breaker_transaction_add_ticket() {
 
 	$task_id = $task->addTicket( $_POST );
 
+	if ( ! task_breaker_can_add_task( (int) $_POST['project_id'] ) ) {
+		task_breaker_api_message( array(
+			'message' => 'fail',
+			'response' => __('Unable to add tasks. Only a group administrator or a group moderator can add tasks.',' task_breaker'),
+		) );
+	}
+
 	if ( $task_id ) {
-		
+
 		task_breaker_api_message( array(
 			'message' => 'success',
 			'response' => array(
@@ -136,8 +143,8 @@ function task_breaker_transaction_add_ticket() {
 	} else {
 		task_breaker_api_message( array(
 			'message' => 'fail',
-			'response' => __('There was an error trying to add this task. 
-				Title and Description fields are required or there was 
+			'response' => __('There was an error trying to add this task.
+				Title and Description fields are required or there was
 				an unexpected error.',' task_breaker'),
 		) );
 	}
@@ -185,6 +192,22 @@ function task_breaker_transaction_fetch_task() {
 
 	if ( ! empty( $callback_template ) && function_exists( $callback_template ) ) {
 		$html_template = $callback_template;
+	}
+
+
+	if ( ! task_breaker_can_see_project_tasks( $project_id ) ) {
+
+		task_breaker_api_message(array(
+			'message' => 'fail',
+			'message_long' => __('Unable to access the task details. Only group members can access this page', 'task-breaker'),
+			'task'    => array(),
+			'stats'   => array(),
+			'debug'   => __("Unauthorized Access", "task-breaker"),
+			'html'    => "",
+		));
+
+		return;
+
 	}
 
 	$task = new ThriveProjectTasksController();
@@ -269,9 +292,9 @@ function task_breaker_transaction_edit_ticket() {
 	$json_response = array_merge( $json_response, $args );
 
 	if ( $task->updateTicket( $task_id, $args ) ) {
-		
+
 		$json_response['message'] = 'success';
-	
+
 	} else {
 
 		$json_response['type'] = 'required';
@@ -354,6 +377,17 @@ function task_breaker_transaction_add_comment_to_ticket() {
 	$completed  = filter_input( INPUT_POST, 'completed', FILTER_SANITIZE_STRING );
 	$project_id = filter_input( INPUT_POST, 'project_id', FILTER_SANITIZE_STRING );;
 
+	// Check if current user can add comment
+	if ( ! task_breaker_can_add_task_comment( $project_id ) ) {
+
+		task_breaker_api_message(array(
+			'message' => 'fail',
+			'stats' => $task->getTaskStatistics( $project_id, $ticket_id ),
+			'result' => task_breaker_comments_template( $added_comment ),
+		));
+
+	}
+
 	// Get the current user that is logged in.
 	$user_id = get_current_user_id();
 
@@ -371,7 +405,7 @@ function task_breaker_transaction_add_comment_to_ticket() {
 	if ( $completed === 'yes' ) {
 		$task->completeTask( $ticket_id, $user_id );
 	}
-	
+
 	// Reopen task
 	if ( $completed === 'reopen' ) {
 		$task->renewTask( $ticket_id );
@@ -440,14 +474,34 @@ function task_breaker_transactions_update_project() {
 
 	$project = new ThriveProject();
 
+	// The project id. Leave blank if creating new project.
 	$project_id = filter_input( INPUT_POST, 'id', FILTER_VALIDATE_INT );
+
+	// The title of the project.
 	$project_title = filter_input( INPUT_POST, 'title', FILTER_SANITIZE_STRING );
+
+	// The content of the project.
 	$project_content = filter_input( INPUT_POST, 'content', FILTER_SANITIZE_STRING );
+
+	// The group id of the buddypress group where this project is under.
 	$project_group_id = filter_input( INPUT_POST, 'group_id', FILTER_VALIDATE_INT );
+
+	// The callback format.
 	$no_json = filter_input( INPUT_POST, 'no_json', FILTER_SANITIZE_STRING );
 
 	if ( ! empty( $project_id ) ) {
 		$project->set_id( $project_id );
+	}
+
+	// Only users who can edit project can access this transaction
+	if ( ! empty( $project_id ) ) {
+		if ( ! task_breaker_can_edit_project( $project_id ) ) {
+			task_breaker_api_message( array(
+					'message' => 'failure',
+					'project_id' => 0,
+					'type' => 'authentication_error'
+				));
+		}
 	}
 
 	$project->set_title( $project_title );
@@ -465,11 +519,15 @@ function task_breaker_transactions_update_project() {
 		task_breaker_api_message( array(
 				'message' => 'success',
 				'project_id' => $project->get_id(),
+				'project_permalink' => get_permalink( $project->get_id() )
 			));
+
 	} else {
+
 		task_breaker_api_message( array(
 				'message' => 'failure',
 				'project_id' => 0,
+				'type' => 'error_generic',
 			));
 	}
 }
