@@ -2,7 +2,7 @@
 /**
  * Thrive Comments
  *
- * @package  ThriveIntranet
+ * @package  Task Breaker
  */
 
 /**
