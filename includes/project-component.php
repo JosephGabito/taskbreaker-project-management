@@ -19,6 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
 require_once( plugin_dir_path( __FILE__ ) . '../core/functions.php' );
 
 /**
+ * Include our own conditional tags.
+ */
+require_once( plugin_dir_path( __FILE__ ) . '../core/conditional-tags.php' );
+
+/**
  * Task_Breaker_Projects_Component
  *
  * BP Projects Components extends the
