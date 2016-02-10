@@ -69,7 +69,7 @@
 					<?php echo _e('Update Project', 'task_breaker'); ?>
 				</button>
 
-				<?php if ( current_user_can( 'delete_post', $post->ID ) || $post->post_author == get_current_user_id() ) { ?>
+				<?php if ( task_breaker_can_delete_project( $post->ID ) ) { ?>
 					<button id="task_breakerDeleteProjectBtn" type="button" class="button button-danger">
 						<?php echo _e('Delete', 'task_breaker'); ?>
 					</button>
