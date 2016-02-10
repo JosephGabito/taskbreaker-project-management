@@ -69,10 +69,25 @@ jQuery(document).ready(function($){
 			  url: $('#task_breaker-project-add-new-form-form').attr('action'),
 			  data: project_details,
 			  success: function( response ) {
-				  $('#project-add-modal-js-message').html(
-					  "<p id='message' class='success'>Project successfully added. Redirecting you in few seconds...</p>"
-				  ).removeClass('hide');
-				  location.href = response.project_permalink;
+
+				  if ( "success" === response.message ) {
+
+					$('#project-add-modal-js-message').html(
+						"<p id='message' class='success'>Project successfully added. Redirecting you in few seconds...</p>"
+					).removeClass('hide');
+
+					location.href = response.project_permalink;
+
+				  } else {
+
+					$('#project-add-modal-js-message').html(
+  						"<p id='message' class='error'>There was an error trying to add project in this group.</p>"
+  					).removeClass('hide');
+
+				  }
+
+				  return;
+
 			  },
 			  error: function(err, message) {
 				  console.log(err);
