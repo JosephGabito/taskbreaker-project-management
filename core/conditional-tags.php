@@ -6,9 +6,12 @@
  */
  if ( ! defined ( 'ABSPATH' ) ) exit;
 
- // General
- // Check if current user a member of the group
- function task_breaker_current_user_is_member_of_group( $group_id = 0 ) {
+/**
+ * Check if current user is a member of a group
+ *
+ * @return boolean
+ */
+function task_breaker_current_user_is_member_of_group( $group_id = 0 ) {
 
     global $wpdb;
 
@@ -30,8 +33,12 @@
 
  }
 
- // Projects
- // Check if current user can access project
+ /**
+  * Check if current user can access projects. Only group members can access
+  * the project
+  *
+  * @return boolean
+  */
  function task_breaker_can_view_project( $project_id ) {
 
     $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
@@ -43,11 +50,31 @@
     return false;
  }
 
- // Check if current user can add project
- // Check if current user can delete project
+ /**
+  * Check if current user can add project to group. Only admin and
+  * moderators can add project to group.
+  *
+  * @return boolean
+  */
+ function task_breaker_can_add_project_to_group( $group_id ) {
 
- // Check if current user can edit project
- // Only admin and moderators can edit the projects
+    if ( groups_is_user_mod ( get_current_user_id(), $group_id ) ) {
+        return true;
+    }
+
+    if ( groups_is_user_admin ( get_current_user_id(), $group_id ) ) {
+        return true;
+    }
+
+    return;
+ }
+
+ /**
+  * Check if current user can edit project. Only admin and moderators can edit
+  * the projects.
+  *
+  * @return boolean
+  */
 function task_breaker_can_edit_project( $project_id = 0 ) {
 
     $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
@@ -61,6 +88,38 @@ function task_breaker_can_edit_project( $project_id = 0 ) {
     }
 
     return false;
+}
+
+/**
+ * Check if current user can delete the project. Only the project owner and admin
+ * can delete the project.
+ *
+ * @return boolean
+ */
+function task_breaker_can_delete_project( $project_id = 0 ) {
+
+    $project_object = get_post( $project_id );
+
+    if ( empty ( $project_object ) ) {
+        return false;
+    }
+
+    $current_user_id = intval( get_current_user_id() );
+
+    $project_owner = intval( $project_object->post_author );
+
+    // Return true if the current owner is the author of project post.
+    if ( $project_owner === $current_user_id ) {
+        return true;
+    }
+
+    // Return true if it's admin
+    if ( current_user_can( 'manage_options' ) ) {
+        return true;
+    }
+
+    return false;
+
 }
 
  // Tasks
