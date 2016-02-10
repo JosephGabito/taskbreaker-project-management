@@ -259,13 +259,14 @@
 	padding-left: 0;
 	width: 100%;
 	display: inline-block;
-    margin: 0 0 -1px 0;
+    margin: 0 0 -6px 0;
 }
 
 #task_breaker-project-tab-li li {
 	list-style: none;
 	display: inline-block;
 	margin: 0;
+    float: left;
 }
 
 #task_breaker-project-tab-li li a {
