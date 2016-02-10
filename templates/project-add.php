@@ -1,6 +1,6 @@
 <div id="task_breaker-project-add-new-form">
 
-	<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post">
+	<form id="task_breaker-project-add-new-form-form" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post">
 
 		<input type="hidden" name="method"  value="task_breaker_transactions_update_project" />
 
@@ -9,6 +9,8 @@
 		<input type="hidden" name="no_json" value="yes" />
 
 		<?php wp_nonce_field( 'task_breaker-transaction-request', 'nonce' ); ?>
+
+		<div class="task_breaker-form-field hide" id="project-add-modal-js-message"></div>
 
 		<div class="task_breaker-form-field">
 
@@ -84,7 +86,9 @@
 					</select>
 
 				<?php } ?>
-
+				<div class="field-description">
+					<?php esc_attr_e('You can only add projects into the group that you are either the administrator or one of the moderator.', 'task-breaker'); ?>
+				</div>
 			</div>
 
 			<div class="task_breaker-form-field">
@@ -115,7 +119,7 @@
 
 				<div class="alignright">
 
-					<button type="button" disabled class="button danger">
+					<button id="task_breakerSaveProjectBtn" type="button" disabled class="button danger">
 
 						<?php esc_attr_e( 'Save Project', 'task_breaker' ); ?>
 
