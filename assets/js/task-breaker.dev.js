@@ -867,11 +867,11 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
      $(this).text('Deleting...');
 
      $.ajax({
-         
+
          url: ajaxurl,
-         
+
          method: 'post',
-         
+
          data: __http_params,
 
          success: function( httpResponse ) {
@@ -883,9 +883,8 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
                  window.location = response.redirect;
 
              } else {
-                 console.log('__success_callback');
 
-                 this.error();
+                this.error();
 
              }
 
