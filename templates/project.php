@@ -1,37 +1,37 @@
 <?php global $post; ?>
 
 <div id="task_breaker-preloader">
-	
+
 	<div class="la-ball-clip-rotate la-sm">
-	    
+
 	    <div></div>
-	
+
 	</div>
 
 </div>
 
 <div class="active task_breaker-project-tab-content-item" data-content="task_breaker-project-dashboard" id="task_breaker-project-dashboard-context">
-	
+
 	<div id="task_breaker-dashboard-about">
 
 		<h3><?php _e('About', 'task_breaker'); ?></h3>
-		
-		<?php echo $content; ?>
-		
+
+		<?php echo wpautop( do_shortcode( $post->post_content ), true ); ?>
+
 		<div class="clearfix"></div>
 
 	</div><!--#task_breaker-dashboard-about-->
 
 	<div id="task_breaker-dashboard-at-a-glance">
-		<?php 
+		<?php
 
 		// Total tasks.
-		$total     = intval( task_breaker_count_tasks( $post->ID ) ); 
+		$total     = intval( task_breaker_count_tasks( $post->ID ) );
 		// Completed tasks.
 		$completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
 		// Remaining Tasks.
 		$remaining = absint( $total - $completed );
-		
+
 		?>
 		<h3>
 			<?php _e('At a Glance', 'task_breaker'); ?>
@@ -39,7 +39,7 @@
 		<ul>
 			<li>
 				<div class="task_breaker-dashboard-at-a-glance-box">
-					
+
 					<h4>
 						<span id="task_breaker-total-tasks-count" class="task_breaker-total-tasks">
 							<?php printf('%d', $total); ?>
@@ -52,10 +52,10 @@
 
 				</div>
 			</li>
-			
+
 			<li>
 				<a href="#tasks" class="task_breaker-dashboard-at-a-glance-box">
-					
+
 					<h4>
 						<span id="task_breaker-remaining-tasks-count" class="task_breaker-remaining-tasks-count">
 							<?php printf('%d', $remaining); ?>
@@ -80,26 +80,26 @@
 
 				</a>
 			</li>
-			
+
 		</ul>
 
 		<div class="clearfix"></div>
-		
+
 	</div><!--#task_breaker-dashboard-at-a-glance-->
 </div>
 
 <div class="task_breaker-project-tab-content-item" data-content="task_breaker-project-tasks" id="task_breaker-project-tasks-context">
-	
+
 	<?php
 		$args = array(
-				'project_id' => $post->ID, 
+				'project_id' => $post->ID,
 				'orderby' => 'priority',
 				'order' => 'desc'
 			);
 	?>
-	
+
 	<?php task_breaker_task_filters(); ?>
-	
+
 	<?php echo task_breaker_the_tasks( $args ); ?>
 
 </div><!--#task_breaker-project-tasks-context-->
@@ -118,7 +118,7 @@
 
 <script>
 var task_breakerProjectSettings = {
-	project_id: '<?php echo absint($post->ID);?>',
+	project_id: '<?php echo absint( $post->ID ); ?>',
 	nonce: '<?php echo wp_create_nonce( "task_breaker-transaction-request" ); ?>'
 };
 </script>
