@@ -6,10 +6,10 @@ grunt.initConfig({
     concat: {
         basic: {
             src:[
-                    'dist/header.js', 
-                    'dist/model.js', 
-                    'dist/view.js', 
-                    'dist/router.js', 
+                    'dist/header.js',
+                    'dist/model.js',
+                    'dist/view.js',
+                    'dist/router.js',
 
                     // Standalone Scripts.
                     'dist/tasks/tasks-add.js',
@@ -19,6 +19,7 @@ grunt.initConfig({
                     'dist/comments/comment-add.js',
                     'dist/comments/comment-delete.js',
 
+                    'dist/projects/project-add.js',
                     'dist/projects/project-edit.js',
                     'dist/projects/project-delete.js',
 
@@ -43,10 +44,10 @@ grunt.initConfig({
     watch: {
         scripts: {
             files: [
-                'dist/header.js', 
-                'dist/model.js', 
-                'dist/view.js', 
-                'dist/router.js', 
+                'dist/header.js',
+                'dist/model.js',
+                'dist/view.js',
+                'dist/router.js',
 
                 // Standalone Scripts.
                 'dist/tasks/tasks-add.js',
@@ -56,6 +57,7 @@ grunt.initConfig({
                 'dist/comments/comment-add.js',
                 'dist/comments/comment-delete.js',
 
+                'dist/projects/project-add.js',
                 'dist/projects/project-edit.js',
                 'dist/projects/project-delete.js',
 
