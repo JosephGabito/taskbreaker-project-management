@@ -97,9 +97,9 @@ function task_breaker_task_filters() {
  * @param  integer $limit limits the number of task displayed
  * @return void if $echo is set to true other wise returns the constructed markup for tasks
  */
-function task_breaker_render_task($args = array()) {
+function task_breaker_render_task( $args = array() ) {
 
-	$defaults = array(
+	$config = array(
 			'project_id' => 0,
 			'page' => 1,
 			'priority' => -1,
@@ -110,15 +110,18 @@ function task_breaker_render_task($args = array()) {
 			'echo' => true,
 		);
 
-	foreach ( $defaults as $option => $value ) {
+	foreach ( $config as $option => $value ) {
 
 		if ( ! empty( $args[$option] ) ) {
 			$$option = $args[$option];
 		} else {
 			$$option = $value;
 		}
+
 	}
+
 	// todo convert task_breaker_render_task params to array
+
 	if ( $echo === 'no' ) { ob_start(); }
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
@@ -137,8 +140,11 @@ function task_breaker_render_task($args = array()) {
 	$all_tasks_no      = task_breaker_count_tasks( $project_id, $type = 'all' );
 
 	if ( ! empty( $search ) ) {
-		echo '<p id="task_breaker-view-info">'.sprintf( __( 'Search result for: "%s"' ), esc_html( $search ) ).'</p>';
+
+		echo '<p id="task_breaker-view-info">'.sprintf( __( 'Search result for: "%s"', 'task-breaker' ), esc_html( $search ) ).'</p>';
+
 	} else {
+
 		if ( $show_completed == 'no' ) {
 			echo '<p id="task_breaker-view-info">'.sprintf( _n( 'Currently showing %d task ', 'Currently showing %d tasks ', $open_tasks_no, 'task_breaker' ), $open_tasks_no );
 			echo sprintf( __( 'out of %d', 'task_breaker' ), $all_tasks_no ) . '</p>';
@@ -170,8 +176,11 @@ function task_breaker_render_task($args = array()) {
 			$priority_label = $task_breaker_tasks->getPriority( $task->priority );
 
 			$completed = '';
+
 			if ( $task->completed_by != 0 ) {
+
 				$completed = 'completed';
+
 			}
 
 			$classes = implode( ' ', array( esc_attr( sanitize_title( $priority_label ) ), $completed ) );
@@ -248,8 +257,8 @@ function task_breaker_render_task($args = array()) {
 
 /**
  * Renders the tasks
- * @param  [type] $args [description]
- * @return [type]       [description]
+ * @param  array $args The post type configs
+ * @return void
  */
 function task_breaker_the_tasks($args) {
 
@@ -257,7 +266,7 @@ function task_breaker_the_tasks($args) {
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
-	$defaults = array(
+	$config = array(
 			'project_id' => 0,
 			'page' => 1,
 			'priority' => -1,
@@ -268,7 +277,7 @@ function task_breaker_the_tasks($args) {
 			'echo' => true,
 		);
 
-	foreach ( $defaults as $option => $value ) {
+	foreach ( $config as $option => $value ) {
 
 		if ( ! empty( $args[$option] ) ) {
 			$$option = $args[$option];
@@ -296,253 +305,30 @@ function task_breaker_the_tasks($args) {
 			)
 		);
 	}
+
+	$tasks['project_id'] = $project_id;
 ?>
 
 <div class="clearfix"></div>
 
 <div id="task_breaker-project-tasks">
-	<?php if ( ! empty( $tasks['results'] ) ) { ?>
-		<ul>
-		<?php foreach ( $tasks['results'] as $task ) { ?>
-			<?php
-			$priority_label = $task_breaker_tasks->getPriority( $task->priority );
-			$completed = '';
-			if ( $task->completed_by != 0 ) {
-				$completed = 'completed';
-			}
-			$classes = implode( ' ', array( esc_attr( sanitize_title( $priority_label ) ), $completed ) );
-			?>
-			<li class="task_breaker-task-item <?php echo esc_attr( $classes ); ?>">
-				<ul class="task_breaker-task-item-details">
-					<li class="priority">
-						<span>
-							<?php $priority_collection = $task_breaker_tasks->getPriorityCollection(); ?>
-							<?php echo $priority_collection[$task->priority]; ?>
-						</span>
-					</li>
-					<li class="details">
-						<h3>
-							<a href="#tasks/view/<?php echo intval( $task->id ); ?>">
-								<?php echo esc_html( stripslashes( $task->title ) ); ?>
-								 -
-								<span class="task-id"> #<?php echo intval( $task->id );?></span>
-							</a>
-						</h3>
-					</li>
-					<li class="last-user-update">
-						<div class="task-user">
-							<?php echo get_avatar( intval( $task->user ), 32 ); ?>
-							<?php $user = get_userdata( $task->user ); ?>
-							<div class="task-user-name">
-								<small>
-									<?php echo esc_html( $user->display_name ); ?>
-								</small>
-							</div>
-						</div>
-					</li>
-				</ul>
 
-			</li>
-		<?php } ?>
-		</ul>
-	<?php } else { ?>
-		<div class="error" id="message">
-			<p>
-				<?php _e( 'No tasks found. If you\'re trying to find a task, kindly try different keywords and/or filters.', 'task_breaker' ); ?>
-			</p>
-		</div>
-	<?php } ?>
+	<?php task_breaker_locate_template('task-loop', $tasks); ?>
 
-<?php
-
-$stats = $tasks['stats'];
-$total = intval( $stats['total'] );
-$perpage    = intval( $stats['perpage'] );
-$total_page = intval( $stats['total_page'] );
-$currpage   = intval( $stats['current_page'] );
-$min_page	= intval( $stats['min_page'] );
-$max_page   = intval( $stats['max_page'] );
-
-if ( 0 !== $total ) {
-
-	echo '<div class="tablenav"><div class="tablenav-pages">';
-	echo '<span class="displaying-num">'.sprintf( _n( '%s task', '%s tasks', $total, 'task_breaker' ),$total ).'</span>';
-
-	if ( $total_page >= 1 ) {
-		echo '<span id="task_breaker-task-paging" class="pagination-links">';
-			echo '<a class="first-page disabled" title="'.__( 'Go to the first page', 'task_breaker' ).'" href="#tasks/page/'.$min_page.'">«</a>';
-			echo '<a class="prev-page disabled" title="'.__( 'Go to the previous page', 'task_breaker' ).'" href="#">‹</a>';
-				echo '<span class="paging-input"><label for="task_breaker-task-current-page-selector" class="screen-reader-text">'.__( 'Select Page', 'task_breaker' ).'</label>';
-				echo '<input readonly class="current-page" id="task_breaker-task-current-page-selector" type="text" maxlength="'.strlen( $total_page ).'" size="'.strlen( $total_page ).'"value="'.intval( $currpage ).'">';
-				echo ' of <span class="total-pages">'.$total_page.'</span></span>';
-
-				echo '<a class="next-page" title="'.__( 'Go to the next page', 'task_breaker' ).'" href="#">›</a>';
-				echo '<a class="last-page" title="'.__( 'Go to the last page', 'trive' ).'" href="#tasks/page/'.$max_page.'">»</a></span>';
-			echo '</span>';
-	}
-
-	echo '</div><!--.tablenav--></div><!--.tablenav-pages -->';
-
-	?>
-<?php } // End if ( 0 !== $total ). ?>
 </div><!--#task_breaker-project-tasks-->
+
 <?php
 return ob_get_clean();
 }
 
 function task_breaker_ticket_single( $task ) {
 
-	ob_start(); ?>
+	ob_start();
 
-	<div id="task_breaker-single-task">
+	task_breaker_locate_template( 'task-single', $task );
 
-		<div id="task_breaker-single-task-details">
-
-			<?php
-				$priority_label = array(
-					'1' => __( 'Normal', 'task_breaker' ),
-					'2' => __( 'High', 'task_breaker' ),
-					'3' => __( 'Critical', 'task_breaker' ),
-				);
-			?>
-
-			<div id="task-details-priority" class="task-priority <?php echo sanitize_title( $priority_label[$task->priority] ); ?>">
-				<?php echo esc_html( $priority_label[$task->priority] ); ?>
-			</div>
-
-			<?php if ( 0 != $task->completed_by ) { ?>
-				<div id="task-details-status" class="task-status completed">
-					<?php esc_html_e( 'Completed', 'task_breaker' ); ?>
-				</div>
-			<?php } else { ?>
-				<div id="task-details-status" class="task-status open">
-					<?php esc_html_e( 'Open', 'task_breaker' ); ?>
-				</div>
-			<?php } ?>
-			<h2>
-				<?php echo esc_html( $task->title ); ?>
-				<span class="clearfix"></span>
-			</h2>
-
-			<div class="task-content">
-				<?php echo do_shortcode( $task->description ); ?>
-			</div>
-
-			<div class="task-content-meta">
-				<div class="alignright">
-					<a href="#tasks" title="<?php _e( 'Tasks List', 'task_breaker' ); ?>" class="button">
-						<?php _e( '&larr; Tasks List', 'task_breaker' ); ?>
-					</a>
-					<a href="#tasks/edit/<?php echo intval( $task->id ); ?>" class="button">
-						<?php _e( 'Edit', 'task_breaker' ); ?>
-					</a>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div><!--#task_breaker-single-task-details-->
-
-		<ul id="task-lists">
-			<li class="task_breaker-task-discussion">
-				<h3>
-					<?php _e( 'Discussion', 'task_breaker' ); ?>
-				</h3>
-			</li>
-			<?php $comments = task_breaker_get_tasks_comments( $task->id ); ?>
-			<?php if ( ! empty( $comments ) ) { ?>
-				<?php foreach ( $comments as $comment ) { ?>
-					<?php echo task_breaker_comments_template( $comment, (array) $task ); ?>
-				<?php } ?>
-			<?php } ?>
-
-		</ul><!--#task-lists-->
-
-		<div id="task-editor">
-			<div id="task-editor_update-status" class="task_breaker-form-field">
-				<?php
-				$completed = 'no';
-				if ( absint( $task->completed_by ) !== 0 ) {
-					$completed = 'yes';
-				}
-				?>
-					<div id="comment-completed-radio">
-						<?php if ( $completed === 'no' ) { ?>
-						<div class="pull-left">
-							<label for="ticketStatusInProgress">
-								<input <?php echo $completed === 'no' ?  'checked': ''; ?> id="ticketStatusInProgress" type="radio" value="no" name="task_commment_completed">
-								<small><?php _e( 'In Progress', 'task_breaker' ); ?></small>
-							</label>
-						</div>
-						<?php } ?>
-						<div class="pull-left">
-							<label for="ticketStatusComplete">
-								<input <?php echo $completed === 'yes' ? 'checked': ''; ?> id="ticketStatusComplete" type="radio" value="yes" name="task_commment_completed">
-								<small><?php _e( 'Completed', 'task_breaker' ); ?></small>
-							</label>
-						</div>
-						<?php if ( $completed === 'yes' ) { ?>
-						<div class="alignleft">
-							<label for="ticketStatusReOpen">
-								<input id="ticketStatusReOpen" type="radio" value="reopen" name="task_commment_completed">
-								<small><?php _e( 'Reopen Task', 'task_breaker' ); ?></small>
-							</label>
-						</div>
-						<?php } ?>
-					</div>
-					<!--On Complete -->
-					<div id="task_breaker-comment-completed-radio" class="hide">
-						<div class="alignleft">
-							<label for="ticketStatusCompleteUpdate">
-								<input disabled id="ticketStatusCompleteUpdate" type="radio" value="yes" name="task_commment_completed">
-								<small><?php _e( 'Completed', 'task_breaker' ); ?></small>
-							</label>
-						</div>
-						<div class="alignleft">
-							<label for="ticketStatusReOpenUpdate">
-								<input disabled id="ticketStatusReOpenUpdate" type="radio" value="reopen" name="task_commment_completed">
-								<small><?php _e( 'Reopen Task', 'task_breaker' ); ?></small>
-							</label>
-						</div>
-					</div>
-
-					<!-- On ReOpen -->
-					<div id="task_breaker-comment-reopen-radio" class="hide">
-						<div class="alignleft">
-							<label disabled for="ticketStatusReOpenInProgress">
-								<input id="ticketStatusReOpenInProgress" type="radio" value="yes" name="task_commment_completed">
-								<small><?php _e( 'In Progress', 'task_breaker' ); ?></small>
-							</label>
-						</div>
-						<div class="alignleft">
-							<label disabled for="ticketStatusReOpenComplete">
-								<input disabled id="ticketStatusReOpenComplete" type="radio" value="reopen" name="task_commment_completed">
-								<small><?php _e( 'Complete', 'task_breaker' ); ?></small>
-							</label>
-						</div>
-					</div>
-
-				<div class="clearfix"></div>
-			</div>
-
-			<div id="task-editor_update-content" class="task_breaker-form-field">
-				<textarea id="task-comment-content" rows="5" width="100"></textarea>
-			</div>
-
-			<div id="task-editor_update-priority" class="task_breaker-form-field">
-				<label for="task_breaker-task-priority-select" class="task_breaker-form-field">
-					<?php _e( 'Update Priority:', 'task_breaker' ); ?>
-					<?php task_breaker_task_priority_select( $select = absint( $task->priority ), $name = 'task_breaker-task-priority-update-select', $id = 'task_breaker-task-priority-update-select' );?>
-				</label>
-			</div>
-
-			<div id="task-editor_update-submit">
-				<button type="button" id="updateTaskBtn" class="button">
-					<?php _e( 'Update Task', 'task_breaker' ); ?>
-				</button>
-			</div>
-		</div>
-	</div>
-	<?php
 	return ob_get_clean();
+
 }
 
 function task_breaker_comments_template( $args = array(), $task = array() ) {
@@ -746,7 +532,7 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 return;
 }
 
-function task_breaker_locate_template( $file_name = '', $args = array() ) {
+function task_breaker_locate_template( $file_name = '', $args = '' ) {
 
 	if ( empty( $file_name ) ) {
 		return;
