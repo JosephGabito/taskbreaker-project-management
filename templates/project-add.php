@@ -68,7 +68,7 @@
 
 							<?php if ( ! empty( $group_id ) ) { ?>
 
-								<?php if ( absint( $group_id ) === absint( $group['group_id'] ) ) { ?>
+								<?php if ( absint( $group_id ) === absint( $group->group_id ) ) { ?>
 
 									<?php $selected = 'selected'; ?>
 
@@ -76,9 +76,9 @@
 
 							<?php } ?>
 
-							<option <?php echo esc_attr_e( $selected );?> value="<?php echo esc_attr_e( absint( $group['group_id'] ) ); ?>">
+							<option <?php echo esc_attr_e( $selected );?> value="<?php echo esc_attr_e( absint( $group->group_id ) ); ?>">
 
-								<?php echo esc_html( $group['name'] ); ?>
+								<?php echo esc_html( $group->group_name ); ?>
 
 							</option>
 
