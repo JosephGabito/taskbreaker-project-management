@@ -370,33 +370,7 @@ function task_breaker_get_config_base_prefix() {
 
 function task_breaker_get_current_user_groups() {
 
-	global $wpdb;
-
-	$prefix = task_breaker_get_config_base_prefix();
-
-	$current_user_id = intval( get_current_user_id() );
-
-	if ( 0 === $current_user_id ) {
-		return array();
-	}
-
-	$bp_groups = $prefix . 'bp_groups';
-	$bp_group_members = $prefix . 'bp_groups_members';
-
-	$stmt = sprintf( "SELECT {$bp_group_members}.group_id, {$bp_groups}.name
-			FROM {$bp_group_members }
-			INNER JOIN {$bp_groups}
-			ON {$bp_groups}.id = {$bp_group_members}.group_id
-			WHERE user_id = %d
-			ORDER BY {$bp_groups}.name asc", $current_user_id );
-
-	$results = $wpdb->get_results( $stmt, 'ARRAY_A' );
-
-	if ( $results ) {
-		return $results;
-	}
-
-	return array();
+	return task_breaker_get_user_group_admin_mod();
 
 }
 
@@ -461,6 +435,8 @@ function task_breaker_project_nav( WP_Query $object ) {
 }
 
 function task_breaker_new_project_form( $group_id = 0 ) {
+
+	if ( ! is_user_logged_in() ) return;
 
 	include plugin_dir_path( __FILE__ ) . '../templates/project-add.php';
 
@@ -580,6 +556,58 @@ function task_breaker_settings_display_editor() {
 
 }
 
+function task_breaker_get_user_group_admin_mod() {
+
+	global $bp;
+	global $wpdb;
+
+	if ( ! function_exists( 'buddypress' ) ) {
+		return array();
+	}
+
+	$groups = array();
+
+	$bp_table = $bp->groups->table_name_members;
+
+	$user_id = get_current_user_id();
+
+	$stmt = $wpdb->prepare("SELECT
+			groups.id as group_id,
+			group_member.user_id as user_id,
+			groups.name as group_name,
+			group_member.is_mod,
+			group_member.is_admin
+			FROM
+			wp_bp_groups_members as group_member
+			INNER JOIN
+			wp_bp_groups as groups
+			WHERE
+			group_member.group_id = groups.id
+			AND
+			( group_member.is_mod = 1 OR group_member.is_admin = 1 )
+			AND
+			group_member.user_id = %d GROUP BY groups.id;",
+			$user_id
+		);
+
+	$group_results = $wpdb->get_results( $stmt, OBJECT );
+
+	if ( ! empty ( $group_results ) ) {
+		return $group_results;
+	}
+
+	return $groups;
+
+}
+
+function task_breaker_new_project_modal_button() {
+	if ( is_user_logged_in() ) { ?>
+		<a id="task_breaker-new-project-btn" class="<?php echo apply_filters('task_breaker_new_project_modal_button_class', 'button'); ?>" href="#">
+		    <?php _e( 'New Project', 'task_breaker' ); ?>
+		</a>
+	<?php
+	}
+}
 function task_breaker_pre( $mixed ) {
 
 	echo '<pre>';
