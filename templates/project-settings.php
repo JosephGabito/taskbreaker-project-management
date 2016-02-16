@@ -46,11 +46,11 @@
 
 					<?php foreach( $current_user_groups as $group ) { ?>
 
-						<?php $selected = absint( $group['group_id'] ) == $current_project_group ? 'selected' : '';?>
+						<?php $selected = absint( $group->group_id ) == $current_project_group ? 'selected' : '';?>
 
-						<option <?php echo $selected; ?> value="<?php echo absint( $group['group_id'] ); ?>">
+						<option <?php echo $selected; ?> value="<?php echo absint( $group->group_id ); ?>">
 
-							<?php echo esc_html( $group['name'] ); ?>
+							<?php echo esc_html( $group->name ); ?>
 
 						</option>
 
