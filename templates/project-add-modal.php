@@ -1,11 +1,6 @@
-<a id="task_breaker-new-project-btn" class="button" href="#">
-
-    <?php _e( 'New Project', 'task_breaker' ); ?>
-
-</a>
+<?php task_breaker_new_project_modal_button(); ?>
 
 <div class="clearfix"></div>
-
 
 <div id="task_breaker-new-project-modal">
 
