@@ -13,6 +13,10 @@
  */
 function task_breaker_current_user_is_member_of_group( $group_id = 0 ) {
 
+    if ( ! is_user_logged_in() ) {
+        return false;
+    }
+
     global $wpdb;
 
     $user_id = get_current_user_id();
@@ -41,6 +45,10 @@ function task_breaker_current_user_is_member_of_group( $group_id = 0 ) {
   */
  function task_breaker_can_view_project( $project_id ) {
 
+    if ( ! is_user_logged_in() ) {
+        return false;
+    }
+
     $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
 
     if ( task_breaker_current_user_is_member_of_group ( $group_id ) ) {
@@ -57,6 +65,10 @@ function task_breaker_current_user_is_member_of_group( $group_id = 0 ) {
   * @return boolean
   */
  function task_breaker_can_add_project_to_group( $group_id ) {
+
+    if ( ! is_user_logged_in() ) {
+        return false;
+    }
 
     if ( groups_is_user_mod ( get_current_user_id(), $group_id ) ) {
         return true;
@@ -76,6 +88,10 @@ function task_breaker_current_user_is_member_of_group( $group_id = 0 ) {
   * @return boolean
   */
 function task_breaker_can_edit_project( $project_id = 0 ) {
+
+    if ( ! is_user_logged_in() ) {
+        return false;
+    }
 
     $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
 
@@ -97,6 +113,10 @@ function task_breaker_can_edit_project( $project_id = 0 ) {
  * @return boolean
  */
 function task_breaker_can_delete_project( $project_id = 0 ) {
+
+    if ( ! is_user_logged_in() ) {
+        return false;
+    }
 
     $project_object = get_post( $project_id );
 
@@ -126,6 +146,10 @@ function task_breaker_can_delete_project( $project_id = 0 ) {
  // Check if current user can see tasks inside the project
 function task_breaker_can_see_project_tasks( $project_id ) {
 
+    if ( ! is_user_logged_in() ) {
+        return false;
+    }
+
     // Only members of the group can the project tasks
     $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
 
@@ -142,6 +166,10 @@ function task_breaker_can_see_project_tasks( $project_id ) {
   * - Only group admin and group mods can add tasks
   */
  function task_breaker_can_add_task( $project_id ) {
+
+    if ( ! is_user_logged_in() ) {
+        return false;
+    }
 
     $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
 
@@ -162,6 +190,10 @@ function task_breaker_can_see_project_tasks( $project_id ) {
  // Task Comments
  // Check if current user can add comment
  function task_breaker_can_add_task_comment( $project_id ) {
+
+    if ( ! is_user_logged_in() ) {
+        return false;
+    }
 
     // Only members of the group can add comment to project
     $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
