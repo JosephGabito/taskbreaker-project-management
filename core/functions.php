@@ -36,7 +36,7 @@ function task_breaker_include_dir() {
  * @param  string  $select_id   the id of the select field
  * @return void
  */
-function task_breaker_task_priority_select($default = 1, $select_name = 'task_breaker_task_priority', $select_id = 'task_breaker-task-priority-select') {
+function task_breaker_task_priority_select( $default = 1, $select_name = 'task_breaker_task_priority', $select_id = 'task_breaker-task-priority-select' ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
@@ -58,7 +58,7 @@ function task_breaker_task_priority_select($default = 1, $select_name = 'task_br
 	return;
 }
 
-function task_breaker_count_tasks($project_id, $type = 'all') {
+function task_breaker_count_tasks( $project_id, $type = 'all' ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
@@ -112,16 +112,14 @@ function task_breaker_render_task( $args = array() ) {
 
 	foreach ( $config as $option => $value ) {
 
-		if ( ! empty( $args[$option] ) ) {
-			$$option = $args[$option];
+		if ( ! empty( $args[ $option ] ) ) {
+			$$option = $args[ $option ];
 		} else {
 			$$option = $value;
 		}
-
 	}
 
 	// todo convert task_breaker_render_task params to array
-
 	if ( $echo === 'no' ) { ob_start(); }
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
@@ -200,11 +198,11 @@ function task_breaker_render_task( $args = array() ) {
 				echo '<td><strong><a class="row-title" href="#tasks/edit/'.intval( $task->id ).'">'. stripslashes( esc_html( $task->title ) ).'</a></strong>'.$row_actions.'</td>';
 				echo '<td>'.esc_html( $priority_label ).'</h3></td>';
 
-				if ( "0000-00-00 00:00:00" !== $task->date_created ) {
-					echo '<td>'.esc_html( date( 'M d, o @H:i', strtotime( $task->date_created ) ) ).'</h3></td>';
-				} else {
-					echo '<td>'.__('N/A','task_breaker').'</td>';
-				}
+			if ( '0000-00-00 00:00:00' !== $task->date_created ) {
+				echo '<td>'.esc_html( date( 'M d, o @H:i', strtotime( $task->date_created ) ) ).'</h3></td>';
+			} else {
+				echo '<td>'.__( 'N/A','task_breaker' ).'</td>';
+			}
 
 			echo '</tr>';
 		}
@@ -242,8 +240,8 @@ function task_breaker_render_task( $args = array() ) {
 	?>
 	<script>
 	var task_breakerProjectSettings = {
-		project_id: '<?php echo absint($post->ID);?>',
-		nonce: '<?php echo wp_create_nonce( "task_breaker-transaction-request" ); ?>'
+		project_id: '<?php echo absint( $post->ID );?>',
+		nonce: '<?php echo wp_create_nonce( 'task_breaker-transaction-request' ); ?>'
 	};
 	</script>
 	<?php
@@ -260,7 +258,7 @@ function task_breaker_render_task( $args = array() ) {
  * @param  array $args The post type configs
  * @return void
  */
-function task_breaker_the_tasks($args) {
+function task_breaker_the_tasks( $args ) {
 
 	ob_start();
 
@@ -279,8 +277,8 @@ function task_breaker_the_tasks($args) {
 
 	foreach ( $config as $option => $value ) {
 
-		if ( ! empty( $args[$option] ) ) {
-			$$option = $args[$option];
+		if ( ! empty( $args[ $option ] ) ) {
+			$$option = $args[ $option ];
 		} else {
 			$$option = $value;
 		}
@@ -301,8 +299,8 @@ function task_breaker_the_tasks($args) {
 				'current_page' 	=> 1,
 				'total_page' 	=> 1,
 				'min_page' 		=> 0,
-				'max_page' 		=> 0
-			)
+				'max_page' 		=> 0,
+			),
 		);
 	}
 
@@ -313,7 +311,7 @@ function task_breaker_the_tasks($args) {
 
 <div id="task_breaker-project-tasks">
 
-	<?php task_breaker_locate_template('task-loop', $tasks); ?>
+	<?php task_breaker_locate_template( 'task-loop', $tasks ); ?>
 
 </div><!--#task_breaker-project-tasks-->
 
@@ -340,7 +338,7 @@ function task_breaker_comments_template( $args = array(), $task = array() ) {
 	return ob_get_clean();
 }
 
-function task_breaker_get_tasks_comments($ticket_id = 0) {
+function task_breaker_get_tasks_comments( $ticket_id = 0 ) {
 
 	global $wpdb;
 
@@ -360,8 +358,7 @@ function task_breaker_get_config_base_prefix() {
 
 	global $wpdb;
 
-	if ( is_multisite() )
-	{
+	if ( is_multisite() ) {
 		return	$wpdb->base_prefix;
 	}
 
@@ -436,7 +433,7 @@ function task_breaker_project_nav( WP_Query $object ) {
 
 function task_breaker_new_project_form( $group_id = 0 ) {
 
-	if ( ! is_user_logged_in() ) return;
+	if ( ! is_user_logged_in() ) { return; }
 
 	include plugin_dir_path( __FILE__ ) . '../templates/project-add.php';
 
@@ -444,23 +441,30 @@ function task_breaker_new_project_form( $group_id = 0 ) {
 }
 
 function task_breaker_project_meta( $project_id = 0 ) {
-	?>
 
-	<?php if ( 0 === $project_id ) { return; } ?>
+	if ( 0 === $project_id ) { return; }
 
-	<?php $tasks_total = absint( task_breaker_count_tasks( $project_id, $type = 'all' ) ); ?>
-	<?php $tasks_completed  = absint( task_breaker_count_tasks( $project_id, $type = 'completed' ) ); ?>
-	<?php $tasks_remaining = absint( $tasks_total - $tasks_completed ); ?>
+	$tasks_total = absint( task_breaker_count_tasks( $project_id, $type = 'all' ) );
+	$tasks_completed  = absint( task_breaker_count_tasks( $project_id, $type = 'completed' ) );
+	$tasks_remaining = absint( $tasks_total - $tasks_completed );
 
-	<?php if ( 0 !== $tasks_total ) { ?>
+	if ( 0 !== $tasks_total ) {
 
-	<?php $tasks_progress = ceil( ( $tasks_completed / $tasks_total ) * 100 ); ?>
+		$tasks_progress = ceil( ( $tasks_completed / $tasks_total ) * 100 );
 
-	<?php task_breaker_locate_template( 'task-meta' ); ?>
+		$args = array(
+			'tasks_total' => $tasks_total,
+			'tasks_completed' => $tasks_completed,
+			'tasks_remaining' => $tasks_remaining,
+			'tasks_progress' => $tasks_progress
+		);
 
-<?php } // end if  ?>
-<?php return; ?>
-<?php }
+		task_breaker_locate_template( 'task-meta', $args );
+
+	} // end if
+
+	return;
+}
 
 function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 	?>
@@ -469,16 +473,16 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 
 	<?php if ( $user_id === 0 ) { return; } ?>
 
-	<?php // Project User ?>
+	<?php // Project user. ?>
 	<?php $user_profile_url = get_author_posts_url( $user_id ); ?>
 
-	<?php // Use BuddyPress profile if possible ?>
+	<?php // Use bp profile if possible. ?>
 
 	<?php if ( function_exists( 'bp_core_get_user_domain' ) ) { ?>
 		<?php $user_profile_url = bp_core_get_user_domain( $user_id ); ?>
 	<?php } ?>
 
-	<?php _e( 'Started by ', 'task_breaker' ); ?>
+	<?php esc_html_e( 'Started by ', 'task_breaker' ); ?>
 
 	<a href="<?php echo esc_url( $user_profile_url ); ?>" title="<?php _e( 'Visit User Profile', 'task_breaker' ); ?>">
 		<?php echo get_avatar( $user_id, 32 ); ?>
@@ -487,7 +491,7 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 
 	<?php $group_id = absint( get_post_meta( $post_id, 'task_breaker_project_group_id', true ) ); ?>
 
-	<?php if ( function_exists( 'groups_get_group') ) { ?>
+	<?php if ( function_exists( 'groups_get_group' ) ) { ?>
 
 		<?php _e( 'under &raquo;' ); ?>
 
@@ -502,7 +506,7 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 		</a>
 
 	<?php } ?>
-	<?php // End Project User ?>
+	<?php // End Project User. ?>
 
 <?php
 return;
@@ -552,10 +556,16 @@ function task_breaker_settings_display_editor() {
 		'media_buttons' => false,
 	);
 
-	return wp_editor( $content, $editor_id = "task_breakerProjectContent", $args );
+	return wp_editor( $content, $editor_id = 'task_breakerProjectContent', $args );
 
 }
 
+/**
+ * Get current user groups where he/she is the group admin or
+ * one of the moderators.
+ *
+ * @return void
+ */
 function task_breaker_get_user_group_admin_mod() {
 
 	global $bp;
@@ -571,28 +581,26 @@ function task_breaker_get_user_group_admin_mod() {
 
 	$user_id = get_current_user_id();
 
-	$stmt = $wpdb->prepare("SELECT
-			groups.id as group_id,
-			group_member.user_id as user_id,
-			groups.name as group_name,
-			group_member.is_mod,
-			group_member.is_admin
-			FROM
-			wp_bp_groups_members as group_member
-			INNER JOIN
-			wp_bp_groups as groups
-			WHERE
-			group_member.group_id = groups.id
-			AND
-			( group_member.is_mod = 1 OR group_member.is_admin = 1 )
-			AND
-			group_member.user_id = %d GROUP BY groups.id;",
-			$user_id
-		);
+	$group_results = $wpdb->get_results( $wpdb->prepare('SELECT
+            groups.id as group_id,
+            group_member.user_id as user_id,
+            groups.name as group_name,
+            group_member.is_mod,
+            group_member.is_admin
+            FROM
+            wp_bp_groups_members as group_member
+            INNER JOIN
+            wp_bp_groups as groups
+            WHERE
+            group_member.group_id = groups.id
+            AND
+            ( group_member.is_mod = 1 OR group_member.is_admin = 1 )
+            AND
+            group_member.user_id = %d GROUP BY groups.id;',
+		$user_id
+	), OBJECT );
 
-	$group_results = $wpdb->get_results( $stmt, OBJECT );
-
-	if ( ! empty ( $group_results ) ) {
+	if ( ! empty( $group_results ) ) {
 		return $group_results;
 	}
 
@@ -600,19 +608,18 @@ function task_breaker_get_user_group_admin_mod() {
 
 }
 
+/**
+ * The button for our add new project.
+ *
+ * @return void
+ */
 function task_breaker_new_project_modal_button() {
 	if ( is_user_logged_in() ) { ?>
-		<a id="task_breaker-new-project-btn" class="<?php echo apply_filters('task_breaker_new_project_modal_button_class', 'button'); ?>" href="#">
-		    <?php _e( 'New Project', 'task_breaker' ); ?>
+		<a id="task_breaker-new-project-btn" class="<?php echo esc_attr( apply_filters( 'task_breaker_new_project_modal_button_class', 'button' ) ); ?>" href="#">
+		    <?php esc_html_e( 'New Project', 'task_breaker' ); ?>
 		</a>
 	<?php
 	}
 }
-function task_breaker_pre( $mixed ) {
 
-	echo '<pre>';
-		print_r( $mixed );
-	echo '</pre>';
-
-}
 ?>
