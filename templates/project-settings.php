@@ -50,7 +50,7 @@
 
 						<option <?php echo $selected; ?> value="<?php echo absint( $group->group_id ); ?>">
 
-							<?php echo esc_html( $group->name ); ?>
+							<?php echo esc_html( $group->group_name ); ?>
 
 						</option>
 
