@@ -1,3 +1,5 @@
+~Current Version:1.0.0~
+
 # Task Breaker
 
-Helper plugin for Thrive WordPress Theme
+A WordPress plug-in that will help you break some task!
