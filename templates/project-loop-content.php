@@ -1,5 +1,7 @@
 <?php $projects = new WP_Query( $args ); ?>
 
+<?php if ( bp_is_active( 'groups' ) ) { ?>
+
 <?php if ( $projects->have_posts() ) { ?>
 
 <ul id="task_breaker-projects-lists">
@@ -11,7 +13,7 @@
 	<li <?php post_class(); ?>>
 
 		<?php the_post_thumbnail('thumbnail'); ?>
-		
+
 		<div class="task_breaker-project-title">
 			<h3>
 				<a href="<?php echo the_permalink(); ?>">
@@ -25,14 +27,14 @@
 			<?php task_breaker_project_meta( get_the_ID() ); ?>
 
 		</div>
-		
+
 		<div class="task_breaker-project-excerpt">
 
 			<?php the_excerpt(); ?>
 
 		</div>
 
-	
+
 
 		<div class="task_breaker-project-author">
 
@@ -48,8 +50,8 @@
 <div id="project-navigation">
 
 	<?php task_breaker_project_nav( $projects ); ?>
-	
-</div>	
+
+</div>
 
 <?php } else {  ?>
 
@@ -61,9 +63,12 @@
 
 <?php } // endif ?>
 
-
-
-<?php 
-			// Reset the post data.
-wp_reset_postdata(); 
+<?php
+// Reset the post data.
+wp_reset_postdata();
 ?>
+<?php } else { ?>
+	<p id="message" class="info">
+		<?php esc_html_e('Please enable BuddyPress Groups Components to access projects', 'task-breaker'); ?>
+	</p>
+<?php } ?>
