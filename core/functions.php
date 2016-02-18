@@ -493,19 +493,24 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 
 	<?php if ( function_exists( 'groups_get_group' ) ) { ?>
 
-		<?php _e( 'under &raquo;' ); ?>
-
 		<?php $group = groups_get_group( array( 'group_id' => $group_id ) ); ?>
 
-		<a href="<?php echo esc_url( bp_get_group_permalink( $group ) ); ?>" title="<?php echo esc_attr( $group->name ); ?>">
+		<?php if ( ! empty ( $group->id ) ) { ?>
 
-			<?php echo bp_core_fetch_avatar( array( 'object' => 'group', 'item_id' => $group_id ) ) ?>
+			<?php _e( 'under &raquo;' ); ?>
 
-			<?php echo esc_html( $group->name ); ?>
+			<a href="<?php echo esc_url( bp_get_group_permalink( $group ) ); ?>" title="<?php echo esc_attr( $group->name ); ?>">
 
-		</a>
+				<?php echo bp_core_fetch_avatar( array( 'object' => 'group', 'item_id' => $group_id ) ) ?>
+
+				<?php echo esc_html( $group->name ); ?>
+
+			</a>
+
+		<?php } ?>
 
 	<?php } ?>
+
 	<?php // End Project User. ?>
 
 <?php
@@ -572,6 +577,10 @@ function task_breaker_get_user_group_admin_mod() {
 	global $wpdb;
 
 	if ( ! function_exists( 'buddypress' ) ) {
+		return array();
+	}
+
+	if ( ! bp_is_active( 'groups') ) {
 		return array();
 	}
 
