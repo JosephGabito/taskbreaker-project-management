@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-
 define( 'TASK_BREAKER_VERSION', '0.1.1' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
