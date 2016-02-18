@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Task Breaker
  * Description: A WordPress plug-in that will help you break some task!
- * Version: 0.1.1
+ * Version: 1.0.0
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: task_breaker
@@ -94,6 +94,44 @@ function task_breaker_deactivate_thrive_intranet() {
 	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 	deactivate_plugins( '/thrive-intranet/thrive-intranet.php' );
+
+	return;
+}
+
+// Enable GitHub Updater.
+add_action( 'init', 'task_breaker_plugin_updater_init' );
+
+/**
+ * The callback function that wraps 'WP_GitHub_Updater'
+ * to init action of WordPress to check for our plugin updates.
+ *
+ * @return void
+ */
+function task_breaker_plugin_updater_init() {
+
+	if ( is_admin() ) {
+
+		include_once plugin_dir_path( __FILE__ ) . '/update-check.php';
+
+		$repo_name = 'task-breaker';
+
+	    $config = array(
+	        'slug' => plugin_basename( __FILE__ ),
+	        'proper_folder_name' => 'task-breaker',
+	        'api_url' => sprintf('https://api.github.com/repos/codehaiku/%s', $repo_name),
+	        'raw_url' => sprintf('https://raw.github.com/codehaiku/%s/master', $repo_name),
+	        'github_url' => sprintf('https://github.com/codehaiku/%s', $repo_name),
+	        'zip_url' => sprintf('https://github.com/codehaiku/%s/zipball/master', $repo_name),
+	        'sslverify' => true,
+	        'requires' => '4.0',
+	        'tested' => '4.4.2',
+	        'readme' => 'README.md',
+	        'access_token' => '', // Access private repositories by authorizing under Appearance > GitHub Updates when this example plugin is installed
+	    );
+
+    	new WP_GitHub_Updater( $config );
+
+	}
 
 	return;
 }
