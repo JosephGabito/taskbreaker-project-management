@@ -33,7 +33,9 @@ function task_breaker_current_user_is_member_of_group( $group_id = 0 ) {
 
     $stmt = $wpdb->prepare( "SELECT id FROM {$bp->groups->table_name_members} WHERE user_id = %d AND group_id = %d AND is_confirmed = 1 AND is_banned = 0", $user_id, $group_id );
 
-    if ( ! empty ( $wpdb->get_row( $stmt ) ) ) {
+    $results = $wpdb->get_row( $stmt );
+
+    if ( ! empty ( $results ) ) {
         return true;
     }
 
