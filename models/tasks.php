@@ -453,11 +453,15 @@ class ThriveProjectTasksModel {
 				'date_created' => date("Y-m-d H:i:s")
 			);
 
-		if ( empty( trim( $this->title ) ) ) {
+		$trimmed_title = trim( $this->title );
+
+		if ( empty( $trimmed_title ) ) {
 			return false;
 		}
 
-		if ( empty( trim( $this->description ) ) ) {
+		$trimmed_description = trim( $this->description );
+
+		if ( empty( $trimmed_description ) ) {
 			return false;
 		}
 
@@ -614,8 +618,8 @@ class ThriveProjectTasksModel {
 				'remaining' => $task_total_open,
 				'status'    => null,
 				'progress'  => sprintf( __('%s Completed', 'task_breaker'), $task_progress )
-			); 
-		
+			);
+
 
 		// If there is a task id, fetch the task using its ID
 		if ( $task_id > 0 ) {
@@ -625,13 +629,13 @@ class ThriveProjectTasksModel {
 			if ( $the_task ) {
 
 				$priority = $this->getPriority( $the_task->priority );
-				
+
 				$completed_by = $the_task->completed_by;
 
 				$task_status = __('Open', 'task_breaker');
 
 				if ( $completed_by >= 1 ) {
-					
+
 					$task_status = __('Completed', 'task_breaker');
 
 				}
