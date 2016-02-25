@@ -15,7 +15,7 @@ class ThriveProject {
 	public function set_id( $id = 0) {
 
 		$this->id = $id;
-		
+
 		return $this;
 
 	}
@@ -23,7 +23,7 @@ class ThriveProject {
 	public function set_title( $title = '' ) {
 
 		$this->title = $title;
-		
+
 		return $this;
 
 	}
@@ -31,7 +31,7 @@ class ThriveProject {
 	public function set_content( $content = '' ) {
 
 		$this->content = $content;
-		
+
 		return $this;
 
 	}
@@ -39,7 +39,7 @@ class ThriveProject {
 	public function set_group_id( $id = 0 ) {
 
 		$this->group_id = $id;
-		
+
 		return $this;
 
 	}
@@ -65,7 +65,7 @@ class ThriveProject {
 	public function get_group_id() {
 
 		return absint( $this->group_id );
-		
+
 	}
 
 	public function save() {
