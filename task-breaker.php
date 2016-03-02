@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Task Breaker
  * Description: A WordPress plug-in that will help you break some task!
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: task_breaker
@@ -55,7 +55,7 @@ require_once plugin_dir_path( __FILE__ ) . 'install/table.php';
  */
 function task_breaker_localize_plugin() {
 
-	$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
+		$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
 
     load_plugin_textdomain( 'task_breaker', FALSE, $rel_path );
 
