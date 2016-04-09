@@ -29,11 +29,9 @@ $('body').on('click', 'a.task_breaker-delete-comment', function(e) {
         url: ajaxurl,
         data: __http_params,
         method: 'post',
-        success: function( httpResponse ) {
+        success: function( response ) {
 
             ThriveProjectView.progress(false);
-
-            var response = JSON.parse( httpResponse );
 
             if (response.message == 'success') {
 
@@ -44,7 +42,7 @@ $('body').on('click', 'a.task_breaker-delete-comment', function(e) {
             } else {
 
                 this.error();
-                
+
             }
         },
         error: function() {

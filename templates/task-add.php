@@ -14,23 +14,35 @@
 
 		<div id="task_breaker-add-task-message" class="task_breaker-notifier"></div>
 
+		<!-- Task Title -->
 		<div class="task_breaker-form-field">
-			<input placeholder="Task Title" type="text" id="task_breakerTaskTitle" maxlength="160" name="title" class="widefat"/>
-			<span class="description"><?php _e('Enter the title of this task. Max 160 characters', 'task_breaker'); ?></span>
+
+			<input placeholder="<?php esc_attr_e('Add a new task ...', 'task_breaker'); ?>" type="text" id="task_breakerTaskTitle" maxlength="160" name="title" class="widefat"/>
+
 		</div>
 
+		<!-- Task User Assigned -->
 		<div class="task_breaker-form-field">
+
+			<select id="task-user-assigned" class="task-breaker-select2"></select>
+
+		</div>
+
+		<!-- Task Description -->
+		<div class="task_breaker-form-field">
+			<p class="task-breaker-form-field-helper-text">
+				<?php
+				 _e('Add extra details...', 'task_breaker');
+				 ?>
+			</p>
 			<?php $args = array(
 				'teeny' => true,
 				'editor_height' => 100,
 				'media_buttons' => false,
+				'quicktags' => false
 			); ?>
 
 			<?php echo wp_editor($content = null, $editor_id = "task_breakerTaskDescription", $args); ?>
-			<span class="description">
-				<br>
-				<?php _e('In few words, explain what this task is all about', 'task_breaker'); ?>
-			</span>
 		</div>
 
 		<div class="task_breaker-form-field">
@@ -52,3 +64,29 @@
 		</p>
 	<?php } ?>
 </div>
+
+<script>
+	jQuery(document).ready(function($){
+		"use strict";
+		var $resultTemplate = function(result){
+			if ( result.avatar ) {
+			var $state = $('<span><img class="result-template-avatar" src="'+result.avatar+'" alt="s" />'+result.text+'</span>');
+			}
+
+			return $state;
+		}
+		$('select#task-user-assigned').select2({
+			maximumInputLength: 20,
+			placeholder: 'Type group members name...',
+			allowClear: true,
+			minimumResultsForSearch: Infinity,
+			minimumInputLength: 2,
+			ajax: {
+				url: 'api.php',
+				delay: 250,
+				cache: true
+			},
+			templateResult: $resultTemplate
+		});
+	});
+</script>

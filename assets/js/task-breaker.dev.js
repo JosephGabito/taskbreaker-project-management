@@ -117,11 +117,9 @@ var __ThriveProjectView = Backbone.View.extend({
         var __this = this;
         this.template = 'task_breaker_ticket_single';
         // load the task
-        this.renderTask(function( httpResponse ) {
+        this.renderTask(function( response ) {
 
             __this.progress( false );
-
-            var response = JSON.parse( httpResponse );
 
             if ( response.message == 'fail' ) {
                 $('#task_breaker-project-tasks').html("<p class='info' id='message'>"+response.message_long+"</p>");
@@ -158,11 +156,9 @@ var __ThriveProjectView = Backbone.View.extend({
         this.model.id = task_id;
 
         // Render the task.
-        this.renderTask( function( httpResponse ) {
+        this.renderTask( function( response ) {
 
             __this.progress( false );
-
-            var response = JSON.parse( httpResponse );
 
             if ( response.task ) {
 
@@ -193,6 +189,7 @@ var __ThriveProjectView = Backbone.View.extend({
         $.ajax({
             url: ajaxurl,
             method: 'get',
+            dataType: 'json',
             data: {
                 action: 'task_breaker_transactions_request',
                 method: 'task_breaker_transaction_fetch_task',
@@ -215,6 +212,7 @@ var __ThriveProjectView = Backbone.View.extend({
         $.ajax({
             url: ajaxurl,
             method: 'get',
+            dataType: 'json',
             data: {
                 action: 'task_breaker_transactions_request',
                 method: 'task_breaker_transaction_fetch_task',
@@ -227,11 +225,9 @@ var __ThriveProjectView = Backbone.View.extend({
                 show_completed: this.model.show_completed,
                 nonce: task_breakerProjectSettings.nonce
             },
-            success: function( httpResponse ) {
+            success: function( response ) {
 
                 __this.progress(false);
-
-                var response = JSON.parse( httpResponse );
 
                 if (response.message == 'success') {
                     if (response.task.stats) {
@@ -413,12 +409,12 @@ $('#task_breaker-submit-btn').click(function(e) {
     $.ajax({
         url: ajaxurl,
         data: {
-            
+
             action: 'task_breaker_transactions_request',
             method: 'task_breaker_transaction_add_ticket',
-            
+
             description: taskDescription,
-            
+
             title: $('#task_breakerTaskTitle').val(),
             milestone_id: $('#task_breakerTaskMilestone').val(),
             priority: $('select#task_breaker-task-priority-select').val(),
@@ -439,9 +435,7 @@ $('#task_breaker-submit-btn').click(function(e) {
             // Remaining tasks view
             var remaining_tasks = parseInt( $('.task_breaker-remaining-tasks-count').text().trim() );
 
-            message = JSON.parse( message );
-
-           // console.log( message ); 
+           // console.log( message );
 
             if ( message.message === 'success' ) {
 
@@ -452,7 +446,7 @@ $('#task_breaker-submit-btn').click(function(e) {
                 $('#task_breakerTaskDescription').val('');
 
                 $('#task_breakerTaskTitle').val('');
-                
+
                 ThriveProjectView.updateStats( message.stats );
 
                 location.href = "#tasks/view/" + message.response.id;
@@ -462,10 +456,10 @@ $('#task_breaker-submit-btn').click(function(e) {
 
                 $('#task_breaker-add-task-message').html('<p class="error">'+message.response+'</p>').show().addClass('error');
 
-              
+
 
                 element.text('Save Task');
-                
+
                 element.removeAttr('disabled');
 
             }
@@ -512,13 +506,11 @@ $('#task_breaker-edit-btn').click(function(e) {
             id: $('#task_breakerTaskId').val(),
             priority: $('select[name="task_breaker-task-edit-priority"]').val()
 
-        }, 
+        },
 
         method: 'post',
 
-        success: function( httpResponse ) {
-
-            var response = JSON.parse( httpResponse );
+        success: function( response ) {
 
             var message = "<p class='success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
 
@@ -527,7 +519,7 @@ $('#task_breaker-edit-btn').click(function(e) {
                 message = "<p class='error'>There was an error updating the task. All fields are required.</a></p>";
 
             }
- 
+
             $('#task_breaker-edit-task-message').html(message).show();
 
             element.attr('disabled', false);
@@ -537,7 +529,7 @@ $('#task_breaker-edit-btn').click(function(e) {
             return;
 
         },
-        
+
         error: function() {
 
             // Todo: Better handling of http errors and timeouts.
@@ -582,10 +574,8 @@ $('#task_breaker-edit-btn').click(function(e) {
        url: ajaxurl,
        data: __http_params,
        method: 'post',
-       success: function( httpResponse ) {
-            
-            var response = JSON.parse( httpResponse );
-           
+       success: function( response ) {
+
             ThriveProjectView.progress(false);
 
             ThriveProjectView.updateStats( response.stats );
@@ -631,23 +621,21 @@ $('#task_breaker-edit-btn').click(function(e) {
           details: comment_details,
           completed: comment_completed,
           project_id: task_project_id,
-          nonce: task_breakerProjectSettings.nonce 
+          nonce: task_breakerProjectSettings.nonce
       };
 
       $.ajax({
           url: ajaxurl,
           data: __http_params,
           method: 'post',
-          success: function( httpResponse ) {
-
-              var response = JSON.parse( httpResponse );
+          success: function( response ) {
 
               ThriveProjectView.progress( false );
 
               $('#task-comment-content').val('');
               $('#task-lists').append(response.result);
 
-            
+
               if ("yes" === comment_completed) {
 
                   // disable old radios
@@ -714,11 +702,9 @@ $('body').on('click', 'a.task_breaker-delete-comment', function(e) {
         url: ajaxurl,
         data: __http_params,
         method: 'post',
-        success: function( httpResponse ) {
+        success: function( response ) {
 
             ThriveProjectView.progress(false);
-
-            var response = JSON.parse( httpResponse );
 
             if (response.message == 'success') {
 
@@ -729,7 +715,7 @@ $('body').on('click', 'a.task_breaker-delete-comment', function(e) {
             } else {
 
                 this.error();
-                
+
             }
         },
         error: function() {
@@ -784,9 +770,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
         url: ajaxurl,
         data: __http_params,
         method: 'post',
-        success: function( httpResponse ) {
-
-            var response = JSON.parse( httpResponse );
+        success: function( response ) {
 
             ThriveProjectView.progress(false);
 
@@ -874,9 +858,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
          data: __http_params,
 
-         success: function( httpResponse ) {
-
-             var response = JSON.parse( httpResponse );
+         success: function( response ) {
 
              if (response.message == 'success') {
 

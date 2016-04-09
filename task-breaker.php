@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Task Breaker
  * Description: A WordPress plug-in that will help you break some task!
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: task_breaker
@@ -12,7 +12,6 @@
  *
  * @since     1.0
  */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
@@ -109,6 +108,13 @@ add_action( 'init', 'task_breaker_plugin_updater_init' );
  */
 function task_breaker_plugin_updater_init() {
 
+	/**
+	 * Disable updater on ajax request
+	 */
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		return;
+	}
+
 	if ( is_admin() ) {
 
 		include_once plugin_dir_path( __FILE__ ) . '/update-check.php';
@@ -129,7 +135,7 @@ function task_breaker_plugin_updater_init() {
 	        'access_token' => '', // Access private repositories by authorizing under Appearance > GitHub Updates when this example plugin is installed
 	    );
 
-    	new WP_GitHub_Updater( $config );
+    	$github_updater = new WP_GitHub_Updater( $config );
 
 	}
 

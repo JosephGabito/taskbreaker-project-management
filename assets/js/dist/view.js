@@ -98,11 +98,9 @@ var __ThriveProjectView = Backbone.View.extend({
         var __this = this;
         this.template = 'task_breaker_ticket_single';
         // load the task
-        this.renderTask(function( httpResponse ) {
+        this.renderTask(function( response ) {
 
             __this.progress( false );
-
-            var response = JSON.parse( httpResponse );
 
             if ( response.message == 'fail' ) {
                 $('#task_breaker-project-tasks').html("<p class='info' id='message'>"+response.message_long+"</p>");
@@ -139,11 +137,9 @@ var __ThriveProjectView = Backbone.View.extend({
         this.model.id = task_id;
 
         // Render the task.
-        this.renderTask( function( httpResponse ) {
+        this.renderTask( function( response ) {
 
             __this.progress( false );
-
-            var response = JSON.parse( httpResponse );
 
             if ( response.task ) {
 
@@ -174,6 +170,7 @@ var __ThriveProjectView = Backbone.View.extend({
         $.ajax({
             url: ajaxurl,
             method: 'get',
+            dataType: 'json',
             data: {
                 action: 'task_breaker_transactions_request',
                 method: 'task_breaker_transaction_fetch_task',
@@ -196,6 +193,7 @@ var __ThriveProjectView = Backbone.View.extend({
         $.ajax({
             url: ajaxurl,
             method: 'get',
+            dataType: 'json',
             data: {
                 action: 'task_breaker_transactions_request',
                 method: 'task_breaker_transaction_fetch_task',
@@ -208,11 +206,9 @@ var __ThriveProjectView = Backbone.View.extend({
                 show_completed: this.model.show_completed,
                 nonce: task_breakerProjectSettings.nonce
             },
-            success: function( httpResponse ) {
+            success: function( response ) {
 
                 __this.progress(false);
-
-                var response = JSON.parse( httpResponse );
 
                 if (response.message == 'success') {
                     if (response.task.stats) {

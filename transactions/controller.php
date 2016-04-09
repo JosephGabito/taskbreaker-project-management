@@ -13,27 +13,20 @@ $action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
 
 // Try getting post request if $action is empty when getting request via 'get' method.
 if ( empty( $action ) ) {
-
 	$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
-
 }
 
 if ( 'task_breaker_transactions_request' !== $action ) {
-
 	return;
-
 }
+
 
 // Format our page header when Unit Testing
 if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
-
-	header( 'Content-Type: application/json' );
-
+	header('Content-Type: application/json; charset=utf-8');
 } else {
-
 	// Hide warnings when running tests
-	@header( 'Content-Type: application/json' );
-
+	@header('Content-type:application/json; charset=utf-8');
 }
 
 add_action( 'wp_ajax_task_breaker_transactions_request', 'task_breaker_transactions_callblack' );
@@ -90,6 +83,9 @@ function task_breaker_transactions_callblack() {
 		// Project callback functions.
 		'task_breaker_transactions_update_project',
 		'task_breaker_transactions_delete_project',
+
+		// Task autosuggest
+		'task_breaker_transactions_user_suggest'
 	);
 
 	if ( function_exists( $method ) ) {
@@ -113,7 +109,9 @@ function task_breaker_transactions_callblack() {
 }
 
 function task_breaker_api_message($args = array()) {
-	echo json_encode( $args );
+	// Added @ to server php 7
+	@header("Content-type: application/json");
+	echo json_encode($args);
 	die();
 }
 
@@ -554,7 +552,7 @@ function task_breaker_transactions_delete_project() {
 	$redirect = home_url();
 
 	if ( ! task_breaker_can_delete_project( $project_id ) ) {
-		
+
 		task_breaker_api_message( array(
 				'message' => 'fail',
 				'response' => __("Permission Denied. Unauthorized.")
@@ -590,5 +588,38 @@ function task_breaker_transactions_delete_project() {
 	}
 
 	return;
+}
+
+function task_breaker_transactions_user_suggest() {
+
+	global $wpdb;
+
+	$term = filter_input( INPUT_GET, 'term', FILTER_SANITIZE_STRING );
+
+	$stmt = $wpdb->prepare("SELECT ID as id, display_name as text FROM {$wpdb->prefix}users WHERE display_name LIKE %s LIMIT 10;", "%".$wpdb->esc_like($term)."%");
+
+	$results = $wpdb->get_results( $stmt, ARRAY_A );
+
+	$formatted_results = array();
+
+	foreach( $results as $result ) {
+
+	    if ( ! empty ( $result ['text'] ) ) {
+
+	        $image = get_avatar_url( $result['id'], 32 );
+
+	        $formatted_results[] = array(
+	            'id' => $result['id'],
+	            'text' => $result['text'],
+	            'avatar' => $image
+	        );
+
+	    }
+
+	}
+
+	task_breaker_api_message( array(
+			'results' => $formatted_results,
+		));
 }
 ?>

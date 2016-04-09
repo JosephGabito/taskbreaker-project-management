@@ -24,9 +24,7 @@
 
          data: __http_params,
 
-         success: function( httpResponse ) {
-
-             var response = JSON.parse( httpResponse );
+         success: function( response ) {
 
              if (response.message == 'success') {
 

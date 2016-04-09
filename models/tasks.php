@@ -1,6 +1,12 @@
 <?php
 /**
  * ThriveProjectTasksModel
+ *
+ * This model contains the object used for TaskBreaker
+ *
+ * @author dunhakdis
+ * @since 1.0
+ * @version 1.1
  */
 class ThriveProjectTasksModel {
 
@@ -57,6 +63,11 @@ class ThriveProjectTasksModel {
 	 * @var integer
 	 */
 	var $project_id = 0;
+
+	/**
+	 * The users that are assigned into this task
+	 */
+	var $group_members_assigned = array();
 
 	/**
 	 * Update the table name on initiate

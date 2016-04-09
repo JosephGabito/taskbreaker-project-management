@@ -34,13 +34,11 @@ $('#task_breaker-edit-btn').click(function(e) {
             id: $('#task_breakerTaskId').val(),
             priority: $('select[name="task_breaker-task-edit-priority"]').val()
 
-        }, 
+        },
 
         method: 'post',
 
-        success: function( httpResponse ) {
-
-            var response = JSON.parse( httpResponse );
+        success: function( response ) {
 
             var message = "<p class='success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
 
@@ -49,7 +47,7 @@ $('#task_breaker-edit-btn').click(function(e) {
                 message = "<p class='error'>There was an error updating the task. All fields are required.</a></p>";
 
             }
- 
+
             $('#task_breaker-edit-task-message').html(message).show();
 
             element.attr('disabled', false);
@@ -59,7 +57,7 @@ $('#task_breaker-edit-btn').click(function(e) {
             return;
 
         },
-        
+
         error: function() {
 
             // Todo: Better handling of http errors and timeouts.

@@ -21,23 +21,21 @@
           details: comment_details,
           completed: comment_completed,
           project_id: task_project_id,
-          nonce: task_breakerProjectSettings.nonce 
+          nonce: task_breakerProjectSettings.nonce
       };
 
       $.ajax({
           url: ajaxurl,
           data: __http_params,
           method: 'post',
-          success: function( httpResponse ) {
-
-              var response = JSON.parse( httpResponse );
+          success: function( response ) {
 
               ThriveProjectView.progress( false );
 
               $('#task-comment-content').val('');
               $('#task-lists').append(response.result);
 
-            
+
               if ("yes" === comment_completed) {
 
                   // disable old radios
