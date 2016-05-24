@@ -4,7 +4,7 @@
 <?php if ( ! task_breaker_can_see_project_tasks( $args->project_id ) ) { ?>
     <div id="task_breaker-single-task">
         <p class="info" id="message">
-            <?php _e("Unable to access the task details. Only group members can access this page.", "task-breaker"); ?>
+            <?php _e("Unable to access the task details. Only group members can access this page.", "task_breaker"); ?>
         </p>
     </div>
     <?php return; ?>
@@ -161,7 +161,7 @@
     <?php } else { ?>
         <div id="task-editor">
             <p class="error" id="message">
-                <?php _e('Ops! You cannot add progress to this task', 'task-breaker'); ?>
+                <?php _e('Ops! You cannot add progress to this task', 'task_breaker'); ?>
             </p>
         </div>
     <?php } ?>

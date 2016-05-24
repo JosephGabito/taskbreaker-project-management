@@ -1,0 +1,527 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Thrive Intranet l10n\n"
+"POT-Creation-Date: 2016-05-24 18:37+0800\n"
+"PO-Revision-Date: 2016-05-24 18:37+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-KeywordsList: gettext;gettext_noop;translate;__;_e;_n;_x;_ex;_nx;"
+"esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_n_noop;"
+"_nx_noop;translate_nooped_plural\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../core/functions.php:21 ../includes/project-component.php:123
+#: ../includes/project-component.php:231 ../includes/project-post-type.php:13
+#: ../includes/project-post-type.php:15 ../includes/project-screens.php:185
+msgid "Projects"
+msgstr ""
+
+#: ../core/functions.php:142
+#, php-format
+msgid "Search result for: \"%s\""
+msgstr ""
+
+#: ../core/functions.php:147
+#, php-format
+msgid "Currently showing %d task "
+msgstr ""
+
+#: ../core/functions.php:148 ../core/functions.php:153
+#, php-format
+msgid "out of %d"
+msgstr ""
+
+#: ../core/functions.php:152
+#, php-format
+msgid "Currently showing %d completed task "
+msgstr ""
+
+#: ../core/functions.php:160
+msgid "No results found. Try another filter or add new task."
+msgstr ""
+
+#: ../core/functions.php:167
+msgid "Title"
+msgstr ""
+
+#: ../core/functions.php:168
+msgid "Priority"
+msgstr ""
+
+#: ../core/functions.php:169
+msgid "Date"
+msgstr ""
+
+#: ../core/functions.php:204
+msgid "N/A"
+msgstr ""
+
+#: ../core/functions.php:219 ../templates/task-loop.php:81
+#, php-format
+msgid "%s task"
+msgstr ""
+
+#: ../core/functions.php:223 ../templates/task-loop.php:88
+msgid "Go to the first page"
+msgstr ""
+
+#: ../core/functions.php:224 ../templates/task-loop.php:89
+msgid "Go to the previous page"
+msgstr ""
+
+#: ../core/functions.php:226 ../templates/task-loop.php:93
+msgid "Select Page"
+msgstr ""
+
+#: ../core/functions.php:230
+msgid "Go to the next page"
+msgstr ""
+
+#: ../core/functions.php:231 ../templates/task-loop.php:106
+msgid "Go to the last page"
+msgstr ""
+
+#: ../core/functions.php:419
+msgid "Page:"
+msgstr ""
+
+#: ../core/functions.php:425
+#, php-format
+msgid "Go to page %d &raquo;"
+msgstr ""
+
+#: ../core/functions.php:485
+msgid "Started by "
+msgstr ""
+
+#: ../core/functions.php:487
+msgid "Visit User Profile"
+msgstr ""
+
+#: ../core/functions.php:500
+msgid "under &raquo;"
+msgstr ""
+
+#: ../core/functions.php:628 ../includes/project-component.php:163
+#: ../includes/project-post-type.php:19 ../includes/project-screens.php:234
+msgid "New Project"
+msgstr ""
+
+#: ../includes/project-component.php:124
+msgid "Search Projects..."
+msgstr ""
+
+#: ../includes/project-component.php:153
+msgid "My Projects"
+msgstr ""
+
+#: ../includes/project-post-type.php:14 ../includes/project-post-type.php:16
+msgid "Project"
+msgstr ""
+
+#: ../includes/project-post-type.php:17 ../templates/project-single.php:23
+msgid "Add New"
+msgstr ""
+
+#: ../includes/project-post-type.php:18 ../templates/project-add-modal.php:13
+msgid "Add New Project"
+msgstr ""
+
+#: ../includes/project-post-type.php:20
+msgid "Edit Project"
+msgstr ""
+
+#: ../includes/project-post-type.php:21
+msgid "View Project"
+msgstr ""
+
+#: ../includes/project-post-type.php:22
+msgid "All Projects"
+msgstr ""
+
+#: ../includes/project-post-type.php:23
+msgid "Search Projects"
+msgstr ""
+
+#: ../includes/project-post-type.php:24
+msgid "Parent Projects:"
+msgstr ""
+
+#: ../includes/project-post-type.php:25
+msgid "No projects found."
+msgstr ""
+
+#: ../includes/project-post-type.php:26
+msgid "No projects found in Trash."
+msgstr ""
+
+#: ../includes/project-screens.php:181
+msgid "Menu Header"
+msgstr ""
+
+#: ../includes/project-screens.php:272
+msgid "Projects Directory"
+msgstr ""
+
+#: ../models/comments.php:198
+msgid "posted new updated in"
+msgstr ""
+
+#: ../models/comments.php:199
+msgid "completed"
+msgstr ""
+
+#: ../models/comments.php:200
+msgid "reopened"
+msgstr ""
+
+#: ../models/comments.php:205
+#, php-format
+msgid "%s %s the task: %s - "
+msgstr ""
+
+#: ../models/tasks.php:506
+#, php-format
+msgid "%s added new task under %s"
+msgstr ""
+
+#: ../models/tasks.php:620
+#, php-format
+msgid "%s Completed"
+msgstr ""
+
+#: ../models/tasks.php:635 ../templates/task-single.php:35
+msgid "Open"
+msgstr ""
+
+#: ../models/tasks.php:639 ../templates/task-filter.php:36
+#: ../templates/task-meta.php:15 ../templates/task-single.php:31
+#: ../templates/task-single.php:97 ../templates/task-single.php:114
+msgid "Completed"
+msgstr ""
+
+#: ../templates/project-add-modal.php:35
+msgid "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form"
+msgstr ""
+
+#: ../templates/project-add.php:19 ../templates/project-settings.php:11
+msgid "Enter the new title for this project"
+msgstr "Entrez le nouveau titre pour ce projet"
+
+#: ../templates/project-add.php:23
+msgid "Project Name"
+msgstr ""
+
+#: ../templates/project-add.php:35
+msgid "Project Details"
+msgstr ""
+
+#: ../templates/project-add.php:39
+msgid "Describe what this project is all about. You can edit this later."
+msgstr ""
+
+#: ../templates/project-add.php:59 ../templates/project-settings.php:35
+msgid "Assign to Group:"
+msgstr ""
+
+#: ../templates/project-add.php:92
+msgid ""
+"You can only add projects into the group that you are either the "
+"administrator or one of the moderator."
+msgstr ""
+
+#: ../templates/project-add.php:102 ../templates/project-add.php:126
+msgid "Save Project"
+msgstr ""
+
+#: ../templates/project-add.php:116
+msgid ""
+"Looks like you don't have any groups yet. Please join or create new group to "
+"start a project."
+msgstr ""
+
+#: ../templates/project-add.php:141
+msgid "Please enable BuddyPress Groups Component to add new Project"
+msgstr ""
+
+#: ../templates/project-loop-content.php:59
+msgid "There are no projects found. Why not add one?"
+msgstr ""
+
+#: ../templates/project-loop-content.php:72
+msgid "Please enable BuddyPress Groups Components to access projects"
+msgstr ""
+
+#: ../templates/project-loop.php:22
+msgid "Please enable BuddyPress Groups Components to access the Projects."
+msgstr ""
+
+#: ../templates/project-settings.php:25
+msgid "Explain what this project is all about"
+msgstr ""
+
+#: ../templates/project-settings.php:69
+msgid "Update Project"
+msgstr ""
+
+#: ../templates/project-settings.php:74 ../templates/task-edit.php:31
+msgid "Delete"
+msgstr ""
+
+#: ../templates/project-settings.php:85
+msgid ""
+"Cannot access project settings. Only administrators and moderators are allow "
+"to edit this project."
+msgstr ""
+
+#: ../templates/project-single.php:13
+msgid "Dashboard"
+msgstr ""
+
+#: ../templates/project-single.php:18 ../templates/task-filter.php:25
+#: ../templates/task-filter.php:27 ../templates/task-filter.php:34
+msgid "Tasks"
+msgstr ""
+
+#: ../templates/project-single.php:28 ../templates/task-single.php:53
+msgid "Edit"
+msgstr ""
+
+#: ../templates/project-single.php:33
+msgid "Settings"
+msgstr ""
+
+#: ../templates/project-single.php:51
+msgid ""
+"This project can only be accessed by group members. Use the button below "
+"join the group and receive an access to this project."
+msgstr ""
+
+#: ../templates/project-single.php:62 ../templates/project-single.php:63
+msgid "Join Group"
+msgstr ""
+
+#: ../templates/project-single.php:70
+msgid "Please enable BuddyPress Groups Components."
+msgstr ""
+
+#: ../templates/project.php:17
+msgid "About"
+msgstr ""
+
+#: ../templates/project.php:37
+msgid "At a Glance"
+msgstr ""
+
+#: ../templates/project.php:50
+msgid "Total Tasks"
+msgstr ""
+
+#: ../templates/project.php:65
+msgid "Task(s) remaining"
+msgstr ""
+
+#: ../templates/project.php:79
+msgid "Task(s) Completed"
+msgstr ""
+
+#: ../templates/task-add.php:19 ../templates/task-edit.php:7
+msgid "Enter the title of this task. Max 160 characters"
+msgstr "Entrez le titre de cette tâche . Max 160 caractères"
+
+#: ../templates/task-add.php:32 ../templates/task-edit.php:19
+msgid "In few words, explain what this task is all about"
+msgstr ""
+
+#: ../templates/task-add.php:38 ../templates/task-edit.php:24
+msgid "Priority:"
+msgstr ""
+
+#: ../templates/task-add.php:45
+msgid "Save Task"
+msgstr ""
+
+#: ../templates/task-add.php:51
+msgid "Ops! Only group administrator or group moderators can add tasks."
+msgstr ""
+
+#: ../templates/task-comment-item.php:7
+msgid ""
+"Unable to update the task. Please make sure you have the right privilege."
+msgstr ""
+
+#: ../templates/task-comment-item.php:27
+msgid "New Progress by"
+msgstr ""
+
+#: ../templates/task-comment-item.php:32
+msgid "Completed by"
+msgstr ""
+
+#: ../templates/task-comment-item.php:36
+msgid "Reopened by"
+msgstr ""
+
+#: ../templates/task-comment-item.php:57
+msgid "Delete comment"
+msgstr ""
+
+#: ../templates/task-comment-item.php:58
+msgid "Remove Comment"
+msgstr ""
+
+#: ../templates/task-edit.php:35 ../templates/task-single.php:157
+msgid "Update Task"
+msgstr ""
+
+#: ../templates/task-filter.php:50
+msgid "Show All"
+msgstr ""
+
+#: ../templates/task-filter.php:51
+msgid "Normal Priority"
+msgstr ""
+
+#: ../templates/task-filter.php:52
+msgid "High Priority"
+msgstr ""
+
+#: ../templates/task-filter.php:53
+msgid "Critical Priority"
+msgstr ""
+
+#: ../templates/task-filter.php:60
+msgid "Search Tasks:"
+msgstr ""
+
+#: ../templates/task-filter.php:62
+msgid "Search Task"
+msgstr ""
+
+#: ../templates/task-filter.php:63
+msgid "Apply"
+msgstr ""
+
+#: ../templates/task-loop.php:61
+msgid ""
+"No tasks found. If you're trying to find a task, kindly try different "
+"keywords and/or filters."
+msgstr ""
+
+#: ../templates/task-loop.php:98
+msgid "of"
+msgstr ""
+
+#: ../templates/task-loop.php:105
+msgid "Go to the next page!!!"
+msgstr ""
+
+#: ../templates/task-loop.php:118
+msgid "Only members of this group can see tasks."
+msgstr ""
+
+#: ../templates/task-meta.php:8
+#, php-format
+msgid "%s Task"
+msgstr ""
+
+#: ../templates/task-single.php:7
+msgid ""
+"Unable to access the task details. Only group members can access this page."
+msgstr ""
+
+#: ../templates/task-single.php:19
+msgid "Normal"
+msgstr ""
+
+#: ../templates/task-single.php:20
+msgid "High"
+msgstr ""
+
+#: ../templates/task-single.php:21
+msgid "Critical"
+msgstr ""
+
+#: ../templates/task-single.php:49
+msgid "Tasks List"
+msgstr ""
+
+#: ../templates/task-single.php:50
+msgid "&larr; Tasks List"
+msgstr ""
+
+#: ../templates/task-single.php:63
+msgid "Discussion"
+msgstr ""
+
+#: ../templates/task-single.php:90 ../templates/task-single.php:130
+msgid "In Progress"
+msgstr ""
+
+#: ../templates/task-single.php:104 ../templates/task-single.php:120
+msgid "Reopen Task"
+msgstr ""
+
+#: ../templates/task-single.php:136
+msgid "Complete"
+msgstr ""
+
+#: ../templates/task-single.php:150
+msgid "Update Priority:"
+msgstr ""
+
+#: ../templates/task-single.php:164
+msgid "Ops! You cannot add progress to this task"
+msgstr ""
+
+#: ../transactions/controller.php:63
+msgid ""
+"Invalid Request. Your session has already expired (invalid nonce).\n"
+"\t\t\t\tPlease go back and refresh your browser. Thanks!"
+msgstr ""
+
+#: ../transactions/controller.php:129
+msgid ""
+"Unable to add tasks. Only a group administrator or a group moderator can add "
+"tasks."
+msgstr ""
+
+#: ../transactions/controller.php:146
+msgid ""
+"There was an error trying to add this task.\n"
+"\t\t\t\tTitle and Description fields are required or there was\n"
+"\t\t\t\tan unexpected error."
+msgstr ""
+
+#: ../transactions/controller.php:202
+msgid ""
+"Unable to access the task details. Only group members can access this page"
+msgstr ""
+
+#: ../transactions/controller.php:205
+msgid "Unauthorized Access"
+msgstr ""
+
+#: ../transactions/controller.php:560
+msgid "Permission Denied. Unauthorized."
+msgstr ""
+
+#: ../update-check.php:446
+msgid ""
+"The plugin has been updated, but could not be reactivated. Please reactivate "
+"it manually."
+msgstr ""
+
+#: ../update-check.php:447
+msgid "Plugin reactivated successfully."
+msgstr ""
+
+#~ msgid "Oops! Looks like you need to login in order to view the page."
+#~ msgstr "哎呀！看起来你需要，以查看该页面登录。"

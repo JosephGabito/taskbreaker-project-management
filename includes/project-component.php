@@ -121,7 +121,7 @@ class Task_Breaker_Projects_Component extends BP_Component {
 			'root_slug' => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_PROJECTS_SLUG,
 			'has_directory' => true,
 			'directory_title' => __( 'Projects', 'component directory title', 'task_breaker' ),
-			'search_string' => __( 'Search Projects...', 'buddypress' ),
+			'search_string' => __( 'Search Projects...', 'task_breaker' ),
 		);
 
 		parent::setup_globals( $globals );

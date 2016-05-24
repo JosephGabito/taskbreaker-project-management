@@ -17,7 +17,7 @@
             <?php if ( $task->completed_by != 0 ) { ?>
 
                 <?php $completed = 'completed'; ?>
-                
+
             <?php } ?>
 
             <?php $classes = implode( ' ', array( esc_attr( sanitize_title( $priority_label ) ), $completed ) ); ?>
@@ -85,7 +85,7 @@
 
                     <span id="task_breaker-task-paging" class="pagination-links">
 
-                        <a class="first-page disabled" title="<?php esc_attr_e( 'Go to the first page', 'task-breaker' );?>" href="#tasks/page/'.$min_page.'">«</a>
+                        <a class="first-page disabled" title="<?php esc_attr_e( 'Go to the first page', 'task_breaker' );?>" href="#tasks/page/'.$min_page.'">«</a>
                         <a class="prev-page disabled" title="<?php esc_attr_e( 'Go to the previous page', 'task_breaker' );?>" href="#">‹</a>
 
                         <span class="paging-input">
@@ -95,7 +95,7 @@
                             <input readonly class="current-page" id="task_breaker-task-current-page-selector" type="text" maxlength="<?php echo esc_attr( strlen( $total_page ) ); ?>"
                                 size="<?php echo esc_attr( strlen( $total_page ) ); ?>" value="<?php echo esc_attr( intval( $currpage ) ); ?>" />
 
-                            <?php esc_attr_e('of','task-breaker'); ?>
+                            <?php esc_attr_e('of','task_breaker'); ?>
 
                             <span class="total-pages">
                                 <?php echo esc_html( $total_page ); ?>
@@ -115,7 +115,7 @@
     <?php } // End if ( 0 !== $total ). ?>
 <?php } else { ?>
     <p class="info" id="message">
-        <?php esc_attr_e('Only members of this group can see tasks.','task-breaker'); ?>
+        <?php esc_attr_e('Only members of this group can see tasks.','task_breaker'); ?>
     </p>
     <p>
         <a class="button" href="#">

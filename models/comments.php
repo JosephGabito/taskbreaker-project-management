@@ -197,7 +197,7 @@ class ThriveComments {
 			 	$status_label = array(
 			 			__( 'posted new updated in', 'task_breaker' ),
 			 			__( 'completed', 'task_breaker' ),
-			 			__( 'reopened', 'theive' ),
+			 			__( 'reopened', 'task_breaker' ),
 			 		);
 
 			 	$type = $status_label[$this->get_status()];

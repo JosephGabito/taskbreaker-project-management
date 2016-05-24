@@ -19,7 +19,7 @@ do_action( 'task_breaker_before_projects_directory' ); ?>
 		<?php } else { ?>
 
 			<p id="message" class="info">
-	        	<?php _e('Please enable BuddyPress Groups Components to access the Projects.', 'task-breaker'); ?>
+	        	<?php _e('Please enable BuddyPress Groups Components to access the Projects.', 'task_breaker'); ?>
 	    	</p>
 
 		<?php } ?>
