@@ -82,6 +82,6 @@
 	</div>
 <?php } else { ?>
 	<p id="message" class="info">
-		<?php _e('Cannot access project settings. Only administrators and moderators are allow to edit this project.', 'task-breaker'); ?>
+		<?php _e('Cannot access project settings. Only administrators and moderators are allow to edit this project.', 'task_breaker'); ?>
 	</p>
 <?php } ?>

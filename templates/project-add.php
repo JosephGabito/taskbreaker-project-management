@@ -89,7 +89,7 @@
 
 					<?php } ?>
 					<div class="field-description">
-						<?php esc_attr_e('You can only add projects into the group that you are either the administrator or one of the moderator.', 'task-breaker'); ?>
+						<?php esc_attr_e('You can only add projects into the group that you are either the administrator or one of the moderator.', 'task_breaker'); ?>
 					</div>
 				</div>
 
@@ -138,6 +138,6 @@
 
 <?php } else { ?>
 	<p id="message" class="info">
-		<?php esc_html_e('Please enable BuddyPress Groups Component to add new Project', 'task-breaker'); ?>
+		<?php esc_html_e('Please enable BuddyPress Groups Component to add new Project', 'task_breaker'); ?>
 	</p>
 <?php } ?>

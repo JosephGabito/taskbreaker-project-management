@@ -199,7 +199,7 @@ function task_breaker_transaction_fetch_task() {
 
 		task_breaker_api_message(array(
 			'message' => 'fail',
-			'message_long' => __('Unable to access the task details. Only group members can access this page', 'task-breaker'),
+			'message_long' => __('Unable to access the task details. Only group members can access this page', 'task_breaker'),
 			'task'    => array(),
 			'stats'   => array(),
 			'debug'   => __("Unauthorized Access", "task-breaker"),
@@ -554,7 +554,7 @@ function task_breaker_transactions_delete_project() {
 	$redirect = home_url();
 
 	if ( ! task_breaker_can_delete_project( $project_id ) ) {
-		
+
 		task_breaker_api_message( array(
 				'message' => 'fail',
 				'response' => __("Permission Denied. Unauthorized.")

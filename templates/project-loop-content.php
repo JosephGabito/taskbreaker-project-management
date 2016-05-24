@@ -69,6 +69,6 @@ wp_reset_postdata();
 ?>
 <?php } else { ?>
 	<p id="message" class="info">
-		<?php esc_html_e('Please enable BuddyPress Groups Components to access projects', 'task-breaker'); ?>
+		<?php esc_html_e('Please enable BuddyPress Groups Components to access projects', 'task_breaker'); ?>
 	</p>
 <?php } ?>

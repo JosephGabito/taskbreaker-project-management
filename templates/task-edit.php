@@ -6,14 +6,14 @@
 		<input placeholder="Task Title" type="text" id="task_breakerTaskEditTitle" maxlength="160" name="title" class="widefat"/>
 		<br><span class="description"><?php _e('Enter the title of this task. Max 160 characters', 'task_breaker'); ?></span>
 	</div><br/>
-	
+
 	<div class="task_breaker-form-field">
-		<?php 
+		<?php
 			$args = array(
 				'teeny' => true,
 				'editor_height' => 100,
 				'media_buttons' => false
-			); 
+			);
 		?>
 		<?php echo wp_editor($content = null, $editor_id = "task_breakerTaskEditDescription", $args); ?>
 		<br><span class="description"><?php _e('In few words, explain what this task is all about', 'task_breaker'); ?></span>
@@ -28,13 +28,13 @@
 
 	<div class="task_breaker-form-field">
 		<button id="task_breaker-delete-btn" class="button button-primary button-large" style="float:right; margin-left: 10px;">
-			<?php _e('Delete', 'dunhakdis'); ?>
+			<?php _e('Delete', 'task_breaker'); ?>
 		</button>
 
 		<button id="task_breaker-edit-btn" class="button button-primary button-large" style="float:right">
-			<?php _e('Update Task', 'dunhakdis'); ?>
+			<?php _e('Update Task', 'task_breaker'); ?>
 		</button>
-		
+
 		<div style="clear:both"></div>
 	</div>
 </div>

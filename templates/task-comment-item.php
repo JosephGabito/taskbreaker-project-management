@@ -4,7 +4,7 @@
 
 	<li class="task-lists-item comment">
 		<p id="message" class="message error">
-			<?php _e('Unable to update the task. Please make sure you have the right privilege.', 'task-breaker'); ?>
+			<?php _e('Unable to update the task. Please make sure you have the right privilege.', 'task_breaker'); ?>
 		</p>
 	</li>
 
@@ -46,7 +46,7 @@
 					</p>
 				</div>
 				<div class="task-content">
-					
+
 					<?php echo wpautop( nl2br( $args['details'] ) ); ?>
 
 					<?php $current_user_id = get_current_user_id(); ?>

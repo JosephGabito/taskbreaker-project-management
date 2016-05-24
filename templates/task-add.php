@@ -42,13 +42,13 @@
 
 		<div class="task_breaker-form-field">
 			<button id="task_breaker-submit-btn" class="button button-primary button-large" style="float:right">
-				<?php _e('Save Task', 'dunhakdis'); ?>
+				<?php _e('Save Task', 'task_breaker'); ?>
 			</button>
 			<div style="clear:both"></div>
 		</div>
 	<?php } else { ?>
 		<p id="message" class="info">
-			<?php _e('Ops! Only group administrator or group moderators can add tasks.', 'task-breaker'); ?>
+			<?php _e('Ops! Only group administrator or group moderators can add tasks.', 'task_breaker'); ?>
 		</p>
 	<?php } ?>
 </div>

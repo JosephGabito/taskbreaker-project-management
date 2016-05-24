@@ -139,7 +139,7 @@ function task_breaker_render_task( $args = array() ) {
 
 	if ( ! empty( $search ) ) {
 
-		echo '<p id="task_breaker-view-info">'.sprintf( __( 'Search result for: "%s"', 'task-breaker' ), esc_html( $search ) ).'</p>';
+		echo '<p id="task_breaker-view-info">'.sprintf( __( 'Search result for: "%s"', 'task_breaker' ), esc_html( $search ) ).'</p>';
 
 	} else {
 
@@ -228,7 +228,7 @@ function task_breaker_render_task( $args = array() ) {
 						echo ' of <span class="total-pages">'.$total_page.'</span></span>';
 
 				echo '<a class="next-page" title="'.__( 'Go to the next page', 'task_breaker' ).'" href="#">›</a>';
-				echo '<a class="last-page" title="'.__( 'Go to the last page', 'trive' ).'" href="#tasks/page/'.$max_page.'">»</a></span>';
+				echo '<a class="last-page" title="'.__( 'Go to the last page', 'task_breaker' ).'" href="#tasks/page/'.$max_page.'">»</a></span>';
 			echo '</span>';
 		}
 
@@ -497,7 +497,7 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 
 		<?php if ( ! empty ( $group->id ) ) { ?>
 
-			<?php _e( 'under &raquo;' ); ?>
+			<?php _e( 'under &raquo;', 'task_breaker' ); ?>
 
 			<a href="<?php echo esc_url( bp_get_group_permalink( $group ) ); ?>" title="<?php echo esc_attr( $group->name ); ?>">
 
