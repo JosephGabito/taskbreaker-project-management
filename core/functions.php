@@ -590,24 +590,26 @@ function task_breaker_get_user_group_admin_mod() {
 
 	$user_id = get_current_user_id();
 
-	$group_results = $wpdb->get_results( $wpdb->prepare('SELECT
+	$group_results_stmt = "SELECT
             groups.id as group_id,
             group_member.user_id as user_id,
             groups.name as group_name,
             group_member.is_mod,
             group_member.is_admin
             FROM
-            wp_bp_groups_members as group_member
+            {$wpdb->prefix}bp_groups_members as group_member
             INNER JOIN
-            wp_bp_groups as groups
+            {$wpdb->prefix}bp_groups as groups
             WHERE
             group_member.group_id = groups.id
             AND
             ( group_member.is_mod = 1 OR group_member.is_admin = 1 )
             AND
-            group_member.user_id = %d GROUP BY groups.id;',
-		$user_id
-	), OBJECT );
+            group_member.user_id = %d GROUP BY groups.id;";
+
+	$group_results = $wpdb->get_results(
+		$wpdb->prepare( $group_results_stmt, $user_id ),
+		OBJECT );
 
 	if ( ! empty( $group_results ) ) {
 		return $group_results;
