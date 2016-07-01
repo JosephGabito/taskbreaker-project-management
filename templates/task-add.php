@@ -17,24 +17,18 @@
 		<!-- Task Title -->
 		<div class="task_breaker-form-field">
 
-			<input placeholder="<?php esc_attr_e('Add a new task ...', 'task_breaker'); ?>" type="text" id="task_breakerTaskTitle" maxlength="160" name="title" class="widefat"/>
+			<input placeholder="<?php esc_attr_e('Task Summary', 'task_breaker'); ?>" type="text" id="task_breakerTaskTitle" maxlength="160" name="title" class="widefat"/>
 
 		</div>
 
 		<!-- Task User Assigned -->
 		<div class="task_breaker-form-field">
-
-			<select id="task-user-assigned" class="task-breaker-select2"></select>
-
+			<select multiple id="task-user-assigned" class="task-breaker-select2"></select>
 		</div>
 
 		<!-- Task Description -->
 		<div class="task_breaker-form-field">
-			<p class="task-breaker-form-field-helper-text">
-				<?php
-				 _e('Add extra details...', 'task_breaker');
-				 ?>
-			</p>
+
 			<?php $args = array(
 				'teeny' => true,
 				'editor_height' => 100,
@@ -77,12 +71,31 @@
 		}
 		$('select#task-user-assigned').select2({
 			maximumInputLength: 20,
-			placeholder: 'Type group members name...',
+			placeholder: "Type member\'s name...",
 			allowClear: true,
 			minimumResultsForSearch: Infinity,
 			minimumInputLength: 2,
+			tag: true,
 			ajax: {
-				url: 'api.php',
+
+				data: function ( params ) {
+
+					var query = {
+						action: 'task_breaker_transactions_request',
+						method: 'task_breaker_transactions_user_suggest',
+						nonce: task_breakerProjectSettings.nonce,
+						group_id: '<?php echo get_post_meta($post->ID, "task_breaker_project_group_id", true);?>',
+						term: params.term,
+						user_id_collection: 0
+					}
+
+					if ( $('select#task-user-assigned').val() ) {
+						query.user_id_collection = $('select#task-user-assigned').val();
+					}
+
+					return query;
+				},
+				url: task_breakerAjaxUrl,
 				delay: 250,
 				cache: true
 			},
