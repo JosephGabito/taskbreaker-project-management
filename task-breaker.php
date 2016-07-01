@@ -54,7 +54,7 @@ require_once plugin_dir_path( __FILE__ ) . 'install/table.php';
  */
 function task_breaker_localize_plugin() {
 
-		$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
+	$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
 
     load_plugin_textdomain( 'task_breaker', FALSE, $rel_path );
 
