@@ -149,6 +149,13 @@ class ThriveProjectTasksModel {
 		return $this;
 	}
 
+	public function setAssignUsers($user_id_collection = array()) {
+
+		$this->group_members_assigned = $user_id_collection;
+
+		return $this;
+	}
+
 	public function getPriority($priority = 1) {
 
 		$priority = abs( $priority );
@@ -461,7 +468,8 @@ class ThriveProjectTasksModel {
 				'milestone_id' => $this->milestone_id,
 				'project_id' => $this->project_id,
 				'priority' => $this->priority,
-				'date_created' => date("Y-m-d H:i:s")
+				'date_created' => date("Y-m-d H:i:s"),
+				'assign_users' => $this->group_members_assigned
 			);
 
 		$trimmed_title = trim( $this->title );
@@ -483,6 +491,7 @@ class ThriveProjectTasksModel {
 				'%d',
 				'%d',
 				'%d',
+				'%s'
 			);
 
 		if ( ! empty( $this->id ) ) {
@@ -660,5 +669,11 @@ class ThriveProjectTasksModel {
 		}
 
 		return $stats;
+	}
+
+	public function assignUsersToTask( $user_id_collection = array() ) {
+
+			return implode( ',', $user_id_collection );
+
 	}
 }
