@@ -590,36 +590,59 @@ function task_breaker_transactions_delete_project() {
 	return;
 }
 
+/**
+ * task_breaker_transactions_user_suggest
+ *
+ * This function returns the list of user inside the group ($group_id)
+ * and filters it by name (like)
+ *
+ * @return void
+ */
 function task_breaker_transactions_user_suggest() {
 
 	global $wpdb;
 
 	$term = filter_input( INPUT_GET, 'term', FILTER_SANITIZE_STRING );
+	$group_id = filter_input( INPUT_GET, 'group_id', FILTER_SANITIZE_NUMBER_INT );
 
-	$stmt = $wpdb->prepare("SELECT ID as id, display_name as text FROM {$wpdb->prefix}users WHERE display_name LIKE %s LIMIT 10;", "%".$wpdb->esc_like($term)."%");
+	$stmt = $wpdb->prepare("SELECT unique_wpbp_groups_members.user_id as id, unique_wpusers.display_name as text FROM unique_wpbp_groups_members INNER JOIN unique_wpusers
+	ON unique_wpbp_groups_members.user_id = unique_wpusers.ID
+	WHERE unique_wpbp_groups_members.group_id = %d AND unique_wpusers.display_name LIKE %s ORDER BY unique_wpusers.display_name ASC LIMIT 10",
+	$group_id,
+	"%".$wpdb->esc_like( $term )."%");
 
 	$results = $wpdb->get_results( $stmt, ARRAY_A );
 
 	$formatted_results = array();
 
-	foreach( $results as $result ) {
+	if ( ! empty( $results ) ) {
 
-	    if ( ! empty ( $result ['text'] ) ) {
+		foreach( $results as $result ) {
 
-	        $image = get_avatar_url( $result['id'], 32 );
+		    if ( ! empty ( $result ['text'] ) ) {
 
-	        $formatted_results[] = array(
-	            'id' => $result['id'],
-	            'text' => $result['text'],
-	            'avatar' => $image
-	        );
+		        $image_tag = get_avatar( absint( $result['id'] ) );
 
-	    }
+				preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $image_tag, $image_src);
+
+		        $formatted_results[] = array(
+		            'id' => $result['id'],
+		            'text' => $result['text'],
+		            'avatar' => $image_src[1]
+		        );
+
+		    }
+
+		}
 
 	}
 
-	task_breaker_api_message( array(
+	task_breaker_api_message(
+		array(
 			'results' => $formatted_results,
-		));
+		)
+	);
+
+	return;
 }
 ?>
