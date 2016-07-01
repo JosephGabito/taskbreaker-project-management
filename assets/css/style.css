@@ -1023,7 +1023,11 @@
        text-overflow: ellipsis;
        white-space: nowrap; }
    .select2-container .select2-search--inline {
-     float: left; }
+     float: left;
+     margin: 0;
+     line-height: 0;
+     list-style: none;
+    }
      .select2-container .select2-search--inline .select2-search__field {
        box-sizing: border-box;
        border: none;
@@ -1035,7 +1039,7 @@
 
  .select2-dropdown {
    background-color: white;
-   border: 1px solid #aaa;
+   border: 1px solid rgba(0,0,0,0.12);
    border-radius: 4px;
    box-sizing: border-box;
    display: block;
@@ -1053,8 +1057,9 @@
    padding: 0; }
 
  .select2-results__option {
-   padding: 6px;
+   padding: 5px;
    user-select: none;
+   margin: 0;
    -webkit-user-select: none; }
    .select2-results__option[aria-selected] {
      cursor: pointer; }
@@ -1161,7 +1166,7 @@
 
  .select2-container--default .select2-selection--multiple {
    background-color: white;
-   border: 1px solid #aaa;
+   border: 1px solid rgba(0, 0, 0, 0.12);
    border-radius: 4px;
    cursor: text; }
    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
@@ -1181,14 +1186,16 @@
      margin-top: 5px;
      margin-right: 10px; }
    .select2-container--default .select2-selection--multiple .select2-selection__choice {
-     background-color: #e4e4e4;
-     border: 1px solid #aaa;
-     border-radius: 4px;
-     cursor: default;
-     float: left;
-     margin-right: 5px;
-     margin-top: 5px;
-     padding: 0 5px; }
+       background-color: #FFEB3B;
+   border: 1px solid #FFC107;
+   border-radius: 4px;
+   cursor: default;
+   list-style: none;
+   float: left;
+   margin: 7.5px 7.5px 0 0;
+   font-size: 12px;
+   padding: 5px;
+   color: #607D8B;}
    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
      color: #999;
      cursor: pointer;
@@ -1210,7 +1217,7 @@
    margin-right: auto; }
 
  .select2-container--default.select2-container--focus .select2-selection--multiple {
-   border: solid black 1px;
+   border: 1px solid rgba(0, 0, 0, 0.12);
    outline: 0; }
 
  .select2-container--default.select2-container--disabled .select2-selection--multiple {
@@ -1234,8 +1241,11 @@
  .select2-container--default .select2-search--inline .select2-search__field {
    background: transparent;
    border: none;
+   width: 200px!important;
    outline: 0;
    box-shadow: none;
+   margin: 0;
+   padding: 0;
    -webkit-appearance: textfield; }
 
  .select2-container--default .select2-results > .select2-results__options {
