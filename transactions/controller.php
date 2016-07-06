@@ -604,12 +604,12 @@ function task_breaker_transactions_user_suggest() {
 
 	$term = filter_input( INPUT_GET, 'term', FILTER_SANITIZE_STRING );
 	$group_id = filter_input( INPUT_GET, 'group_id', FILTER_SANITIZE_NUMBER_INT );
+	$prefix = $wpdb->prefix;
 
-	$stmt = $wpdb->prepare("SELECT unique_wpbp_groups_members.user_id as id, unique_wpusers.display_name as text FROM unique_wpbp_groups_members INNER JOIN unique_wpusers
-	ON unique_wpbp_groups_members.user_id = unique_wpusers.ID
-	WHERE unique_wpbp_groups_members.group_id = %d AND unique_wpusers.display_name LIKE %s ORDER BY unique_wpusers.display_name ASC LIMIT 10",
-	$group_id,
-	"%".$wpdb->esc_like( $term )."%");
+	$stmt = $wpdb->prepare("SELECT {$prefix}bp_groups_members.user_id as id, {$prefix}users.display_name as text FROM {$prefix}bp_groups_members INNER JOIN {$prefix}users
+	ON {$prefix}bp_groups_members.user_id = {$prefix}users.ID
+	WHERE {$prefix}bp_groups_members.group_id = %d AND {$prefix}users.display_name LIKE %s ORDER BY {$prefix}users.display_name ASC LIMIT 10",
+	$group_id, "%".$wpdb->esc_like( $term )."%");
 
 	$results = $wpdb->get_results( $stmt, ARRAY_A );
 
