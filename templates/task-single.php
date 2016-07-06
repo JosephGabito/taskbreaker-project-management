@@ -1,14 +1,16 @@
 <?php if ( empty ( $args ) ) return; ?>
 
-<?php // Only allow members who has an access view to view the task; ?>
-<?php if ( ! task_breaker_can_see_project_tasks( $args->project_id ) ) { ?>
+<?php
+// Only allow members who has an access view to view the task.
+if ( ! task_breaker_can_see_project_tasks( $args->project_id ) ) { ?>
+
     <div id="task_breaker-single-task">
         <p class="info" id="message">
             <?php _e("Unable to access the task details. Only group members can access this page.", "task-breaker"); ?>
         </p>
     </div>
-    <?php return; ?>
-<?php } ?>
+
+<?php return; } ?>
 
 <div id="task_breaker-single-task">
 
@@ -21,7 +23,9 @@
                 '3' => __( 'Critical', 'task_breaker' ),
             );
         ?>
-
+        <?php
+        //Task Meta.
+        ?>
         <div id="task-details-priority" class="task-priority <?php echo sanitize_title( $priority_label[$args->priority] ); ?>">
             <?php echo esc_html( $priority_label[ $args->priority ] ); ?>
         </div>
@@ -35,16 +39,45 @@
                 <?php esc_html_e( 'Open', 'task_breaker' ); ?>
             </div>
         <?php } ?>
+
+        <?php
+        //Task Title.
+        ?>
         <h2>
             <?php echo esc_html( $args->title ); ?>
-            <span class="clearfix"></span>
         </h2>
+        <span class="clearfix"></span>
 
+        <?php
+        //Task Content.
+        ?>
         <div class="task-content">
             <?php echo do_shortcode( $args->description ); ?>
         </div>
 
+        <?php if ( ! empty(  $args->assign_users ) ) { ?>
+            <div class="task-members">
+                <h5>
+                    <?php esc_attr_e('This task is assigned to:', 'task_breaker'); ?>
+                </h5>
+                <?php
+                    $assign_users = task_breaker_parse_assigned_users( $args->assign_users );
+                ?>
+                <ul class="task-members-items">
+                    <?php foreach( $assign_users as $assign_user ) { ?>
+                        <li class="task-members-items-item">
+                            <a title="<?php esc_attr_e( $assign_user->display_name ); ?>" href="<?php echo esc_url( bp_core_get_userlink( $assign_user->ID, false, true ) );  ?>" class="task-members-items-item-link">
+                                <?php echo get_avatar( $assign_user->ID ); ?>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        <?php } ?>
+
+
         <div class="task-content-meta">
+
             <div class="alignright">
                 <a href="#tasks" title="<?php _e( 'Tasks List', 'task_breaker' ); ?>" class="button">
                     <?php _e( '&larr; Tasks List', 'task_breaker' ); ?>
@@ -53,17 +86,23 @@
                     <?php _e( 'Edit', 'task_breaker' ); ?>
                 </a>
             </div>
+
             <div class="clearfix"></div>
+
         </div>
+
     </div><!--#task_breaker-single-task-details-->
 
     <ul id="task-lists">
+
         <li class="task_breaker-task-discussion">
             <h3>
                 <?php _e( 'Discussion', 'task_breaker' ); ?>
             </h3>
         </li>
+
         <?php $comments = task_breaker_get_tasks_comments( $args->id ); ?>
+
         <?php if ( ! empty( $comments ) ) { ?>
             <?php foreach ( $comments as $comment ) { ?>
                 <?php echo task_breaker_comments_template( $comment, (array) $args ); ?>
