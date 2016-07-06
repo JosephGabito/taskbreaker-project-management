@@ -633,4 +633,23 @@ function task_breaker_new_project_modal_button() {
 	}
 }
 
+
+function task_breaker_parse_assigned_users( $user_id_collection = "" ) {
+
+	global $wpdb;
+
+	$users = new stdclass;
+
+	if ( ! empty( $user_id_collection ) )
+	{
+		$stmt = esc_sql( "SELECT ID, display_name FROM {$wpdb->prefix}users WHERE ID IN({$user_id_collection})" );
+
+		$users = $wpdb->get_results( $stmt );
+
+	}
+
+	return $users;
+
+}
+
 ?>
