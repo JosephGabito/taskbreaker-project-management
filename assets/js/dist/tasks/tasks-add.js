@@ -32,7 +32,8 @@ $('#task_breaker-submit-btn').click(function(e) {
             nonce: task_breakerProjectSettings.nonce,
 
             project_id: task_breakerTaskConfig.currentProjectId,
-            user_id: task_breakerTaskConfig.currentUserId
+            user_id: task_breakerTaskConfig.currentUserId,
+            user_id_collection: $('select#task-user-assigned').val()
         },
 
         method: 'post',
