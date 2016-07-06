@@ -67,7 +67,7 @@ class ThriveProjectTasksModel {
 	/**
 	 * The users that are assigned into this task
 	 */
-	var $group_members_assigned = array();
+	var $group_members_assigned = '';
 
 	/**
 	 * Update the table name on initiate
@@ -149,9 +149,9 @@ class ThriveProjectTasksModel {
 		return $this;
 	}
 
-	public function setAssignUsers($user_id_collection = array()) {
+	public function setAssignUsers( $user_id_collection = array() ) {
 
-		$this->group_members_assigned = $user_id_collection;
+		$this->group_members_assigned = implode( ",", $user_id_collection );
 
 		return $this;
 	}
@@ -485,13 +485,14 @@ class ThriveProjectTasksModel {
 		}
 
 		$format = array(
-				'%s',
-				'%s',
-				'%d',
-				'%d',
-				'%d',
-				'%d',
-				'%s'
+				'%s', // Title.
+				'%s', // Description.
+				'%d', // User.
+				'%d', // Milestone Id.
+				'%d', // Project Id.
+				'%d', // Priority.
+				'%s', // Date Created.
+				'%s'  // Assign Users.
 			);
 
 		if ( ! empty( $this->id ) ) {
@@ -501,7 +502,7 @@ class ThriveProjectTasksModel {
 		} else {
 
 			if ( $wpdb->insert( $this->model, $args, $format ) ) {
-
+				
 			 	$last_insert_id = $wpdb->insert_id;
 
 			 	// Add new activity. Check if buddypress is active first
@@ -673,7 +674,9 @@ class ThriveProjectTasksModel {
 
 	public function assignUsersToTask( $user_id_collection = array() ) {
 
-			return implode( ',', $user_id_collection );
+		$this->group_members_assigned = implode( ',', $user_id_collection );
+
+		return $this;
 
 	}
 }
