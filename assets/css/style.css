@@ -413,6 +413,8 @@
 
 .single-project #task_breaker-project-tasks ul li .task-user img.avatar {
     border-radius: 50%;
+    height: auto;
+    width: auto;
 }
 
 .single-project .task_breaker-tabs-tabs ul {
@@ -519,7 +521,7 @@
 }
 
 .single-project #task_breaker-project-tasks ul li.last-user-update {
-    width: 15%;
+    width: 35%;
     text-align: right;
 }
 
@@ -1476,3 +1478,23 @@
 
  .select2-container--classic.select2-container--open .select2-dropdown {
    border-color: #5897fb; }
+
+#task_breaker-project-tasks li.task-members-items-item,
+#task_breaker-project-tasks #task_breaker-single-task li.task-members-items-item {
+    float: left;
+    width: 32px;
+    margin: 0;
+    padding: 0;
+    margin-right: 5px;
+    position: relative;
+}
+
+#task_breaker-project-tasks li.task-members-items-item {
+    float: right;
+}
+
+#task_breaker-project-tasks  li.task-members-items-item .avatar,
+#task_breaker-single-task  li.task-members-items-item .avatar {
+    border-radius: 50%;
+    height: auto;
+}
