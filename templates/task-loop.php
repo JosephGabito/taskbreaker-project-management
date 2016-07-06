@@ -17,7 +17,7 @@
             <?php if ( $task->completed_by != 0 ) { ?>
 
                 <?php $completed = 'completed'; ?>
-                
+
             <?php } ?>
 
             <?php $classes = implode( ' ', array( esc_attr( sanitize_title( $priority_label ) ), $completed ) ); ?>
@@ -41,12 +41,27 @@
                     </li>
                     <li class="last-user-update">
                         <div class="task-user">
-                            <?php echo get_avatar( intval( $task->user ), 32 ); ?>
+
                             <?php $user = get_userdata( $task->user ); ?>
-                            <div class="task-user-name">
+                            <!--<div class="task-user-name">
                                 <small>
-                                    <?php echo esc_html( $user->display_name ); ?>
+                                    <?php //echo esc_html( $user->display_name ); ?>
                                 </small>
+                            </div>-->
+
+                            <div class="task-members">
+                                <?php
+                                    $assign_users = task_breaker_parse_assigned_users( $task->assign_users );
+                                ?>
+                                <ul class="task-members-items">
+                                    <?php foreach( $assign_users as $assign_user ) { ?>
+                                        <li class="task-members-items-item">
+                                            <a title="<?php esc_attr_e( $assign_user->display_name ); ?>" href="<?php echo esc_url( bp_core_get_userlink( $assign_user->ID, false, true ) );  ?>" class="task-members-items-item-link">
+                                                <?php echo get_avatar( $assign_user->ID ); ?>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
                             </div>
                         </div>
                     </li>
