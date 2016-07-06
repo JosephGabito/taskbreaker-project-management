@@ -4,13 +4,13 @@
  */
 require_once( plugin_dir_path( __FILE__ ) . '../models/tasks.php' );
 
-class ThriveProjectTasksController extends ThriveProjectTasksModel{
+class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	public function __construct() {
 		return $this;
 	}
 
-	public function addTicket($params = array()) {
+	public function addTicket( $params = array() ) {
 
 		$args = array(
 				'title' => '',
