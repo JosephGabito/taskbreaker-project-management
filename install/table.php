@@ -12,10 +12,12 @@
 // @reference <https://codex.wordpress.org/Creating_Tables_with_Plugins>
 
 define( 'TASK_BREAKER_TASKS_TABLE', 'task_breaker_tasks' );
+define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE', 'task_breaker_tasks_user_assignment' );
 define( 'TASK_BREAKER_COMMENTS_TABLE', 'task_breaker_comments' );
 
-define( 'TASK_BREAKER_TASKS_TABLE_VERSION', '1.2.04082016v2' );
-define( 'TASK_BREAKER_COMMENTS_TABLE_VERSION', '1.2.1122016v1' );
+define( 'TASK_BREAKER_TASKS_TABLE_VERSION', '1.2.04082016v3' );
+define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION', '1.0.1' );
+define( 'TASK_BREAKER_COMMENTS_TABLE_VERSION', '1.2.1122016v3' );
 
 function task_breaker_install()
 {
@@ -25,6 +27,9 @@ function task_breaker_install()
 
 	// Setup our tasks comments/discussion table.
 	task_breaker_comments_setup_table();
+
+	// Setup our task comments user assignment.
+	task_breaker_tasks_user_assignment_setup_table();
 
 	return;
 }
@@ -168,6 +173,34 @@ function task_breaker_import_thrive_comments() {
 			update_option( "task_breaker_comments_imported", "yes" );
 		}
 	}
+
+	return;
+}
+
+function task_breaker_tasks_user_assignment_setup_table()
+{
+
+	global $wpdb;
+
+	$task_user_assignment_table_name = $wpdb->prefix . TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE;
+
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$task_user_assignment_table_structure = "CREATE TABLE $task_user_assignment_table_name (
+		  	id int(10) NOT NULL AUTO_INCREMENT,
+		  	task_id int(10) NOT NULL,
+		  	member_id int(10) NOT NULL,
+		  	date_added timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  	UNIQUE KEY (id)
+		) $charset_collate";
+
+	// Include the 'upgrade' script inside WP include dir.
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+	// Run the dbDelta function with our table specification.
+	dbDelta( $task_user_assignment_table_structure );
+
+	add_option( 'task_breaker_comments_table_version', TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION );
 
 	return;
 }

@@ -111,7 +111,7 @@ if ( ! task_breaker_can_see_project_tasks( $args->project_id ) ) { ?>
 
     </ul><!--#task-lists-->
 
-    <?php if ( task_breaker_can_add_task_comment( $args->project_id ) ) { ?>
+    <?php if ( task_breaker_can_add_task_comment( $args->project_id, $args->task_id ) ) { ?>
 
         <div id="task-editor">
             <div id="task-editor_update-status" class="task_breaker-form-field">
@@ -196,11 +196,12 @@ if ( ! task_breaker_can_see_project_tasks( $args->project_id ) ) { ?>
                     <?php _e( 'Update Task', 'task_breaker' ); ?>
                 </button>
             </div>
+
         </div><!--#task-editor-->
     <?php } else { ?>
         <div id="task-editor">
             <p class="error" id="message">
-                <?php _e('Ops! You cannot add progress to this task', 'task-breaker'); ?>
+                <?php esc_attr_e( 'Only assigned members of this task or members with the right privilege are able to add progress to this task.', 'task-breaker' ); ?>
             </p>
         </div>
     <?php } ?>

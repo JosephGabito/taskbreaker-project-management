@@ -497,13 +497,16 @@ class ThriveProjectTasksModel {
 
 		if ( ! empty( $this->id ) ) {
 
-			return ($wpdb->update( $this->model, $args, array( 'id' => $this->id ), $format, array( '%d' ) ) === 0);
+			return ( $wpdb->update( $this->model, $args, array( 'id' => $this->id ), $format, array( '%d' ) ) === 0 );
 
 		} else {
 
 			if ( $wpdb->insert( $this->model, $args, $format ) ) {
-				
+
 			 	$last_insert_id = $wpdb->insert_id;
+
+				// Assign members to the task.
+				$this->assign_members( $last_insert_id, $this->group_members_assigned );
 
 			 	// Add new activity. Check if buddypress is active first
 			 	if ( function_exists( 'bp_activity_add' ) ) {
@@ -545,6 +548,41 @@ class ThriveProjectTasksModel {
 
 			}
 		}
+	}
+
+	public function assign_members( $task_id = 0, $members_assign = "" ) {
+
+		global $wpdb;
+
+		if ( 0 === $task_id ) {
+			return $this;
+		}
+
+		if ( empty( $members_assign ) ) {
+			return $this;
+		}
+
+		$table = $wpdb->prefix . TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE;
+
+		// Clear any existing records.
+		$wpdb->delete( $table,
+			array( $task_id ), // Entry
+			array( '%d' ) // Format.
+		);
+
+		$exp_members_assigned = explode( ',', $members_assign );
+
+		if ( ! empty( $exp_members_assigned ) ) {
+
+			foreach ( $exp_members_assigned as $task_member_id ) {
+				$wpdb->insert(
+					$table,
+					array( 'task_id' => intval( $task_id ), 'member_id' => intval( $task_member_id ) ), // Entry.
+					array( '%d', '%d' ) ); // Format.
+				}
+		}
+
+		return $this;
 	}
 
 	public function getCount($project_id = 0, $type = 'all') {

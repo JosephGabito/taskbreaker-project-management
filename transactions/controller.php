@@ -224,17 +224,20 @@ function task_breaker_transaction_fetch_task() {
 
 	$task_collection = $task->renderTasks( $args );
 
+	// Push the ticket ID in the task_collection stack.
+	$task_collection->task_id = absint( $task_id );
+
 	if ( 0 === $task_id ) {
 
 		$task_id = null;
 
-		$template = $html_template($args);
+		$template = $html_template( $args );
 
 	} else {
 
 		if ( ! empty( $callback_template ) ) {
 
-			$template = $html_template($task_collection);
+			$template = $html_template( $task_collection );
 
 		}
 	}
@@ -376,7 +379,7 @@ function task_breaker_transaction_add_comment_to_ticket() {
 	$project_id = filter_input( INPUT_POST, 'project_id', FILTER_SANITIZE_STRING );;
 
 	// Check if current user can add comment
-	if ( ! task_breaker_can_add_task_comment( $project_id ) ) {
+	if ( ! task_breaker_can_add_task_comment( $project_id, $ticket_id ) ) {
 
 		task_breaker_api_message(array(
 			'message' => 'fail',
