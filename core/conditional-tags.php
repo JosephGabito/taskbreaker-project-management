@@ -292,8 +292,6 @@ function task_current_member_is_assign_to( $task_id = 0 ){
 
     $result = $wpdb->get_row( $stmt );
 
-    print_r( $result );
-
     if ( ! empty( $result ) )
     {
         return true;
