@@ -338,6 +338,17 @@ function task_breaker_comments_template( $args = array(), $task = array() ) {
 	return ob_get_clean();
 }
 
+function task_breaker_get_task( $task_id = 0 ) {
+
+	global $wpdb;
+
+	$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}task_breaker_tasks WHERE id = %d", $task_id );
+
+	$result = $wpdb->get_row( $stmt, OBJECT );
+
+	return $result;
+}
+
 function task_breaker_get_tasks_comments( $ticket_id = 0 ) {
 
 	global $wpdb;
