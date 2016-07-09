@@ -529,7 +529,7 @@ class ThriveProjectTasksModel {
 
 			 		$action = sprintf( __( '%s added new task under %s', 'task_breaker' ), $bp_user_link, $task_breaker_project_name );
 
-			 		bp_activity_add(
+			 		$new_activity_id = bp_activity_add(
 			 			array(
 							'user_id' => $this->user_id,
 							'action' => apply_filters( 'task_breaker_new_task_activity_action', $action, $this->user_id ),
@@ -538,6 +538,23 @@ class ThriveProjectTasksModel {
 							'type' => 'task_breaker_new_task',
 						)
 					);
+
+					// Send a notification to the assigned member
+					$exploded_members = explode( ",", $this->group_members_assigned );
+
+
+						bp_notifications_add_notification(
+							array(
+						        'user_id'           => 7,
+								'item_id'           => $last_insert_id,
+						        'secondary_item_id' => 1,
+						        'component_name'    => 'task_breaker_ua_notifications_name',
+						        'component_action'  => 'task_breaker_ua_action',
+						        'date_notified'     => bp_core_current_time(),
+						        'is_new'            => 1,
+					    	)
+						);
+
 			 	}
 
 			 	return $last_insert_id;
