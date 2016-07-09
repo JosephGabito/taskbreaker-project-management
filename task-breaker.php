@@ -48,6 +48,9 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/project-post-type.php';
 // Require install script.
 require_once plugin_dir_path( __FILE__ ) . 'install/table.php';
 
+// Require notification file
+require_once plugin_dir_path( __FILE__ ) . 'includes/project-notifications.php';
+
 /**
  * TaskBreaker l10n callback.
  * @return void
