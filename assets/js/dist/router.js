@@ -32,7 +32,10 @@ var __ThriveProjectRoute = Backbone.Router.extend({
     },
     add: function() {
         this.view.switchView(null, '#task_breaker-project-add-new-context');
+
         $('#task_breaker-project-add-new').css('display', 'block');
+        $('#task-user-assigned').val("");
+        this.view.autoSuggestMembers( $("#task-user-assigned"), true, null );
 
         if ( tinymce.editors.task_breakerTaskDescription ) {
             tinymce.editors.task_breakerTaskDescription.setContent('');
