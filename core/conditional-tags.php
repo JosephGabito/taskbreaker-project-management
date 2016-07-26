@@ -221,6 +221,8 @@ function task_breaker_can_see_project_tasks( $project_id ) {
  // Check if current user can add comment
  function task_breaker_can_add_task_comment( $project_id, $task_id = 0 ) {
 
+    $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
+
     if ( ! is_user_logged_in() ) {
         return false;
     }
@@ -230,23 +232,29 @@ function task_breaker_can_see_project_tasks( $project_id ) {
         return true;
     }
 
-    // Only members of the group can add comment to project
-    $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
+    // Return true if the current user is a moderator of the group.
+    if ( groups_is_user_mod ( get_current_user_id(), $group_id ) ) {
+        return true;
+    }
 
+    // Only members of the group can add comment to project.
     if ( task_breaker_current_user_is_member_of_group ( $group_id ) ) {
+
         // Check to see if the current task has assigned members on it.
         if ( task_has_members_assigned( $task_id ) ) {
+
             // If it has assign members on it, disallow un-assigned members to update the task.
             if ( ! task_current_member_is_assign_to( $task_id ) ) {
                 return false;
             }
+
         }
 
         return true;
-
     }
 
     return false;
+    
  }
 
 
@@ -291,6 +299,7 @@ function task_current_member_is_assign_to( $task_id = 0 ){
         WHERE task_id = %d AND member_id = %d", $task_id, $current_user_id );
 
     $result = $wpdb->get_row( $stmt );
+
 
     if ( ! empty( $result ) )
     {
