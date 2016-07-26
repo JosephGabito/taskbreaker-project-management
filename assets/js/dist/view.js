@@ -148,6 +148,7 @@ var __ThriveProjectView = Backbone.View.extend({
                 var taskEditor = tinymce.get('task_breakerTaskEditDescription');
 
                 $('#task_breakerTaskId').val(task.id).removeAttr("disabled");
+
                 $('#task_breakerTaskEditTitle').val(task.title).removeAttr("disabled");
 
                 if ( taskEditor ) {
@@ -155,6 +156,18 @@ var __ThriveProjectView = Backbone.View.extend({
                 } else {
                     $( '#task_breakerTaskEditDescription' ).val( task.description );
                 }
+
+                $("#task-user-assigned-edit").val('');
+
+                $.each( task.assign_users_meta.members_stack, function( key, val ) {
+                    var option = document.createElement("option");
+                        option.value = val.ID;
+                        option.text  = val.display_name;
+                        option.selected  = "selected";
+                        document.getElementById("task-user-assigned-edit").appendChild( option );
+                });
+
+                __this.autoSuggestMembers( $("#task-user-assigned-edit"), true, task );
 
                 $( "#task_breaker-task-edit-select-id" ).val( task.priority ).change().removeAttr("disabled");
 
@@ -284,6 +297,57 @@ var __ThriveProjectView = Backbone.View.extend({
             width: Math.ceil( ( ( stats.completed / stats.total ) * 100 ) ) + '%'
         });
 
+    },
+
+    autoSuggestMembers: function( selectElement, clearSelect, task ) {
+
+        if ( ! selectElement ) {
+            return;
+        }
+
+        var $resultTemplate = function( result ) {
+
+			if ( result.avatar ) {
+
+			    var $state = $('<span><img class="result-template-avatar" src="'+result.avatar+'" alt="s" />'+result.text+'</span>');
+			}
+
+			return $state;
+		}
+
+
+		selectElement.select2({
+			maximumInputLength: 20,
+			placeholder: "Type member\'s name...",
+			allowClear: true,
+			minimumResultsForSearch: Infinity,
+			minimumInputLength: 2,
+			tag: true,
+			ajax: {
+
+				data: function ( params ) {
+
+					var query = {
+						action: 'task_breaker_transactions_request',
+						method: 'task_breaker_transactions_user_suggest',
+						nonce: task_breakerProjectSettings.nonce,
+						group_id: task_breakerProjectSettings.current_group_id,
+						term: params.term,
+						user_id_collection: 0
+					}
+
+					if ( selectElement.val() ) {
+						query.user_id_collection = selectElement.val();
+					}
+
+					return query;
+				},
+				url: task_breakerAjaxUrl,
+				delay: 250,
+				cache: true
+			},
+			templateResult: $resultTemplate
+		});
     }
 });
 
