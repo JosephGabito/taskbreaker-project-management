@@ -447,8 +447,47 @@ class ThriveProjectTasksModel {
 					    	),
 					);
 
+				// Sanitize the title to prevent XSS.
 				$result->title = stripslashes( $result->title );
+
+				// Sanitize the description to prevent XSS.
 				$result->description = stripslashes( wp_kses( $result->description, $allowed_html ) );
+
+				// Let's assign custom meta for assigned users so that we can fetch the result easier later on.
+				$members_stack = array();
+
+				// Assign users meta data.
+				$result->assign_users_meta = array(
+					'members_stack' => $members_stack,
+					'count' => 0
+				);
+
+				$assign_users = explode( ",", $result->assign_users );
+
+				if ( ! empty( $assign_users ) && is_array( $assign_users ) ) {
+
+					$get_assigned_users_record = new WP_User_Query( array( 'include' => $assign_users ) );
+
+					if ( ! empty ( $get_assigned_users_record->results ) ) {
+
+						foreach ( $get_assigned_users_record->results as $ua_result ) {
+
+							$members_stack[] = array(
+								'ID' => absint(  $ua_result->data->ID ),
+								'display_name' => wp_kses( $ua_result->data->display_name, $allowed_html )
+							);
+						}
+
+						$result->assign_users_meta = array(
+							'members_stack' => $members_stack,
+							'count' => absint( count( $members_stack ) )
+						);
+					}
+				}
+				
+				// Group ID
+				$result->group_id = get_post_meta( $result->project_id, 'task_breaker_project_group_id', true );
+
 			}
 
 			return $result;
@@ -542,18 +581,19 @@ class ThriveProjectTasksModel {
 					// Send a notification to the assigned member
 					$exploded_members = explode( ",", $this->group_members_assigned );
 
-
+					foreach ( (array) $this->group_members_assigned as $ua_id ) {
 						bp_notifications_add_notification(
 							array(
-						        'user_id'           => 7,
+						        'user_id'           => $ua_id,
 								'item_id'           => $last_insert_id,
-						        'secondary_item_id' => 1,
+						        'secondary_item_id' => $this->user_id,
 						        'component_name'    => 'task_breaker_ua_notifications_name',
 						        'component_action'  => 'task_breaker_ua_action',
 						        'date_notified'     => bp_core_current_time(),
 						        'is_new'            => 1,
 					    	)
 						);
+					}
 
 			 	}
 

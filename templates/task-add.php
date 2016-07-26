@@ -1,11 +1,3 @@
-<?php
-/**
- * Adding tasks form template.
- *
- * @since 1.0
- */
-?>
-
 <?php global $post; ?>
 
 <div class="form-wrap">
@@ -58,48 +50,3 @@
 		</p>
 	<?php } ?>
 </div>
-
-<script>
-	jQuery(document).ready(function($){
-		"use strict";
-		var $resultTemplate = function(result){
-			if ( result.avatar ) {
-			var $state = $('<span><img class="result-template-avatar" src="'+result.avatar+'" alt="s" />'+result.text+'</span>');
-			}
-
-			return $state;
-		}
-		$('select#task-user-assigned').select2({
-			maximumInputLength: 20,
-			placeholder: "Type member\'s name...",
-			allowClear: true,
-			minimumResultsForSearch: Infinity,
-			minimumInputLength: 2,
-			tag: true,
-			ajax: {
-
-				data: function ( params ) {
-
-					var query = {
-						action: 'task_breaker_transactions_request',
-						method: 'task_breaker_transactions_user_suggest',
-						nonce: task_breakerProjectSettings.nonce,
-						group_id: '<?php echo get_post_meta($post->ID, "task_breaker_project_group_id", true);?>',
-						term: params.term,
-						user_id_collection: 0
-					}
-
-					if ( $('select#task-user-assigned').val() ) {
-						query.user_id_collection = $('select#task-user-assigned').val();
-					}
-
-					return query;
-				},
-				url: task_breakerAjaxUrl,
-				delay: 250,
-				cache: true
-			},
-			templateResult: $resultTemplate
-		});
-	});
-</script>

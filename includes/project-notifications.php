@@ -38,11 +38,10 @@ function tb_new_task_notification_text( $action, $item_id, $secondary_item_id, $
         $project_id = absint( $task->project_id );
 
         // Customized notification title for new task.
-        $notification_text = sprintf('%s %s %s %s',
+        $notification_text = sprintf('%s %s %s',
                 esc_attr( $secondary_item_user_name ),
-                __(' assigned a new task for you under ', 'task-breaker'),
-                get_the_title( $project_id ),
-                __(' project', 'task-breaker')
+                __(' assigned a new task for you &mdash; ', 'task-breaker'),
+                esc_html( $task->title )
             );
 
         // Customized notification text for new task.
@@ -55,11 +54,11 @@ function tb_new_task_notification_text( $action, $item_id, $secondary_item_id, $
         // The link of the task.
         $notification_link  = trailingslashit( get_permalink( $project_id ) ) . '#tasks/view/' . $item_id;
 
-        // WordPress Toolbar
+        // WordPress Toolbar.
         if ( 'string' === $format ) {
             $out = apply_filters( 'custom_filter', '<a href="' . esc_url( $notification_link ) . '" title="' . esc_attr( $notification_title ) . '">' . esc_html( $notification_text ) . '</a>', $notification_text, $notification_link );
 
-        // Deprecated BuddyBar
+        // Deprecated BuddyBar.
         } else {
             $out = apply_filters( 'custom_filter', array(
                 'text' => $notification_text,
