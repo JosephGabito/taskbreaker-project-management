@@ -968,6 +968,7 @@
  * Select 2 Styles
  */
  /** Added **/
+ select#task-user-assigned-edit,
  select#task-user-assigned {
      width: 450px;
      max-width: 100%;
