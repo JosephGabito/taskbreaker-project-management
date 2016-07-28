@@ -411,6 +411,10 @@
     padding: 0 0 15px;
 }
 
+.single-project #task_breaker-single-task-details .task-members h5 {
+    font-size: 14px;
+}
+
 .single-project #task_breaker-project-tasks ul li .task-user img.avatar {
     border-radius: 50%;
     height: auto;
@@ -970,7 +974,7 @@
  /** Added **/
  select#task-user-assigned-edit,
  select#task-user-assigned {
-     width: 450px;
+     width: 100%;
      max-width: 100%;
  }
 
@@ -1498,4 +1502,21 @@
 #task_breaker-single-task  li.task-members-items-item .avatar {
     border-radius: 50%;
     height: auto;
+}
+
+.user-assign-members-more span {
+    background: #000;
+    color: #fff;
+    padding-top: 10px;
+    height: 32px;
+    width: 32px;
+    display: block;
+    font-size: 12px;
+    padding-top: 6px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+#task_breaker-single-task-details ul.task-members-items {
+    padding-bottom: 1.2631578947em;
 }
