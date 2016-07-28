@@ -67,6 +67,7 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 		$this->setPriority( $args['priority'] );
 		$this->setUser( $args['user_id'] );
 		$this->setProjectId( $args['project_id'] );
+		$this->setAssignUsers( $args['assigned_users'] );
 
 		return $this->prepare()->save();
 
@@ -84,7 +85,9 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 	}
 
 	public function renderTicketsByUser($user_id = 0) {
+
 		return array();
+		
 	}
 
 
