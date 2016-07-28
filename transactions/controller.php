@@ -1,6 +1,6 @@
 <?php
 /**
- * This file act as a middleware for every transaction
+ * This file acts as an api for our admin-ajax requests.
  *
  * @since  1.0
  * @author  dunhakdis
@@ -23,10 +23,14 @@ if ( 'task_breaker_transactions_request' !== $action ) {
 
 // Format our page header when Unit Testing
 if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
+
 	header('Content-Type: application/json; charset=utf-8');
+
 } else {
+
 	// Hide warnings when running tests
 	@header('Content-type:application/json; charset=utf-8');
+	
 }
 
 add_action( 'wp_ajax_task_breaker_transactions_request', 'task_breaker_transactions_callblack' );
@@ -270,9 +274,16 @@ function task_breaker_transaction_edit_ticket() {
 	$priority = filter_input( INPUT_POST, 'priority', FILTER_UNSAFE_RAW );
 	$user_id = filter_input( INPUT_POST, 'user_id', FILTER_VALIDATE_INT );
 	$project_id = filter_input( INPUT_POST, 'project_id', FILTER_VALIDATE_INT );
+	$assigned_users = filter_input( INPUT_POST, 'user_id_collection', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 	$template = '';
 
 	$task = new ThriveProjectTasksController();
+
+	// Clean $assigned_users var in case the users submits non array parameters.
+	if ( ! $assigned_users ) {
+		$assigned_users = array();
+	}
+
 
 	$args = array(
 		'title' => $title,
@@ -281,6 +292,7 @@ function task_breaker_transaction_edit_ticket() {
 		'priority' => $priority,
 		'user_id' => $user_id,
 		'project_id' => $project_id,
+		'assigned_users' => $assigned_users,
 	);
 
 	$json_response = array(
