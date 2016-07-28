@@ -343,7 +343,7 @@ var __ThriveProjectView = Backbone.View.extend({
 					return query;
 				},
 				url: task_breakerAjaxUrl,
-				delay: 250,
+				delay: 150,
 				cache: true
 			},
 			templateResult: $resultTemplate
