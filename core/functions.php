@@ -664,4 +664,18 @@ function task_breaker_parse_assigned_users( $user_id_collection = "" ) {
 
 }
 
+function task_breaker_print_r( $raw, $type = '' ) {
+
+	echo '<pre>';
+
+		if ( 'dump' === $type ) {
+			var_dump( $raw );
+		} else {
+			print_r( $raw );
+		}
+
+	echo '</pre>';
+
+	return;
+}
 ?>
