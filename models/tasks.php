@@ -484,7 +484,7 @@ class ThriveProjectTasksModel {
 						);
 					}
 				}
-				
+
 				// Group ID
 				$result->group_id = get_post_meta( $result->project_id, 'task_breaker_project_group_id', true );
 
@@ -496,7 +496,7 @@ class ThriveProjectTasksModel {
 		return array();
 	}
 
-	public function save($args = array()) {
+	public function save( $args = array() ) {
 
 		global $wpdb;
 
@@ -536,6 +536,9 @@ class ThriveProjectTasksModel {
 
 		if ( ! empty( $this->id ) ) {
 
+			// Assign members to the task.
+			$this->assign_members( $this->id, $this->group_members_assigned );
+
 			return ( $wpdb->update( $this->model, $args, array( 'id' => $this->id ), $format, array( '%d' ) ) === 0 );
 
 		} else {
@@ -553,7 +556,9 @@ class ThriveProjectTasksModel {
 			 		$bp_user_link = '';
 
 			 		if ( function_exists( 'bp_core_get_userlink' ) ) {
+
 			 			$bp_user_link = bp_core_get_userlink( $this->user_id );
+
 			 		}
 
 			 		$task_breaker_project_post = get_post( $this->project_id, OBJECT );
@@ -563,7 +568,9 @@ class ThriveProjectTasksModel {
 			 		$permalink = get_permalink( $this->project_id );
 
 			 		if ( ! empty( $task_breaker_project_post ) ) {
+
 			 			$task_breaker_project_name = sprintf( '<a href="%s" title="%s">%s<a/>', $permalink, $task_breaker_project_post->post_title, $task_breaker_project_post->post_title );
+
 			 		}
 
 			 		$action = sprintf( __( '%s added new task under %s', 'task_breaker' ), $bp_user_link, $task_breaker_project_name );
