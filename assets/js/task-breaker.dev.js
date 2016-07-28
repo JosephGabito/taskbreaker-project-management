@@ -362,7 +362,7 @@ var __ThriveProjectView = Backbone.View.extend({
 					return query;
 				},
 				url: task_breakerAjaxUrl,
-				delay: 250,
+				delay: 150,
 				cache: true
 			},
 			templateResult: $resultTemplate
@@ -556,25 +556,28 @@ $('#task_breaker-edit-btn').click(function(e) {
         taskDescription = $('#task_breakerTaskEditDescription').val();
     }
 
+    var httpRequestParameters = {
+        description: taskDescription,
+        nonce: task_breakerProjectSettings.nonce,
+        project_id: task_breakerTaskConfig.currentProjectId,
+        user_id: task_breakerTaskConfig.currentUserId,
+
+        action: 'task_breaker_transactions_request',
+        method: 'task_breaker_transaction_edit_ticket',
+
+        title: $('#task_breakerTaskEditTitle').val(),
+        milestone_id: $('#task_breakerTaskMilestone').val(),
+        id: $('#task_breakerTaskId').val(),
+        priority: $('select[name="task_breaker-task-edit-priority"]').val(),
+        user_id_collection: $('select#task-user-assigned-edit').val()
+    }
+
+    console.log( httpRequestParameters );
+
     $.ajax({
 
         url: ajaxurl,
-        data: {
-
-            description: taskDescription,
-            nonce: task_breakerProjectSettings.nonce,
-            project_id: task_breakerTaskConfig.currentProjectId,
-            user_id: task_breakerTaskConfig.currentUserId,
-
-            action: 'task_breaker_transactions_request',
-            method: 'task_breaker_transaction_edit_ticket',
-
-            title: $('#task_breakerTaskEditTitle').val(),
-            milestone_id: $('#task_breakerTaskMilestone').val(),
-            id: $('#task_breakerTaskId').val(),
-            priority: $('select[name="task_breaker-task-edit-priority"]').val()
-
-        },
+        data: httpRequestParameters,
 
         method: 'post',
 
