@@ -58,12 +58,3 @@
 
 	</div>
 </div>
-
-<script>
-	jQuery(document).ready(function($){
-
-		"use strict";
-
-		
-	});
-</script>
