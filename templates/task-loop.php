@@ -53,7 +53,11 @@
                                 <?php $assigned_users_limit = 4; ?>
 
                                 <ul class="task-members-items">
-                                    <?php foreach( array_slice( $assign_users,0, 4 ) as $assign_user ) { ?>
+                                    <?php $assign_user_limited = array(); ?>
+                                    <?php if ( is_array( $assign_users ) ) { ?>
+                                        <?php $assign_user_limited = array_slice( $assign_users,0, 4 ); ?>
+                                    <?php } ?>
+                                    <?php foreach( $assign_user_limited as $assign_user ) { ?>
                                         <li class="task-members-items-item">
                                             <a title="<?php esc_attr_e( $assign_user->display_name ); ?>" href="<?php echo esc_url( bp_core_get_userlink( $assign_user->ID, false, true ) );  ?>" class="task-members-items-item-link">
                                                 <?php echo get_avatar( $assign_user->ID ); ?>

@@ -1,5 +1,9 @@
   $('body').on('click', '#updateTaskBtn', function() {
 
+      var updateTaskBtn = $(this);
+
+      updateTaskBtn.attr('disabled', 'disabled');
+
       var comment_ticket_id = ThriveProjectModel.id,
           comment_details = $('#task-comment-content').val(),
           task_priority = $('#task_breaker-task-priority-update-select').val(),
@@ -30,6 +34,7 @@
           method: 'post',
           success: function( response ) {
 
+              updateTaskBtn.attr('disabled', false);
               ThriveProjectView.progress( false );
 
               $('#task-comment-content').val('');
@@ -65,7 +70,7 @@
               ThriveProjectView.updateStats( response.stats );
           },
           error: function() {
-
+              updateTaskBtn.attr('disabled', false);
               ThriveProjectView.progress(false);
           }
       });

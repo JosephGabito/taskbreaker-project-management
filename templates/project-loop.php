@@ -14,7 +14,7 @@ do_action( 'task_breaker_before_projects_directory' ); ?>
 
 			<?php task_breaker_new_project_modal(); ?>
 
-			<?php task_breaker_project_loop( array() ); ?>
+			<?php task_breaker_project_loop( $config = array() ); ?>
 
 		<?php } else { ?>
 

@@ -362,7 +362,7 @@ var __ThriveProjectView = Backbone.View.extend({
 					return query;
 				},
 				url: task_breakerAjaxUrl,
-				delay: 150,
+				delay: 250,
 				cache: true
 			},
 			templateResult: $resultTemplate
@@ -671,6 +671,10 @@ $('#task_breaker-edit-btn').click(function(e) {
 
   $('body').on('click', '#updateTaskBtn', function() {
 
+      var updateTaskBtn = $(this);
+
+      updateTaskBtn.attr('disabled', 'disabled');
+
       var comment_ticket_id = ThriveProjectModel.id,
           comment_details = $('#task-comment-content').val(),
           task_priority = $('#task_breaker-task-priority-update-select').val(),
@@ -701,6 +705,7 @@ $('#task_breaker-edit-btn').click(function(e) {
           method: 'post',
           success: function( response ) {
 
+              updateTaskBtn.attr('disabled', false);
               ThriveProjectView.progress( false );
 
               $('#task-comment-content').val('');
@@ -736,7 +741,7 @@ $('#task_breaker-edit-btn').click(function(e) {
               ThriveProjectView.updateStats( response.stats );
           },
           error: function() {
-
+              updateTaskBtn.attr('disabled', false);
               ThriveProjectView.progress(false);
           }
       });
