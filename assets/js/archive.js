@@ -7,6 +7,13 @@ jQuery(document).ready(function($){
 
 	});
 
+	// Hide modal when close 'x' button is pressed.
+	$('#task_breaker-modal-close').on( 'click', function(e){
+		e.preventDefault();
+		$('#task_breaker-new-project-modal').hide();
+		$('#task_breaker-modal-content').toggleClass('active');
+	});
+
 	$('#task_breaker-new-project-modal').on( 'click', function( e ) {
 		if ( e.target !== this ) {
 			return;
@@ -28,6 +35,9 @@ jQuery(document).ready(function($){
 
 		e.preventDefault();
 
+		$(this).attr('disabled', 'disabled');
+		$(this).html('Saving Project...');
+
 		$('#project-add-modal-js-message').html("");
 
 		var form_error_count = 0;
@@ -43,8 +53,6 @@ jQuery(document).ready(function($){
 			nonce: $('#nonce').val()
 		};
 
-		console.log(project_details);
-
 		for ( key in project_details ) {
 
 			var field_value = project_details[key].trim();
@@ -56,12 +64,15 @@ jQuery(document).ready(function($){
 		}
 
 		if ( form_error_count >= 1 ) {
-			$('#project-add-modal-js-message').html(
-				"<p id='message' class='error'>All fields are required</p>"
-			).removeClass('hide');
-		} else {
 
-			console.log('Requesting Project...');
+			$('#project-add-modal-js-message').html(
+				"<p id='message' class='error'>All fields are required.</p>"
+			).removeClass('hide');
+
+			$(this).attr('disabled', false);
+			$(this).html('Save Project');
+
+		} else {
 
 			$.ajax({
 			  type: "POST",
