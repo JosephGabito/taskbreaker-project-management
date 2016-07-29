@@ -1,6 +1,12 @@
 <?php
 /**
  * ThriveProjectTasksModel
+ *
+ * This model contains the object used for TaskBreaker
+ *
+ * @author dunhakdis
+ * @since 1.0
+ * @version 1.1
  */
 class ThriveProjectTasksModel {
 
@@ -57,6 +63,11 @@ class ThriveProjectTasksModel {
 	 * @var integer
 	 */
 	var $project_id = 0;
+
+	/**
+	 * The users that are assigned into this task
+	 */
+	var $group_members_assigned = '';
 
 	/**
 	 * Update the table name on initiate
@@ -134,6 +145,13 @@ class ThriveProjectTasksModel {
 		if ( $priority > 3 ) {$priority = 3;}
 
 		$this->priority = $priority;
+
+		return $this;
+	}
+
+	public function setAssignUsers( $user_id_collection = array() ) {
+
+		$this->group_members_assigned = implode( ",", $user_id_collection );
 
 		return $this;
 	}
@@ -429,8 +447,47 @@ class ThriveProjectTasksModel {
 					    	),
 					);
 
+				// Sanitize the title to prevent XSS.
 				$result->title = stripslashes( $result->title );
+
+				// Sanitize the description to prevent XSS.
 				$result->description = stripslashes( wp_kses( $result->description, $allowed_html ) );
+
+				// Let's assign custom meta for assigned users so that we can fetch the result easier later on.
+				$members_stack = array();
+
+				// Assign users meta data.
+				$result->assign_users_meta = array(
+					'members_stack' => $members_stack,
+					'count' => 0
+				);
+
+				$assign_users = explode( ",", $result->assign_users );
+
+				if ( ! empty( $assign_users ) && is_array( $assign_users ) ) {
+
+					$get_assigned_users_record = new WP_User_Query( array( 'include' => $assign_users ) );
+
+					if ( ! empty ( $get_assigned_users_record->results ) ) {
+
+						foreach ( $get_assigned_users_record->results as $ua_result ) {
+
+							$members_stack[] = array(
+								'ID' => absint(  $ua_result->data->ID ),
+								'display_name' => wp_kses( $ua_result->data->display_name, $allowed_html )
+							);
+						}
+
+						$result->assign_users_meta = array(
+							'members_stack' => $members_stack,
+							'count' => absint( count( $members_stack ) )
+						);
+					}
+				}
+
+				// Group ID
+				$result->group_id = get_post_meta( $result->project_id, 'task_breaker_project_group_id', true );
+
 			}
 
 			return $result;
@@ -439,7 +496,7 @@ class ThriveProjectTasksModel {
 		return array();
 	}
 
-	public function save($args = array()) {
+	public function save( $args = array() ) {
 
 		global $wpdb;
 
@@ -450,7 +507,8 @@ class ThriveProjectTasksModel {
 				'milestone_id' => $this->milestone_id,
 				'project_id' => $this->project_id,
 				'priority' => $this->priority,
-				'date_created' => date("Y-m-d H:i:s")
+				'date_created' => date("Y-m-d H:i:s"),
+				'assign_users' => $this->group_members_assigned
 			);
 
 		$trimmed_title = trim( $this->title );
@@ -466,17 +524,22 @@ class ThriveProjectTasksModel {
 		}
 
 		$format = array(
-				'%s',
-				'%s',
-				'%d',
-				'%d',
-				'%d',
-				'%d',
+				'%s', // Title.
+				'%s', // Description.
+				'%d', // User.
+				'%d', // Milestone Id.
+				'%d', // Project Id.
+				'%d', // Priority.
+				'%s', // Date Created.
+				'%s'  // Assign Users.
 			);
 
 		if ( ! empty( $this->id ) ) {
 
-			return ($wpdb->update( $this->model, $args, array( 'id' => $this->id ), $format, array( '%d' ) ) === 0);
+			// Assign members to the task.
+			$this->assign_members( $this->id, $this->group_members_assigned );
+
+			return ( $wpdb->update( $this->model, $args, array( 'id' => $this->id ), $format, array( '%d' ) ) === 0 );
 
 		} else {
 
@@ -484,13 +547,18 @@ class ThriveProjectTasksModel {
 
 			 	$last_insert_id = $wpdb->insert_id;
 
+				// Assign members to the task.
+				$this->assign_members( $last_insert_id, $this->group_members_assigned );
+
 			 	// Add new activity. Check if buddypress is active first
 			 	if ( function_exists( 'bp_activity_add' ) ) {
 
 			 		$bp_user_link = '';
 
 			 		if ( function_exists( 'bp_core_get_userlink' ) ) {
+
 			 			$bp_user_link = bp_core_get_userlink( $this->user_id );
+
 			 		}
 
 			 		$task_breaker_project_post = get_post( $this->project_id, OBJECT );
@@ -500,12 +568,14 @@ class ThriveProjectTasksModel {
 			 		$permalink = get_permalink( $this->project_id );
 
 			 		if ( ! empty( $task_breaker_project_post ) ) {
+
 			 			$task_breaker_project_name = sprintf( '<a href="%s" title="%s">%s<a/>', $permalink, $task_breaker_project_post->post_title, $task_breaker_project_post->post_title );
+
 			 		}
 
 			 		$action = sprintf( __( '%s added new task under %s', 'task_breaker' ), $bp_user_link, $task_breaker_project_name );
 
-			 		bp_activity_add(
+			 		$new_activity_id = bp_activity_add(
 			 			array(
 							'user_id' => $this->user_id,
 							'action' => apply_filters( 'task_breaker_new_task_activity_action', $action, $this->user_id ),
@@ -514,6 +584,24 @@ class ThriveProjectTasksModel {
 							'type' => 'task_breaker_new_task',
 						)
 					);
+
+					// Send a notification to the assigned member
+					$exploded_members = explode( ",", $this->group_members_assigned );
+
+					foreach ( (array) $this->group_members_assigned as $ua_id ) {
+						bp_notifications_add_notification(
+							array(
+						        'user_id'           => $ua_id,
+								'item_id'           => $last_insert_id,
+						        'secondary_item_id' => $this->user_id,
+						        'component_name'    => 'task_breaker_ua_notifications_name',
+						        'component_action'  => 'task_breaker_ua_action',
+						        'date_notified'     => bp_core_current_time(),
+						        'is_new'            => 1,
+					    	)
+						);
+					}
+
 			 	}
 
 			 	return $last_insert_id;
@@ -524,6 +612,41 @@ class ThriveProjectTasksModel {
 
 			}
 		}
+	}
+
+	public function assign_members( $task_id = 0, $members_assign = "" ) {
+
+		global $wpdb;
+
+		if ( 0 === $task_id ) {
+			return $this;
+		}
+
+		if ( empty( $members_assign ) ) {
+			return $this;
+		}
+
+		$table = $wpdb->prefix . TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE;
+
+		// Clear any existing records.
+		$wpdb->delete( $table,
+			array( $task_id ), // Entry
+			array( '%d' ) // Format.
+		);
+
+		$exp_members_assigned = explode( ',', $members_assign );
+
+		if ( ! empty( $exp_members_assigned ) ) {
+
+			foreach ( $exp_members_assigned as $task_member_id ) {
+				$wpdb->insert(
+					$table,
+					array( 'task_id' => intval( $task_id ), 'member_id' => intval( $task_member_id ) ), // Entry.
+					array( '%d', '%d' ) ); // Format.
+				}
+		}
+
+		return $this;
 	}
 
 	public function getCount($project_id = 0, $type = 'all') {
@@ -649,5 +772,13 @@ class ThriveProjectTasksModel {
 		}
 
 		return $stats;
+	}
+
+	public function assignUsersToTask( $user_id_collection = array() ) {
+
+		$this->group_members_assigned = implode( ',', $user_id_collection );
+
+		return $this;
+
 	}
 }

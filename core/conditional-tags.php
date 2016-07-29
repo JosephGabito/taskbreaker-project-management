@@ -219,27 +219,93 @@ function task_breaker_can_see_project_tasks( $project_id ) {
 
  // Task Comments
  // Check if current user can add comment
- function task_breaker_can_add_task_comment( $project_id ) {
+ function task_breaker_can_add_task_comment( $project_id, $task_id = 0 ) {
+
+    $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
 
     if ( ! is_user_logged_in() ) {
         return false;
     }
 
+    // Return true if the current user is an administrator.
     if ( current_user_can( 'manage_options') ) {
         return true;
     }
 
-    // Only members of the group can add comment to project
-    $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
+    // Return true if the current user is a moderator of the group.
+    if ( groups_is_user_mod ( get_current_user_id(), $group_id ) ) {
+        return true;
+    }
 
+    // Only members of the group can add comment to project.
     if ( task_breaker_current_user_is_member_of_group ( $group_id ) ) {
 
-        return true;
+        // Check to see if the current task has assigned members on it.
+        if ( task_has_members_assigned( $task_id ) ) {
 
+            // If it has assign members on it, disallow un-assigned members to update the task.
+            if ( ! task_current_member_is_assign_to( $task_id ) ) {
+                return false;
+            }
+
+        }
+
+        return true;
     }
 
     return false;
+    
  }
- // Check if current user can delete comment
 
+
+/**
+ * Check to see if the task has assign members in it
+ * @param $task_id integer The ID of the task.
+ * @return boolean True if has members on it, otherwise false.
+ */
+function task_has_members_assigned( $task_id = 0 ) {
+
+    global $wpdb;
+
+    if ( $task_id === 0 ) {
+        return false;
+    }
+
+    $stmt = $wpdb->prepare("SELECT assign_users FROM {$wpdb->prefix}task_breaker_tasks
+        WHERE id = %d AND assign_users <> %s", absint( $task_id ), '');
+
+    $result = $wpdb->get_row( $stmt );
+
+    if ( ! empty( $result ) )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * Check if the current logged-in user is assigned to a specific task.
+ * @param  integer $task_id The ID of the task.
+ * @return boolean          False if there are no task assign to the current user, otherwise True.
+ */
+function task_current_member_is_assign_to( $task_id = 0 ){
+
+    global $wpdb;
+
+    $current_user_id = get_current_user_id();
+
+    $stmt = $wpdb->prepare( "SELECT task_id FROM {$wpdb->prefix}task_breaker_tasks_user_assignment
+        WHERE task_id = %d AND member_id = %d", $task_id, $current_user_id );
+
+    $result = $wpdb->get_row( $stmt );
+
+
+    if ( ! empty( $result ) )
+    {
+        return true;
+    }
+
+    return false;
+}
 ?>

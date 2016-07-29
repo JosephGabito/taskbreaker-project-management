@@ -1,6 +1,6 @@
 <?php
 /**
- * This file act as a middleware for every transaction
+ * This file acts as an api for our admin-ajax requests.
  *
  * @since  1.0
  * @author  dunhakdis
@@ -13,27 +13,24 @@ $action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
 
 // Try getting post request if $action is empty when getting request via 'get' method.
 if ( empty( $action ) ) {
-
 	$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
-
 }
 
 if ( 'task_breaker_transactions_request' !== $action ) {
-
 	return;
-
 }
+
 
 // Format our page header when Unit Testing
 if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
 
-	header( 'Content-Type: application/json' );
+	header('Content-Type: application/json; charset=utf-8');
 
 } else {
 
 	// Hide warnings when running tests
-	@header( 'Content-Type: application/json' );
-
+	@header('Content-type:application/json; charset=utf-8');
+	
 }
 
 add_action( 'wp_ajax_task_breaker_transactions_request', 'task_breaker_transactions_callblack' );
@@ -90,6 +87,9 @@ function task_breaker_transactions_callblack() {
 		// Project callback functions.
 		'task_breaker_transactions_update_project',
 		'task_breaker_transactions_delete_project',
+
+		// Task autosuggest
+		'task_breaker_transactions_user_suggest'
 	);
 
 	if ( function_exists( $method ) ) {
@@ -113,7 +113,9 @@ function task_breaker_transactions_callblack() {
 }
 
 function task_breaker_api_message($args = array()) {
-	echo json_encode( $args );
+	// Added @ to server php 7
+	@header("Content-type: application/json");
+	echo json_encode($args);
 	die();
 }
 
@@ -226,17 +228,20 @@ function task_breaker_transaction_fetch_task() {
 
 	$task_collection = $task->renderTasks( $args );
 
+	// Push the ticket ID in the task_collection stack.
+	$task_collection->task_id = absint( $task_id );
+
 	if ( 0 === $task_id ) {
 
 		$task_id = null;
 
-		$template = $html_template($args);
+		$template = $html_template( $args );
 
 	} else {
 
 		if ( ! empty( $callback_template ) ) {
 
-			$template = $html_template($task_collection);
+			$template = $html_template( $task_collection );
 
 		}
 	}
@@ -269,9 +274,16 @@ function task_breaker_transaction_edit_ticket() {
 	$priority = filter_input( INPUT_POST, 'priority', FILTER_UNSAFE_RAW );
 	$user_id = filter_input( INPUT_POST, 'user_id', FILTER_VALIDATE_INT );
 	$project_id = filter_input( INPUT_POST, 'project_id', FILTER_VALIDATE_INT );
+	$assigned_users = filter_input( INPUT_POST, 'user_id_collection', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 	$template = '';
 
 	$task = new ThriveProjectTasksController();
+
+	// Clean $assigned_users var in case the users submits non array parameters.
+	if ( ! $assigned_users ) {
+		$assigned_users = array();
+	}
+
 
 	$args = array(
 		'title' => $title,
@@ -280,6 +292,7 @@ function task_breaker_transaction_edit_ticket() {
 		'priority' => $priority,
 		'user_id' => $user_id,
 		'project_id' => $project_id,
+		'assigned_users' => $assigned_users,
 	);
 
 	$json_response = array(
@@ -378,7 +391,7 @@ function task_breaker_transaction_add_comment_to_ticket() {
 	$project_id = filter_input( INPUT_POST, 'project_id', FILTER_SANITIZE_STRING );;
 
 	// Check if current user can add comment
-	if ( ! task_breaker_can_add_task_comment( $project_id ) ) {
+	if ( ! task_breaker_can_add_task_comment( $project_id, $ticket_id ) ) {
 
 		task_breaker_api_message(array(
 			'message' => 'fail',
@@ -554,7 +567,7 @@ function task_breaker_transactions_delete_project() {
 	$redirect = home_url();
 
 	if ( ! task_breaker_can_delete_project( $project_id ) ) {
-		
+
 		task_breaker_api_message( array(
 				'message' => 'fail',
 				'response' => __("Permission Denied. Unauthorized.")
@@ -588,6 +601,62 @@ function task_breaker_transactions_delete_project() {
 				'message' => 'failure',
 			));
 	}
+
+	return;
+}
+
+/**
+ * task_breaker_transactions_user_suggest
+ *
+ * This function returns the list of user inside the group ($group_id)
+ * and filters it by name (like)
+ *
+ * @return void
+ */
+function task_breaker_transactions_user_suggest() {
+
+	global $wpdb;
+
+	$term = filter_input( INPUT_GET, 'term', FILTER_SANITIZE_STRING );
+	$group_id = filter_input( INPUT_GET, 'group_id', FILTER_SANITIZE_NUMBER_INT );
+	$prefix = $wpdb->prefix;
+
+	$stmt = $wpdb->prepare("SELECT {$prefix}bp_groups_members.user_id as id, {$prefix}users.display_name as text FROM {$prefix}bp_groups_members INNER JOIN {$prefix}users
+	ON {$prefix}bp_groups_members.user_id = {$prefix}users.ID
+	WHERE {$prefix}bp_groups_members.group_id = %d AND {$prefix}users.display_name LIKE %s ORDER BY {$prefix}users.display_name ASC LIMIT 10",
+	$group_id, "%".$wpdb->esc_like( $term )."%");
+
+	$results = $wpdb->get_results( $stmt, ARRAY_A );
+
+	$formatted_results = array();
+
+	if ( ! empty( $results ) ) {
+
+		foreach( $results as $result ) {
+
+		    if ( ! empty ( $result ['text'] ) ) {
+
+		        $image_tag = get_avatar( absint( $result['id'] ) );
+
+				preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $image_tag, $image_src);
+
+		        $formatted_results[] = array(
+		            'id' => $result['id'],
+		            'text' => $result['text'],
+		            'avatar' => $image_src[1]
+		        );
+
+		    }
+
+		}
+
+	}
+
+	task_breaker_api_message(
+		array(
+			'results' => $formatted_results,
+		)
+	);
 
 	return;
 }

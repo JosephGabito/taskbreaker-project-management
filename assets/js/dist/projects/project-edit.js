@@ -37,9 +37,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
         url: ajaxurl,
         data: __http_params,
         method: 'post',
-        success: function( httpResponse ) {
-
-            var response = JSON.parse( httpResponse );
+        success: function( response ) {
 
             ThriveProjectView.progress(false);
 

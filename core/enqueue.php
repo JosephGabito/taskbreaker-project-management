@@ -1,9 +1,12 @@
 <?php
-
+/**
+ * Enqueue
+ */
 add_action( 'admin_head',      		 'task_breaker_admin_stylesheet' );
 add_action( 'admin_print_scripts',   'task_breaker_admin_scripts' );
 add_action( 'wp_enqueue_scripts',    'task_breaker_register_scripts' );
 add_action( 'wp_footer', 			 'task_breaker_register_config' );
+
 // Disable login modals introduced in WordPress 3.6
 remove_action( 'admin_enqueue_scripts', 'wp_auth_check_load' );
 
@@ -61,6 +64,11 @@ function task_breaker_register_scripts() {
 	if ( is_singular( TASK_BREAKER_PROJECT_SLUG ) ) {
 		wp_enqueue_script('task_breaker-js',
 			TASK_BREAKER_ASSET_URL . 'js/task-breaker.min.js', array( 'jquery', 'backbone' ),
+			1.0, true
+		);
+
+		wp_enqueue_script('task_breaker-select2',
+			TASK_BREAKER_ASSET_URL . 'js/plugins/select2.min.js', array( 'jquery', 'backbone' ),
 			1.0, true
 		);
 	}

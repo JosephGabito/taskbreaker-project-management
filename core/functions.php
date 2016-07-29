@@ -241,7 +241,8 @@ function task_breaker_render_task( $args = array() ) {
 	<script>
 	var task_breakerProjectSettings = {
 		project_id: '<?php echo absint( $post->ID );?>',
-		nonce: '<?php echo wp_create_nonce( 'task_breaker-transaction-request' ); ?>'
+		nonce: '<?php echo wp_create_nonce( 'task_breaker-transaction-request' ); ?>',
+		current_group_id: '<?php echo absint( get_post_meta( $post->ID, 'task_breaker_project_group_id', true ) ); ?>'
 	};
 	</script>
 	<?php
@@ -336,6 +337,17 @@ function task_breaker_comments_template( $args = array(), $task = array() ) {
 	task_breaker_locate_template( 'task-comment-item', $args );
 
 	return ob_get_clean();
+}
+
+function task_breaker_get_task( $task_id = 0 ) {
+
+	global $wpdb;
+
+	$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}task_breaker_tasks WHERE id = %d", $task_id );
+
+	$result = $wpdb->get_row( $stmt, OBJECT );
+
+	return $result;
 }
 
 function task_breaker_get_tasks_comments( $ticket_id = 0 ) {
@@ -590,24 +602,26 @@ function task_breaker_get_user_group_admin_mod() {
 
 	$user_id = get_current_user_id();
 
-	$group_results = $wpdb->get_results( $wpdb->prepare('SELECT
+	$group_results_stmt = "SELECT
             groups.id as group_id,
             group_member.user_id as user_id,
             groups.name as group_name,
             group_member.is_mod,
             group_member.is_admin
             FROM
-            wp_bp_groups_members as group_member
+            {$wpdb->prefix}bp_groups_members as group_member
             INNER JOIN
-            wp_bp_groups as groups
+            {$wpdb->prefix}bp_groups as groups
             WHERE
             group_member.group_id = groups.id
             AND
             ( group_member.is_mod = 1 OR group_member.is_admin = 1 )
             AND
-            group_member.user_id = %d GROUP BY groups.id;',
-		$user_id
-	), OBJECT );
+            group_member.user_id = %d GROUP BY groups.id;";
+
+	$group_results = $wpdb->get_results(
+		$wpdb->prepare( $group_results_stmt, $user_id ),
+		OBJECT );
 
 	if ( ! empty( $group_results ) ) {
 		return $group_results;
@@ -631,4 +645,37 @@ function task_breaker_new_project_modal_button() {
 	}
 }
 
+
+function task_breaker_parse_assigned_users( $user_id_collection = "" ) {
+
+	global $wpdb;
+
+	$users = new stdclass;
+
+	if ( ! empty( $user_id_collection ) )
+	{
+		$stmt = esc_sql( "SELECT ID, display_name FROM {$wpdb->prefix}users WHERE ID IN({$user_id_collection})" );
+
+		$users = $wpdb->get_results( $stmt );
+
+	}
+
+	return $users;
+
+}
+
+function task_breaker_print_r( $raw, $type = '' ) {
+
+	echo '<pre>';
+
+		if ( 'dump' === $type ) {
+			var_dump( $raw );
+		} else {
+			print_r( $raw );
+		}
+
+	echo '</pre>';
+
+	return;
+}
 ?>

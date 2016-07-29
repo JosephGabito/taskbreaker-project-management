@@ -98,11 +98,9 @@ var __ThriveProjectView = Backbone.View.extend({
         var __this = this;
         this.template = 'task_breaker_ticket_single';
         // load the task
-        this.renderTask(function( httpResponse ) {
+        this.renderTask(function( response ) {
 
             __this.progress( false );
-
-            var response = JSON.parse( httpResponse );
 
             if ( response.message == 'fail' ) {
                 $('#task_breaker-project-tasks').html("<p class='info' id='message'>"+response.message_long+"</p>");
@@ -139,11 +137,9 @@ var __ThriveProjectView = Backbone.View.extend({
         this.model.id = task_id;
 
         // Render the task.
-        this.renderTask( function( httpResponse ) {
+        this.renderTask( function( response ) {
 
             __this.progress( false );
-
-            var response = JSON.parse( httpResponse );
 
             if ( response.task ) {
 
@@ -152,6 +148,7 @@ var __ThriveProjectView = Backbone.View.extend({
                 var taskEditor = tinymce.get('task_breakerTaskEditDescription');
 
                 $('#task_breakerTaskId').val(task.id).removeAttr("disabled");
+
                 $('#task_breakerTaskEditTitle').val(task.title).removeAttr("disabled");
 
                 if ( taskEditor ) {
@@ -159,6 +156,18 @@ var __ThriveProjectView = Backbone.View.extend({
                 } else {
                     $( '#task_breakerTaskEditDescription' ).val( task.description );
                 }
+
+                $("#task-user-assigned-edit").val('');
+
+                $.each( task.assign_users_meta.members_stack, function( key, val ) {
+                    var option = document.createElement("option");
+                        option.value = val.ID;
+                        option.text  = val.display_name;
+                        option.selected  = "selected";
+                        document.getElementById("task-user-assigned-edit").appendChild( option );
+                });
+
+                __this.autoSuggestMembers( $("#task-user-assigned-edit"), true, task );
 
                 $( "#task_breaker-task-edit-select-id" ).val( task.priority ).change().removeAttr("disabled");
 
@@ -174,6 +183,7 @@ var __ThriveProjectView = Backbone.View.extend({
         $.ajax({
             url: ajaxurl,
             method: 'get',
+            dataType: 'json',
             data: {
                 action: 'task_breaker_transactions_request',
                 method: 'task_breaker_transaction_fetch_task',
@@ -196,6 +206,7 @@ var __ThriveProjectView = Backbone.View.extend({
         $.ajax({
             url: ajaxurl,
             method: 'get',
+            dataType: 'json',
             data: {
                 action: 'task_breaker_transactions_request',
                 method: 'task_breaker_transaction_fetch_task',
@@ -208,11 +219,9 @@ var __ThriveProjectView = Backbone.View.extend({
                 show_completed: this.model.show_completed,
                 nonce: task_breakerProjectSettings.nonce
             },
-            success: function( httpResponse ) {
+            success: function( response ) {
 
                 __this.progress(false);
-
-                var response = JSON.parse( httpResponse );
 
                 if (response.message == 'success') {
                     if (response.task.stats) {
@@ -288,6 +297,57 @@ var __ThriveProjectView = Backbone.View.extend({
             width: Math.ceil( ( ( stats.completed / stats.total ) * 100 ) ) + '%'
         });
 
+    },
+
+    autoSuggestMembers: function( selectElement, clearSelect, task ) {
+
+        if ( ! selectElement ) {
+            return;
+        }
+
+        var $resultTemplate = function( result ) {
+
+			if ( result.avatar ) {
+
+			    var $state = $('<span><img class="result-template-avatar" src="'+result.avatar+'" alt="s" />'+result.text+'</span>');
+			}
+
+			return $state;
+		}
+
+
+		selectElement.select2({
+			maximumInputLength: 20,
+			placeholder: "Type member\'s name...",
+			allowClear: true,
+			minimumResultsForSearch: Infinity,
+			minimumInputLength: 2,
+			tag: true,
+			ajax: {
+
+				data: function ( params ) {
+
+					var query = {
+						action: 'task_breaker_transactions_request',
+						method: 'task_breaker_transactions_user_suggest',
+						nonce: task_breakerProjectSettings.nonce,
+						group_id: task_breakerProjectSettings.current_group_id,
+						term: params.term,
+						user_id_collection: 0
+					}
+
+					if ( selectElement.val() ) {
+						query.user_id_collection = selectElement.val();
+					}
+
+					return query;
+				},
+				url: task_breakerAjaxUrl,
+				delay: 250,
+				cache: true
+			},
+			templateResult: $resultTemplate
+		});
     }
 });
 

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Task Breaker
  * Description: A WordPress plug-in that will help you break some task!
- * Version: 1.0.6
+ * Version: 1.1.0
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: task_breaker
@@ -12,7 +12,6 @@
  *
  * @since     1.0
  */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
@@ -49,13 +48,16 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/project-post-type.php';
 // Require install script.
 require_once plugin_dir_path( __FILE__ ) . 'install/table.php';
 
+// Require notification file
+require_once plugin_dir_path( __FILE__ ) . 'includes/project-notifications.php';
+
 /**
  * TaskBreaker l10n callback.
  * @return void
  */
 function task_breaker_localize_plugin() {
 
-		$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
+	$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
 
     load_plugin_textdomain( 'task_breaker', FALSE, $rel_path );
 
@@ -109,6 +111,13 @@ add_action( 'init', 'task_breaker_plugin_updater_init' );
  */
 function task_breaker_plugin_updater_init() {
 
+	/**
+	 * Disable updater on ajax request
+	 */
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		return;
+	}
+
 	if ( is_admin() ) {
 
 		include_once plugin_dir_path( __FILE__ ) . '/update-check.php';
@@ -129,7 +138,7 @@ function task_breaker_plugin_updater_init() {
 	        'access_token' => '', // Access private repositories by authorizing under Appearance > GitHub Updates when this example plugin is installed
 	    );
 
-    	new WP_GitHub_Updater( $config );
+    	$github_updater = new WP_GitHub_Updater( $config );
 
 	}
 

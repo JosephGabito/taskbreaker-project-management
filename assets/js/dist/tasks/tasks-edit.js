@@ -16,31 +16,32 @@ $('#task_breaker-edit-btn').click(function(e) {
         taskDescription = $('#task_breakerTaskEditDescription').val();
     }
 
+    var httpRequestParameters = {
+        description: taskDescription,
+        nonce: task_breakerProjectSettings.nonce,
+        project_id: task_breakerTaskConfig.currentProjectId,
+        user_id: task_breakerTaskConfig.currentUserId,
+
+        action: 'task_breaker_transactions_request',
+        method: 'task_breaker_transaction_edit_ticket',
+
+        title: $('#task_breakerTaskEditTitle').val(),
+        milestone_id: $('#task_breakerTaskMilestone').val(),
+        id: $('#task_breakerTaskId').val(),
+        priority: $('select[name="task_breaker-task-edit-priority"]').val(),
+        user_id_collection: $('select#task-user-assigned-edit').val()
+    }
+
+    console.log( httpRequestParameters );
+
     $.ajax({
 
         url: ajaxurl,
-        data: {
-
-            description: taskDescription,
-            nonce: task_breakerProjectSettings.nonce,
-            project_id: task_breakerTaskConfig.currentProjectId,
-            user_id: task_breakerTaskConfig.currentUserId,
-
-            action: 'task_breaker_transactions_request',
-            method: 'task_breaker_transaction_edit_ticket',
-
-            title: $('#task_breakerTaskEditTitle').val(),
-            milestone_id: $('#task_breakerTaskMilestone').val(),
-            id: $('#task_breakerTaskId').val(),
-            priority: $('select[name="task_breaker-task-edit-priority"]').val()
-
-        }, 
+        data: httpRequestParameters,
 
         method: 'post',
 
-        success: function( httpResponse ) {
-
-            var response = JSON.parse( httpResponse );
+        success: function( response ) {
 
             var message = "<p class='success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
 
@@ -49,7 +50,7 @@ $('#task_breaker-edit-btn').click(function(e) {
                 message = "<p class='error'>There was an error updating the task. All fields are required.</a></p>";
 
             }
- 
+
             $('#task_breaker-edit-task-message').html(message).show();
 
             element.attr('disabled', false);
@@ -59,7 +60,7 @@ $('#task_breaker-edit-btn').click(function(e) {
             return;
 
         },
-        
+
         error: function() {
 
             // Todo: Better handling of http errors and timeouts.

@@ -19,12 +19,12 @@ $('#task_breaker-submit-btn').click(function(e) {
     $.ajax({
         url: ajaxurl,
         data: {
-            
+
             action: 'task_breaker_transactions_request',
             method: 'task_breaker_transaction_add_ticket',
-            
+
             description: taskDescription,
-            
+
             title: $('#task_breakerTaskTitle').val(),
             milestone_id: $('#task_breakerTaskMilestone').val(),
             priority: $('select#task_breaker-task-priority-select').val(),
@@ -32,7 +32,8 @@ $('#task_breaker-submit-btn').click(function(e) {
             nonce: task_breakerProjectSettings.nonce,
 
             project_id: task_breakerTaskConfig.currentProjectId,
-            user_id: task_breakerTaskConfig.currentUserId
+            user_id: task_breakerTaskConfig.currentUserId,
+            user_id_collection: $('select#task-user-assigned').val()
         },
 
         method: 'post',
@@ -45,9 +46,7 @@ $('#task_breaker-submit-btn').click(function(e) {
             // Remaining tasks view
             var remaining_tasks = parseInt( $('.task_breaker-remaining-tasks-count').text().trim() );
 
-            message = JSON.parse( message );
-
-           // console.log( message ); 
+           // console.log( message );
 
             if ( message.message === 'success' ) {
 
@@ -58,7 +57,7 @@ $('#task_breaker-submit-btn').click(function(e) {
                 $('#task_breakerTaskDescription').val('');
 
                 $('#task_breakerTaskTitle').val('');
-                
+
                 ThriveProjectView.updateStats( message.stats );
 
                 location.href = "#tasks/view/" + message.response.id;
@@ -68,10 +67,10 @@ $('#task_breaker-submit-btn').click(function(e) {
 
                 $('#task_breaker-add-task-message').html('<p class="error">'+message.response+'</p>').show().addClass('error');
 
-              
+
 
                 element.text('Save Task');
-                
+
                 element.removeAttr('disabled');
 
             }

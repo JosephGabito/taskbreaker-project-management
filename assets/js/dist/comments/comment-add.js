@@ -1,5 +1,9 @@
   $('body').on('click', '#updateTaskBtn', function() {
 
+      var updateTaskBtn = $(this);
+
+      updateTaskBtn.attr('disabled', 'disabled');
+
       var comment_ticket_id = ThriveProjectModel.id,
           comment_details = $('#task-comment-content').val(),
           task_priority = $('#task_breaker-task-priority-update-select').val(),
@@ -21,23 +25,22 @@
           details: comment_details,
           completed: comment_completed,
           project_id: task_project_id,
-          nonce: task_breakerProjectSettings.nonce 
+          nonce: task_breakerProjectSettings.nonce
       };
 
       $.ajax({
           url: ajaxurl,
           data: __http_params,
           method: 'post',
-          success: function( httpResponse ) {
+          success: function( response ) {
 
-              var response = JSON.parse( httpResponse );
-
+              updateTaskBtn.attr('disabled', false);
               ThriveProjectView.progress( false );
 
               $('#task-comment-content').val('');
               $('#task-lists').append(response.result);
 
-            
+
               if ("yes" === comment_completed) {
 
                   // disable old radios
@@ -67,7 +70,7 @@
               ThriveProjectView.updateStats( response.stats );
           },
           error: function() {
-
+              updateTaskBtn.attr('disabled', false);
               ThriveProjectView.progress(false);
           }
       });

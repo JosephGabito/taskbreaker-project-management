@@ -17,7 +17,7 @@
             <?php if ( $task->completed_by != 0 ) { ?>
 
                 <?php $completed = 'completed'; ?>
-                
+
             <?php } ?>
 
             <?php $classes = implode( ' ', array( esc_attr( sanitize_title( $priority_label ) ), $completed ) ); ?>
@@ -40,13 +40,39 @@
                         </h3>
                     </li>
                     <li class="last-user-update">
+
                         <div class="task-user">
-                            <?php echo get_avatar( intval( $task->user ), 32 ); ?>
+
                             <?php $user = get_userdata( $task->user ); ?>
-                            <div class="task-user-name">
-                                <small>
-                                    <?php echo esc_html( $user->display_name ); ?>
-                                </small>
+
+                            <div class="task-members">
+                                <?php
+                                    $assign_users = task_breaker_parse_assigned_users( $task->assign_users );
+                                ?>
+                                <?php $assigned_users_count = count( $assign_users ); ?>
+                                <?php $assigned_users_limit = 4; ?>
+
+                                <ul class="task-members-items">
+                                    <?php $assign_user_limited = array(); ?>
+                                    <?php if ( is_array( $assign_users ) ) { ?>
+                                        <?php $assign_user_limited = array_slice( $assign_users,0, 4 ); ?>
+                                    <?php } ?>
+                                    <?php foreach( $assign_user_limited as $assign_user ) { ?>
+                                        <li class="task-members-items-item">
+                                            <a title="<?php esc_attr_e( $assign_user->display_name ); ?>" href="<?php echo esc_url( bp_core_get_userlink( $assign_user->ID, false, true ) );  ?>" class="task-members-items-item-link">
+                                                <?php echo get_avatar( $assign_user->ID ); ?>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+
+                                    <?php if ( $assigned_users_count >= $assigned_users_limit ) { ?>
+                                        <li class="user-assign-members-more">
+                                            <span>
+                                                +<?php echo $assigned_users_count - $assigned_users_limit; ?>
+                                            </span>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
                             </div>
                         </div>
                     </li>
