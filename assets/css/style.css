@@ -223,6 +223,11 @@
     display: none;
 }
 
+#task_breaker-modal-close {
+    cursor: pointer;
+    color: #fff;
+}
+
 #task_breaker-project .html-active .switch-html,
 #task_breaker-project .tmce-active .switch-tmce,
 #task_breaker-project .mce-toolbar .mce-btn button,
