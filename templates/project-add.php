@@ -1,14 +1,3 @@
-<!--
-@Author: Joseph Gabito <dunhakdis>
-@Date:   2016-04-08T13:24:28+08:00
-@Email:  dsc.official.mail@gmail.com
-@Last modified by:   dunhakdis
-@Last modified time: 2016-07-13T18:51:29+08:00
-@License: GNU GENERAL PUBLIC LICENSE
--->
-
-
-
 <?php if ( bp_is_active('groups') ) { ?>
 
 	<div id="task_breaker-project-add-new-form">
