@@ -1,4 +1,5 @@
-<div class="form-wrap">
+
+<div id="task-breaker-task-edit-form" class="form-wrap">
 
 	<div id="task_breaker-edit-task-message" class="task_breaker-notifier"></div>
 

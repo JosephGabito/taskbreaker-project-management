@@ -32,8 +32,6 @@ $('#task_breaker-edit-btn').click(function(e) {
         user_id_collection: $('select#task-user-assigned-edit').val()
     }
 
-    console.log( httpRequestParameters );
-
     $.ajax({
 
         url: ajaxurl,
@@ -42,6 +40,7 @@ $('#task_breaker-edit-btn').click(function(e) {
         method: 'post',
 
         success: function( response ) {
+
 
             var message = "<p class='success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
 

@@ -350,13 +350,17 @@ function task_breaker_get_task( $task_id = 0 ) {
 	return $result;
 }
 
-function task_breaker_get_tasks_comments( $ticket_id = 0 ) {
+function task_breaker_get_tasks_comments( $ticket_id = 0 )
+{
 
 	global $wpdb;
 
-	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}task_breaker_comments WHERE ticket_id = $ticket_id", 'ARRAY_A' );
+	$query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}task_breaker_comments WHERE ticket_id = %d", absint($ticket_id));
+
+	$results = $wpdb->get_results($query, 'ARRAY_A');
 
 	return $results;
+
 }
 
 function task_breaker_project_settings() {

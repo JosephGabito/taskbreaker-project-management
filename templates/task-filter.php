@@ -1,29 +1,28 @@
 <?php
 /**
  * This file handles the filter for tasks
- * 
- * @since  1.0 
+ *
+ * @since  1.0
  */
 
 global $post;
 
 // Total tasks.
-$total = intval( task_breaker_count_tasks( $post->ID ) ); 
+$total = intval( task_breaker_count_tasks( $post->ID ) );
 
 // Completed tasks.
 $completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
 
 // Remaining Tasks.
 $remaining = absint( $total - $completed );
-
-?>	
+?>
 	<div id="task_breaker-tasks-filter">
 		<div class="clearfix">
 			<div class="task_breaker-tabs-tabs">
 				<ul>
 				    <li id="task_breaker-task-list-tab" class="task_breaker-task-tabs active">
 				    	<a href="#tasks" title="<?php _e('Tasks', 'task_breaker'); ?>">
-				    		<span class="dashicons dashicons-list-view"></span> 
+				    		<span class="dashicons dashicons-list-view"></span>
 				    		<?php _e('Tasks', 'task_breaker'); ?>
 			    			<span class="task_breaker-remaining-tasks-count task_breaker-task-count">
 			    				<?php echo esc_html( $remaining ); ?>
@@ -32,7 +31,7 @@ $remaining = absint( $total - $completed );
 				    </li>
 				    <li id="task_breaker-task-completed-tab" class="task_breaker-task-tabs">
 				    	<a href="#tasks/completed" title="<?php _e('Tasks', 'tasl_breaker'); ?>">
-				    		<span class="dashicons dashicons-yes"></span> 
+				    		<span class="dashicons dashicons-yes"></span>
 				    		<?php _e('Completed', 'task_breaker'); ?>
 			    			<span class="task-progress-completed task_breaker-task-count">
 			    				<?php echo esc_html( $completed ); ?>
