@@ -266,10 +266,14 @@ class ThriveProjectTasksModel {
 			'echo' => true,
 		);
 
-		foreach ( $defaults as $option => $value ) {
-			if ( ! empty( $args[$option] ) ) {
+		// Assign default values and sanitize everything!
+		foreach ( $defaults as $option => $value )
+		{
+			if ( ! empty( $args[$option] ) )
+			{
 				$$option = $args[$option];
-			} else {
+			} else
+			{
 				$$option = $value;
 			}
 		}
@@ -288,12 +292,13 @@ class ThriveProjectTasksModel {
 
 			// where claused
 			$filters = '';
-				$allowed_priority = array( '1','2','3' );
+			$allowed_priority = array( '1','2','3' );
+
 			if ( $priority != -1 && in_array( $priority, $allowed_priority ) ) {
 				$funnels[] = array(
 						'column'  => 'priority',
 						'operand' => '=',
-						'value'   => $priority,
+						'value'   => absint( $priority ),
 						'format'  => 'raw',
 					);
 			}
@@ -302,7 +307,7 @@ class ThriveProjectTasksModel {
 				$funnels[] = array(
 						'column'  => 'title',
 						'operand' => 'like',
-						'value'   => '%'.$search.'%',
+						'value'   =>  '%' . $wpdb->_real_escape( $search ). '%',
 						'format'  => 'string',
 					);
 			}
@@ -329,7 +334,7 @@ class ThriveProjectTasksModel {
 				$funnels[] = array(
 					'column' => 'project_id',
 					'operand' => '=',
-					'value' => $project_id,
+					'value' => absint( $project_id ),
 					'format' => 'raw',
 				);
 			}
@@ -348,7 +353,7 @@ class ThriveProjectTasksModel {
 					$funnel['value'] = "'".$funnel['value']."'";
 				}
 
-				$filters .= "{$funnel['column']} {$funnel['operand']}  {$funnel['value']} AND ";
+				$filters .= "{$funnel['column']} {$funnel['operand']} {$funnel['value']} AND ";
 
 			}
 			// echo $filters;
@@ -630,7 +635,7 @@ class ThriveProjectTasksModel {
 
 		// Clear any existing records.
 		$wpdb->delete( $table,
-			array( $task_id ), // Entry
+			array( 'task_id' => $task_id ), // Entry
 			array( '%d' ) // Format.
 		);
 
