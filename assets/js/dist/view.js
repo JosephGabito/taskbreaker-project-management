@@ -114,10 +114,11 @@ var __ThriveProjectView = Backbone.View.extend({
 
     showEditForm: function(task_id) {
 
-        this.progress(true);
         var __this = this;
 
         var __taskEditor = tinymce.get('task_breakerTaskEditDescription');
+
+        this.progress(true);
 
         if ( __taskEditor ) {
             __taskEditor.setContent( '' );
@@ -151,15 +152,20 @@ var __ThriveProjectView = Backbone.View.extend({
 
                 $('#task_breakerTaskEditTitle').val(task.title).removeAttr("disabled");
 
-                if ( taskEditor ) {
+                if ( taskEditor )
+                {
                     taskEditor.setContent( task.description );
-                } else {
+                } else
+                {
                     $( '#task_breakerTaskEditDescription' ).val( task.description );
                 }
 
                 $("#task-user-assigned-edit").val('');
 
-                $.each( task.assign_users_meta.members_stack, function( key, val ) {
+                document.getElementById("task-user-assigned-edit").options.length = 0;
+
+                $.each( task.assign_users_meta.members_stack, function( key, val )
+                {
                     var option = document.createElement("option");
                         option.value = val.ID;
                         option.text  = val.display_name;
