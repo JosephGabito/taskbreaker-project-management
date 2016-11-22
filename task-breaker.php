@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Task Breaker
  * Description: A WordPress plug-in that will help you break some task!
- * Version: 1.2
+ * Version: 1.3
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: task_breaker
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-define( 'TASK_BREAKER_VERSION', '0.1.1' );
+define( 'TASK_BREAKER_VERSION', '1.3.0' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
 

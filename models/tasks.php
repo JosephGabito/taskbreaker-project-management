@@ -506,26 +506,30 @@ class ThriveProjectTasksModel {
 		global $wpdb;
 
 		$args = array(
-				'title' => $this->title,
-				'description' => $this->description,
-				'user' => $this->user_id,
-				'milestone_id' => $this->milestone_id,
-				'project_id' => $this->project_id,
-				'priority' => $this->priority,
-				'date_created' => date("Y-m-d H:i:s"),
-				'assign_users' => $this->group_members_assigned
-			);
+			'title' => $this->title,
+			'description' => $this->description,
+			'user' => $this->user_id,
+			'milestone_id' => $this->milestone_id,
+			'project_id' => $this->project_id,
+			'priority' => $this->priority,
+			'date_created' => date("Y-m-d H:i:s"),
+			'assign_users' => $this->group_members_assigned
+		);
 
 		$trimmed_title = trim( $this->title );
 
 		if ( empty( $trimmed_title ) ) {
+
 			return false;
+
 		}
 
 		$trimmed_description = trim( $this->description );
 
 		if ( empty( $trimmed_description ) ) {
+
 			return false;
+
 		}
 
 		$format = array(
@@ -580,15 +584,19 @@ class ThriveProjectTasksModel {
 
 			 		$action = sprintf( __( '%s added new task under %s', 'task_breaker' ), $bp_user_link, $task_breaker_project_name );
 
-			 		$new_activity_id = bp_activity_add(
-			 			array(
-							'user_id' => $this->user_id,
-							'action' => apply_filters( 'task_breaker_new_task_activity_action', $action, $this->user_id ),
-							'component' => 'project',
-							'content' => apply_filters( 'task_breaker_new_task_activity_descriptioin', sprintf( '<a href="%s" title="%s">#%d - %s</a>', $permalink . '#tasks/view/' . $last_insert_id, $this->title, $last_insert_id, $this->title ) ),
-							'type' => 'task_breaker_new_task',
-						)
-					);
+					if ( task_breaker_is_project_group_public( $this->project_id ) ) {
+
+				 		$new_activity_id = bp_activity_add(
+				 			array(
+								'user_id' => $this->user_id,
+								'action' => apply_filters( 'task_breaker_new_task_activity_action', $action, $this->user_id ),
+								'component' => 'project',
+								'content' => apply_filters( 'task_breaker_new_task_activity_descriptioin', sprintf( '<a href="%s" title="%s">#%d - %s</a>', $permalink . '#tasks/view/' . $last_insert_id, $this->title, $last_insert_id, $this->title ) ),
+								'type' => 'task_breaker_new_task',
+							)
+						);
+
+					}
 
 					// Send a notification to the assigned member
 					$exploded_members = explode( ",", $this->group_members_assigned );

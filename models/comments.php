@@ -159,6 +159,7 @@ class ThriveComments {
 	public function save() {
 
 		if ( empty( $this->user ) ) { return false; }
+		
 		if ( empty( $this->ticket_id ) ) { return false; }
 
 		global $wpdb;

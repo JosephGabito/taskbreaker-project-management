@@ -254,7 +254,7 @@ function task_breaker_can_see_project_tasks( $project_id ) {
     }
 
     return false;
-    
+
  }
 
 
@@ -307,5 +307,23 @@ function task_current_member_is_assign_to( $task_id = 0 ){
     }
 
     return false;
+}
+
+function task_breaker_is_project_group_public( $project_id = 0 ) {
+
+    $public_status = "public";
+
+    $group_id = task_breaker_get_project_group_id( $project_id );
+
+    $group = groups_get_group( $group_id );
+
+    if ( $public_status === $group->status ) {
+
+        return true;
+
+    }
+
+    return false;
+
 }
 ?>

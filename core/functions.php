@@ -682,4 +682,24 @@ function task_breaker_print_r( $raw, $type = '' ) {
 
 	return;
 }
+
+/**
+ * Get Project's group id by project ID.
+ */
+function task_breaker_get_project_group_id( $project_id = 0 ) {
+
+    $group_id = 0;
+
+    if ( 0 === $project_id ) {
+        return 0;
+    }
+
+    $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
+
+    if ( empty( $group_id ) ) {
+        return 0;
+    }
+
+    return $group_id;
+}
 ?>
