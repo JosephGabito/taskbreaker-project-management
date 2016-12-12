@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Task Breaker
  * Description: A WordPress plug-in that will help you break some task!
- * Version: 1.3
+ * Version: 1.3.1
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.me
  * Text Domain: task_breaker
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-define( 'TASK_BREAKER_VERSION', '1.3.0' );
+define( 'TASK_BREAKER_VERSION', '1.3.1' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
 
@@ -38,6 +38,7 @@ add_action( 'init', 'task_breaker_register_transactions' );
 
 // Include task_breaker projects component.
 add_action( 'bp_loaded', 'task_breaker_register_projects_component' );
+
 
 // Require the assets needed.
 require_once plugin_dir_path( __FILE__ ) . 'core/enqueue.php';
@@ -83,11 +84,18 @@ function task_breaker_register_transactions() {
  */
 function task_breaker_register_projects_component() {
 
+	// Include Task Breaker Project Component.
 	include_once plugin_dir_path( __FILE__ ) . '/includes/project-component.php';
+
+	// Include Task Breaker Project Group Component.
+	include_once plugin_dir_path( __FILE__ ) . '/includes/project-group-component.php';
 
 	return;
 }
 
+/**
+ * Register Task Breaker Deactivation Scripts
+ */
 register_activation_hook( __FILE__, 'task_breaker_deactivate_thrive_intranet' );
 
 function task_breaker_deactivate_thrive_intranet() {
@@ -100,7 +108,9 @@ function task_breaker_deactivate_thrive_intranet() {
 	return;
 }
 
-// Enable GitHub Updater.
+/**
+ * Enable Github Updater.
+ */
 add_action( 'init', 'task_breaker_plugin_updater_init' );
 
 /**
