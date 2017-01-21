@@ -7,7 +7,9 @@ require_once( plugin_dir_path( __FILE__ ) . '../models/tasks.php' );
 class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	public function __construct() {
+
 		return $this;
+		
 	}
 
 	public function addTicket( $params = array() ) {
@@ -41,7 +43,9 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 			 ->setAssignUsers( $args['user_id_collection'] );
 
 		if ( empty( $this->title ) || empty( $this->description ) ) {
+
 			return false;
+
 		}
 
 		return $this->prepare()->save();
@@ -52,7 +56,8 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 		// delete the ticket
 		if ( 0 === $id ) {
-			echo 'INVALID [ID] PROVIDED #controllers/task_breaker-project-tasks@line:34';
+			echo __('Invalid ticket id', 'task-breaker');
+			die();
 		}
 
 		return $this->setId( $id )->prepare()->delete();
@@ -107,7 +112,9 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 	}
 
 	public function getPriority($priority = 1) {
+
 		return parent::getPriority( $priority );
+
 	}
 
 	public function setAssignUsers( $user_id_collection = array() ) {
