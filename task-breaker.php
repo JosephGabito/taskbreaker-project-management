@@ -39,6 +39,7 @@ add_action( 'init', 'task_breaker_register_transactions' );
 // Include task_breaker projects component.
 add_action( 'bp_loaded', 'task_breaker_register_projects_component' );
 
+add_action( 'bp_loaded', 'task_breaker_load_components' );
 
 // Require the assets needed.
 require_once plugin_dir_path( __FILE__ ) . 'core/enqueue.php';
@@ -93,6 +94,12 @@ function task_breaker_register_projects_component() {
 	return;
 }
 
+
+function task_breaker_load_components() {
+
+	// Require our email handler class.
+	require_once plugin_dir_path( __FILE__ ) . 'emails/class-buddypress-mail-register.php';
+}
 /**
  * Register Task Breaker Deactivation Scripts
  */
