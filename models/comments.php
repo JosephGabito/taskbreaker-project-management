@@ -233,7 +233,9 @@ class ThriveComments {
 						$group_link_template = '<a title="'.esc_attr( $group_name ).'" href="'.esc_url( $group_link ).'">' . esc_html( $group_name ) . '</a> &mdash; ';
 					}
 
-					$ticket_permalink = sprintf( '<a href="%2$s" title="%1$d">(#%1$d)</a>',  $this->ticket_id, esc_url( get_permalink( $project->project_id ) . '/#tasks/view/' . $this->ticket_id . '#task-update-' . $this->ticket_id ) );
+					$task_permalink_uri = esc_url( get_permalink( $project->project_id ) . '/#tasks/view/' . $this->ticket_id );
+
+					$task_permalink_template = sprintf( '<a href="%2$s" title="%1$d">(#%1$d)</a>',  $this->ticket_id, $task_permalink_uri );
 
 					$action_i18 = __('%s %s the task %s %s', 'task_breaker');
 					
@@ -241,7 +243,7 @@ class ThriveComments {
 						$action_i18, 
 						$bp_user_link,
 						$type,
-						$ticket_permalink,
+						$task_permalink_template,
 						$group_link_template
 					);
 
@@ -253,10 +255,19 @@ class ThriveComments {
 				        'content' => '<span class="'.sanitize_title( $final_status_content_label ).'">'.esc_html( $final_status_content_label ).'</span>' . $this->details,
 				        'component' => 'groups',  
 				        'type' => 'task-breaker-task-comment-update',  
-				        'item_id' => 1,  
-				        'hide_sitewide' => false
-				       	
+				        'item_id' => $group_id,  
 					) );
+
+		 			// Send the emails
+		 			$new_task_comment_object = new stdClass;
+		 			
+		 			$new_task_comment_object->user_display_name = bp_core_get_user_displayname( $this->user );
+
+		 			$new_task_comment_object->task_url = $task_permalink_uri;
+
+		 			$new_task_comment_object->user_url = bp_core_get_userlink( $this->user, false, true );
+
+					do_action( 'tb_new_task_comment', $new_task_comment_object );
 
 		 		}
 			} // End function_exists ( 'bp_activity_add' ).
