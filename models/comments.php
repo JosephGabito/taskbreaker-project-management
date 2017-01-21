@@ -252,7 +252,7 @@ class ThriveComments {
 						'action' => $action_template,
 				        'content' => '<span class="'.sanitize_title( $final_status_content_label ).'">'.esc_html( $final_status_content_label ).'</span>' . $this->details,
 				        'component' => 'groups',  
-				        'type' => sanitize_title( 'task_breaker-'.$type ),  
+				        'type' => 'task-breaker-task-comment-update',  
 				        'item_id' => 1,  
 				        'hide_sitewide' => false
 				       	

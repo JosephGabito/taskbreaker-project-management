@@ -29,11 +29,15 @@
 					<?php $task_progress = absint( $args['status'] ); ?>
 
 					<?php if ( 1 === $task_progress ) { ?>
+					
 						<?php $progress_label = __( 'Completed by', 'task_breaker' );?>
+					
 					<?php } ?>
 
 					<?php if ( 2 === $task_progress ) { ?>
+						
 						<?php $progress_label = __( 'Reopened by', 'task_breaker' );?>
+
 					<?php } ?>
 
 					<p class="<?php echo sanitize_title( $progress_label ); ?>">
