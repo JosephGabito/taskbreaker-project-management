@@ -10,7 +10,7 @@
 
 <?php } else { ?>
 
-	<li class="task-lists-item comment" id="task-update-{$args['id']}">
+	<li class="task-lists-item comment" id="task-update-<?php echo absint( $args['id'] );?>">
 
 		<div class="task-item-update">
 
