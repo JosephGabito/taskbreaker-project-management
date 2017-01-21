@@ -138,7 +138,7 @@ class ThriveComments {
 	 * @param integer $ticket_id The ID of the ticket.
 	 * @throws Exception The $ticket_id must not be empty.
 	 */
-	public function set_ticket_id($ticket_id = 0) {
+	public function set_ticket_id( $ticket_id = 0 ) {
 
 		$ticket_id = absint( $ticket_id );
 
@@ -180,6 +180,7 @@ class ThriveComments {
 				'%d', // The format for status.
 			);
 
+
 		$insert_comments = $wpdb->insert( $table, $data, $formats ); // Db call ok.
 
 		if ( $insert_comments ) {
@@ -192,28 +193,72 @@ class ThriveComments {
 				$bp_user_link = '';
 
 			 	if ( function_exists( 'bp_core_get_userlink' ) ) {
+			 		
 			 		$bp_user_link = bp_core_get_userlink( $this->user );
+
 			 	}
 
 			 	$status_label = array(
-			 			__( 'posted new updated in', 'task_breaker' ),
+			 			__( 'posted a new update in', 'task_breaker' ),
 			 			__( 'completed', 'task_breaker' ),
-			 			__( 'reopened', 'theive' ),
+			 			__( 'reopened', 'task_breaker' ),
 			 		);
 
-			 	$type = $status_label[$this->get_status()];
+			 	$status_content_label = array(
+			 			__( 'Updated', 'task_breaker' ),
+			 			__( 'Completed', 'task_breaker' ),
+			 			__( 'Reopened', 'task_breaker' ),
+			 		);
+
+			 	$type = $status_label[ $this->get_status() ];
 
 			 	$action = sprintf( __( '%s %s the task: %s - ', 'task_breaker' ), $bp_user_link, $type, '#' . $this->ticket_id );
 
-			 	bp_activity_add(
-			 		array(
-						'user_id' => $this->user,
-						'action' => apply_filters( 'task_breaker_update_task_activity_action', $action, $this->user ),
-						'component' => 'project',
-						'content' => $this->details,
-						'type' => sanitize_title( 'task_breaker-'.$type ),
-					)
-				);
+				if ( function_exists( 'groups_record_activity' ) ) {
+
+					$project = task_breaker_get_task( absint ( $this->ticket_id ) );
+
+					$group_id = task_breaker_get_project_group_id( absint( $project->project_id ) );
+
+					$group_link_template = '';
+
+					if ( ! empty ( $group_id ) ) {
+
+						$group = groups_get_group( array( 'group_id' => $group_id ) );
+
+						$group_name = $group->name;
+
+						$group_link = trailingslashit( bp_get_root_domain() . '/' . bp_get_groups_root_slug() . '/' . $group->slug . '/' );
+
+						$group_link_template = '<a title="'.esc_attr( $group_name ).'" href="'.esc_url( $group_link ).'">' . esc_html( $group_name ) . '</a> &mdash; ';
+					}
+
+					$ticket_permalink = sprintf( '<a href="%2$s" title="%1$d">(#%1$d)</a>',  $this->ticket_id, esc_url( get_permalink( $project->project_id ) . '/#tasks/view/' . $this->ticket_id . '#task-update-' . $this->ticket_id ) );
+
+					$action_i18 = __('%s %s the task %s %s', 'task_breaker');
+					
+					$action_template = sprintf( 
+						$action_i18, 
+						$bp_user_link,
+						$type,
+						$ticket_permalink,
+						$group_link_template
+					);
+
+					$final_status_content_label = $status_content_label[ absint( $this->get_status() ) ];
+
+		 			groups_record_activity( array( 
+				        'user_id' => bp_loggedin_user_id(),  
+						'action' => $action_template,
+				        'content' => '<span class="'.sanitize_title( $final_status_content_label ).'">'.esc_html( $final_status_content_label ).'</span>' . $this->details,
+				        'component' => 'groups',  
+				        'type' => sanitize_title( 'task_breaker-'.$type ),  
+				        'item_id' => 1,  
+				        'hide_sitewide' => false
+				       	
+					) );
+
+		 		}
 			} // End function_exists ( 'bp_activity_add' ).
 
 			return $last_insert_id;
