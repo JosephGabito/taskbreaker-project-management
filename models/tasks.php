@@ -224,32 +224,51 @@ class ThriveProjectTasksModel {
 		$user_unassigned = 0;
 
 		if ( empty( $task_id ) ) {
+		
 			return false;
+		
 		} else {
+			
 			global $wpdb;
+			
 			$task = array(
 					'completed_by' => $user_unassigned,
 				);
+			
 			$task_format  = array( '%d' );
+			
 			$updated_task = array( 'id' => $task_id );
+			
 			$updated_task_format = array( '%d' );
+			
 			$updated_task_query = $wpdb->update( $this->model, $task, $updated_task, $task_format, $updated_task_format );
-			if ( $updated_task_query === 1 ) {
+
+			if ( 1 === $updated_task_query ) {
+
 				return $task_id;
+
 			} else {
+
 				return false;
+
 			}
 		}
+
 		return false;
 	}
 
 	public function showError() {
+
 		$this->show_errors();
+
 		$this->print_error();
+
 		echo 'last query:' . $this->last_query;
+
+		return $this;
 	}
 
-	public function fetch($args = array()) {
+	public function fetch( $args = array() ) {
 
 		// fetch all tickets if there is no id specified
 		global $wpdb;
@@ -271,10 +290,13 @@ class ThriveProjectTasksModel {
 		{
 			if ( ! empty( $args[$option] ) )
 			{
-				$$option = $args[$option];
-			} else
-			{
+				
+				$$option = $args[ $option ];
+
+			} else {
+				
 				$$option = $value;
+
 			}
 		}
 
@@ -578,7 +600,12 @@ class ThriveProjectTasksModel {
 
 			 		if ( ! empty( $task_breaker_project_post ) ) {
 
-			 			$task_breaker_project_name = sprintf( '<a href="%s" title="%s">%s<a/>', $permalink, $task_breaker_project_post->post_title, $task_breaker_project_post->post_title );
+			 			$task_breaker_project_name = sprintf( 
+			 					'<a href="%s" title="%s">%s<a/>', 
+			 					$permalink, 
+			 					$task_breaker_project_post->post_title, 
+			 					$task_breaker_project_post->post_title 
+			 				);
 
 			 		}
 
@@ -591,14 +618,15 @@ class ThriveProjectTasksModel {
 								'user_id' => $this->user_id,
 								'action' => apply_filters( 'task_breaker_new_task_activity_action', $action, $this->user_id ),
 								'component' => 'project',
-								'content' => apply_filters( 'task_breaker_new_task_activity_descriptioin', sprintf( '<a href="%s" title="%s">#%d - %s</a>', $permalink . '#tasks/view/' . $last_insert_id, $this->title, $last_insert_id, $this->title ) ),
+								'content' => apply_filters( 'task_breaker_new_task_activity_description', sprintf( '<a href="%s" title="%s">#%d - %s</a>', $permalink . '#tasks/view/' . $last_insert_id, $this->title, $last_insert_id, $this->title ) ),
 								'type' => 'task_breaker_new_task',
 							)
 						);
+						
 
-					}
+					} // End if ( task_breaker_is_project_group_public( $this->project_id ) ).
 
-					// Send a notification to the assigned member
+					// Send a notification to the assigned member.
 					$exploded_members = explode( ",", $this->group_members_assigned );
 
 					foreach ( (array) $this->group_members_assigned as $ua_id ) {
