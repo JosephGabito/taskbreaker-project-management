@@ -31,8 +31,8 @@ function task_breaker_projects_register_post_type() {
 		'labels'             => $labels,
 		'public'             => true,
 		'publicly_queryable' => true,
-		'show_ui'            => true,
-		'show_in_menu'       => true,
+		'show_ui'            => false,
+		'show_in_menu'       => false,
 		'query_var'          => true,
 		'rewrite'            => array( 'slug' => 'project' ),
 		'capability_type'    => 'post',
@@ -41,6 +41,10 @@ function task_breaker_projects_register_post_type() {
 		'menu_position'      => null,
 		'supports'           => array( 'title', 'editor', 'custom-fields' ),
 	);
+
+	if ( current_user_can( 'manage_options' ) ) {
+		$args['show_ui'] = true;
+	}
 
 	register_post_type( 'project', $args );
 
