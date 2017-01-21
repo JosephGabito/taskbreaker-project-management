@@ -123,14 +123,14 @@ if ( ! empty( $args->user ) ) {
                     ?>
                         <div id="comment-completed-radio">
                             <?php if ( $completed === 'no' ) { ?>
-                            <div class="pull-left">
+                            <div class="alignleft">
                                 <label for="ticketStatusInProgress">
                                     <input <?php echo $completed === 'no' ?  'checked': ''; ?> id="ticketStatusInProgress" type="radio" value="no" name="task_commment_completed">
                                     <small><?php _e( 'In Progress', 'task_breaker' ); ?></small>
                                 </label>
                             </div>
                             <?php } ?>
-                            <div class="pull-left">
+                            <div class="alignleft">
                                 <label for="ticketStatusComplete">
                                     <input <?php echo $completed === 'yes' ? 'checked': ''; ?> id="ticketStatusComplete" type="radio" value="yes" name="task_commment_completed">
                                     <small><?php _e( 'Completed', 'task_breaker' ); ?></small>
