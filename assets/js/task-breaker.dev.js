@@ -27,11 +27,28 @@ var __ThriveProjectView = Backbone.View.extend({
         "click .task_breaker-project-tab-li-item-a": "switchView",
         "click .next-page": "next",
         "click .prev-page": "prev",
-        "click #task_breaker-task-search-submit": "searchTasks",
+        "submit #task-breaker-search-task-form": "searchTasks",
         "change #task_breaker-task-filter-select": "filter"
     },
 
-    switchView: function(e, elementID) {
+    switchView: function( e, elementID ) {
+
+        if (e) {
+            
+            var $elementClicked = $( e.currentTarget );
+
+            // Disable clicking on the 'Add New Tab' if we are on 'Task Add' Route.
+            var $tab_disabled = ['task_breaker-project-edit-tab', 'task_breaker-project-edit', 'task_breaker-project-add-new'];
+            var $is_tab_enabled = $.inArray( $elementClicked.attr( 'id' ), $tab_disabled );
+
+            console.log( $is_tab_enabled );
+
+            if ( -1 !== $is_tab_enabled ) {
+                console.log( $elementClicked.attr( 'id' ) );
+                return false;
+            } 
+
+        }
 
         $('#task_breaker-project-edit-tab').css('display', 'none');
         $('#task_breaker-project-add-new').css('display', 'none');
@@ -70,8 +87,8 @@ var __ThriveProjectView = Backbone.View.extend({
         $('#task_breaker-tasks-filter').show();
     },
 
-    searchTasks: function() {
-
+    searchTasks: function( event ) {
+        
         var keywords = $('#task_breaker-task-search-field').val();
 
         if ( 0 === keywords.length ) {
@@ -79,6 +96,8 @@ var __ThriveProjectView = Backbone.View.extend({
         } else {
             location.href = '#tasks/search/' + encodeURI(keywords);
         }
+
+        return false;
 
     },
 
@@ -135,7 +154,13 @@ var __ThriveProjectView = Backbone.View.extend({
 
         var __this = this;
 
-        var __taskEditor = tinymce.get('task_breakerTaskEditDescription');
+        var __taskEditor = '';
+
+        if ( typeof tinymce !== 'undefined' ) {
+            
+            __taskEditor = tinymce.get('task_breakerTaskEditDescription');
+
+        } 
 
         this.progress(true);
 
@@ -165,7 +190,11 @@ var __ThriveProjectView = Backbone.View.extend({
 
                 var task = response.task;
 
-                var taskEditor = tinymce.get('task_breakerTaskEditDescription');
+                var taskEditor = '';
+
+                if ( typeof tinymce !== 'undefined' ) {
+                    taskEditor = tinymce.get('task_breakerTaskEditDescription');
+                }
 
                 $('#task_breakerTaskId').val(task.id).removeAttr("disabled");
 
@@ -181,10 +210,11 @@ var __ThriveProjectView = Backbone.View.extend({
 
                 $("#task-user-assigned-edit").val('');
 
-                document.getElementById("task-user-assigned-edit").options.length = 0;
+                if ( document.getElementById("task-user-assigned-edit") ) {
+                    document.getElementById("task-user-assigned-edit").options.length = 0;
+                }
 
-                $.each( task.assign_users_meta.members_stack, function( key, val )
-                {
+                $.each( task.assign_users_meta.members_stack, function( key, val ) {
                     var option = document.createElement("option");
                         option.value = val.ID;
                         option.text  = val.display_name;
@@ -554,12 +584,17 @@ $('#task_breaker-edit-btn').click(function(e) {
     element.text('Loading ...');
 
     var taskDescription = "";
+
     var taskDescriptionObject = tinymce.get( 'task_breakerTaskEditDescription' );
 
     if ( taskDescriptionObject ) {
+
         taskDescription = taskDescriptionObject.getContent();
+
     } else {
+
         taskDescription = $('#task_breakerTaskEditDescription').val();
+        
     }
 
     var httpRequestParameters = {
@@ -587,16 +622,21 @@ $('#task_breaker-edit-btn').click(function(e) {
 
         success: function( response ) {
 
+            var message = "<p class='task-breaker-message success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
 
-            var message = "<p class='success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
+            if ( 'fail' === response.message && 'no_changes' !== response.type ) {
 
-            if ('fail' === response.message && 'no_changes' !== response.type) {
-
-                message = "<p class='error'>There was an error updating the task. All fields are required.</a></p>";
+                message = "<p class='task-breaker-message danger'>There was an error updating the task. All fields are required.</a></p>";
 
             }
 
-            $('#task_breaker-edit-task-message').html(message).show();
+            if ( 'fail' === response.message && 'unauthorized' === response.type ) {
+
+                message = "<p class='task-breaker-message danger'>You are not allowed to modify this task. Only group project administrators and group projects moderators are allowed.</a></p>";
+
+            }
+
+            $('#task_breaker-edit-task-message').html( message ).show();
 
             element.attr('disabled', false);
 
@@ -652,22 +692,34 @@ $('#task_breaker-edit-btn').click(function(e) {
        method: 'post',
        success: function( response ) {
 
-            ThriveProjectView.progress(false);
+            ThriveProjectView.progress( false );
 
             ThriveProjectView.updateStats( response.stats );
 
-            location.href = "#tasks";
+            if ( 'fail' === response.message) {
 
-            ThriveProjectView.switchView(null, '#task_breaker-project-tasks-context');
+                var message = "<p class='task-breaker-message danger'>"+response.message_text+"</p>";
+                
+                $('#task_breaker-edit-task-message').html( message ).show();
+
+                return false;
+
+            } else {
+
+                location.href = "#tasks";
+
+                ThriveProjectView.switchView(null, '#task_breaker-project-tasks-context');
+                
+            }
 
             $element.text('Delete');
 
        },
 
        error: function() {
+
            ThriveProjectView.progress(false);
-           location.href = "#tasks";
-           ThriveProjectView.switchView(null, '#task_breaker-project-tasks-context');
+
            $element.text('Delete');
 
        }
