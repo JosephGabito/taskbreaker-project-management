@@ -189,8 +189,8 @@ function task_breaker_can_see_project_tasks( $project_id ) {
 	return false;
 
 }
-	/*
-  Check if current user can add tasks
+ /*
+  * Check if current user can add tasks
   * - Only group admin and group mods can add tasks
   */
 function task_breaker_can_add_task( $project_id ) {
@@ -216,10 +216,68 @@ function task_breaker_can_add_task( $project_id ) {
 	return false;
 }
 
-	// Check if current user can delete tasks
-	// Check if current user can edit tasks
-	// Task Comments
-	// Check if current user can add comment
+// Check if current user can delete tasks
+// @todo
+function task_breaker_can_delete_task( $project_id = 0) {
+
+	if ( ! is_user_logged_in() ) {
+		
+		return false;
+
+	}
+
+	if ( empty( $project_id ) ) {
+		return false;
+	}
+
+	if ( current_user_can( 'manage_options' ) ) {
+		return true;
+	}
+
+	$group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
+
+	if ( groups_is_user_mod( get_current_user_id(), $group_id ) ) {
+		return true;
+	}
+
+	if ( groups_is_user_admin( get_current_user_id(), $group_id ) ) {
+		return true;
+	}
+	
+	return false;
+}
+
+// Check if current user can edit tasks
+// - Only group admin and group mods can add tasks
+function task_breaker_can_update_task( $project_id = 0 ) {
+
+	if ( ! is_user_logged_in() ) {
+		return false;
+	}
+
+	if ( empty( $project_id ) ) {
+		return false;
+	}
+
+	if ( current_user_can( 'manage_options' ) ) {
+		return true;
+	}
+
+	$group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
+
+	if ( groups_is_user_mod( get_current_user_id(), $group_id ) ) {
+		return true;
+	}
+
+	if ( groups_is_user_admin( get_current_user_id(), $group_id ) ) {
+		return true;
+	}
+
+	return false;
+}
+
+// Task Comments
+// Check if current user can add comment
 function task_breaker_can_add_task_comment( $project_id, $task_id = 0 ) {
 
 	$group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
