@@ -340,7 +340,7 @@ function task_breaker_transaction_edit_ticket() {
 
 	// Make sure the current user is able to update the task.
 	if ( task_breaker_can_update_task( $project_id ) ) {
-		
+	
 		if ( $task->updateTicket( $task_id, $args ) ) {
 
 			$json_response['message'] = 'success';
@@ -348,7 +348,7 @@ function task_breaker_transaction_edit_ticket() {
 		} else {
 
 			$json_response['type'] = 'required';
-
+			
 			if ( ! empty( $title ) && ! empty( $description ) ) {
 
 				$json_response['type'] = 'no_changes';
@@ -552,7 +552,7 @@ function task_breaker_transactions_update_project() {
 	$project_title = filter_input( INPUT_POST, 'title', FILTER_SANITIZE_STRING );
 
 	// The content of the project.
-	$project_content = filter_input( INPUT_POST, 'content', FILTER_SANITIZE_STRING );
+	$project_content = filter_input( INPUT_POST, 'content', FILTER_DEFAULT );
 
 	// The group id of the buddypress group where this project is under.
 	$project_group_id = filter_input( INPUT_POST, 'group_id', FILTER_VALIDATE_INT );
