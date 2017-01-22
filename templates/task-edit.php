@@ -1,61 +1,70 @@
+<?php global $post; ?>
 
 <div id="task-breaker-task-edit-form" class="form-wrap">
 
-	<div id="task_breaker-edit-task-message" class="task_breaker-notifier"></div>
+	<?php if ( task_breaker_can_update_task( $post->ID ) ) { ?>
 
-	<input type="hidden" id="task_breakerTaskId" />
+		<div id="task_breaker-edit-task-message" class="task_breaker-notifier"></div>
 
-	<!-- Task Title -->
-	<div class="task_breaker-form-field">
-		<input placeholder="<?php esc_attr_e( 'Task Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskEditTitle" maxlength="160" name="title" class="widefat"/>
-	</div>
+		<input type="hidden" id="task_breakerTaskId" />
 
-	<!-- Task User Assigned -->
-	<div class="task_breaker-form-field">
-		<select multiple id="task-user-assigned-edit" class="task-breaker-select2"></select>
-	</div>
+		<!-- Task Title -->
+		<div class="task_breaker-form-field">
+			<input placeholder="<?php esc_attr_e( 'Task Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskEditTitle" maxlength="160" name="title" class="widefat"/>
+		</div>
 
-	<!-- Task Description -->
-	<div class="task_breaker-form-field">
-	<?php
-	$args = array(
-				'teeny' => true,
-				'editor_height' => 100,
-				'media_buttons' => false,
-				'quicktags' => false,
-	);
-	?>
-	<?php echo wp_editor( $content = null, $editor_id = 'task_breakerTaskEditDescription', $args ); ?>
-	</div>
+		<!-- Task User Assigned -->
+		<div class="task_breaker-form-field">
+			<select multiple id="task-user-assigned-edit" class="task-breaker-select2"></select>
+		</div>
 
-	<!-- Task Priority -->
-	<div class="task_breaker-form-field">
-		<label for="task_breaker-task-priority-select">
-			<strong>
-				<?php _e( 'Priority:', 'task_breaker' ); ?>
-			</strong>
-	<?php
-	echo task_breaker_task_priority_select(
-		$default = 1,
-		$name = 'task_breaker-task-edit-priority',
-		$id = 'task_breaker-task-edit-select-id'
-	);
-	?>
-		</label>
-	</div>
+		<!-- Task Description -->
+		<div class="task_breaker-form-field">
+			<?php
+				$args = array(
+					'teeny' => true,
+					'editor_height' => 100,
+					'media_buttons' => false,
+					'quicktags' => false,
+				);
+			?>
+			<?php echo wp_editor( $content = null, $editor_id = 'task_breakerTaskEditDescription', $args ); ?>
+		</div>
 
-	<!-- Task Controls -->
-	<div class="task_breaker-form-field">
+		<!-- Task Priority -->
+		<div class="task_breaker-form-field">
+			<label for="task_breaker-task-priority-select">
+				<strong>
+					<?php _e( 'Priority:', 'task_breaker' ); ?>
+				</strong>
+				<?php
+					echo task_breaker_task_priority_select(
+							$default = 1,
+							$name = 'task_breaker-task-edit-priority',
+							$id = 'task_breaker-task-edit-select-id'
+						);
+				?>
+			</label>
+		</div>
 
-		<button id="task_breaker-delete-btn" class="button button-primary button-large" style="float:right; margin-left: 10px;">
-	<?php esc_attr_e( 'Delete', 'task-breaker' ); ?>
-		</button>
+		<!-- Task Controls -->
+		<div class="task_breaker-form-field">
 
-		<button id="task_breaker-edit-btn" class="button button-primary button-large" style="float:right">
-	<?php esc_attr_e( 'Update Task', 'task-breaker' ); ?>
-		</button>
+			<button id="task_breaker-delete-btn" class="button button-primary button-large" style="float:right; margin-left: 10px;">
+				<?php esc_attr_e( 'Delete', 'task-breaker' ); ?>
+			</button>
 
-		<div style="clear:both"></div>
+			<button id="task_breaker-edit-btn" class="button button-primary button-large" style="float:right">
+				<?php esc_attr_e( 'Update Task', 'task-breaker' ); ?>
+			</button>
 
-	</div>
-</div>
+			<div style="clear:both"></div>
+		</div>
+
+	<?php }  else { ?>
+		<p class="task-breaker-message info">
+			<?php echo sprintf( esc_html__('Ops! Looks like you are lost. %s', 'task_breaker'), '<a href="#tasks">'.__('Go back to safely tasks.', 'task_breaker').'</a>'); ?>
+		</p>
+	<?php } ?> 
+
+</div><!--#task-breaker-task-edit-form-->
