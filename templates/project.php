@@ -16,7 +16,7 @@
 
 		<h3><?php _e( 'About', 'task_breaker' ); ?></h3>
 
-	<?php echo wpautop( do_shortcode( $post->post_content ), true ); ?>
+			<?php echo wpautop( do_shortcode( $post->post_content ), true ); ?>
 
 		<div class="clearfix"></div>
 
@@ -42,12 +42,12 @@
 
 					<h4>
 						<span id="task_breaker-total-tasks-count" class="task_breaker-total-tasks">
-		<?php printf( '%d', $total ); ?>
+							<?php printf( '%d', $total ); ?>
 						</span>
 					</h4>
 
 					<p>
-		<?php _e( 'Total Tasks', 'task_breaker' ); ?>
+						<?php _e( 'Total Tasks', 'task_breaker' ); ?>
 					</p>
 
 				</div>
@@ -58,7 +58,7 @@
 
 					<h4>
 						<span id="task_breaker-remaining-tasks-count" class="task_breaker-remaining-tasks-count">
-		<?php printf( '%d', $remaining ); ?>
+							<?php printf( '%d', $remaining ); ?>
 						</span>
 					</h4>
 
@@ -72,7 +72,7 @@
 
 					<h4>
 						<span id="task-progress-completed-count" class="task-progress-completed">
-		<?php printf( '%d', $completed ); ?>
+							<?php printf( '%d', $completed ); ?>
 						</span>
 					</h4>
 
