@@ -24,13 +24,13 @@
 
 		<div class="task_breaker-project-meta">
 
-	<?php task_breaker_project_meta( get_the_ID() ); ?>
+			<?php task_breaker_project_meta( get_the_ID() ); ?>
 
 		</div>
 
 		<div class="task_breaker-project-excerpt">
 
-	<?php the_excerpt(); ?>
+			<?php the_excerpt(); ?>
 
 		</div>
 
@@ -38,7 +38,7 @@
 
 		<div class="task_breaker-project-author">
 
-	<?php task_breaker_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
+			<?php task_breaker_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
 
 		</div>
 	</li>
@@ -56,7 +56,7 @@
 <?php } else {  ?>
 
 	<div id="message" class="error">
-	<?php _e( 'There are no projects found. Why not add one?', 'task_breaker' ); ?>
+		<?php _e( 'There are no group projects found. You need to become a member of a group to participate in its project.', 'task_breaker' ); ?>
 	</div>
 
 <?php // No Project Found. ?>
