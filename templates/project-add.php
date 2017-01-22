@@ -65,35 +65,38 @@
 
 						<select name="group_id" id="task_breaker-project-assigned-group">
 
-								<?php foreach ( $current_user_groups as $group ) { ?>
+							<?php foreach ( $current_user_groups as $group ) { ?>
 
-								<?php $selected = ''; ?>
+									<?php $selected = ''; ?>
 
-								<?php if ( ! empty( $group_id ) ) { ?>
+									<?php if ( ! empty( $group_id ) ) { ?>
 
-									<?php if ( absint( $group_id ) === absint( $group->group_id ) ) { ?>
+										<?php if ( absint( $group_id ) === absint( $group->group_id ) ) { ?>
 
-										<?php $selected = 'selected'; ?>
+											<?php $selected = 'selected'; ?>
+
+										<?php } ?>
 
 									<?php } ?>
 
-								<?php } ?>
+									<option <?php echo esc_attr_e( $selected );?> value="<?php echo esc_attr_e( absint( $group->group_id ) ); ?>">
 
-								<option <?php echo esc_attr_e( $selected );?> value="<?php echo esc_attr_e( absint( $group->group_id ) ); ?>">
+										<?php echo esc_html( $group->group_name ); ?>
 
-									<?php echo esc_html( $group->group_name ); ?>
+									</option>
 
-								</option>
+						<?php } ?>
 
-						</select>
+					</select>
 
-					<?php } ?>
 
 			<?php } ?>
 				<div class="field-description">
-					<?php 
+					<p class="task-breaker-message info">
+						<?php 
 						esc_attr_e( 'You can only add projects into the group that you are either the administrator or one of the moderator.', 'task-breaker' ); 
-					?>
+						?>
+					</p>
 				</div>
 			
 			</div><!--.task_breaker-form-field-->
