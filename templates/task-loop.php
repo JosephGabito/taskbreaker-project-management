@@ -82,10 +82,8 @@
 		<?php } ?>
 		</ul>
 	<?php } else { ?>
-		<div class="error" id="message">
-			<p>
-				<?php _e( 'No tasks found. If you\'re trying to find a task, kindly try different keywords and/or filters.', 'task_breaker' ); ?>
-			</p>
+		<div class="task-breaker-message info">
+			<?php esc_html_e( 'No tasks found. Try different keywords and filters.', 'task_breaker' ); ?>
 		</div>
 	<?php } ?>
 
@@ -93,7 +91,7 @@
 
 	$stats = $tasks['stats'];
 	$total = intval( $stats['total'] );
-	$perpage    = intval( $stats['perpage'] );
+	$perpage = intval( $stats['perpage'] );
 	$total_page = intval( $stats['total_page'] );
 	$currpage   = intval( $stats['current_page'] );
 	$min_page    = intval( $stats['min_page'] );
@@ -102,7 +100,9 @@
 	if ( 0 !== $total ) { ?>
 
 		<div class="tablenav">
+		
 			<div class="tablenav-pages">
+
 				<span class="displaying-num">
 					<?php sprintf( _n( '%s task', '%s tasks', $total, 'task_breaker' ), $total ); ?>
 				</span>
