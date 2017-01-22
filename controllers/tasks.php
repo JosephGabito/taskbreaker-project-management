@@ -6,7 +6,6 @@ require_once plugin_dir_path( __FILE__ ) . '../models/tasks.php';
 
 class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
-
 	public function __construct() {
 
 		return $this;
@@ -71,9 +70,11 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 		// Make sure the current user is able to update the task.
 		if ( ! task_breaker_can_update_task( $args['project_id'] ) ) {
-			return true;
-		}
+			
+			return false;
 
+		}
+		
 		$this->setTitle( $args['title'] );
 		$this->setId( $id );
 		$this->setDescription( $args['description'] );
