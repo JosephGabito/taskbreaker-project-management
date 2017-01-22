@@ -1,10 +1,11 @@
 <?php if ( bp_is_active( 'groups' ) ) { ?>
+
 	<div id="task_breaker-project">
 
 		<?php if ( task_breaker_can_view_project( $args->ID ) ) { ?>
 
 			<?php include task_breaker_template_dir() . '/project-heading.php'; ?>
-
+			
 			<div class="task_breaker-project-tabs">
 
 				<ul id="task_breaker-project-tab-li">
@@ -28,26 +29,29 @@
 							<?php esc_html_e( 'Edit', 'task-breaker' ); ?>
 						</a>
 					</li>
-					<li class="task_breaker-project-tab-li-item">
-						<a data-content="task_breaker-project-settings" class="task_breaker-project-tab-li-item-a" href="#tasks/settings">
-							<?php esc_html_e( 'Settings', 'task-breaker' ); ?>
-						</a>
-					</li>
+					<?php if ( task_breaker_can_edit_project( $post->ID ) ) { ?>
+						<li class="task_breaker-project-tab-li-item">
+							<a data-content="task_breaker-project-settings" class="task_breaker-project-tab-li-item-a" href="#tasks/settings">
+								<?php esc_html_e( 'Settings', 'task-breaker' ); ?>
+							</a>
+						</li>
+					<?php } ?>
 				</ul>
 
 			</div><!--.task_breaker-project-tabs-->
 			<div id="task_breaker-project-tab-content">
 				<?php
-				if ( $post->post_type == 'project' ) {
-					include task_breaker_template_dir() . '/project.php';
-				}
+					if ( $post->post_type == 'project' ) {
+						include task_breaker_template_dir() . '/project.php';
+					}
 				?>
 			</div>
+
 		<?php } else { ?>
-			<div class="row">
-				<div class="col-xs-1"><i class="material-icons md-36">lock</i></div>
-				<div class="col-xs-11">
-					<div class="task-breaker-message danger">
+
+			<div id="task-breaker-access-project-not-allowed" class="row">
+				<div class="col-xs-12">
+					<div class="task-breaker-message info">
 						<?php esc_attr_e( 'This project can only be accessed by group members. Use the button below join the group and receive an access to this project.', 'task-breaker' ); ?>
 					</div>
 				</div>
