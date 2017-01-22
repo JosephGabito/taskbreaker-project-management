@@ -116,9 +116,20 @@
 
 	<?php } else { ?>
 
-			<div id="message" class="danger task-braker-message">
-				<?php esc_attr_e( 'Only a moderator or an administrator of a group can start adding project to it. Create a new group first.', 'task_breaker' ); ?>
-			</div><!--#message-->
+			<p class="task-breaker-message info">
+				<?php $groups_url = trailingslashit( bp_get_root_domain() . '/' . bp_get_groups_root_slug() ); ?>
+				<?php echo sprintf( 
+					esc_html__( 
+						'Only a group moderator or a group administrator can create a group project. 
+						%1$s Create your group %2$s or %3$s join an existing one %4$s to take part in projects.', 
+						'task_breaker' 
+					), 
+					'<a target="__blank" href="'.esc_url( $groups_url . 'create' ).'" title="'.__('Create Group', 'task_breaker').'">',
+					'</a>',
+					'<a target="__blank" href="'.esc_url( $groups_url ).'" title="'.__('Visit Groups', 'task_breaker').'">',
+					'</a>'
+				); ?>
+			</p><!--#message-->
 	<?php } ?>
 	</form><!--#task_breaker-project-add-new-form-form-->
 </div><!--task_breaker-project-add-new-form-->
