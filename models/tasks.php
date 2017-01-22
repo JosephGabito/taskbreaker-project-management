@@ -10,7 +10,6 @@
  */
 class ThriveProjectTasksModel {
 
-
 	/**
 	 * Contains the name of task
 	*
@@ -287,15 +286,15 @@ class ThriveProjectTasksModel {
 		global $wpdb;
 
 		$defaults = array(
-		 'project_id' => 0,
-		 'id' => 0,
-		 'page' => 1,
-		 'priority' => -1,
-		 'search' => '',
-		 'orderby' => 'date_created',
-		 'order' => 'asc',
-		 'show_completed' => 'no',
-		 'echo' => true,
+			'project_id' => 0,
+			'id' => 0,
+			'page' => 1,
+			'priority' => -1,
+			'search' => '',
+			'orderby' => 'date_created',
+			'order' => 'asc',
+			'show_completed' => 'no',
+			'echo' => true,
 		);
 
 		// Assign default values and sanitize everything!
@@ -540,14 +539,14 @@ class ThriveProjectTasksModel {
 		global $wpdb;
 
 		$args = array(
-		 'title' => $this->title,
-		 'description' => $this->description,
-		 'user' => $this->user_id,
-		 'milestone_id' => $this->milestone_id,
-		 'project_id' => $this->project_id,
-		 'priority' => $this->priority,
-		 'date_created' => date( 'Y-m-d H:i:s' ),
-		 'assign_users' => $this->group_members_assigned,
+			'title' => $this->title,
+			'description' => $this->description,
+			'user' => $this->user_id,
+			'milestone_id' => $this->milestone_id,
+			'project_id' => $this->project_id,
+			'priority' => $this->priority,
+			'date_created' => date( 'Y-m-d H:i:s' ),
+			'assign_users' => $this->group_members_assigned,
 		);
 
 		$trimmed_title = trim( $this->title );
@@ -567,14 +566,14 @@ class ThriveProjectTasksModel {
 		}
 
 		$format = array(
-		  '%s', // Title.
-		  '%s', // Description.
-		  '%d', // User.
-		  '%d', // Milestone Id.
-		  '%d', // Project Id.
-		  '%d', // Priority.
-		  '%s', // Date Created.
-		  '%s',  // Assign Users.
+			'%s', // Title.
+			'%s', // Description.
+			'%d', // User.
+			'%d', // Milestone Id.
+			'%d', // Project Id.
+			'%d', // Priority.
+			'%s', // Date Created.
+			'%s',  // Assign Users.
 		 );
 
 		if ( ! empty( $this->id ) ) {
@@ -582,13 +581,23 @@ class ThriveProjectTasksModel {
 			// Assign members to the task.
 			$this->assign_members( $this->id, $this->group_members_assigned );
 
+			// Make sure the current logged in user is able to update task. Otherwise, bail out.
+			if ( ! task_breaker_can_update_task(  $this->id ) ) {
+				return false;
+			}
+
 			return ( $wpdb->update( $this->model, $args, array( 'id' => $this->id ), $format, array( '%d' ) ) === 0 );
 
 		} else {
 
+			// Make sure the current logged in user is able to add task. Otherwise, bail out.
+			if ( ! task_breaker_can_add_task(  $this->project_id ) ) {
+				return false;
+			}
+
 			if ( $wpdb->insert( $this->model, $args, $format ) ) {
 
-				 $last_insert_id = $wpdb->insert_id;
+				$last_insert_id = $wpdb->insert_id;
 
 				// Assign members to the task.
 				$this->assign_members( $last_insert_id, $this->group_members_assigned );
@@ -621,38 +630,61 @@ class ThriveProjectTasksModel {
 
 					}
 
-					$action = sprintf( __( '%1$s added new task under %1$s', 'task_breaker' ), $bp_user_link, $task_breaker_project_name );
+					$action = sprintf( __( '%1$s added new task under %2$s', 'task_breaker' ), $bp_user_link, $task_breaker_project_name );
 
-					if ( task_breaker_is_project_group_public( $this->project_id ) ) {
+					/*if ( task_breaker_is_project_group_public( $this->project_id ) ) {
 
 						 $new_activity_id = bp_activity_add(
 							 array(
-							 'user_id' => $this->user_id,
-							 'action' => apply_filters( 'task_breaker_new_task_activity_action', $action, $this->user_id ),
+							 'user_id' => ,
+							 'action' => ,
 							 'component' => 'project',
-							 'content' => apply_filters( 'task_breaker_new_task_activity_description', sprintf( '<a href="%s" title="%s">#%d - %s</a>', $permalink . '#tasks/view/' . $last_insert_id, $this->title, $last_insert_id, $this->title ) ),
+							 'content' => ,
 							 'type' => 'task_breaker_new_task',
 							 )
 						 );
 
-					} // End if ( task_breaker_is_project_group_public( $this->project_id ) ).
+					} // End if ( task_breaker_is_project_group_public( $this->project_id ) ).*/
+
+					$task_permalink = $permalink . '#tasks/view/' . $last_insert_id;
+
+					if ( function_exists( 'groups_record_activity' ) ) {
+						  groups_record_activity(
+								array(
+									'user_id' => $this->user_id,
+							   		'action' => apply_filters( 'task_breaker_new_task_activity_action', $action, $this->user_id ),
+								 	'content' => apply_filters( 'task_breaker_new_task_activity_description', sprintf( '<a href="%s" title="%s">#%d - %s</a>', $task_permalink, $this->title, $last_insert_id, $this->title ) ),
+								 	'component' => 'groups',
+								 	'type' => 'task_breaker_new_task',
+								 	'item_id' => get_post_meta( absint( $this->project_id ), 'task_breaker_project_group_id', true ),
+							   )
+						   );
+					}
 
 					// Send a notification to the assigned member.
 					$exploded_members = explode( ',', $this->group_members_assigned );
 
-					foreach ( (array) $this->group_members_assigned as $ua_id ) {
+					foreach ( (array) $exploded_members as $ua_id ) {
+
 						bp_notifications_add_notification(
 							array(
-							 'user_id'           => $ua_id,
-							'item_id'           => $last_insert_id,
-							 'secondary_item_id' => $this->user_id,
-							 'component_name'    => 'task_breaker_ua_notifications_name',
-							 'component_action'  => 'task_breaker_ua_action',
-							 'date_notified'     => bp_core_current_time(),
-							 'is_new'            => 1,
+							 	'user_id'           => $ua_id,
+							 	'item_id'           => $last_insert_id,
+							 	'secondary_item_id' => $this->user_id,
+							 	'component_name'    => 'task_breaker_ua_notifications_name',
+							 	'component_action'  => 'task_breaker_ua_action',
+								'date_notified'     => bp_core_current_time(),
+							 	'is_new'            => 1,
 							)
 						);
 					}
+
+					// Send them ssome snazzy email!
+					$task_email_object = new stdClass;
+					$task_email_object->task_url = $task_permalink;
+					$task_email_object->task_assigned_members = $exploded_members;
+
+					do_action( 'tb_new_task', $task_email_object );
 				}
 
 				 return $last_insert_id;
@@ -763,13 +795,27 @@ class ThriveProjectTasksModel {
 
 		global $wpdb;
 
-		if ( 0 === $this->id ) {
-			echo 'Model Error: ticket ID is ' . $this->id;
-		} else {
-			$wpdb->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
+		// Make sure that user can delete this task.
+		if ( ! task_breaker_can_delete_task( $this->project_id ) ) {
+			
+			return false;
+
 		}
 
-		return $this;
+		if ( 0 === $this->id ) {
+			
+			return false;
+
+		} else {
+			
+			$wpdb->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
+
+			return true;
+
+		}
+
+		return false;
+
 	}
 
 	public function getTaskStatistics( $project_id = 0, $task_id = 0 ) {
