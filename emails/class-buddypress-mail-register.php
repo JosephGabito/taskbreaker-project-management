@@ -15,33 +15,74 @@ final class Task_Breaker_BP_Mail_Register {
 
 	public function __construct() {
 
-		// Register our new email post type and template.
-		add_action(
-			'bp_core_install_emails', array(
-			$this,
-			'new_task_comment_email_template',
-			)
-		);
+		// Register the new task email template.
+		add_action( 'bp_core_install_emails', array( $this, 'new_task_email_template' ) );
 
-		// Register the task comment template.
-		add_action(
-			'tb_new_task_comment', array(
-			$this,
-			'tb_new_task_comment',
-			), 10, 1
-		);
+		// Register our new email post type and template.
+		add_action( 'bp_core_install_emails', array( $this, 'new_task_comment_email_template', ) );
+
+		// Register the new task mailer.
+		add_action( 'tb_new_task', array( $this, 'tb_new_task' ), 10, 1);
+
+		// Register the task comment mailer.
+		add_action( 'tb_new_task_comment', array( $this, 'tb_new_task_comment' ), 10, 1 );
 
 		// Register email settings under 'Settings' > 'Email'.
-		add_action(
-			'bp_notification_settings', array(
-			$this,
-			'tb_render_task_email_settings',
-			), 0
-		);
+		add_action( 'bp_notification_settings', array( $this, 'tb_render_task_email_settings', ), 0 );
 
 		return $this;
 	}
 
+	function new_task_email_template() {
+
+		if ( ! function_exists( 'bp_get_email_post_type' ) ) {
+			return;
+		}
+
+		// Do not create if it already exists and is not in the trash.
+		$post_exists = post_exists( '[{{{site.name}}}] There is a new task assigned to you.' );
+
+		if ( 0 === $post_exists && 'publish' === get_post_status( $post_exists ) ) {
+
+			return;
+
+		}
+
+		$email_content = '';
+		$email_content .= "There is a new task assigned to you.\n";
+		$email_content .= "\n<a href=\"{{{task.url}}}\">Take me to my new task</a>";
+
+		// Create post object.
+		$task_update_email_post = array(
+			 'post_title' => __( '[{{{site.name}}}] There is a new task waiting for you.', 'task_breaker' ),
+			 'post_content' => $email_content, // HTML email content.
+			 'post_excerpt' => $email_content, // Plain text email content.
+			 'post_status' => 'publish',
+			 'post_type' => bp_get_email_post_type(), // This is the post type for emails.
+		);
+
+		// Insert the email post into the database.
+		$post_id = wp_insert_post( $task_update_email_post );
+
+		if ( $post_id ) {
+
+			   // Add our email to the taxonomy term 'post_received_comment'.
+			   // Email is a custom post type, therefore use wp_set_object_terms.
+			   $tt_ids = wp_set_object_terms( $post_id, 'user_assigned_a_task', bp_get_email_tax_type() );
+
+				foreach ( $tt_ids as $tt_id ) {
+
+				$term = get_term_by( 'term_taxonomy_id', absint( $tt_id ), bp_get_email_tax_type() );
+
+				wp_update_term(
+					absint( $term->term_id ), bp_get_email_tax_type(), array(
+					'description' => __( 'A member of a project received a new ask.', 'task_breaker' ),
+					)
+				);
+
+			}
+		}
+	}
 	/**
 	 * Defines the template for our new email post type.
 	 *
@@ -68,22 +109,23 @@ final class Task_Breaker_BP_Mail_Register {
 
 		// Create post object.
 		$task_update_email_post = array(
-		 'post_title' => __( '[{{{site.name}}}] New task update.', 'task_breaker' ),
-		 'post_content' => $email_content, // HTML email content.
-		 'post_excerpt' => $email_content, // Plain text email content.
-		 'post_status' => 'publish',
-		 'post_type' => bp_get_email_post_type(), // This is the post type for emails.
+			 'post_title' => __( '[{{{site.name}}}] New task update.', 'task_breaker' ),
+			 'post_content' => $email_content, // HTML email content.
+			 'post_excerpt' => $email_content, // Plain text email content.
+			 'post_status' => 'publish',
+			 'post_type' => bp_get_email_post_type(), // This is the post type for emails.
 		);
 
 		// Insert the email post into the database.
 		$post_id = wp_insert_post( $task_update_email_post );
+
 		if ( $post_id ) {
 
 			   // Add our email to the taxonomy term 'post_received_comment'.
 			   // Email is a custom post type, therefore use wp_set_object_terms.
 			   $tt_ids = wp_set_object_terms( $post_id, 'task_received_an_update', bp_get_email_tax_type() );
 
-			foreach ( $tt_ids as $tt_id ) {
+				foreach ( $tt_ids as $tt_id ) {
 
 				$term = get_term_by( 'term_taxonomy_id', absint( $tt_id ), bp_get_email_tax_type() );
 
@@ -97,7 +139,58 @@ final class Task_Breaker_BP_Mail_Register {
 		}
 	}
 
-	// @todo send email to all assigned members.
+	/**
+	 * Sends email to users when there is a new task assigned to them.
+	 * @param  object $task_object The object that contains the email tokens that we should passed to.
+	 * @return void
+	 */
+	function tb_new_task( $task_object ) {
+		// Add the tokens to parse in the email template.
+		$args = array(
+				'tokens' => array(
+						'site.name' => get_bloginfo( 'name' ),
+						'task.url' => $task_object->task_url
+					)
+			);
+
+		if ( ! empty( $task_object->task_assigned_members ) ) {
+
+			foreach( $task_object->task_assigned_members as $user_assigned_id ) {
+
+				$user_id = absint( $user_assigned_id );
+
+                if ( ! empty ( $user_id ) ) {
+
+                    $user_subscribed = bp_get_user_meta( absint( $user_id ), 'task_breaker_task_new', true );
+
+                    // Do not send email to self.
+                    if ( $user_id !== bp_loggedin_user_id() ) {
+
+                        // New users who have not yet save the settings in the email settings.
+                        // have blank value. It means, it is not either 'yes' or 'no'.
+                        if ( ! $user_subscribed ) {
+
+                            $user_subscribed = 'yes';
+
+                        }
+
+                        if ( 'yes' === $user_subscribed ) {
+
+                            bp_send_email( 'user_assigned_a_task', (int) $user_id, $args );
+
+                        }
+                    }
+                }
+			}
+		}
+		
+
+	}
+	/**
+	 * Sends email to user assigned when there is a new comment
+	 * @param  object $task_comment_object Callback parameter for 'tb_new_task_comment' action
+	 * @return void
+	 */
 	function tb_new_task_comment( $task_comment_object ) {
 
 		// Add tokens to parse in email.
@@ -107,7 +200,7 @@ final class Task_Breaker_BP_Mail_Register {
 		        'task.url' => $task_comment_object->task_url,
 		        'user.url' => $task_comment_object->user_url,
 		        'user.display_name' => $task_comment_object->user_display_name,
-		  ),
+		  	),
 		);
 
         if ( !empty( $task_comment_object->user_assigned ) ) {
@@ -116,8 +209,7 @@ final class Task_Breaker_BP_Mail_Register {
 
                 // task_breaker_print_r( $user_assigned->member_id );
                 // Send args and user ID to receive email.
-                // 
-                
+             
                 $user_id = absint( $user_assigned->member_id );
 
                 if ( ! empty ( $user_id ) ) {
