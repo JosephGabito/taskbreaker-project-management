@@ -383,7 +383,7 @@ function task_breaker_get_config_base_prefix() {
 	return $wpdb->prefix;
 }
 
-function task_breaker_get_current_user_groups() {
+function task_breaker_get_current_user_owned_groups() {
 
 	return task_breaker_get_user_group_admin_mod();
 

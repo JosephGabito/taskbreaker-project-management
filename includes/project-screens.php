@@ -146,27 +146,19 @@ function task_breaker_bp_projects_main_screen_function() {
 
 	bp_core_load_template( apply_filters( 'task_breaker_bp_projects_main_screen_function', 'project-dashboard' ) );
 
-	/*
-    // if BP Default is not used, we filter bp_get_template_part
-    if ( ! task_breaker_bp_projects_is_bp_default() ) {
-    add_filter( 'bp_get_template_part', 'task_breaker_bp_projects_user_template_part', 10, 3 );
-
-    }*/
+	return;
+	
 }
 
 function task_breaker_bp_projects_main_screen_function_new_project() {
 
 	add_action( 'bp_template_title', 'task_breaker_bp_projects_add_new_title' );
+
 	add_action( 'bp_template_content', 'task_breaker_bp_projects_add_new_content' );
 
 	bp_core_load_template( apply_filters( 'task_breaker_bp_projects_main_screen_function_new_project', 'project-dashboard-new-project' ) );
-	/*
-    // if BP Default is not used, we filter bp_get_template_part
-    if ( ! task_breaker_bp_projects_is_bp_default() ) {
 
-    add_filter( 'bp_get_template_part', 'task_breaker_bp_projects_user_template_part', 10, 3 );
-
-    }*/
+	return;
 
 }
 
@@ -197,7 +189,7 @@ function task_breaker_bp_projects_content() {
 
 	$user_groups = task_breaker_get_displayed_user_groups();
 
-	$current_user_groups = task_breaker_get_current_user_groups();
+	$current_user_groups = task_breaker_get_current_user_owned_groups();
 
 	$groups_collection = array();
 
@@ -219,15 +211,15 @@ function task_breaker_bp_projects_content() {
 	}
 
 	$args = array(
-					'meta_query' => array(
-						array(
-							'key'     => 'task_breaker_project_group_id',
-							'value'   => $groups_collection,
-							'compare' => 'IN',
-						),
-					),
-				);
-
+		'meta_query' => array(
+			array(
+				'key'     => 'task_breaker_project_group_id',
+				'value'   => $groups_collection,
+				'compare' => 'IN',
+			),
+		),
+	);
+	
 	task_breaker_project_loop( $args );
 
 	echo '</div>';

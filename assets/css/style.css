@@ -776,6 +776,7 @@
 	max-width: 32px;
 	height: auto;
 	display: inline;
+	vertical-align: middle;
 }
 .task_breaker-project-meta .task-progress {
 	display: block;
@@ -1547,6 +1548,7 @@
 	width: 100px;
 	display: inline-block;
 	padding: 10px 10px 9px;
+	margin-bottom: 10px;
 }
 
 .task-breaker-task-comment-update .activity-inner span.reopened {
@@ -1557,4 +1559,32 @@
 .task-breaker-task-comment-update .activity-inner span.completed {
 	border: 1px solid #8BC34A;
 	color: #8BC34A;
+}
+
+/**
+ * Fields
+ */
+#task_breakerTaskEditTitle,
+#task_breakerTaskTitle,
+#task_breaker-project-content,
+#task_breaker-project-name {
+	width: 100%;
+	display: block;
+}
+
+/**
+ * Notifications
+ */
+
+.task-breaker-message {
+    padding: 10px 15px;
+    background: #03A9F4;
+    color: #fff;
+    border-radius: 5px;
+    font-size: smaller;
+    font-weight: bold;
+}
+
+.task-breaker-message.danger {
+	background: #F44336;
 }

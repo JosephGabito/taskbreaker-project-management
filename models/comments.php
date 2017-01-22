@@ -249,11 +249,13 @@ class ThriveComments {
 
 						  $task_permalink_template = sprintf( '<a href="%2$s" title="%1$d">(#%1$d)</a>',  $this->ticket_id, $task_permalink_uri );
 
-						  $action_i18 = __( '%1$s %1$s the task %1$s %1$s', 'task_breaker' );
+						  $action_i18 = __( '%1$s %2$s the task %3$s %4$s', 'task_breaker' );
 
 						  $action_template = sprintf(
-							  $action_i18,
-							  $bp_user_link,
+							  
+							  $action_i18, // String.
+
+							  $bp_user_link, 
 							  $type,
 							  $task_permalink_template,
 							  $group_link_template

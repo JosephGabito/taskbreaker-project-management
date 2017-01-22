@@ -47,9 +47,9 @@
 			<div class="row">
 				<div class="col-xs-1"><i class="material-icons md-36">lock</i></div>
 				<div class="col-xs-11">
-					<p>
+					<div class="task-breaker-message danger">
 						<?php esc_attr_e( 'This project can only be accessed by group members. Use the button below join the group and receive an access to this project.', 'task-breaker' ); ?>
-					</p>
+					</div>
 				</div>
 			</div>
 

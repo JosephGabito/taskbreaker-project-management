@@ -21,12 +21,14 @@
 		<!-- Task Description -->
 		<div class="task_breaker-form-field">
 
-	<?php $args = array(
+		<?php 
+			$args = array(
 				'teeny' => true,
 				'editor_height' => 100,
 				'media_buttons' => false,
 				'quicktags' => false,
-			); ?>
+			);
+		?>
 
 	<?php echo wp_editor( $content = null, $editor_id = 'task_breakerTaskDescription', $args ); ?>
 		</div>
@@ -45,8 +47,8 @@
 			<div style="clear:both"></div>
 		</div>
 	<?php } else { ?>
-		<p id="message" class="info">
-	<?php _e( 'Ops! Only group administrator or group moderators can add tasks.', 'task-breaker' ); ?>
-		</p>
+		<div class="task-breaker-message danger">
+			<?php esc_html_e( 'Ops! Only group administrator or group moderators can add tasks to this group project.', 'task-breaker' ); ?>
+		</div>
 	<?php } ?>
 </div>
