@@ -363,10 +363,10 @@ final class Task_Breaker_BP_Mail_Register {
 		 <td class="no">
 
 		   <input type="radio" name="notifications[task_breaker_task_new]" 
-		   id="task_breaker_task_new_no" value="no" <?php
+		   id="task-breaker-task-new-no" value="no" <?php
 			checked( $task_breaker_task_new, 'no', true ) ?> />
 
-		   <label for="notification-friends-friendship-accepted-no" class="bp-screen-reader-text">
+		   <label for="task-breaker-task-new-no" class="bp-screen-reader-text">
 
 			<?php
 			esc_html_e( 'No, do not send email', 'task_breaker' ); ?>
