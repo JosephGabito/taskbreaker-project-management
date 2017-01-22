@@ -59,6 +59,7 @@ class Task_Breaker_Projects_Component extends BP_Component {
 	function __construct() {
 
 		$this->id = task_breaker_component_id();
+		
 		$this->name = task_breaker_component_name();
 
 		parent::start(
