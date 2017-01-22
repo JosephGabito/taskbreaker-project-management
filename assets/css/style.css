@@ -5,6 +5,7 @@
 .la-ball-clip-rotate {
 	position: relative;
 }
+
 .la-ball-clip-rotate > div {
 	position: relative;
 	-webkit-box-sizing: content-box;
@@ -272,13 +273,13 @@
 	display: inline-block;
 	margin: 0;
 	float: left;
+	margin-right: -1px;
 }
 
 #task_breaker-project-tab-li li a {
 	padding: 10px 20px;
 	background: #eee;
 	border:1px solid #ddd;
-	border-right: 0;
 	display: block;
 }
 
@@ -363,6 +364,7 @@
 .single-project #task_breaker-task-current-page-selector {
 	display: inline-block;
 	width: 25px;
+	height: 25px;
 	text-align: center;
 	padding: 0 5px;
 	margin: 0 5px;
@@ -437,14 +439,17 @@
 .single-project .task_breaker-tabs-tabs ul li {
 	float: left;
 	list-style: none;
+	margin-right: 10px;
 }
 
 .single-project .task_breaker-tabs-tabs ul li a {
-	  padding: 5px 5px 5px 15px;
-	  display: inline-block;
-	  border: 1px solid;
-	  margin-right: 15px;
-	  border-radius: 25px;
+    display: table-cell;
+    border: 1px solid;
+    margin-right: 15px;
+    border-radius: 4px;
+    height: 40px;
+    vertical-align: middle;
+    padding: 0 10px;
 }
 
 .single-project li#task_breaker-task-add-tab a {
@@ -497,18 +502,16 @@
 		background: #f44336;
 	}
 
-	.task-priority {
-		padding: 10px 20px;
-		display: inline-block;
-		margin-bottom: 15px;
-		font-size: 14px;
-	}
-
+	 
+	.task-priority ,
 	.task-status {
-		 padding: 10px 20px;
-		display: inline-block;
-		margin-bottom: 15px;
-		font-size: 14px;
+     	padding: 12px 10px 11px;
+	    display: inline-block;
+	    margin-bottom: 15px;
+	    font-size: 11px;
+	    text-transform: uppercase;
+	    border-radius: 10px;
+	    line-height: 1px;
 	}
 
 	.task-status.completed {
@@ -541,9 +544,14 @@
 /**
  * Navigation
  */
+#task_breaker-task-paging {
+	margin: 15px 0 0 0;
+	display: block;
+}
 .single-project #task_breaker-project-tasks #task_breaker-task-paging .next-page,
 .single-project #task_breaker-project-tasks #task_breaker-task-paging .prev-page {
 	padding: 10px;
+	text-decoration: none;
 }
 
 /**
@@ -567,12 +575,12 @@
 	margin: 0;
 }
 .single-project #task_breaker-project #task_breaker-tasks-filter #task_breaker-task-search-field {
-	width: 65%;
-	float: left;
-	  border: 1px solid #EEE;
-	border-radius: 25px;
+	width: 100%;
+	border: 1px solid #EEE;
+	border-radius: 4px;
 	padding: 7.5px 20px;
 	line-height: 1.3em;
+	box-sizing: border-box;
 }
 
 .single-project #task_breaker-project #task_breaker-tasks-filter #task_breaker-task-search-submit {
@@ -659,6 +667,11 @@
 .task-update-details {
 	float: left;
 	width: 87.5%;
+}
+
+.task-update-details .task-content p{
+	margin-bottom: 0;
+	margin: 5px 0;
 }
 /**
  * Task Editor
@@ -758,11 +771,10 @@
 }
 
 #task_breaker-intranet-projects ul#task_breaker-projects-lists li.type-project {
-	margin-bottom: 25px;
-	padding: 25px;
-	background: #fff;
-	border-radius: 5px;
-	border: 1px solid #eee;
+    margin-bottom: 5px;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #ddd;
 }
 
 #task_breaker-intranet-projects ul#task_breaker-projects-lists li.type-project .task_breaker-project-title h3 {
@@ -929,7 +941,6 @@
 }
 	.task_breaker-notifier p {
 		background: #FFFDE7;
-		color: #000;
 		padding: 10px 15px;
 		display: block;
 	}
@@ -968,7 +979,6 @@
 	border-radius: 20px;
 	margin-left: 5px;
 	position: relative;
-	top: -1px;
 	min-width: 25px;
 	min-height: 25px;
 	line-height: 25px;
@@ -1548,7 +1558,6 @@
 	width: 100px;
 	display: inline-block;
 	padding: 10px 10px 9px;
-	margin-bottom: 10px;
 }
 
 .task-breaker-task-comment-update .activity-inner span.reopened {
@@ -1585,6 +1594,15 @@
     font-weight: bold;
 }
 
+.task-breaker-message a {
+	color: #fff;
+	text-decoration: underline;
+}
+
 .task-breaker-message.danger {
 	background: #F44336;
+}
+
+#task-breaker-access-project-not-allowed{
+	margin-bottom: 20px;
 }

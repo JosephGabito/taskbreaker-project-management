@@ -226,7 +226,7 @@ class ThriveComments {
 
 				 $action = sprintf( __( '%1$s %1$s the task: %1$s - ', 'task_breaker' ), $bp_user_link, $type, '#' . $this->ticket_id );
 
-				if ( function_exists( 'groups_record_activity' ) ) {
+				 if ( function_exists( 'groups_record_activity' ) ) {
 
 						  $project = task_breaker_get_task( absint( $this->ticket_id ) );
 
@@ -234,16 +234,16 @@ class ThriveComments {
 
 						  $group_link_template = '';
 
-					if ( ! empty( $group_id ) ) {
+							if ( ! empty( $group_id ) ) {
 
-						$group = groups_get_group( array( 'group_id' => $group_id ) );
+								$group = groups_get_group( array( 'group_id' => $group_id ) );
 
-						$group_name = $group->name;
+								$group_name = $group->name;
 
-						$group_link = trailingslashit( bp_get_root_domain() . '/' . bp_get_groups_root_slug() . '/' . $group->slug . '/' );
+								$group_link = trailingslashit( bp_get_root_domain() . '/' . bp_get_groups_root_slug() . '/' . $group->slug . '/' );
 
-						$group_link_template = '<a title="' . esc_attr( $group_name ) . '" href="' . esc_url( $group_link ) . '">' . esc_html( $group_name ) . '</a> &mdash; ';
-					}
+								$group_link_template = '<a title="' . esc_attr( $group_name ) . '" href="' . esc_url( $group_link ) . '">' . esc_html( $group_name ) . '</a> &mdash; ';
+							}
 
 						  $task_permalink_uri = esc_url( get_permalink( $project->project_id ) . '/#tasks/view/' . $this->ticket_id );
 
