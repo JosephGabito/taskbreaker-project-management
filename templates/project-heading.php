@@ -5,7 +5,7 @@
 			<li class="type-project">
 				<?php task_breaker_project_user( $post->post_author, $post->ID ); ?>
 				<div class="task_breaker-project-meta">
-		<?php task_breaker_project_meta( get_the_ID() ); ?>
+					<?php task_breaker_project_meta( get_the_ID() ); ?>
 				</div>
 			</li>
 		</ul>
