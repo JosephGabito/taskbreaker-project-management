@@ -16,11 +16,7 @@ do_action( 'task_breaker_before_projects_directory' ); ?>
 	
 	<?php 
 
-		//$user_groups = task_breaker_get_displayed_user_groups();
-
 		$user_groups = task_breaker_get_current_user_owned_groups();
-
-		//task_breaker_print_r( $user_groups );
 		
 		$user_groups = BP_Groups_Member::get_group_ids( get_current_user_id() );
 
@@ -28,11 +24,14 @@ do_action( 'task_breaker_before_projects_directory' ); ?>
 
 		$groups_collection = array();
 
-		if ( ! empty ( $user_groups ) ) {
+		if ( ! empty ( $user_groups['groups'] ) ) {
 
 			$user_groups_id_collection = $user_groups['groups'];
 
+		} else {
 
+			$user_groups_id_collection = array(-1);
+			
 		}
 
 		$config = array(
