@@ -582,7 +582,7 @@ class ThriveProjectTasksModel {
 			$this->assign_members( $this->id, $this->group_members_assigned );
 
 			// Make sure the current logged in user is able to update task. Otherwise, bail out.
-			if ( ! task_breaker_can_update_task(  $this->id ) ) {
+			if ( ! task_breaker_can_update_task(  $this->project_id ) ) {
 				return false;
 			}
 
