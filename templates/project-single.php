@@ -41,7 +41,7 @@
 			</div><!--.task_breaker-project-tabs-->
 			<div id="task_breaker-project-tab-content">
 				<?php
-					if ( $post->post_type == 'project' ) {
+					if ( $post->post_type === 'project' ) {
 						include task_breaker_template_dir() . '/project.php';
 					}
 				?>
