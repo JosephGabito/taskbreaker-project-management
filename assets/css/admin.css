@@ -1,11 +1,11 @@
 #task_breaker-edit-task-message,
 #task_breaker-add-task-message {
-  padding: 10px 20px;
-  background-color: #3EA11D;
-  color: #FFF;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  display: none;
+	padding: 10px 20px;
+	background-color: #3EA11D;
+	color: #FFF;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	display: none;
 }
 
 #task_breaker-edit-task-message.error,
@@ -28,13 +28,13 @@
 
 #task_breaker-action-preloader span {
 	  background: #FFE800;
-  color: #8C8A7B;
-  padding: 5px 15px;
-  display: inline-block;
-  margin-top: -5px;
-  border-radius: 5px;
-  font-weight: bold;
-  border: 1px solid #DDCB0D;
+	color: #8C8A7B;
+	padding: 5px 15px;
+	display: inline-block;
+	margin-top: -5px;
+	border-radius: 5px;
+	font-weight: bold;
+	border: 1px solid #DDCB0D;
 }
 
 #task_breaker-edit-task,
@@ -43,12 +43,12 @@
 	background: #eee;
 }
 .bp-template-notice.error {
-  border: 1px solid #DB4B4B;
-  color: #DB4B4B;
-  font-weight: bold;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 16px;
+	border: 1px solid #DB4B4B;
+	color: #DB4B4B;
+	font-weight: bold;
+	padding: 10px 15px;
+	border-radius: 5px;
+	font-size: 16px;
 }
 
 .task_breaker-clearfix {
@@ -89,8 +89,8 @@
 			padding: 7.5px 15px;
 			outline: 0;
 			border-radius: 25px;
-		    margin-right: 10px;
-		    margin-bottom: 10px;
+			margin-right: 10px;
+			margin-bottom: 10px;
 		}
 
 		.task_breaker-tabs .task_breaker-tabs-tabs li.ui-state-active a{
@@ -129,15 +129,15 @@
 }
 
 .ui-datepicker-header {
-  background-color: #000;
-  color: #FFF;
-  padding: 10px;
+	background-color: #000;
+	color: #FFF;
+	padding: 10px;
 }
 .ui-datepicker-next {
 	float: right;
 }
 .ui-datepicker-header a{
-  color: #FFF;
+	color: #FFF;
 }
 .ui-datepicker-title {
 	font-size: 18px;
