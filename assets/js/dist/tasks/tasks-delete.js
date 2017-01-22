@@ -34,22 +34,34 @@
        method: 'post',
        success: function( response ) {
 
-            ThriveProjectView.progress(false);
+            ThriveProjectView.progress( false );
 
             ThriveProjectView.updateStats( response.stats );
 
-            location.href = "#tasks";
+            if ( 'fail' === response.message) {
 
-            ThriveProjectView.switchView(null, '#task_breaker-project-tasks-context');
+                var message = "<p class='task-breaker-message danger'>"+response.message_text+"</p>";
+                
+                $('#task_breaker-edit-task-message').html( message ).show();
+
+                return false;
+
+            } else {
+
+                location.href = "#tasks";
+
+                ThriveProjectView.switchView(null, '#task_breaker-project-tasks-context');
+                
+            }
 
             $element.text('Delete');
 
        },
 
        error: function() {
+
            ThriveProjectView.progress(false);
-           location.href = "#tasks";
-           ThriveProjectView.switchView(null, '#task_breaker-project-tasks-context');
+
            $element.text('Delete');
 
        }
