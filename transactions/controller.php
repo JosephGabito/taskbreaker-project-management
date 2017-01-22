@@ -149,21 +149,22 @@ function task_breaker_transaction_add_ticket() {
 			array(
 			'message' => 'success',
 			'response' => array(
-			'id' => $task_id,
-			),
+					'id' => $task_id,
+				),
 			'stats' => $task->getTaskStatistics( (int) $_POST['project_id'] ),
 			)
 		);
 
 	} else {
+
 		task_breaker_api_message(
 			array(
-			'message' => 'fail',
-			'response' => __(
-				'There was an error trying to add this task.
-				Title and Description fields are required or there was
-				an unexpected error.', ' task_breaker'
-			),
+				'message' => 'fail',
+				'response' => __(
+					'There was an error trying to add this task.
+					Title and Description fields are required or there was
+					an unexpected error.', ' task_breaker'
+				),
 			)
 		);
 	}
@@ -180,17 +181,30 @@ function task_breaker_transaction_delete_ticket() {
 
 	$task = new ThriveProjectTasksController();
 
-	$deleteTicket = $task->deleteTicket( $ticket_id );
+	$deleteTicket = $task->deleteTicket( $ticket_id, $project_id );
 
 	if ( $deleteTicket ) {
 
 		task_breaker_api_message(
 			array(
-			'message' => 'success',
-			'response' => array(
-								'id' => $ticket_id,
-			),
-			'stats' => $task->getTaskStatistics( $project_id ),
+				'message' => 'success',
+				'response' => array(
+					'id' => $ticket_id,
+				),
+				'stats' => $task->getTaskStatistics( $project_id ),
+			)
+		);
+
+	} else {
+		task_breaker_api_message(
+			array(
+				'message' => 'fail',
+				'type'    => 'unauthorized',
+				'response' => array(
+					'id' => $ticket_id,
+				),
+				'message_text' => __('You are not allowed to delete this task. Only group administrators or group moderators are allowed.', 'task_breaker'),
+				'stats' => $task->getTaskStatistics( $project_id ),
 			)
 		);
 	}
@@ -306,37 +320,48 @@ function task_breaker_transaction_edit_ticket() {
 	}
 
 	$args = array(
-	'title' => $title,
-	'id' => $task_id,
-	'description' => $description,
-	'priority' => $priority,
-	'user_id' => $user_id,
-	'project_id' => $project_id,
-	'assigned_users' => $assigned_users,
+		'title' => $title,
+		'id' => $task_id,
+		'description' => $description,
+		'priority' => $priority,
+		'user_id' => $user_id,
+		'project_id' => $project_id,
+		'assigned_users' => $assigned_users,
 	);
 
 	$json_response = array(
-	'message' => 'success',
-	'type' => 'valid',
-	'debug' => $task_id,
-	'html' => $template,
+		'message' => 'success',
+		'type' => 'valid',
+		'debug' => $task_id,
+		'html' => $template,
 	);
 
 	$json_response = array_merge( $json_response, $args );
 
-	if ( $task->updateTicket( $task_id, $args ) ) {
+	// Make sure the current user is able to update the task.
+	if ( task_breaker_can_update_task( $project_id ) ) {
+		
+		if ( $task->updateTicket( $task_id, $args ) ) {
 
-		$json_response['message'] = 'success';
+			$json_response['message'] = 'success';
 
-	} else {
+		} else {
 
-		$json_response['type'] = 'required';
+			$json_response['type'] = 'required';
 
-		if ( ! empty( $title ) && ! empty( $description ) ) {
+			if ( ! empty( $title ) && ! empty( $description ) ) {
 
-			$json_response['type'] = 'no_changes';
+				$json_response['type'] = 'no_changes';
+
+			}
+
+			$json_response['message'] = 'fail';
 
 		}
+
+	} else {
+		
+		$json_response['type'] = 'unauthorized';
 
 		$json_response['message'] = 'fail';
 
