@@ -8,12 +8,17 @@ $('#task_breaker-edit-btn').click(function(e) {
     element.text('Loading ...');
 
     var taskDescription = "";
+
     var taskDescriptionObject = tinymce.get( 'task_breakerTaskEditDescription' );
 
     if ( taskDescriptionObject ) {
+
         taskDescription = taskDescriptionObject.getContent();
+
     } else {
+
         taskDescription = $('#task_breakerTaskEditDescription').val();
+        
     }
 
     var httpRequestParameters = {
@@ -41,16 +46,21 @@ $('#task_breaker-edit-btn').click(function(e) {
 
         success: function( response ) {
 
+            var message = "<p class='task-breaker-message success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
 
-            var message = "<p class='success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
+            if ( 'fail' === response.message && 'no_changes' !== response.type ) {
 
-            if ('fail' === response.message && 'no_changes' !== response.type) {
-
-                message = "<p class='error'>There was an error updating the task. All fields are required.</a></p>";
+                message = "<p class='task-breaker-message danger'>There was an error updating the task. All fields are required.</a></p>";
 
             }
 
-            $('#task_breaker-edit-task-message').html(message).show();
+            if ( 'fail' === response.message && 'unauthorized' === response.type ) {
+
+                message = "<p class='task-breaker-message danger'>You are not allowed to modify this task. Only group project administrators and group projects moderators are allowed.</a></p>";
+
+            }
+
+            $('#task_breaker-edit-task-message').html( message ).show();
 
             element.attr('disabled', false);
 
