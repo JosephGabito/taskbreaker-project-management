@@ -1,7 +1,6 @@
 <?php
 class ThriveProject {
-
-
+	
 	protected $id = 0;
 	protected $title = '';
 	protected $content = '';
