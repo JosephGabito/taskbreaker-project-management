@@ -4,7 +4,7 @@
 
 	<div class="la-ball-clip-rotate la-sm">
 
-	    <div></div>
+		<div></div>
 
 	</div>
 
@@ -14,27 +14,27 @@
 
 	<div id="task_breaker-dashboard-about">
 
-		<h3><?php _e('About', 'task_breaker'); ?></h3>
+		<h3><?php _e( 'About', 'task_breaker' ); ?></h3>
 
-		<?php echo wpautop( do_shortcode( $post->post_content ), true ); ?>
+	<?php echo wpautop( do_shortcode( $post->post_content ), true ); ?>
 
 		<div class="clearfix"></div>
 
 	</div><!--#task_breaker-dashboard-about-->
 
 	<div id="task_breaker-dashboard-at-a-glance">
-		<?php
+	<?php
 
-		// Total tasks.
-		$total     = intval( task_breaker_count_tasks( $post->ID ) );
-		// Completed tasks.
-		$completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
-		// Remaining Tasks.
-		$remaining = absint( $total - $completed );
+	// Total tasks.
+	$total     = intval( task_breaker_count_tasks( $post->ID ) );
+	// Completed tasks.
+	$completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
+	// Remaining Tasks.
+	$remaining = absint( $total - $completed );
 
-		?>
+	?>
 		<h3>
-			<?php _e('At a Glance', 'task_breaker'); ?>
+	<?php _e( 'At a Glance', 'task_breaker' ); ?>
 		</h3>
 		<ul>
 			<li>
@@ -42,12 +42,12 @@
 
 					<h4>
 						<span id="task_breaker-total-tasks-count" class="task_breaker-total-tasks">
-							<?php printf('%d', $total); ?>
+		<?php printf( '%d', $total ); ?>
 						</span>
 					</h4>
 
 					<p>
-						<?php _e('Total Tasks', 'task_breaker'); ?>
+		<?php _e( 'Total Tasks', 'task_breaker' ); ?>
 					</p>
 
 				</div>
@@ -58,11 +58,11 @@
 
 					<h4>
 						<span id="task_breaker-remaining-tasks-count" class="task_breaker-remaining-tasks-count">
-							<?php printf('%d', $remaining); ?>
+		<?php printf( '%d', $remaining ); ?>
 						</span>
 					</h4>
 
-					<p><?php _e('Task(s) remaining', 'task_breaker'); ?></p>
+					<p><?php _e( 'Task(s) remaining', 'task_breaker' ); ?></p>
 
 				</a>
 			</li>
@@ -72,11 +72,11 @@
 
 					<h4>
 						<span id="task-progress-completed-count" class="task-progress-completed">
-							<?php printf('%d', $completed); ?>
+		<?php printf( '%d', $completed ); ?>
 						</span>
 					</h4>
 
-					<p><?php _e('Task(s) Completed', 'task_breaker'); ?></p>
+					<p><?php _e( 'Task(s) Completed', 'task_breaker' ); ?></p>
 
 				</a>
 			</li>
@@ -91,11 +91,11 @@
 <div class="task_breaker-project-tab-content-item" data-content="task_breaker-project-tasks" id="task_breaker-project-tasks-context">
 
 	<?php
-		$args = array(
+	$args = array(
 				'project_id' => $post->ID,
 				'orderby' => 'priority',
-				'order' => 'desc'
-			);
+				'order' => 'desc',
+	);
 	?>
 
 	<?php task_breaker_task_filters(); ?>
@@ -119,7 +119,7 @@
 <script>
 var task_breakerProjectSettings = {
 	project_id: '<?php echo absint( $post->ID ); ?>',
-	nonce: '<?php echo wp_create_nonce( "task_breaker-transaction-request" ); ?>',
+	nonce: '<?php echo wp_create_nonce( 'task_breaker-transaction-request' ); ?>',
 	current_group_id: '<?php echo absint( get_post_meta( $post->ID, 'task_breaker_project_group_id', true ) ); ?>'
 };
 </script>

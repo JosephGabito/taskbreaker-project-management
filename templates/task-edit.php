@@ -7,7 +7,7 @@
 
 	<!-- Task Title -->
 	<div class="task_breaker-form-field">
-		<input placeholder="<?php esc_attr_e('Task Summary', 'task_breaker'); ?>" type="text" id="task_breakerTaskEditTitle" maxlength="160" name="title" class="widefat"/>
+		<input placeholder="<?php esc_attr_e( 'Task Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskEditTitle" maxlength="160" name="title" class="widefat"/>
 	</div>
 
 	<!-- Task User Assigned -->
@@ -17,30 +17,30 @@
 
 	<!-- Task Description -->
 	<div class="task_breaker-form-field">
-		<?php
-			$args = array(
+	<?php
+	$args = array(
 				'teeny' => true,
 				'editor_height' => 100,
 				'media_buttons' => false,
-				'quicktags' => false
-			);
-		?>
-		<?php echo wp_editor( $content = null, $editor_id = "task_breakerTaskEditDescription", $args ); ?>
+				'quicktags' => false,
+	);
+	?>
+	<?php echo wp_editor( $content = null, $editor_id = 'task_breakerTaskEditDescription', $args ); ?>
 	</div>
 
 	<!-- Task Priority -->
 	<div class="task_breaker-form-field">
 		<label for="task_breaker-task-priority-select">
 			<strong>
-				<?php _e('Priority:', 'task_breaker'); ?>
+				<?php _e( 'Priority:', 'task_breaker' ); ?>
 			</strong>
-			<?php
-			echo task_breaker_task_priority_select(
-					$default = 1,
-					$name = 'task_breaker-task-edit-priority',
-					$id='task_breaker-task-edit-select-id'
-				);
-			?>
+	<?php
+	echo task_breaker_task_priority_select(
+		$default = 1,
+		$name = 'task_breaker-task-edit-priority',
+		$id = 'task_breaker-task-edit-select-id'
+	);
+	?>
 		</label>
 	</div>
 
@@ -48,11 +48,11 @@
 	<div class="task_breaker-form-field">
 
 		<button id="task_breaker-delete-btn" class="button button-primary button-large" style="float:right; margin-left: 10px;">
-			<?php esc_attr_e('Delete', 'task-breaker'); ?>
+	<?php esc_attr_e( 'Delete', 'task-breaker' ); ?>
 		</button>
 
 		<button id="task_breaker-edit-btn" class="button button-primary button-large" style="float:right">
-			<?php esc_attr_e('Update Task', 'task-breaker'); ?>
+	<?php esc_attr_e( 'Update Task', 'task-breaker' ); ?>
 		</button>
 
 		<div style="clear:both"></div>

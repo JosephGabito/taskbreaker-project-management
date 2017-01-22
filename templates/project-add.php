@@ -1,4 +1,4 @@
-<?php if ( bp_is_active('groups') ) { ?>
+<?php if ( bp_is_active( 'groups' ) ) { ?>
 
 	<div id="task_breaker-project-add-new-form">
 
@@ -10,7 +10,7 @@
 
 			<input type="hidden" name="no_json" value="yes" />
 
-			<?php wp_nonce_field( 'task_breaker-transaction-request', 'nonce' ); ?>
+	<?php wp_nonce_field( 'task_breaker-transaction-request', 'nonce' ); ?>
 
 			<div class="task_breaker-form-field hide" id="project-add-modal-js-message"></div>
 
@@ -20,7 +20,7 @@
 
 				<label for="task_breaker-project-name">
 
-					<?php esc_html_e( 'Project Name', 'task_breaker' ); ?>
+		<?php esc_html_e( 'Project Name', 'task_breaker' ); ?>
 
 				</label>
 
@@ -32,7 +32,7 @@
 
 				<label for="task_breaker-project-content">
 
-					<?php esc_html_e( 'Project Details', 'task_breaker' ); ?>
+		<?php esc_html_e( 'Project Details', 'task_breaker' ); ?>
 
 				</label>
 
@@ -40,56 +40,56 @@
 
 			</div>
 
-			<?php $current_user_groups = task_breaker_get_current_user_groups(); ?>
+	<?php $current_user_groups = task_breaker_get_current_user_groups(); ?>
 
-			<?php $group_id = 0; ?>
+	<?php $group_id = 0; ?>
 
-			<?php if ( bp_is_group_single() ) { ?>
+	<?php if ( bp_is_group_single() ) { ?>
 
 				<?php $group_id = bp_get_group_id(); ?>
 
-			<?php } ?>
+	<?php } ?>
 
-			<?php if ( ! empty( $current_user_groups ) ) { ?>
+	<?php if ( ! empty( $current_user_groups ) ) { ?>
 
 				<div class="task_breaker-form-field">
 
 					<label for="task_breaker-project-assigned-group">
 
-						<?php esc_html_e( 'Assign to Group:', 'task_breaker' ); ?>
+		<?php esc_html_e( 'Assign to Group:', 'task_breaker' ); ?>
 
 					</label>
 
-					<?php if ( ! empty( $current_user_groups ) ) { ?>
+		<?php if ( ! empty( $current_user_groups ) ) { ?>
 
 						<select name="group_id" id="task_breaker-project-assigned-group">
 
-							<?php foreach ( $current_user_groups as $group ) { ?>
+		<?php foreach ( $current_user_groups as $group ) { ?>
 
 								<?php $selected = ''; ?>
 
 								<?php if ( ! empty( $group_id ) ) { ?>
 
-									<?php if ( absint( $group_id ) === absint( $group->group_id ) ) { ?>
+			<?php if ( absint( $group_id ) === absint( $group->group_id ) ) { ?>
 
-										<?php $selected = 'selected'; ?>
+			<?php $selected = 'selected'; ?>
 
-									<?php } ?>
+			<?php } ?>
 
 								<?php } ?>
 
 								<option <?php echo esc_attr_e( $selected );?> value="<?php echo esc_attr_e( absint( $group->group_id ) ); ?>">
 
-									<?php echo esc_html( $group->group_name ); ?>
+			<?php echo esc_html( $group->group_name ); ?>
 
 								</option>
 
-							<?php } ?>
+		<?php } ?>
 						</select>
 
-					<?php } ?>
+		<?php } ?>
 					<div class="field-description">
-						<?php esc_attr_e('You can only add projects into the group that you are either the administrator or one of the moderator.', 'task-breaker'); ?>
+		<?php esc_attr_e( 'You can only add projects into the group that you are either the administrator or one of the moderator.', 'task-breaker' ); ?>
 					</div>
 				</div>
 
@@ -99,7 +99,7 @@
 
 						<button id="task_breakerSaveProjectBtn" type="submit" class="button">
 
-							<?php esc_attr_e( 'Save Project', 'task_breaker' ); ?>
+		<?php esc_attr_e( 'Save Project', 'task_breaker' ); ?>
 
 						</button>
 
@@ -109,11 +109,11 @@
 
 				</div>
 
-			<?php } else { ?>
+	<?php } else { ?>
 
 				<div id="message" class="error">
 
-					<?php esc_attr_e( 'Looks like you don\'t have any groups yet. Please join or create new group to start a project.', 'task_breaker' ); ?>
+		<?php esc_attr_e( 'Looks like you don\'t have any groups yet. Please join or create new group to start a project.', 'task_breaker' ); ?>
 
 				</div>
 
@@ -123,7 +123,7 @@
 
 						<button id="task_breakerSaveProjectBtn" type="button" disabled class="button danger">
 
-							<?php esc_attr_e( 'Save Project', 'task_breaker' ); ?>
+		<?php esc_attr_e( 'Save Project', 'task_breaker' ); ?>
 
 						</button>
 
@@ -132,12 +132,12 @@
 					<div class="clearfix"></div>
 
 				</div>
-			<?php } ?>
+	<?php } ?>
 			</form>
 		</div>
 
 <?php } else { ?>
 	<p id="message" class="info">
-		<?php esc_html_e('Please enable BuddyPress Groups Component to add new Project', 'task-breaker'); ?>
+	<?php esc_html_e( 'Please enable BuddyPress Groups Component to add new Project', 'task-breaker' ); ?>
 	</p>
 <?php } ?>

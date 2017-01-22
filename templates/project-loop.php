@@ -10,19 +10,19 @@ do_action( 'task_breaker_before_projects_directory' ); ?>
 
 	<div id="task_breaker-intranet-projects">
 
-		<?php if ( bp_is_active( 'groups' ) ) { ?>
+	<?php if ( bp_is_active( 'groups' ) ) { ?>
 
-			<?php task_breaker_new_project_modal(); ?>
+	<?php task_breaker_new_project_modal(); ?>
 
-			<?php task_breaker_project_loop( $config = array() ); ?>
+	<?php task_breaker_project_loop( $config = array() ); ?>
 
-		<?php } else { ?>
+	<?php } else { ?>
 
 			<p id="message" class="info">
-	        	<?php _e('Please enable BuddyPress Groups Components to access the Projects.', 'task-breaker'); ?>
-	    	</p>
+			<?php _e( 'Please enable BuddyPress Groups Components to access the Projects.', 'task-breaker' ); ?>
+			</p>
 
-		<?php } ?>
+	<?php } ?>
 
 	</div><!--#task_breaker-intranet-projects-->
 

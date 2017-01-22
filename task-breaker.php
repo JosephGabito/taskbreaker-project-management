@@ -39,12 +39,13 @@ register_activation_hook( __FILE__, 'task_breaker_import_thrive_intranet_data' )
 // Plugin l10n.
 add_action( 'plugins_loaded', 'task_breaker_localize_plugin' );
 
-// Include task_breaker projects transactions.
+// Include taskbreaker projects transactions.
 add_action( 'init', 'task_breaker_register_transactions' );
 
-// Include task_breaker projects component.
+// Include taskbreaker projects component.
 add_action( 'bp_loaded', 'task_breaker_register_projects_component' );
 
+// Included other taskbreaker components.
 add_action( 'bp_loaded', 'task_breaker_load_components' );
 
 // Require the assets needed.
@@ -162,17 +163,17 @@ function task_breaker_plugin_updater_init() {
 		$repo_name = 'task-breaker';
 
 		$config = array(
-			'slug' => plugin_basename( __FILE__ ),
-			'proper_folder_name' => 'task-breaker',
-			'api_url' => sprintf( 'https://api.github.com/repos/codehaiku/%s', $repo_name ),
-			'raw_url' => sprintf( 'https://raw.github.com/codehaiku/%s/master', $repo_name ),
-			'github_url' => sprintf( 'https://github.com/codehaiku/%s', $repo_name ),
-			'zip_url' => sprintf( 'https://github.com/codehaiku/%s/zipball/master', $repo_name ),
-			'sslverify' => true,
-			'requires' => '4.0',
-			'tested' => '4.4.2',
-			'readme' => 'README.md',
-			'access_token' => '',
+		 'slug' => plugin_basename( __FILE__ ),
+		 'proper_folder_name' => 'task-breaker',
+		 'api_url' => sprintf( 'https://api.github.com/repos/codehaiku/%s', $repo_name ),
+		 'raw_url' => sprintf( 'https://raw.github.com/codehaiku/%s/master', $repo_name ),
+		 'github_url' => sprintf( 'https://github.com/codehaiku/%s', $repo_name ),
+		 'zip_url' => sprintf( 'https://github.com/codehaiku/%s/zipball/master', $repo_name ),
+		 'sslverify' => true,
+		 'requires' => '4.0',
+		 'tested' => '4.4.2',
+		 'readme' => 'README.md',
+		 'access_token' => '',
 		   );
 
 		   $github_updater = new WP_GitHub_Updater( $config );

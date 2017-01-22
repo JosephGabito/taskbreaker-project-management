@@ -1,10 +1,10 @@
 <?php $user = get_userdata( intval( $args['user'] ) ); ?>
 
-<?php if ( empty ( $user ) ) { ?>
+<?php if ( empty( $user ) ) { ?>
 
 	<li class="task-lists-item comment">
 		<p id="message" class="message error">
-			<?php _e('Unable to update the task. Please make sure you have the right privilege.', 'task-breaker'); ?>
+	<?php _e( 'Unable to update the task. Please make sure you have the right privilege.', 'task-breaker' ); ?>
 		</p>
 	</li>
 
@@ -24,45 +24,45 @@
 
 				<div class="task-meta">
 
-					<?php $progress_label = __( 'New Progress by', 'task_breaker' ); ?>
+		<?php $progress_label = __( 'New Progress by', 'task_breaker' ); ?>
 
-					<?php $task_progress = absint( $args['status'] ); ?>
+		<?php $task_progress = absint( $args['status'] ); ?>
 
-					<?php if ( 1 === $task_progress ) { ?>
+		<?php if ( 1 === $task_progress ) { ?>
 					
-						<?php $progress_label = __( 'Completed by', 'task_breaker' );?>
+		<?php $progress_label = __( 'Completed by', 'task_breaker' );?>
 					
-					<?php } ?>
+		<?php } ?>
 
-					<?php if ( 2 === $task_progress ) { ?>
+		<?php if ( 2 === $task_progress ) { ?>
 						
-						<?php $progress_label = __( 'Reopened by', 'task_breaker' );?>
+		<?php $progress_label = __( 'Reopened by', 'task_breaker' );?>
 
-					<?php } ?>
+		<?php } ?>
 
 					<p class="<?php echo sanitize_title( $progress_label ); ?>">
 						<span class="opened-by">
-							<?php echo esc_html( $progress_label ); ?>
+		<?php echo esc_html( $progress_label ); ?>
 						</span>
-							<?php echo $user->display_name; ?>
+		<?php echo $user->display_name; ?>
 
 						<span class="added-on"> <?php echo date( sprintf( '%s / g:i:s a', get_option( 'date_format' ) ), strtotime( $args['date_added'] ) ); ?> </span>
 					</p>
 				</div>
 				<div class="task-content">
 
-					<?php echo wpautop( nl2br( $args['details'] ) ); ?>
+		<?php echo wpautop( nl2br( $args['details'] ) ); ?>
 
-					<?php $current_user_id = get_current_user_id(); ?>
+		<?php $current_user_id = get_current_user_id(); ?>
 
-					<?php // Check if current user can delete the comment ?>
-					<?php if ( $current_user_id == $args['user'] or current_user_can( 'administrator' ) ) { ?>
-						<?php // Delete link. ?>
+		<?php // Check if current user can delete the comment ?>
+		<?php if ( $current_user_id == $args['user'] or current_user_can( 'administrator' ) ) { ?>
+		<?php // Delete link. ?>
 						<a href="#" title="<?php _e( 'Delete comment', 'task_breaker' ); ?>" data-comment-id="<?php echo absint( $args['id'] ); ?>" class="task_breaker-delete-comment">
-							<?php _e( 'Remove Comment', 'task_breaker' ); ?>
+		<?php _e( 'Remove Comment', 'task_breaker' ); ?>
 						</a>
 
-					<?php } ?>
+		<?php } ?>
 				</div>
 			</div>
 			<div class="clearfix"></div>

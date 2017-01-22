@@ -2,45 +2,45 @@
 /**
  * Controller for tasks
  */
-require_once( plugin_dir_path( __FILE__ ) . '../models/tasks.php' );
+require_once plugin_dir_path( __FILE__ ) . '../models/tasks.php';
 
 class ThriveProjectTasksController extends ThriveProjectTasksModel {
+
 
 	public function __construct() {
 
 		return $this;
-		
+
 	}
 
 	public function addTicket( $params = array() ) {
 
 		$args = array(
-				'title' => '',
-				'description' => '',
-				'milestone_id' => 0,
-				'project_id' => 0,
-				'user_id' => 0,
-				'priority' => 0,
-				'user_id_collection' => array()
-			);
+		  'title' => '',
+		  'description' => '',
+		  'milestone_id' => 0,
+		  'project_id' => 0,
+		  'user_id' => 0,
+		  'priority' => 0,
+		  'user_id_collection' => array(),
+		 );
 
 		foreach ( $params as $key => $value ) {
 
-			if ( ! empty ( $value ) ) {
+			if ( ! empty( $value ) ) {
 
 				$args[ $key ] = $value;
 
 			}
-
 		}
 
 		$this->setTitle( $args['title'] )
-			 ->setDescription( $args['description'] )
-			 ->setMilestoneId( $args['milestone_id'] )
-			 ->setProjectId( $args['project_id'] )
-			 ->setUser( $args['user_id'] )
-			 ->setPriority( $args['priority'] )
-			 ->setAssignUsers( $args['user_id_collection'] );
+			->setDescription( $args['description'] )
+			->setMilestoneId( $args['milestone_id'] )
+			->setProjectId( $args['project_id'] )
+			->setUser( $args['user_id'] )
+			->setPriority( $args['priority'] )
+			->setAssignUsers( $args['user_id_collection'] );
 
 		if ( empty( $this->title ) || empty( $this->description ) ) {
 
@@ -52,11 +52,11 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
-	public function deleteTicket($id = 0) {
+	public function deleteTicket( $id = 0 ) {
 
 		// delete the ticket
 		if ( 0 === $id ) {
-			echo __('Invalid ticket id', 'task-breaker');
+			echo __( 'Invalid ticket id', 'task-breaker' );
 			die();
 		}
 
@@ -64,7 +64,7 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
-	public function updateTicket($id = 0, $args = array()) {
+	public function updateTicket( $id = 0, $args = array() ) {
 
 		$this->setTitle( $args['title'] );
 		$this->setId( $id );
@@ -78,25 +78,25 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
-	public function renderTasks($args = array()) {
+	public function renderTasks( $args = array() ) {
 
 		return $this->prepare()->fetch( $args );
 
 	}
 
-	public function renderTicketsByMilestone($milestone_id = 0) {
+	public function renderTicketsByMilestone( $milestone_id = 0 ) {
 
 		return array();
 	}
 
-	public function renderTicketsByUser($user_id = 0) {
+	public function renderTicketsByUser( $user_id = 0 ) {
 
 		return array();
-		
+
 	}
 
 
-	public function completeTask($task_id = 0, $user_id = 0) {
+	public function completeTask( $task_id = 0, $user_id = 0 ) {
 
 		parent::prepare();
 
@@ -104,14 +104,14 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
-	public function renewTask($task_id = 0) {
+	public function renewTask( $task_id = 0 ) {
 
 		parent::prepare();
 
 		return parent::renewTask( $task_id );
 	}
 
-	public function getPriority($priority = 1) {
+	public function getPriority( $priority = 1 ) {
 
 		return parent::getPriority( $priority );
 
@@ -126,4 +126,4 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 	}
 
 }
-?>
+

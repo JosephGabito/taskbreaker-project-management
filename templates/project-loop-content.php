@@ -12,25 +12,25 @@
 
 	<li <?php post_class(); ?>>
 
-		<?php the_post_thumbnail('thumbnail'); ?>
+	<?php the_post_thumbnail( 'thumbnail' ); ?>
 
 		<div class="task_breaker-project-title">
 			<h3>
 				<a href="<?php echo the_permalink(); ?>">
-					<?php the_title(); ?>
+		<?php the_title(); ?>
 				</a>
 			</h3>
 		</div>
 
 		<div class="task_breaker-project-meta">
 
-			<?php task_breaker_project_meta( get_the_ID() ); ?>
+	<?php task_breaker_project_meta( get_the_ID() ); ?>
 
 		</div>
 
 		<div class="task_breaker-project-excerpt">
 
-			<?php the_excerpt(); ?>
+	<?php the_excerpt(); ?>
 
 		</div>
 
@@ -38,7 +38,7 @@
 
 		<div class="task_breaker-project-author">
 
-			<?php task_breaker_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
+	<?php task_breaker_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
 
 		</div>
 	</li>
@@ -56,7 +56,7 @@
 <?php } else {  ?>
 
 	<div id="message" class="error">
-		<?php _e( 'There are no projects found. Why not add one?', 'task_breaker' ); ?>
+	<?php _e( 'There are no projects found. Why not add one?', 'task_breaker' ); ?>
 	</div>
 
 <?php // No Project Found. ?>
@@ -69,6 +69,6 @@ wp_reset_postdata();
 ?>
 <?php } else { ?>
 	<p id="message" class="info">
-		<?php esc_html_e('Please enable BuddyPress Groups Components to access projects', 'task-breaker'); ?>
+	<?php esc_html_e( 'Please enable BuddyPress Groups Components to access projects', 'task-breaker' ); ?>
 	</p>
 <?php } ?>

@@ -1,6 +1,7 @@
 <?php
 class ThriveProject {
 
+
 	protected $id = 0;
 	protected $title = '';
 	protected $content = '';
@@ -12,7 +13,7 @@ class ThriveProject {
 
 	}
 
-	public function set_id( $id = 0) {
+	public function set_id( $id = 0 ) {
 
 		$this->id = $id;
 
@@ -86,10 +87,10 @@ class ThriveProject {
 
 		// Set-up our project title and description.
 		$project_config = array(
-			'post_title'   => $this->get_title(),
-			'post_content' => $this->get_content(),
-			'post_type'    => TASK_BREAKER_PROJECT_SLUG,
-			'post_status'  => 'publish',
+		 'post_title'   => $this->get_title(),
+		 'post_content' => $this->get_content(),
+		 'post_type'    => TASK_BREAKER_PROJECT_SLUG,
+		 'post_status'  => 'publish',
 		);
 
 		// If there is an ID set, insert the ID into $project_config array
@@ -160,4 +161,4 @@ class ThriveProject {
 	}
 
 }
-?>
+

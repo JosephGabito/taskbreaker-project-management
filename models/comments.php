@@ -2,7 +2,7 @@
 /**
  * Thrive Comments
  *
- * @package  Task Breaker
+ * @package Task Breaker
  */
 
 /**
@@ -12,32 +12,38 @@
  */
 class ThriveComments {
 
+
 	/**
 	 * Holds the commend id
+	 *
 	 * @var integer
 	 */
 	protected $id = 0;
 
 	/**
 	 * Holds the comment details
+	 *
 	 * @var string
 	 */
 	protected $details = '';
 
 	/**
 	 * Holds the comment user id
+	 *
 	 * @var integer
 	 */
 	protected $user = 0;
 
 	/**
 	 * Holds the "date_added"
+	 *
 	 * @var string
 	 */
 	protected $date_added = '';
 
 	/**
 	 * Holds the ticket id where the comment is belong
+	 *
 	 * @var integer
 	 */
 	protected $ticket_id = 0;
@@ -45,12 +51,14 @@ class ThriveComments {
 	/**
 	 * Holds the status of the comment
 	 * 0 for 'In Progress', 1 for 'Complete', 2 'reOpen'
+	 *
 	 * @var integer
 	 */
 	protected $status = 0;
 
 	/**
 	 * Reference to custom table use for comments
+	 *
 	 * @var string
 	 */
 	private $model = '';
@@ -64,7 +72,7 @@ class ThriveComments {
 	/**
 	 * Prepare the object properties before using
 	 *
-	 * @return  object self
+	 * @return object self
 	 */
 	public function __construct() {
 		global $wpdb;
@@ -75,10 +83,11 @@ class ThriveComments {
 
 	/**
 	 * Set the ID of the comment
-	 * @param integer $id The id of the comment.
+	 *
+	 * @param  integer $id The id of the comment.
 	 * @throws Exception ID must not be empty.
 	 */
-	public function set_id($id = 0) {
+	public function set_id( $id = 0 ) {
 
 		$id = absint( $id );
 
@@ -93,10 +102,11 @@ class ThriveComments {
 
 	/**
 	 * Set the comment details
-	 * @param string $details The details of the comments.
+	 *
+	 * @param  string $details The details of the comments.
 	 * @throws Exception Details must not be empty.
 	 */
-	public function set_details($details = '') {
+	public function set_details( $details = '' ) {
 
 		$this->details = $details;
 
@@ -106,12 +116,12 @@ class ThriveComments {
 	/**
 	 * Assign a user the the comment
 	 *
-	 * @param integer $user_id the user's ID.
+	 * @param  integer $user_id the user's ID.
 	 * @throws Exception The current user must be logged in.
 	 * @throws Exception The current user must exists in wp_users table.
 	 * @throws Exception The $user_id must not be empty.
 	 */
-	public function set_user($user_id = 0) {
+	public function set_user( $user_id = 0 ) {
 
 		$user_id = absint( $user_id );
 
@@ -135,7 +145,7 @@ class ThriveComments {
 	/**
 	 * Assign the comment to a ticket.
 	 *
-	 * @param integer $ticket_id The ID of the ticket.
+	 * @param  integer $ticket_id The ID of the ticket.
 	 * @throws Exception The $ticket_id must not be empty.
 	 */
 	public function set_ticket_id( $ticket_id = 0 ) {
@@ -154,32 +164,34 @@ class ThriveComments {
 
 	/**
 	 * Save the ticket comment
+	 *
 	 * @return boolean true if insertion of record succeed, otherwise false
 	 */
 	public function save() {
 
-		if ( empty( $this->user ) ) { return false; }
-		
-		if ( empty( $this->ticket_id ) ) { return false; }
+		if ( empty( $this->user ) ) { return false;
+		}
+
+		if ( empty( $this->ticket_id ) ) { return false;
+		}
 
 		global $wpdb;
 
 		$table = $this->model;
 
 		$data = array(
-				'details' => $this->details,
-				'user' => $this->user,
-				'ticket_id' => $this->ticket_id,
-				'status' => $this->get_status(),
-			);
+		  'details' => $this->details,
+		  'user' => $this->user,
+		  'ticket_id' => $this->ticket_id,
+		  'status' => $this->get_status(),
+		 );
 
 		$formats = array(
-				'%s', // The format for details.,
-				'%d', // The format for user.
-				'%d', // The format for ticket_id.
-				'%d', // The format for status.
-			);
-
+		  '%s', // The format for details.,
+		  '%d', // The format for user.
+		  '%d', // The format for ticket_id.
+		  '%d', // The format for status.
+		 );
 
 		$insert_comments = $wpdb->insert( $table, $data, $formats ); // Db call ok.
 
@@ -192,37 +204,37 @@ class ThriveComments {
 
 				$bp_user_link = '';
 
-			 	if ( function_exists( 'bp_core_get_userlink' ) ) {
-			 		
-			 		$bp_user_link = bp_core_get_userlink( $this->user );
+				if ( function_exists( 'bp_core_get_userlink' ) ) {
 
-			 	}
+					$bp_user_link = bp_core_get_userlink( $this->user );
 
-			 	$status_label = array(
-			 			__( 'posted a new update in', 'task_breaker' ),
-			 			__( 'completed', 'task_breaker' ),
-			 			__( 'reopened', 'task_breaker' ),
-			 		);
+				}
 
-			 	$status_content_label = array(
-			 			__( 'Updated', 'task_breaker' ),
-			 			__( 'Completed', 'task_breaker' ),
-			 			__( 'Reopened', 'task_breaker' ),
-			 		);
+				 $status_label = array(
+				   __( 'posted a new update in', 'task_breaker' ),
+				   __( 'completed', 'task_breaker' ),
+				   __( 'reopened', 'task_breaker' ),
+				  );
 
-			 	$type = $status_label[ $this->get_status() ];
+				 $status_content_label = array(
+				   __( 'Updated', 'task_breaker' ),
+				   __( 'Completed', 'task_breaker' ),
+				   __( 'Reopened', 'task_breaker' ),
+				  );
 
-			 	$action = sprintf( __( '%s %s the task: %s - ', 'task_breaker' ), $bp_user_link, $type, '#' . $this->ticket_id );
+				 $type = $status_label[ $this->get_status() ];
+
+				 $action = sprintf( __( '%1$s %1$s the task: %1$s - ', 'task_breaker' ), $bp_user_link, $type, '#' . $this->ticket_id );
 
 				if ( function_exists( 'groups_record_activity' ) ) {
 
-					$project = task_breaker_get_task( absint ( $this->ticket_id ) );
+						  $project = task_breaker_get_task( absint( $this->ticket_id ) );
 
-					$group_id = task_breaker_get_project_group_id( absint( $project->project_id ) );
+						  $group_id = task_breaker_get_project_group_id( absint( $project->project_id ) );
 
-					$group_link_template = '';
+						  $group_link_template = '';
 
-					if ( ! empty ( $group_id ) ) {
+					if ( ! empty( $group_id ) ) {
 
 						$group = groups_get_group( array( 'group_id' => $group_id ) );
 
@@ -230,52 +242,70 @@ class ThriveComments {
 
 						$group_link = trailingslashit( bp_get_root_domain() . '/' . bp_get_groups_root_slug() . '/' . $group->slug . '/' );
 
-						$group_link_template = '<a title="'.esc_attr( $group_name ).'" href="'.esc_url( $group_link ).'">' . esc_html( $group_name ) . '</a> &mdash; ';
+						$group_link_template = '<a title="' . esc_attr( $group_name ) . '" href="' . esc_url( $group_link ) . '">' . esc_html( $group_name ) . '</a> &mdash; ';
 					}
 
-					$task_permalink_uri = esc_url( get_permalink( $project->project_id ) . '/#tasks/view/' . $this->ticket_id );
+						  $task_permalink_uri = esc_url( get_permalink( $project->project_id ) . '/#tasks/view/' . $this->ticket_id );
 
-					$task_permalink_template = sprintf( '<a href="%2$s" title="%1$d">(#%1$d)</a>',  $this->ticket_id, $task_permalink_uri );
+						  $task_permalink_template = sprintf( '<a href="%2$s" title="%1$d">(#%1$d)</a>',  $this->ticket_id, $task_permalink_uri );
 
-					$action_i18 = __('%s %s the task %s %s', 'task_breaker');
-					
-					$action_template = sprintf( 
-						$action_i18, 
-						$bp_user_link,
-						$type,
-						$task_permalink_template,
-						$group_link_template
-					);
+						  $action_i18 = __( '%1$s %1$s the task %1$s %1$s', 'task_breaker' );
 
-					$final_status_content_label = $status_content_label[ absint( $this->get_status() ) ];
+						  $action_template = sprintf(
+							  $action_i18,
+							  $bp_user_link,
+							  $type,
+							  $task_permalink_template,
+							  $group_link_template
+						  );
 
-		 			groups_record_activity( array( 
-				        'user_id' => bp_loggedin_user_id(),  
-						'action' => $action_template,
-				        'content' => '<span class="'.sanitize_title( $final_status_content_label ).'">'.esc_html( $final_status_content_label ).'</span>' . $this->details,
-				        'component' => 'groups',  
-				        'type' => 'task-breaker-task-comment-update',  
-				        'item_id' => $group_id,  
-					) );
+						   $final_status_content_label = $status_content_label[ absint( $this->get_status() ) ];
 
-		 			// Send the emails
-		 			$new_task_comment_object = new stdClass;
-		 			
-		 			$new_task_comment_object->user_display_name = bp_core_get_user_displayname( $this->user );
+						   groups_record_activity(
+								array(
+									'user_id' => bp_loggedin_user_id(),
+							   		'action' => $action_template,
+								 	'content' => '<span class="' . sanitize_title( $final_status_content_label ) . '">' . esc_html( $final_status_content_label ) . '</span>' . $this->details,
+								 	'component' => 'groups',
+								 	'type' => 'task-breaker-task-comment-update',
+								 	'item_id' => $group_id,
+							   )
+						   );
 
-		 			$new_task_comment_object->task_url = $task_permalink_uri;
+						    // Send the emails
+						    $new_task_comment_object = new stdClass;
 
-		 			$new_task_comment_object->user_url = bp_core_get_userlink( $this->user, false, true );
+						    $new_task_comment_object->user_display_name = bp_core_get_user_displayname( $this->user );
 
-					do_action( 'tb_new_task_comment', $new_task_comment_object );
+						    $new_task_comment_object->task_url = $task_permalink_uri;
 
-		 		}
+						    $new_task_comment_object->user_url = bp_core_get_userlink( $this->user, false, true );
+
+						    $new_task_comment_object->user_assigned = new stdClass;
+
+						    // Get all the assigned users.
+						    $users_assigned = $wpdb->get_results( $wpdb->prepare(
+						    		"SELECT task_id, member_id FROM {$wpdb->prefix}task_breaker_tasks_user_assignment WHERE task_id = %d",
+						    		$this->ticket_id
+						    ), OBJECT );
+
+						    if ( ! empty ( $users_assigned ) ) {
+
+						    	$new_task_comment_object->user_assigned = $users_assigned;
+
+						    }
+
+						    do_action( 'tb_new_task_comment', $new_task_comment_object );
+
+				}
 			} // End function_exists ( 'bp_activity_add' ).
 
 			return $last_insert_id;
 
 		} else {
+			
 			return false;
+
 		}
 
 		return false;
@@ -286,7 +316,9 @@ class ThriveComments {
 		$this->status = 0;
 
 		if ( $this->validate_status( $status ) ) {
+
 			$this->status = $status;
+
 		}
 
 		return $this;
@@ -304,7 +336,9 @@ class ThriveComments {
 	public function get_status() {
 
 		if ( in_array( $this->status, $this->allowed_status ) ) {
+
 			return $this->status;
+
 		}
 
 		return false;
@@ -313,13 +347,14 @@ class ThriveComments {
 
 	/**
 	 * Fetches the comment
+	 *
 	 * @param  integer $comment_id The id of the comment.
 	 * @param  integer $task_id    The id of the task.
 	 * @return array               Returns single result if ID is present,
 	 *                             otherwise return all comments under a
 	 *                             specific task.
 	 */
-	public function fetch($comment_id = 0, $task_id = 0) {
+	public function fetch( $comment_id = 0, $task_id = 0 ) {
 
 		global $wpdb;
 
@@ -365,7 +400,7 @@ class ThriveComments {
 
 			$_delete_comment = $wpdb->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
 
-		 	return $_delete_comment;
+			 return $_delete_comment;
 
 		} else {
 
@@ -404,19 +439,27 @@ class ThriveComments {
 
 		// Only allow the same user to delete his own comment.
 		$current_user_id = get_current_user_id();
+
 		$comment_user = $wpdb->get_var( "SELECT user FROM $this->model WHERE id = $comment_id" ); // Db call ok; no-cache pass.
+		
 		$comment_user = absint( $comment_user );
 
 		if ( ! empty( $comment_user ) ) {
+
 			if ( $current_user_id === $comment_user ) {
+
 				return true;
+
 			}
+
 		} else {
+
 			return false;
+
 		}
 
 		// No conditions met? return false.
 		return false;
 	}
 }
-?>
+
