@@ -7,7 +7,8 @@
  * @return [type]                 [description]
  */
 
-if ( ! defined( 'ABSPATH' ) ) { die(); }
+if ( ! defined( 'ABSPATH' ) ) { die();
+}
 
 function task_breaker_bp_projects_load_template_filter( $found_template, $templates ) {
 
@@ -30,7 +31,7 @@ function task_breaker_bp_projects_load_template_filter( $found_template, $templa
 
 			$filtered_templates[] = STYLESHEETPATH . '/' . $template;
 
-		} else if ( file_exists( TEMPLATEPATH . '/' . $template ) ) {
+		} elseif ( file_exists( TEMPLATEPATH . '/' . $template ) ) {
 
 			$filtered_templates[] = TEMPLATEPATH . '/' . $template;
 
@@ -51,6 +52,7 @@ add_filter( 'bp_located_template', 'task_breaker_bp_projects_load_template_filte
 
 /**
  * [task_breaker_bp_projects_is_bp_default description]
+ *
  * @return [type] [description]
  */
 function task_breaker_bp_projects_is_bp_default() {
@@ -72,6 +74,7 @@ function task_breaker_bp_projects_is_bp_default() {
 
 /**
  * [task_breaker_bp_projects_screen_index description]
+ *
  * @return void
  */
 function task_breaker_bp_projects_screen_index() {
@@ -94,6 +97,7 @@ add_action( 'bp_screens', 'task_breaker_bp_projects_screen_index' );
 
 /**
  * [bp_projects_add_template_stack description]
+ *
  * @param  [type] $templates [description]
  * @return [type]            [description]
  */
@@ -112,6 +116,7 @@ add_filter( 'bp_get_template_stack', 'bp_projects_add_template_stack', 10, 1 );
 
 /**
  * [task_breaker_bp_projects_locate_template description]
+ *
  * @param  boolean $template [description]
  * @return [type]            [description]
  */
@@ -141,27 +146,19 @@ function task_breaker_bp_projects_main_screen_function() {
 
 	bp_core_load_template( apply_filters( 'task_breaker_bp_projects_main_screen_function', 'project-dashboard' ) );
 
-	/*
-	// if BP Default is not used, we filter bp_get_template_part
-	if ( ! task_breaker_bp_projects_is_bp_default() ) {
-		add_filter( 'bp_get_template_part', 'task_breaker_bp_projects_user_template_part', 10, 3 );
-
-	}*/
+	return;
+	
 }
 
 function task_breaker_bp_projects_main_screen_function_new_project() {
 
 	add_action( 'bp_template_title', 'task_breaker_bp_projects_add_new_title' );
+
 	add_action( 'bp_template_content', 'task_breaker_bp_projects_add_new_content' );
 
 	bp_core_load_template( apply_filters( 'task_breaker_bp_projects_main_screen_function_new_project', 'project-dashboard-new-project' ) );
-	/*
-	// if BP Default is not used, we filter bp_get_template_part
-	if ( ! task_breaker_bp_projects_is_bp_default() ) {
 
-		add_filter( 'bp_get_template_part', 'task_breaker_bp_projects_user_template_part', 10, 3 );
-
-	}*/
+	return;
 
 }
 
@@ -190,11 +187,11 @@ function task_breaker_bp_projects_content() {
 
 	echo '<div id="task_breaker-intranet-projects">';
 
-			$user_groups = task_breaker_get_displayed_user_groups();
+	$user_groups = task_breaker_get_displayed_user_groups();
 
-			$current_user_groups = task_breaker_get_current_user_groups();
+	$current_user_groups = task_breaker_get_current_user_owned_groups();
 
-			$groups_collection = array();
+	$groups_collection = array();
 
 	if ( ! empty( $user_groups ) ) {
 
@@ -213,17 +210,17 @@ function task_breaker_bp_projects_content() {
 
 	}
 
-			$args = array(
-					'meta_query' => array(
-						array(
-							'key'     => 'task_breaker_project_group_id',
-							'value'   => $groups_collection,
-							'compare' => 'IN',
-						),
-					),
-				);
-
-			task_breaker_project_loop( $args );
+	$args = array(
+		'meta_query' => array(
+			array(
+				'key'     => 'task_breaker_project_group_id',
+				'value'   => $groups_collection,
+				'compare' => 'IN',
+			),
+		),
+	);
+	
+	task_breaker_project_loop( $args );
 
 	echo '</div>';
 
@@ -242,6 +239,7 @@ function task_breaker_bp_projects_add_new_content() {
  * BP Projects Theme Compatability
  */
 class Task_Breaker_Projects_Theme_Compat {
+
 	/**
 	 * Setup the bp plugin component theme compatibility
 	 */
@@ -267,7 +265,8 @@ class Task_Breaker_Projects_Theme_Compat {
 	 * Update the global $post with directory data
 	 */
 	public function directory_dummy_post() {
-		bp_theme_compat_reset_post( array(
+		bp_theme_compat_reset_post(
+			array(
 			'ID'             => 0,
 			'post_title'     => apply_filters( 'task_breaker_projects_dir_title', __( 'Projects Directory', 'task_breaker' ) ),
 			'post_author'    => 0,
@@ -277,7 +276,8 @@ class Task_Breaker_Projects_Theme_Compat {
 			'post_status'    => 'publish',
 			'is_archive'     => true,
 			'comment_status' => 'closed',
-		) );
+			)
+		);
 	}
 
 	/**
@@ -291,4 +291,4 @@ class Task_Breaker_Projects_Theme_Compat {
 }
 
 new Task_Breaker_Projects_Theme_Compat();
-?>
+

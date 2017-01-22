@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
 
 /**
  * Returns the task_breaker component id or slug
+ *
  * @return string the task_breaker component id or slug
  */
 function task_breaker_component_id() {
@@ -31,6 +32,7 @@ function task_breaker_include_dir() {
 
 /**
  * Display a select field with list of available priorities
+ *
  * @param  integer $default     the default priority
  * @param  string  $select_name the name of the select field
  * @param  string  $select_id   the id of the select field
@@ -44,13 +46,13 @@ function task_breaker_task_priority_select( $default = 1, $select_name = 'task_b
 
 	$priorities = $task_breaker_tasks->getPriorityCollection();
 
-	echo '<select name="'.esc_attr( $select_name ).'" id="'.esc_attr( $select_id ).'" class="task_breaker-task-select">';
+	echo '<select name="' . esc_attr( $select_name ) . '" id="' . esc_attr( $select_id ) . '" class="task_breaker-task-select">';
 
 	foreach ( $priorities as $priority_id => $priority_label ) {
 
 		$selected = (intval( $priority_id ) === $default) ? 'selected': '';
 
-		echo '<option '.esc_html( $selected ).' value="'.esc_attr( $priority_id ).'">'.esc_html( $priority_label ).'</option>';
+		echo '<option ' . esc_html( $selected ) . ' value="' . esc_attr( $priority_id ) . '">' . esc_html( $priority_label ) . '</option>';
 	}
 
 	echo '</select>';
@@ -139,17 +141,17 @@ function task_breaker_render_task( $args = array() ) {
 
 	if ( ! empty( $search ) ) {
 
-		echo '<p id="task_breaker-view-info">'.sprintf( __( 'Search result for: "%s"', 'task-breaker' ), esc_html( $search ) ).'</p>';
+		echo '<p id="task_breaker-view-info">' . sprintf( __( 'Search result for: "%s"', 'task-breaker' ), esc_html( $search ) ) . '</p>';
 
 	} else {
 
 		if ( $show_completed == 'no' ) {
-			echo '<p id="task_breaker-view-info">'.sprintf( _n( 'Currently showing %d task ', 'Currently showing %d tasks ', $open_tasks_no, 'task_breaker' ), $open_tasks_no );
+			echo '<p id="task_breaker-view-info">' . sprintf( _n( 'Currently showing %d task ', 'Currently showing %d tasks ', $open_tasks_no, 'task_breaker' ), $open_tasks_no );
 			echo sprintf( __( 'out of %d', 'task_breaker' ), $all_tasks_no ) . '</p>';
 		}
 
 		if ( $show_completed == 'yes' ) {
-			echo '<p id="task_breaker-view-info">'.sprintf( _n( 'Currently showing %d completed task ', 'Currently showing %d completed tasks ', $completed_task_no, 'task_breaker' ), $completed_task_no );
+			echo '<p id="task_breaker-view-info">' . sprintf( _n( 'Currently showing %d completed task ', 'Currently showing %d completed tasks ', $completed_task_no, 'task_breaker' ), $completed_task_no );
 			echo sprintf( __( 'out of %d', 'task_breaker' ), $all_tasks_no ) . '</p>';
 		}
 	}
@@ -164,9 +166,9 @@ function task_breaker_render_task( $args = array() ) {
 
 		echo '<table class="wp-list-table widefat fixed striped pages" id="task_breaker-core-functions-render-task">';
 		echo '<tr>';
-			echo '<th width="70%">'.__( 'Title', 'task_breaker' ).'</th>';
-			echo '<th>'.__( 'Priority', 'task_breaker' ).'</th>';
-			echo '<th>'.__( 'Date', 'task_breaker' ).'</th>';
+			echo '<th width="70%">' . __( 'Title', 'task_breaker' ) . '</th>';
+			echo '<th>' . __( 'Priority', 'task_breaker' ) . '</th>';
+			echo '<th>' . __( 'Date', 'task_breaker' ) . '</th>';
 		echo '</tr>';
 
 		foreach ( (array) $tasks as $task ) {
@@ -184,24 +186,24 @@ function task_breaker_render_task( $args = array() ) {
 			$classes = implode( ' ', array( esc_attr( sanitize_title( $priority_label ) ), $completed ) );
 
 			$row_actions = '<div class="row-actions">';
-				$row_actions .= '<span class="edit"><a href="#tasks/edit/'.intval( $task->id ).'">Edit</a> | </span>';
+				$row_actions .= '<span class="edit"><a href="#tasks/edit/' . intval( $task->id ) . '">Edit</a> | </span>';
 			if ( empty( $completed ) ) {
-				$row_actions .= '<span data-user_id="'.intval( $current_user_id ).'" data-task_id="'.intval( $task->id ).'" class="task_breaker-complete-ticket"><a href="#">Complete</a> | </span>';
+				$row_actions .= '<span data-user_id="' . intval( $current_user_id ) . '" data-task_id="' . intval( $task->id ) . '" class="task_breaker-complete-ticket"><a href="#">Complete</a> | </span>';
 			} else {
-				$row_actions .= '<span data-task_id="'.intval( $task->id ).'" class="task_breaker-renew-task"><a href="#">Renew Task</a> | </span>';
+				$row_actions .= '<span data-task_id="' . intval( $task->id ) . '" class="task_breaker-renew-task"><a href="#">Renew Task</a> | </span>';
 			}
-				$row_actions .= '<span class="trash"><a data-ticket-id="'.intval( $task->id ).'" class="task_breaker-delete-ticket-btn" href="#">Delete</a> </span>';
+				$row_actions .= '<span class="trash"><a data-ticket-id="' . intval( $task->id ) . '" class="task_breaker-delete-ticket-btn" href="#">Delete</a> </span>';
 			$row_actions .= '</div>';
 
-			echo '<tr class="'.$classes.'">';
+			echo '<tr class="' . $classes . '">';
 
-				echo '<td><strong><a class="row-title" href="#tasks/edit/'.intval( $task->id ).'">'. stripslashes( esc_html( $task->title ) ).'</a></strong>'.$row_actions.'</td>';
-				echo '<td>'.esc_html( $priority_label ).'</h3></td>';
+				echo '<td><strong><a class="row-title" href="#tasks/edit/' . intval( $task->id ) . '">' . stripslashes( esc_html( $task->title ) ) . '</a></strong>' . $row_actions . '</td>';
+				echo '<td>' . esc_html( $priority_label ) . '</h3></td>';
 
 			if ( '0000-00-00 00:00:00' !== $task->date_created ) {
-				echo '<td>'.esc_html( date( 'M d, o @H:i', strtotime( $task->date_created ) ) ).'</h3></td>';
+				echo '<td>' . esc_html( date( 'M d, o @H:i', strtotime( $task->date_created ) ) ) . '</h3></td>';
 			} else {
-				echo '<td>'.__( 'N/A','task_breaker' ).'</td>';
+				echo '<td>' . __( 'N/A','task_breaker' ) . '</td>';
 			}
 
 			echo '</tr>';
@@ -216,19 +218,19 @@ function task_breaker_render_task( $args = array() ) {
 		$max_page   = intval( $stats['max_page'] );
 
 		echo '<div class="tablenav"><div class="tablenav-pages">';
-		echo '<span class="displaying-num">'.sprintf( _n( '%s task', '%s tasks', $total, 'task_breaker' ),$total ).'</span>';
+		echo '<span class="displaying-num">' . sprintf( _n( '%s task', '%s tasks', $total, 'task_breaker' ),$total ) . '</span>';
 
 		if ( $total_page >= 1 ) {
 			echo '<span id="trive-task-paging" class="pagination-links">';
-				echo '<a class="first-page disabled" title="'.__( 'Go to the first page', 'task_breaker' ).'" href="#tasks/page/'.$min_page.'">«</a>';
-				echo '<a class="prev-page disabled" title="'.__( 'Go to the previous page', 'task_breaker' ).'" href="#">‹</a>';
+				echo '<a class="first-page disabled" title="' . __( 'Go to the first page', 'task_breaker' ) . '" href="#tasks/page/' . $min_page . '">«</a>';
+				echo '<a class="prev-page disabled" title="' . __( 'Go to the previous page', 'task_breaker' ) . '" href="#">‹</a>';
 
-						echo '<span class="paging-input"><label for="task_breaker-task-current-page-selector" class="screen-reader-text">'.__( 'Select Page', 'task_breaker' ).'</label>';
-						echo '<input readonly class="current-page" id="task_breaker-task-current-page-selector" type="text" maxlength="'.strlen( $total_page ).'" size="'.strlen( $total_page ).'"value="'.intval( $currpage ).'">';
-						echo ' of <span class="total-pages">'.$total_page.'</span></span>';
+						echo '<span class="paging-input"><label for="task_breaker-task-current-page-selector" class="screen-reader-text">' . __( 'Select Page', 'task_breaker' ) . '</label>';
+						echo '<input readonly class="current-page" id="task_breaker-task-current-page-selector" type="text" maxlength="' . strlen( $total_page ) . '" size="' . strlen( $total_page ) . '"value="' . intval( $currpage ) . '">';
+						echo ' of <span class="total-pages">' . $total_page . '</span></span>';
 
-				echo '<a class="next-page" title="'.__( 'Go to the next page', 'task_breaker' ).'" href="#">›</a>';
-				echo '<a class="last-page" title="'.__( 'Go to the last page', 'trive' ).'" href="#tasks/page/'.$max_page.'">»</a></span>';
+				echo '<a class="next-page" title="' . __( 'Go to the next page', 'task_breaker' ) . '" href="#">›</a>';
+				echo '<a class="last-page" title="' . __( 'Go to the last page', 'trive' ) . '" href="#tasks/page/' . $max_page . '">»</a></span>';
 			echo '</span>';
 		}
 
@@ -256,6 +258,7 @@ function task_breaker_render_task( $args = array() ) {
 
 /**
  * Renders the tasks
+ *
  * @param  array $args The post type configs
  * @return void
  */
@@ -350,14 +353,13 @@ function task_breaker_get_task( $task_id = 0 ) {
 	return $result;
 }
 
-function task_breaker_get_tasks_comments( $ticket_id = 0 )
-{
+function task_breaker_get_tasks_comments( $ticket_id = 0 ) {
 
 	global $wpdb;
 
-	$query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}task_breaker_comments WHERE ticket_id = %d", absint($ticket_id));
+	$query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}task_breaker_comments WHERE ticket_id = %d", absint( $ticket_id ) );
 
-	$results = $wpdb->get_results($query, 'ARRAY_A');
+	$results = $wpdb->get_results( $query, 'ARRAY_A' );
 
 	return $results;
 
@@ -381,7 +383,7 @@ function task_breaker_get_config_base_prefix() {
 	return $wpdb->prefix;
 }
 
-function task_breaker_get_current_user_groups() {
+function task_breaker_get_current_user_owned_groups() {
 
 	return task_breaker_get_user_group_admin_mod();
 
@@ -472,7 +474,7 @@ function task_breaker_project_meta( $project_id = 0 ) {
 			'tasks_total' => $tasks_total,
 			'tasks_completed' => $tasks_completed,
 			'tasks_remaining' => $tasks_remaining,
-			'tasks_progress' => $tasks_progress
+			'tasks_progress' => $tasks_progress,
 		);
 
 		task_breaker_locate_template( 'task-meta', $args );
@@ -511,7 +513,7 @@ function task_breaker_project_user( $user_id = 0, $post_id = 0 ) {
 
 		<?php $group = groups_get_group( array( 'group_id' => $group_id ) ); ?>
 
-		<?php if ( ! empty ( $group->id ) ) { ?>
+		<?php if ( ! empty( $group->id ) ) { ?>
 
 			<?php _e( 'under &raquo;' ); ?>
 
@@ -539,7 +541,7 @@ function task_breaker_locate_template( $file_name = '', $args = '' ) {
 		return;
 	}
 
-	include plugin_dir_path( __FILE__ ) . '../templates/'.esc_attr( $file_name ).'.php';
+	include plugin_dir_path( __FILE__ ) . '../templates/' . esc_attr( $file_name ) . '.php';
 
 	return;
 }
@@ -596,7 +598,7 @@ function task_breaker_get_user_group_admin_mod() {
 		return array();
 	}
 
-	if ( ! bp_is_active( 'groups') ) {
+	if ( ! bp_is_active( 'groups' ) ) {
 		return array();
 	}
 
@@ -625,7 +627,7 @@ function task_breaker_get_user_group_admin_mod() {
 
 	$group_results = $wpdb->get_results(
 		$wpdb->prepare( $group_results_stmt, $user_id ),
-		OBJECT );
+	OBJECT );
 
 	if ( ! empty( $group_results ) ) {
 		return $group_results;
@@ -650,14 +652,13 @@ function task_breaker_new_project_modal_button() {
 }
 
 
-function task_breaker_parse_assigned_users( $user_id_collection = "" ) {
+function task_breaker_parse_assigned_users( $user_id_collection = '' ) {
 
 	global $wpdb;
 
 	$users = new stdclass;
 
-	if ( ! empty( $user_id_collection ) )
-	{
+	if ( ! empty( $user_id_collection ) ) {
 		$stmt = esc_sql( "SELECT ID, display_name FROM {$wpdb->prefix}users WHERE ID IN({$user_id_collection})" );
 
 		$users = $wpdb->get_results( $stmt );
@@ -672,11 +673,11 @@ function task_breaker_print_r( $raw, $type = '' ) {
 
 	echo '<pre>';
 
-		if ( 'dump' === $type ) {
-			var_dump( $raw );
-		} else {
-			print_r( $raw );
-		}
+	if ( 'dump' === $type ) {
+		var_dump( $raw );
+	} else {
+		print_r( $raw );
+	}
 
 	echo '</pre>';
 
@@ -688,18 +689,18 @@ function task_breaker_print_r( $raw, $type = '' ) {
  */
 function task_breaker_get_project_group_id( $project_id = 0 ) {
 
-    $group_id = 0;
+	$group_id = 0;
 
-    if ( 0 === $project_id ) {
-        return 0;
-    }
+	if ( 0 === $project_id ) {
+		return 0;
+	}
 
-    $group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
+	$group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
 
-    if ( empty( $group_id ) ) {
-        return 0;
-    }
+	if ( empty( $group_id ) ) {
+		return 0;
+	}
 
-    return $group_id;
+	return $group_id;
 }
 ?>

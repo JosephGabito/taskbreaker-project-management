@@ -9,7 +9,7 @@
 		<!-- Task Title -->
 		<div class="task_breaker-form-field">
 
-			<input placeholder="<?php esc_attr_e('Task Summary', 'task_breaker'); ?>" type="text" id="task_breakerTaskTitle" maxlength="160" name="title" class="widefat"/>
+			<input placeholder="<?php esc_attr_e( 'Task Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskTitle" maxlength="160" name="title" class="widefat"/>
 
 		</div>
 
@@ -21,32 +21,34 @@
 		<!-- Task Description -->
 		<div class="task_breaker-form-field">
 
-			<?php $args = array(
+		<?php 
+			$args = array(
 				'teeny' => true,
 				'editor_height' => 100,
 				'media_buttons' => false,
-				'quicktags' => false
-			); ?>
+				'quicktags' => false,
+			);
+		?>
 
-			<?php echo wp_editor($content = null, $editor_id = "task_breakerTaskDescription", $args); ?>
+	<?php echo wp_editor( $content = null, $editor_id = 'task_breakerTaskDescription', $args ); ?>
 		</div>
 
 		<div class="task_breaker-form-field">
 			<label for="task_breaker-task-priority-select">
-				<strong><?php _e('Priority:', 'task_breaker'); ?> </strong>
+				<strong><?php _e( 'Priority:', 'task_breaker' ); ?> </strong>
 				<?php echo task_breaker_task_priority_select(); ?>
 			</label>
 		</div>
 
 		<div class="task_breaker-form-field">
 			<button id="task_breaker-submit-btn" class="button button-primary button-large" style="float:right">
-				<?php _e('Save Task', 'dunhakdis'); ?>
+				<?php _e( 'Save Task', 'dunhakdis' ); ?>
 			</button>
 			<div style="clear:both"></div>
 		</div>
 	<?php } else { ?>
-		<p id="message" class="info">
-			<?php _e('Ops! Only group administrator or group moderators can add tasks.', 'task-breaker'); ?>
-		</p>
+		<div class="task-breaker-message danger">
+			<?php esc_html_e( 'Ops! Only group administrator or group moderators can add tasks to this group project.', 'task-breaker' ); ?>
+		</div>
 	<?php } ?>
 </div>

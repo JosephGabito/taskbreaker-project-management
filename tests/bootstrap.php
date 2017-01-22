@@ -1,19 +1,19 @@
 <?php
- 
+
 /**
  * Set up environment for my plugin's tests suite.
  */
- 
+
 /**
  * The path to the WordPress tests checkout.
  */
 define( 'WP_TESTS_DIR', '/Applications/MAMP/htdocs/trunk/tests/phpunit/' );
- 
+
 /**
  * The path to the main file of the plugin to test.
  */
 define( 'TEST_PLUGIN_FILE', '../task_breaker-intranet.php' );
- 
+
 /**
  * The WordPress tests functions.
  *
@@ -21,7 +21,7 @@ define( 'TEST_PLUGIN_FILE', '../task_breaker-intranet.php' );
  * to load the plugin, using tests_add_filter().
  */
 require_once WP_TESTS_DIR . 'includes/functions.php';
- 
+
 /**
  * Manually load the plugin main file.
  *
@@ -32,13 +32,13 @@ require_once WP_TESTS_DIR . 'includes/functions.php';
  * loading your plugin, since it won't be installed.
  */
 function _manually_load_plugin() {
- 
-    require TEST_PLUGIN_FILE;
- 
-    // Make sure plugin is installed here ...
+
+	include TEST_PLUGIN_FILE;
+
+	// Make sure plugin is installed here ...
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
- 
+
 /**
  * Sets up the WordPress test environment.
  *

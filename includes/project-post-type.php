@@ -27,12 +27,12 @@ function task_breaker_projects_register_post_type() {
 	);
 
 	$args = array(
-		'menu_icon'			 => 'dashicons-analytics',
+		'menu_icon'           => 'dashicons-analytics',
 		'labels'             => $labels,
 		'public'             => true,
 		'publicly_queryable' => true,
-		'show_ui'            => true,
-		'show_in_menu'       => true,
+		'show_ui'            => apply_filters( 'task_breaker_project_post_type_show_ui', '__return_false' ),
+		'show_in_menu'       => apply_filters( 'task_breaker_project_post_type_show_ui', '__return_false' ),
 		'query_var'          => true,
 		'rewrite'            => array( 'slug' => 'project' ),
 		'capability_type'    => 'post',
@@ -41,6 +41,11 @@ function task_breaker_projects_register_post_type() {
 		'menu_position'      => null,
 		'supports'           => array( 'title', 'editor', 'custom-fields' ),
 	);
+
+	if ( current_user_can( 'manage_options' ) ) {
+		$args['show_ui'] = true;
+		$args['show_in_menu'] = true;
+	}
 
 	register_post_type( 'project', $args );
 
@@ -67,10 +72,10 @@ function task_breaker_project_content_filter( $content ) {
 
 	global $post;
 
-	require_once( plugin_dir_path( __FILE__ ) . '../core/functions.php' );
+	include_once plugin_dir_path( __FILE__ ) . '../core/functions.php';
 
-	task_breaker_locate_template('project-single', $post);
+	task_breaker_locate_template( 'project-single', $post );
 
 	return;
 }
-?>
+
