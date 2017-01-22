@@ -16,13 +16,13 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 	public function addTicket( $params = array() ) {
 
 		$args = array(
-		  'title' => '',
-		  'description' => '',
-		  'milestone_id' => 0,
-		  'project_id' => 0,
-		  'user_id' => 0,
-		  'priority' => 0,
-		  'user_id_collection' => array(),
+			'title' => '',
+			'description' => '',
+			'milestone_id' => 0,
+			'project_id' => 0,
+			'user_id' => 0,
+			'priority' => 0,
+			'user_id_collection' => array(),
 		 );
 
 		foreach ( $params as $key => $value ) {
@@ -52,19 +52,27 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
-	public function deleteTicket( $id = 0 ) {
+	public function deleteTicket( $id = 0, $project_id = 0 ) {
 
 		// delete the ticket
 		if ( 0 === $id ) {
-			echo __( 'Invalid ticket id', 'task-breaker' );
-			die();
+			return false;
+		}
+		
+		if ( ! task_breaker_can_delete_task( $project_id ) ) {
+			return false;
 		}
 
-		return $this->setId( $id )->prepare()->delete();
+		return $this->setProjectId( $project_id )->setId( $id )->prepare()->delete();
 
 	}
 
 	public function updateTicket( $id = 0, $args = array() ) {
+
+		// Make sure the current user is able to update the task.
+		if ( ! task_breaker_can_update_task( $args['project_id'] ) ) {
+			return true;
+		}
 
 		$this->setTitle( $args['title'] );
 		$this->setId( $id );
