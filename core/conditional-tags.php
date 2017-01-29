@@ -44,12 +44,12 @@ function task_breaker_current_user_is_member_of_group( $group_id = 0 ) {
 
 }
 
-	/**
-	 * Check if current user can access projects. Only group members can access
-	 * the project
-	 *
-	 * @return boolean
-	 */
+/**
+ * Check if current user can access projects. Only group members can access
+ * the project
+ *
+ * @return boolean
+ */
 function task_breaker_can_view_project( $project_id ) {
 
 	if ( ! is_user_logged_in() ) {
@@ -69,12 +69,12 @@ function task_breaker_can_view_project( $project_id ) {
 	return false;
 }
 
-	/**
-	 * Check if current user can add project to group. Only admin and
-	 * moderators can add project to group.
-	 *
-	 * @return boolean
-	 */
+/**
+ * Check if current user can add project to group. Only admin and
+ * moderators can add project to group.
+ *
+ * @return boolean
+ */
 function task_breaker_can_add_project_to_group( $group_id ) {
 
 	if ( ! is_user_logged_in() ) {
@@ -96,12 +96,12 @@ function task_breaker_can_add_project_to_group( $group_id ) {
 	return false;
 }
 
-	/**
-	 * Check if current user can edit project. Only admin and moderators can edit
-	 * the projects.
-	 *
-	 * @return boolean
-	 */
+/**
+ * Check if current user can edit project. Only admin and moderators can edit
+ * the projects.
+ *
+ * @return boolean
+ */
 function task_breaker_can_edit_project( $project_id = 0 ) {
 
 	if ( ! is_user_logged_in() ) {
@@ -165,8 +165,8 @@ function task_breaker_can_delete_project( $project_id = 0 ) {
 
 }
 
-	// Tasks
-	// Check if current user can see tasks inside the project
+// Tasks
+// Check if current user can see tasks inside the project
 function task_breaker_can_see_project_tasks( $project_id ) {
 
 	if ( ! is_user_logged_in() ) {
@@ -387,4 +387,3 @@ function task_breaker_is_project_group_public( $project_id = 0 ) {
 	return false;
 
 }
-
