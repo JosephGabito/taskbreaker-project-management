@@ -7,7 +7,8 @@
  */
 
 // check if access directly
-if ( ! defined( 'ABSPATH' ) ) {   die();
+if ( ! defined( 'ABSPATH' ) ) {   
+	die(); 
 }
 
 $action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
@@ -20,7 +21,6 @@ if ( empty( $action ) ) {
 if ( 'task_breaker_transactions_request' !== $action ) {
 	return;
 }
-
 
 // Format our page header when Unit Testing
 if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
@@ -74,7 +74,6 @@ function task_breaker_transactions_callblack() {
 	}
 
 	$allowed_callbacks = array(
-
 	// Tickets/Tasks callbacks
 	'task_breaker_transaction_add_ticket',
 	'task_breaker_transaction_delete_ticket',
@@ -177,13 +176,12 @@ function task_breaker_transaction_delete_ticket() {
 	$ticket_id = (int) filter_input( INPUT_POST, 'id', FILTER_VALIDATE_INT );
 
 	$project_id = (int) filter_input( INPUT_POST, 'project_id', FILTER_VALIDATE_INT );
-	;
 
 	$task = new ThriveProjectTasksController();
 
-	$deleteTicket = $task->deleteTicket( $ticket_id, $project_id );
+	$deleteTask = $task->deleteTask( $ticket_id, $project_id );
 
-	if ( $deleteTicket ) {
+	if ( $deleteTask ) {
 
 		task_breaker_api_message(
 			array(
@@ -248,21 +246,18 @@ function task_breaker_transaction_fetch_task() {
 	$task = new ThriveProjectTasksController();
 
 	$args = array(
-	'project_id' => $project_id,
-	'id' => $task_id,
-	'page' => $page,
-	'priority' => $priority,
-	'search' => $search,
-	'show_completed' => $show_completed,
-	'orderby' => 'priority',
-	'order' => 'desc',
-	'echo' => 'no',
+		'project_id' => $project_id,
+		'id' => $task_id,
+		'page' => $page,
+		'priority' => $priority,
+		'search' => $search,
+		'show_completed' => $show_completed,
+		'orderby' => 'priority',
+		'order' => 'desc',
+		'echo' => 'no',
 	);
 
 	$task_collection = $task->renderTasks( $args );
-
-	// Push the ticket ID in the task_collection stack.
-	$task_collection->task_id = absint( $task_id );
 
 	if ( 0 === $task_id ) {
 
@@ -341,7 +336,7 @@ function task_breaker_transaction_edit_ticket() {
 	// Make sure the current user is able to update the task.
 	if ( task_breaker_can_update_task( $project_id ) ) {
 	
-		if ( $task->updateTicket( $task_id, $args ) ) {
+		if ( $task->updateTask( $task_id, $args ) ) {
 
 			$json_response['message'] = 'success';
 

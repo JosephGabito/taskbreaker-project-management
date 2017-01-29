@@ -31,15 +31,16 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 				$args[ $key ] = $value;
 
 			}
+
 		}
 
 		$this->setTitle( $args['title'] )
-			->setDescription( $args['description'] )
-			->setMilestoneId( $args['milestone_id'] )
-			->setProjectId( $args['project_id'] )
-			->setUser( $args['user_id'] )
-			->setPriority( $args['priority'] )
-			->setAssignUsers( $args['user_id_collection'] );
+			 ->setDescription( $args['description'] )
+			 ->setMilestoneId( $args['milestone_id'] )
+			 ->setProjectId( $args['project_id'] )
+			 ->setUser( $args['user_id'] )
+			 ->setPriority( $args['priority'] )
+			 ->setAssignUsers( $args['user_id_collection'] );
 
 		if ( empty( $this->title ) || empty( $this->description ) ) {
 
@@ -51,7 +52,7 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
-	public function deleteTicket( $id = 0, $project_id = 0 ) {
+	public function deleteTask( $id = 0, $project_id = 0 ) {
 
 		// delete the ticket
 		if ( 0 === $id ) {
@@ -66,7 +67,7 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
-	public function updateTicket( $id = 0, $args = array() ) {
+	public function updateTask( $id = 0, $args = array() ) {
 
 		// Make sure the current user is able to update the task.
 		if ( ! task_breaker_can_update_task( $args['project_id'] ) ) {
@@ -93,18 +94,6 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
-	public function renderTicketsByMilestone( $milestone_id = 0 ) {
-
-		return array();
-	}
-
-	public function renderTicketsByUser( $user_id = 0 ) {
-
-		return array();
-
-	}
-
-
 	public function completeTask( $task_id = 0, $user_id = 0 ) {
 
 		parent::prepare();
@@ -117,12 +106,12 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 		parent::prepare();
 
-		return parent::renewTask( $task_id );
+		return parent::renewTask( absint( $task_id ) );
 	}
 
 	public function getPriority( $priority = 1 ) {
 
-		return parent::getPriority( $priority );
+		return parent::getPriority( absint( $priority ) );
 
 	}
 

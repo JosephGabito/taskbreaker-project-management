@@ -12,14 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class Task_Breaker_BP_Mail_Register {
 
-
 	public function __construct() {
 
 		// Register the new task email template.
 		add_action( 'bp_core_install_emails', array( $this, 'new_task_email_template' ) );
 
 		// Register our new email post type and template.
-		add_action( 'bp_core_install_emails', array( $this, 'new_task_comment_email_template', ) );
+		add_action( 'bp_core_install_emails', array( $this, 'new_task_comment_email_template' ) );
 
 		// Register the new task mailer.
 		add_action( 'tb_new_task', array( $this, 'tb_new_task' ), 10, 1);
@@ -31,6 +30,7 @@ final class Task_Breaker_BP_Mail_Register {
 		add_action( 'bp_notification_settings', array( $this, 'tb_render_task_email_settings', ), 0 );
 
 		return $this;
+
 	}
 
 	function new_task_email_template() {
@@ -145,6 +145,12 @@ final class Task_Breaker_BP_Mail_Register {
 	 * @return void
 	 */
 	function tb_new_task( $task_object ) {
+
+		// Bail out if notifications are disabled or BP version does not support e-mail api.
+		if ( ! function_exists( 'bp_send_email' ) ) {
+			return;
+		}
+
 		// Add the tokens to parse in the email template.
 		$args = array(
 				'tokens' => array(
@@ -192,6 +198,11 @@ final class Task_Breaker_BP_Mail_Register {
 	 * @return void
 	 */
 	function tb_new_task_comment( $task_comment_object ) {
+		
+		// Bail out if notifications are disabled or BP version does not support e-mail api.
+		if ( ! function_exists( 'bp_send_email' ) ) {
+			return;
+		}
 
 		// Add tokens to parse in email.
 		$args = array(

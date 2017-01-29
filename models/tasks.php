@@ -534,6 +534,11 @@ class ThriveProjectTasksModel {
 		return array();
 	}
 
+	/**
+	 * Saves the instance of new task in the database.
+	 * @param  array  $args The arguments we need to pass in the save() method.
+	 * @return boolean      Returns true on success, otherwise false.
+	 */
 	public function save( $args = array() ) {
 
 		global $wpdb;
@@ -664,19 +669,24 @@ class ThriveProjectTasksModel {
 					// Send a notification to the assigned member.
 					$exploded_members = explode( ',', $this->group_members_assigned );
 
-					foreach ( (array) $exploded_members as $ua_id ) {
+					// Check if notification component is enabled.
+					if ( function_exists( 'bp_notifications_add_notification' ) ) {
 
-						bp_notifications_add_notification(
-							array(
-							 	'user_id'           => $ua_id,
-							 	'item_id'           => $last_insert_id,
-							 	'secondary_item_id' => $this->user_id,
-							 	'component_name'    => 'task_breaker_ua_notifications_name',
-							 	'component_action'  => 'task_breaker_ua_action',
-								'date_notified'     => bp_core_current_time(),
-							 	'is_new'            => 1,
-							)
-						);
+						foreach ( (array) $exploded_members as $ua_id ) {
+
+							bp_notifications_add_notification(
+								array(
+								 	'user_id'           => $ua_id,
+								 	'item_id'           => $last_insert_id,
+								 	'secondary_item_id' => $this->user_id,
+								 	'component_name'    => 'task_breaker_ua_notifications_name',
+								 	'component_action'  => 'task_breaker_ua_action',
+									'date_notified'     => bp_core_current_time(),
+								 	'is_new'            => 1,
+								)
+							);
+						}
+
 					}
 
 					// Send them ssome snazzy email!
