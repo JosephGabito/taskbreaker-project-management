@@ -703,4 +703,19 @@ function task_breaker_get_project_group_id( $project_id = 0 ) {
 
 	return $group_id;
 }
+
+function task_breaker_get_current_user_tasks() {
+	
+	global $wpdb;
+
+	$user_id = get_current_user_id();
+
+	$user_assignment_tbl = "{$wpdb->prefix}task_breaker_tasks_user_assignment as user_task_assignment";
+	$task_tbl = "{$wpdb->prefix}task_breaker_tasks as task_table";
+
+	$stmt = $wpdb->prepare("SELECT * FROM {$user_assignment_tbl} INNER JOIN {$task_tbl} ON task_table.id = user_task_assignment.task_id WHERE user_task_assignment.member_id = %d ORDER BY task_table.id DESC LIMIT 5", $user_id);
+
+	return $wpdb->get_results( $stmt, OBJECT );;
+
+}
 ?>
