@@ -186,7 +186,7 @@ if ( ! empty( $args->user ) ) {
 				</div>
 
 				<div id="task-editor_update-content" class="task_breaker-form-field">
-					<textarea id="task-comment-content" rows="5" width="100"></textarea>
+					<textarea placeholder="<?php esc_attr_e('Explain what this update is all about', 'task_breaker'); ?>" id="task-comment-content" rows="5" width="100"></textarea>
 				</div>
 
 				<div id="task-editor_update-priority" class="task_breaker-form-field">

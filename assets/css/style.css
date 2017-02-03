@@ -251,7 +251,14 @@
 
 #task_breaker-project .wp-editor-area,
 #task_breaker-project div.mce-panel {
-	border: 1px solid #f7f7f7;
+	border: 0 solid #ddd;
+}
+#task_breaker-project div.mce-toolbar-grp {
+	background: #fff;
+}
+
+#task_breaker-project div.mce-toolbar-grp>div {
+	padding: 10px;
 }
 
 #task_breaker-preloader{
@@ -677,9 +684,9 @@
  * Task Editor
  */
 #task-editor {
-	border: 2px solid #EEE;
-	background: #F7F7F7;
-	padding: 0 25px 25px 25px;
+    border: 1px solid #EEE;
+    background: #eee;
+    padding: 0 25px 25px 25px;
 }
 
 	#task-editor label[for=ticketStatusInProgress] {
@@ -688,6 +695,10 @@
 
 	#task-editor #task-comment-content {
 		background: #fff;
+		margin-bottom: 0;
+		padding: 12px 15px;
+	    border: 1px solid #ddd;
+	    height: 85px;
 	}
 
 	.task_breaker-edit-comment,
@@ -725,12 +736,12 @@
 }
 
 #task_breaker-dashboard-at-a-glance ul li .task_breaker-dashboard-at-a-glance-box {
-	border: 1px solid #D5D1D1;
+	border: 1px solid #ddd;
 	margin: 20px 0 35px;
 	padding: 25px 0;
 	display: block;
 	border-radius: 4px;
-	background-color: #EEE;
+	background-color: #f9f9f9;
 }
 
 /**
@@ -969,6 +980,27 @@
 	margin: 15px 0;
 }
 
+.task_breaker-form-field label[for=task_breaker-task-priority-select] {
+	padding: 10px 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    display: block;
+    margin: 0;
+}
+
+.task_breaker-form-field span.description {
+    font-size: 13px;
+    margin: 15px 0 20px 0;
+    display: block;
+}
+
+#task_breaker-task-priority-update-select,
+#task_breaker-task-priority-select,
+#task_breaker-task-edit-select-id {
+	margin-bottom: 0;
+	background-color: transparent;
+}
+
 .task_breaker-task-count {
 	background: #FF5722;
 	color: #FFF;
@@ -1188,15 +1220,15 @@
 	border-width: 0 4px 5px 4px; }
 
 	.select2-container--default .select2-selection--multiple {
-	background-color: white;
-	border: 1px solid rgba(0, 0, 0, 0.12);
-	border-radius: 4px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 0;
 	cursor: text; }
 	.select2-container--default .select2-selection--multiple .select2-selection__rendered {
 	 box-sizing: border-box;
 	 list-style: none;
 	 margin: 0;
-	 padding: 0 5px;
+	 padding: 0 15px;
 	 width: 100%; }
 	.select2-container--default .select2-selection--multiple .select2-selection__placeholder {
 	 color: #999;
@@ -1579,6 +1611,9 @@
 #task_breaker-project-name {
 	width: 100%;
 	display: block;
+	padding: 0 15px;
+	margin-bottom: 0;
+	border: 1px solid #ddd;
 }
 
 /**
@@ -1606,3 +1641,13 @@
 #task-breaker-access-project-not-allowed{
 	margin-bottom: 20px;
 }
+
+#comment-completed-radio .alignleft {
+	margin: 0;
+	margin-right: 15px;
+}
+
+#comment-completed-radio .alignleft  label {
+	margin: 0;
+}
+
