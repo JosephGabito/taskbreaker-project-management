@@ -500,12 +500,12 @@
 	}
 
 	.task-priority.high,
-	.single-project #task_breaker-project-tasks li.high ul li.priority span {
+	.single-project #task_breaker-project-tasks li.high ul .priority span {
 		background: #FB8C00;
 	}
 
 	.task-priority.critical,
-	.single-project #task_breaker-project-tasks li.critical ul li.priority span {
+	.single-project #task_breaker-project-tasks li.critical ul .priority span {
 		background: #f44336;
 	}
 
@@ -648,11 +648,10 @@
 	}
 
 .task-meta {
-	font-size: 14px;
-	border: 2px solid #EEE;
-	background: #fff;
-	margin-bottom: 30px;
-	padding: 5px 10px;
+    font-size: 12px;
+    padding: 5px 0;
+    border-bottom: 1px solid #0a0606;
+    margin-bottom: 20px;
 }
 	.task-meta p {
 		margin-bottom: 0;
@@ -742,6 +741,11 @@
 	display: block;
 	border-radius: 4px;
 	background-color: #f9f9f9;
+}
+
+.task_breaker-dashboard-at-a-glance-box h4 {
+    font-size: 48px;
+    margin-bottom: 0;
 }
 
 /**
@@ -1651,3 +1655,26 @@
 	margin: 0;
 }
 
+/*Widgets*/
+.taskbreaker_user_recent_tasks .task-breaker-recent-item h5 {
+	font-size: 14px;
+	font-weight: normal;
+	margin-bottom: 0;
+}
+
+.taskbreaker_user_recent_tasks .task-breaker-recent-item .date {
+	font-size: 12px;
+	color: rgba(0, 0, 0, 0.54);
+}
+
+.taskbreaker_user_recent_tasks .task-breaker-recent-item {position: relative; margin-left: 20px;}
+.taskbreaker_user_recent_tasks .task-priority {
+    margin-bottom: 0;
+    height: 10px;
+    display: inline-block;
+    width: 10px;
+    padding: 0;
+    position: absolute;
+    left: -20px;
+    top: 7px;
+}
