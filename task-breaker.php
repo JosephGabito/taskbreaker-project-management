@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: Task Breaker
- * Description: A WordPress plug-in that will help you break some task!
+ * Plugin Name: TaskBreaker - Group Project Management
+ * Description: A simple WordPress plugin for managing projects and tasks. Integrated into BuddyPress Groups for best collaborative experience.
  * Version: 1.3.5
  * Author: Dunhakdis
- * Author URI: http://dunhakdis.me
+ * Author URI: http://dunhakdis.com
  * Text Domain: task_breaker
  * License: GPL2
  *
- * PHP version 5
+ * PHP version 5.4+
  *
  * @category Loaders
  * @package  TaskBreaker
@@ -59,6 +59,9 @@ require_once plugin_dir_path( __FILE__ ) . 'install/table.php';
 
 // Require notification file.
 require_once plugin_dir_path( __FILE__ ) . 'includes/project-notifications.php';
+
+// Require widgets file.
+require_once plugin_dir_path( __FILE__ ) . 'widgets/widgets.php';
 
 /**
  * TaskBreaker l10n callback.
@@ -150,7 +153,7 @@ add_action( 'init', 'task_breaker_plugin_updater_init' );
 function task_breaker_plugin_updater_init() {
 
 	/**
-	 * Disable updater on ajax request
+	 * Do not trigger the updater script on ajax requests.
 	 */
 	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 		return;
@@ -163,20 +166,20 @@ function task_breaker_plugin_updater_init() {
 		$repo_name = 'task-breaker';
 
 		$config = array(
-		 'slug' => plugin_basename( __FILE__ ),
-		 'proper_folder_name' => 'task-breaker',
-		 'api_url' => sprintf( 'https://api.github.com/repos/codehaiku/%s', $repo_name ),
-		 'raw_url' => sprintf( 'https://raw.github.com/codehaiku/%s/master', $repo_name ),
-		 'github_url' => sprintf( 'https://github.com/codehaiku/%s', $repo_name ),
-		 'zip_url' => sprintf( 'https://github.com/codehaiku/%s/zipball/master', $repo_name ),
-		 'sslverify' => true,
-		 'requires' => '4.0',
-		 'tested' => '4.4.2',
-		 'readme' => 'README.md',
-		 'access_token' => '',
-		   );
+		 	'slug' => plugin_basename( __FILE__ ),
+		 	'proper_folder_name' => 'task-breaker',
+		 	'api_url' => sprintf( 'https://api.github.com/repos/codehaiku/%s', $repo_name ),
+		 	'raw_url' => sprintf( 'https://raw.github.com/codehaiku/%s/master', $repo_name ),
+		 	'github_url' => sprintf( 'https://github.com/codehaiku/%s', $repo_name ),
+			'zip_url' => sprintf( 'https://github.com/codehaiku/%s/zipball/master', $repo_name ),
+			'sslverify' => true,
+			'requires' => '4.0',
+			'tested' => '4.4.2',
+			'readme' => 'README.md',
+			'access_token' => '',
+		);
 
-		   $github_updater = new WP_GitHub_Updater( $config );
+		$github_updater = new WP_GitHub_Updater( $config );
 
 	}
 
