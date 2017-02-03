@@ -94,6 +94,15 @@ class TaskBreaker extends WP_Widget {
 					</li>
 				<?php } ?>
 			</ul>
+
+		<?php } else { ?>
+			
+			<div class="task-breaker-widget-no-task-assigned">
+
+				<?php esc_html_e( 'There are no tasks assigned to you. Enjoy your day!', 'tas_breaker' ); ?>
+				
+			</div>
+
 		<?php } ?>
 		
 		<?php 
