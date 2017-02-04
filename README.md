@@ -1,5 +1,7 @@
-~Current Version:1.3.3~
+~Current Version:1.3.5~
 
-# Task Breaker
+# TaskBreaker - Group Project and Task Management
 
-A WordPress plug-in that will help you break some task!
+Manage your Projects and assign a Task to each of the Group's Members. You can set the priority for each task
+(Normal, High, Critical). TaskBreaker also sends email to members when there is a new task update available or if they are assigned
+to a new task.
