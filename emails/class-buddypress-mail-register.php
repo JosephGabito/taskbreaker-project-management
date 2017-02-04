@@ -218,9 +218,7 @@ final class Task_Breaker_BP_Mail_Register {
 
             foreach ( $task_comment_object->user_assigned as $user_assigned ) {
 
-                // task_breaker_print_r( $user_assigned->member_id );
                 // Send args and user ID to receive email.
-             
                 $user_id = absint( $user_assigned->member_id );
 
                 if ( ! empty ( $user_id ) ) {
