@@ -1,13 +1,13 @@
 <?php
 /**
- * Controller for tasks
+ * Tasks Controller
  */
 require_once plugin_dir_path( __FILE__ ) . '../models/tasks.php';
 
 class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	public function __construct() {
-
+		
 		return $this;
 
 	}
