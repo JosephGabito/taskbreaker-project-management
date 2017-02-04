@@ -1,11 +1,13 @@
 <?php
-/*
+/**
  * This file is part of the TaskBreaker WordPress Plugin package.
  *
  * (c) Joseph Gabito <joseph@useissuestabinstead.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskController
  */
 
 /**
@@ -19,13 +21,17 @@ require_once plugin_dir_path( __FILE__ ) . '../models/tasks.php';
  * and delegates the task to the right methods. This class uses
  * ThriveProjectTasksModel methods to add, edit, delete, and display tasks
  *
- * @since 	1.0 Early Plugin Release
- * @author 	Joseph G. [joseph@useissuestabinstead.com]
- * @version 1.0
- * @package TaskBreaker\TaskController
+ * @since    1.0 Early Plugin Release
+ * @author   Joseph G. [joseph@useissuestabinstead.com]
+ * @version  1.0
  */
 class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
+	/**
+	 * Class constructor.
+	 *
+	 * @return  object The instance of this class.
+	 */
 	public function __construct() {
 
 		return $this;
@@ -33,13 +39,15 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 	}
 
 	/**
-	 * Creates new task.
+	 * Creates a new task.
 	 *
-	 * @param array $params The task properties.
+	 * @param array $params The task properties. Includes 'title', 'description', 'priority', 'user_id', 'project_id', 'user_id_collection'.
 	 */
 	public function addTicket( $params = array() ) {
 
-		$args = array(
+		do_action( 'taskbreaker_controller_before_add_task' );
+
+		$args = apply_filters( 'taskbreaker_controller_task_args', array(
 			'title' => '',
 			'description' => '',
 			'milestone_id' => 0,
@@ -47,7 +55,7 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 			'user_id' => 0,
 			'priority' => 0,
 			'user_id_collection' => array(),
-		 );
+		));
 
 		foreach ( $params as $key => $value ) {
 
@@ -76,9 +84,16 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
+	/**
+	 * Deletes a task.
+	 *
+	 * @param  integer $id         The ID of the Task.
+	 * @param  integer $project_id The ID of the Project where the Task belongs to.
+	 * @return boolean             True on successful delete, otherwise, false.
+	 */
 	public function deleteTask( $id = 0, $project_id = 0 ) {
 
-		// delete the ticket
+		// Return false if there is no id specified.
 		if ( 0 === $id ) {
 			return false;
 		}
@@ -91,6 +106,13 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
+	/**
+	 * Updates the Task.
+	 *
+	 * @param  integer $id   The ID of the Task.
+	 * @param  array   $args The properties of the Task. Includes 'title', 'description', 'priority', 'user_id', 'project_id', 'assigned_users'.
+	 * @return boolean	True on successful update. Otherwise, false.
+	 */
 	public function updateTask( $id = 0, $args = array() ) {
 
 		// Make sure the current user is able to update the task.
@@ -112,12 +134,25 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
+	/**
+	 * Renders the task. Populate 'id' argument to render single task.
+	 *
+	 * @param  array $args The arguments for fetching the task. Includes 'project_id', 'id', 'page', 'priority', 'search', 'orderby', 'order', 'show_completed', 'echo'.
+	 * @return array  The tasks available that mathces the giver arguments.
+	 */
 	public function renderTasks( $args = array() ) {
 
 		return $this->prepare()->fetch( $args );
 
 	}
 
+	/**
+	 * Updates the task and mark it as 'Complete'.
+	 *
+	 * @param  integer $task_id the ID of the Task.
+	 * @param  integer $user_id the ID of the User that completed the Task.
+	 * @return boolean True on success. Otherwise, false.
+	 */
 	public function completeTask( $task_id = 0, $user_id = 0 ) {
 
 		parent::prepare();
@@ -126,19 +161,38 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	}
 
+	/**
+	 * Reopens the task after it has been completed.
+	 *
+	 * @param  integer $task_id The ID of the task.
+	 * @return boolean True on success. Otherwise, false.
+	 */
 	public function renewTask( $task_id = 0 ) {
 
 		parent::prepare();
 
 		return parent::renewTask( absint( $task_id ) );
+
 	}
 
+	/**
+	 * Fetches the priority of the given task.
+	 *
+	 * @param  integer $priority the priority index. Can be 1, 2, and 3.
+	 * @return string The priority of the task.
+	 */
 	public function getPriority( $priority = 1 ) {
 
 		return parent::getPriority( absint( $priority ) );
 
 	}
 
+	/**
+	 * Assign the users to specific tasks.
+	 *
+	 * @param  array $user_id_collection The id of the users separated by comma.
+	 * @return boolean True on success. Otherwise, false.
+	 */
 	public function setAssignUsers( $user_id_collection = array() ) {
 
 		parent::prepare();
@@ -148,4 +202,3 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 	}
 
 }
-
