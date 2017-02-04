@@ -60,7 +60,7 @@
 		<?php $current_user_id = get_current_user_id(); ?>
 
 		<?php // Check if current user can delete the comment ?>
-		<?php if ( $current_user_id == $args['user'] or current_user_can( 'administrator' ) ) { ?>
+		<?php if ( $current_user_id == $args['user'] || current_user_can( 'administrator' ) ) { ?>
 		<?php // Delete link. ?>
 			<a href="#" title="<?php _e( 'Delete comment', 'task_breaker' ); ?>" data-comment-id="<?php echo absint( $args['id'] ); ?>" class="task_breaker-delete-comment">
 				<?php _e( 'Remove Comment', 'task_breaker' ); ?>
