@@ -86,6 +86,10 @@ class ThriveProjectTasksModel {
 		global $wpdb;
 
 		$this->model = sprintf( '%stask_breaker_tasks', $wpdb->prefix );
+		
+		// Set the date to general format using PHP timestamp not MYSQL.
+		$this->date = date( "Y-m-d H:i:s", current_time('timestamp') );
+
 	}
 
 	/**
@@ -130,21 +134,25 @@ class ThriveProjectTasksModel {
 	}
 
 	public function setUser( $user_id = 1 ) {
+
 		$this->user_id = $user_id;
 
 		return $this;
 	}
 
 	public function setDate( $date = '' ) {
+
 		$this->date = $date;
 
 		return $this;
 	}
 
 	public function setMilestoneId( $id = 0 ) {
+
 		$this->milestone_id = $id;
 
 		return $this;
+
 	}
 
 	public function setPriority( $priority = 1 ) {
@@ -550,7 +558,7 @@ class ThriveProjectTasksModel {
 			'milestone_id' => $this->milestone_id,
 			'project_id' => $this->project_id,
 			'priority' => $this->priority,
-			'date_created' => date( 'Y-m-d H:i:s' ),
+			'date_created' => $this->date,
 			'assign_users' => $this->group_members_assigned,
 		);
 
@@ -637,20 +645,6 @@ class ThriveProjectTasksModel {
 
 					$action = sprintf( __( '%1$s added new task under %2$s', 'task_breaker' ), $bp_user_link, $task_breaker_project_name );
 
-					/*if ( task_breaker_is_project_group_public( $this->project_id ) ) {
-
-						 $new_activity_id = bp_activity_add(
-							 array(
-							 'user_id' => ,
-							 'action' => ,
-							 'component' => 'project',
-							 'content' => ,
-							 'type' => 'task_breaker_new_task',
-							 )
-						 );
-
-					} // End if ( task_breaker_is_project_group_public( $this->project_id ) ).*/
-
 					$task_permalink = $permalink . '#tasks/view/' . $last_insert_id;
 
 					if ( function_exists( 'groups_record_activity' ) ) {
@@ -735,8 +729,12 @@ class ThriveProjectTasksModel {
 			foreach ( $exp_members_assigned as $task_member_id ) {
 				$wpdb->insert(
 					$table,
-					array( 'task_id' => intval( $task_id ), 'member_id' => intval( $task_member_id ) ), // Entry.
-					array( '%d', '%d' )
+					array( 
+						'task_id' => intval( $task_id ), 
+						'member_id' => intval( $task_member_id ),
+						'date_added' => $this->date
+					),
+					array( '%d', '%d', '%s' )
 				); // Format.
 			}
 		}

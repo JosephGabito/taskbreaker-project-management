@@ -129,7 +129,7 @@ function task_breaker_api_message( $args = array() ) {
 
 function task_breaker_transaction_add_ticket() {
 
-	$task = new ThriveProjectTasksController();
+	$task = ThriveProjectTasksController::get_instance();
 
 	$task_id = $task->addTicket( $_POST );
 
@@ -177,7 +177,7 @@ function task_breaker_transaction_delete_ticket() {
 
 	$project_id = (int) filter_input( INPUT_POST, 'project_id', FILTER_VALIDATE_INT );
 
-	$task = new ThriveProjectTasksController();
+	$task = ThriveProjectTasksController::get_instance();
 
 	$deleteTask = $task->deleteTask( $ticket_id, $project_id );
 
@@ -243,7 +243,7 @@ function task_breaker_transaction_fetch_task() {
 
 	}
 
-	$task = new ThriveProjectTasksController();
+	$task = ThriveProjectTasksController::get_instance();
 
 	$args = array(
 		'project_id' => $project_id,
@@ -307,7 +307,7 @@ function task_breaker_transaction_edit_ticket() {
 	$assigned_users = filter_input( INPUT_POST, 'user_id_collection', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 	$template = '';
 
-	$task = new ThriveProjectTasksController();
+	$task = ThriveProjectTasksController::get_instance();
 
 	// Clean $assigned_users var in case the users submits non array parameters.
 	if ( ! $assigned_users ) {
@@ -377,7 +377,7 @@ function task_breaker_transaction_complete_task() {
 	'task_id' => 0,
 	);
 
-	$task = new ThriveProjectTasksController();
+	$task = ThriveProjectTasksController::get_instance();
 
 	$task_id = $task->completeTask( $task_id, $user_id );
 
@@ -402,7 +402,7 @@ function task_breaker_transaction_renew_task() {
 	'task_id' => 0,
 	);
 
-	$task = new ThriveProjectTasksController();
+	$task = ThriveProjectTasksController::get_instance();
 
 	$task_id = $task->renewTask( $task_id );
 
