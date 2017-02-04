@@ -39,6 +39,25 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 	}
 
 	/**
+	 * Creates an instance for our TaskController Object.
+	 *
+	 * @return  object The instance of this class.
+	 */
+	public static function get_instance() {
+
+		static $instance = null;
+
+		if ( null === $instance ) {
+
+			$instance = new ThriveProjectTasksController();
+
+		}
+
+		return $instance;
+
+	}
+
+	/**
 	 * Creates a new task.
 	 *
 	 * @param array $params The task properties. Includes 'title', 'description', 'priority', 'user_id', 'project_id', 'user_id_collection'.

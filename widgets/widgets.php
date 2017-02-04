@@ -1,6 +1,7 @@
 <?php
 class TaskBreaker extends WP_Widget {
 
+	var $task_number = 5;
 	/**
 	 * Sets up the widgets name etc
 	 */
@@ -30,7 +31,11 @@ class TaskBreaker extends WP_Widget {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 		}
 		
-		$user_tasks = task_breaker_get_current_user_tasks();
+		$task_number = ( ! empty ( $instance['task_number'] ) ) ? absint ( $instance['task_number'] ): $this->task_number;
+
+		$user_tasks = task_breaker_get_current_user_tasks( array(
+				'task_number' => absint( $task_number )
+			));
 
 		?>
 
@@ -116,15 +121,23 @@ class TaskBreaker extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'My Recent Tasks', 'task_breaker' ); ?>
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'My Recent Tasks', 'task_breaker' ); 
+		$task_number = ! empty( $instance['task_number'] ) ? $instance['task_number'] : absint( $this->task_number ); ?>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
 				<?php esc_attr_e( 'Title:', 'task_breaker' ); ?>
 			</label> 
-
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'task_number' ) ); ?>">
+				<?php esc_attr_e( 'Number of Tasks:', 'task_breaker' ); ?>
+			</label> 
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'task_number' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'task_number' ) ); ?>" type="text" value="<?php echo esc_attr( $task_number ); ?>">
+		</p>
+
 		<?php 
 	}
 
@@ -138,6 +151,7 @@ class TaskBreaker extends WP_Widget {
 		// processes widget options to be saved
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['task_number'] = ( ! empty( $new_instance['task_number'] ) ) ? absint( $new_instance['task_number'] ) : $this->task_number;
 
 		return $instance;
 	}

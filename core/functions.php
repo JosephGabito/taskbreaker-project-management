@@ -42,7 +42,7 @@ function task_breaker_task_priority_select( $default = 1, $select_name = 'task_b
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
-	$task_breaker_tasks = new ThriveProjectTasksController();
+	$task_breaker_tasks = ThriveProjectTasksController::get_instance();
 
 	$priorities = $task_breaker_tasks->getPriorityCollection();
 
@@ -126,7 +126,7 @@ function task_breaker_render_task( $args = array() ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
-	$task_breaker_tasks = new ThriveProjectTasksController();
+	$task_breaker_tasks = ThriveProjectTasksController::get_instance();
 
 	$tasks = $task_breaker_tasks->renderTasks( $args );
 	$stats = $tasks['stats'];
@@ -288,7 +288,7 @@ function task_breaker_the_tasks( $args ) {
 		}
 	}
 
-	$task_breaker_tasks = new ThriveProjectTasksController();
+	$task_breaker_tasks = ThriveProjectTasksController::get_instance();
 
 	$tasks = $task_breaker_tasks->renderTasks( $args );
 
@@ -704,7 +704,7 @@ function task_breaker_get_project_group_id( $project_id = 0 ) {
 	return $group_id;
 }
 
-function task_breaker_get_current_user_tasks() {
+function task_breaker_get_current_user_tasks( $args = array() ) {
 	
 	global $wpdb;
 
@@ -712,8 +712,9 @@ function task_breaker_get_current_user_tasks() {
 
 	$user_assignment_tbl = "{$wpdb->prefix}task_breaker_tasks_user_assignment as user_task_assignment";
 	$task_tbl = "{$wpdb->prefix}task_breaker_tasks as task_table";
+	$limit = ( ! empty( $args['task_number'] ) ) ? absint( $args['task_number'] ): 5;
 
-	$stmt = $wpdb->prepare("SELECT * FROM {$user_assignment_tbl} INNER JOIN {$task_tbl} ON task_table.id = user_task_assignment.task_id WHERE user_task_assignment.member_id = %d ORDER BY task_table.id DESC LIMIT 5", $user_id);
+	$stmt = $wpdb->prepare("SELECT * FROM {$user_assignment_tbl} INNER JOIN {$task_tbl} ON task_table.id = user_task_assignment.task_id WHERE user_task_assignment.member_id = %d ORDER BY task_table.id DESC LIMIT %d", $user_id, $limit );
 
 	return $wpdb->get_results( $stmt, OBJECT );;
 

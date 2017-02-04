@@ -1,6 +1,6 @@
 <?php $tasks = &$args; ?>
 
-<?php $task_breaker_tasks = new ThriveProjectTasksController(); ?>
+<?php $task_breaker_tasks = ThriveProjectTasksController::get_instance(); ?>
 
 <?php if ( task_breaker_can_see_project_tasks( intval( $tasks['project_id'] ) ) ) { ?>
 
