@@ -14,8 +14,9 @@ engines:
       - php
       - javascript
 ratings:
-  paths:
-    - "includes/*"
 exclude_paths:
   - tests/*
   - assets/js/dist/*
+  - assets/js/task-breaker.dev.js
+  - assets/js/task-breaker.min.js
+  - assets/js/task-breaker.min.js.map
