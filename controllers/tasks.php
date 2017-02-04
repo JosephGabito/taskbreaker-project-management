@@ -1,17 +1,42 @@
 <?php
+/*
+ * This file is part of the TaskBreaker WordPress Plugin package.
+ *
+ * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
- * Tasks Controller
+ * Manually include the ThriveProjectTasksController dependency.
  */
 require_once plugin_dir_path( __FILE__ ) . '../models/tasks.php';
 
+/**
+ * ThriveProjectTasksController class is a Singleton object
+ * that handles the request coming from Transactions Controller
+ * and delegates the task to the right methods. This class uses
+ * ThriveProjectTasksModel methods to add, edit, delete, and display tasks
+ *
+ * @since 	1.0 Early Plugin Release
+ * @author 	Joseph G. [joseph@useissuestabinstead.com]
+ * @version 1.0
+ * @package TaskBreaker\TaskController
+ */
 class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 	public function __construct() {
-		
+
 		return $this;
 
 	}
 
+	/**
+	 * Creates new task.
+	 *
+	 * @param array $params The task properties.
+	 */
 	public function addTicket( $params = array() ) {
 
 		$args = array(
@@ -31,7 +56,6 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 				$args[ $key ] = $value;
 
 			}
-
 		}
 
 		$this->setTitle( $args['title'] )
@@ -58,7 +82,7 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 		if ( 0 === $id ) {
 			return false;
 		}
-		
+
 		if ( ! task_breaker_can_delete_task( $project_id ) ) {
 			return false;
 		}
@@ -71,11 +95,11 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 		// Make sure the current user is able to update the task.
 		if ( ! task_breaker_can_update_task( $args['project_id'] ) ) {
-			
+
 			return false;
 
 		}
-		
+
 		$this->setTitle( $args['title'] );
 		$this->setId( $id );
 		$this->setDescription( $args['description'] );
