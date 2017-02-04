@@ -22,6 +22,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
+/**
+ * Do not run TaskBreaker on PHP version 5.3.0-
+ */
+if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
+	add_action( 'admin_notices', 'taskbreaker_admin_notice' );
+	function taskbreaker_admin_notice() { ?>
+		<div class="notice notice-error is-dismissible">
+	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.3.0 and above.', 'task_breaker' ); ?></strong></p>
+	    </div>
+	<?php } 
+	return;
+}
+
 define( 'TASK_BREAKER_VERSION', '1.3.5' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
