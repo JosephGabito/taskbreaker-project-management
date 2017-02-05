@@ -30,7 +30,7 @@ if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
 } else {
 
 	// Hide warnings when running tests
-	@header( 'Content-type:application/json; charset=utf-8' );
+	header( 'Content-type:application/json; charset=utf-8' );
 
 }
 
@@ -57,12 +57,8 @@ function task_breaker_transactions_callblack() {
 
 	if ( ! wp_verify_nonce( $nonce, 'task_breaker-transaction-request' ) ) {
 
-		die(
-			__(
-				'Invalid Request. Your session has already expired (invalid nonce).
-				Please go back and refresh your browser. Thanks!', 'task_breaker'
-			)
-		);
+		echo __( 'Invalid Request. Your session has already expired (invalid nonce). Please go back and refresh your browser. Thanks!', 'task_breaker' );
+		return;
 
 	}
 
@@ -121,10 +117,14 @@ function task_breaker_transactions_callblack() {
 }
 
 function task_breaker_api_message( $args = array() ) {
+	
 	// Added @ to server php 7
-	@header( 'Content-type: application/json' );
+	header( 'Content-type: application/json' );
+	
 	echo json_encode( $args );
-	die();
+
+	wp_die();
+
 }
 
 function task_breaker_transaction_add_ticket() {
