@@ -1,5 +1,5 @@
 <?php
-class TaskBreaker extends WP_Widget {
+class TaskBreakerWidgets extends WP_Widget {
 
 	var $task_number = 5;
 	/**
@@ -157,5 +157,5 @@ class TaskBreaker extends WP_Widget {
 	}
 }
 
-add_action( 'widgets_init', create_function( '', 'return register_widget( "TaskBreaker" );') );
+add_action( 'widgets_init', create_function( '', 'return register_widget( "TaskBreakerWidgets" );') );
 ?>

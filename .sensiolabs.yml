@@ -1,0 +1,8 @@
+global_exclude_dirs:
+    - assets
+    - install
+    - languages
+    - tests
+
+exclude_patterns:
+    - task-breaker.php

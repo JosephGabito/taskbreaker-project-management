@@ -198,3 +198,15 @@ function task_breaker_plugin_updater_init() {
 
 	return;
 }
+
+class TaskBreaker {
+	public static function wpdb() {
+		global $wpdb;
+			return $wpdb;
+	}
+
+	public static function get_post() {
+		global $post;
+			return $post;
+	}
+}

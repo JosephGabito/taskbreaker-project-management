@@ -31,8 +31,7 @@ class TaskBreakerCT {
 	 * @return object TaskBreakerCT
 	 */
 	private function __construct() {
-		global $wpdb;
-		$this->dbase = $wpdb;
+		$this->dbase = TaskBreaker::wpdb();
 		return $this;
 	}
 
