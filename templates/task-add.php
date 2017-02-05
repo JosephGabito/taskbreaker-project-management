@@ -1,8 +1,9 @@
 <?php global $post; ?>
+<?php $user_access = TaskBreakerCT::get_instance(); ?>
 
 <div class="form-wrap">
 
-	<?php if ( task_breaker_can_add_task( $post->ID ) ) { ?>
+	<?php if ( $user_access->can_add_task( $post->ID ) ) { ?>
 
 		<div id="task_breaker-add-task-message" class="task_breaker-notifier"></div>
 

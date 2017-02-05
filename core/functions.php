@@ -7,7 +7,9 @@
  * @package Thrive Intranet
  * @subpackage Projects
  */
-if ( ! defined( 'ABSPATH' ) ) { die(); }
+if ( ! defined( 'ABSPATH' ) ) { 
+	return; 
+}
 
 /**
  * Returns the task_breaker component id or slug
@@ -42,7 +44,7 @@ function task_breaker_task_priority_select( $default = 1, $select_name = 'task_b
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
-	$task_breaker_tasks = ThriveProjectTasksController::get_instance();
+	$task_breaker_tasks = TaskBreakerTasksController::get_instance();
 
 	$priorities = $task_breaker_tasks->getPriorityCollection();
 
@@ -64,7 +66,7 @@ function task_breaker_count_tasks( $project_id, $type = 'all' ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
-	$task_breaker_tasks = new ThriveProjectTasksModel();
+	$task_breaker_tasks = new TaskBreakerTask();
 
 	return $task_breaker_tasks->getCount( $project_id, $type );
 
@@ -121,12 +123,11 @@ function task_breaker_render_task( $args = array() ) {
 		}
 	}
 
-	// todo convert task_breaker_render_task params to array
 	if ( $echo === 'no' ) { ob_start(); }
 
 	require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
-	$task_breaker_tasks = ThriveProjectTasksController::get_instance();
+	$task_breaker_tasks = TaskBreakerTasksController::get_instance();
 
 	$tasks = $task_breaker_tasks->renderTasks( $args );
 	$stats = $tasks['stats'];
@@ -288,7 +289,7 @@ function task_breaker_the_tasks( $args ) {
 		}
 	}
 
-	$task_breaker_tasks = ThriveProjectTasksController::get_instance();
+	$task_breaker_tasks = TaskBreakerTasksController::get_instance();
 
 	$tasks = $task_breaker_tasks->renderTasks( $args );
 

@@ -1,8 +1,10 @@
 <?php if ( bp_is_active( 'groups' ) ) { ?>
 
+<?php $user_access = TaskBreakerCT::get_instance(); ?>
+
 	<div id="task_breaker-project">
 
-		<?php if ( task_breaker_can_view_project( $args->ID ) ) { ?>
+		<?php if ( $user_access->can_view_project( $args->ID ) ) { ?>
 
 			<?php include task_breaker_template_dir() . '/project-heading.php'; ?>
 			
@@ -29,7 +31,7 @@
 							<?php esc_html_e( 'Edit', 'task-breaker' ); ?>
 						</a>
 					</li>
-					<?php if ( task_breaker_can_edit_project( $post->ID ) ) { ?>
+					<?php if ( $user_access->can_edit_project( $post->ID ) ) { ?>
 						<li class="task_breaker-project-tab-li-item">
 							<a data-content="task_breaker-project-settings" class="task_breaker-project-tab-li-item-a" href="#tasks/settings">
 								<?php esc_html_e( 'Settings', 'task-breaker' ); ?>

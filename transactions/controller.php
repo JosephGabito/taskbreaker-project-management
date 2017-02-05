@@ -8,7 +8,7 @@
 
 // check if access directly
 if ( ! defined( 'ABSPATH' ) ) {   
-	die(); 
+	return; 
 }
 
 $action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
@@ -129,11 +129,14 @@ function task_breaker_api_message( $args = array() ) {
 
 function task_breaker_transaction_add_ticket() {
 
-	$task = ThriveProjectTasksController::get_instance();
+	$task = TaskBreakerTasksController::get_instance();
+
+	$user_access = TaskBreakerCT::get_instance();
 
 	$task_id = $task->addTicket( $_POST );
+	
 
-	if ( ! task_breaker_can_add_task( (int) $_POST['project_id'] ) ) {
+	if ( ! $user_access->can_add_task( (int) $_POST['project_id'] ) ) {
 		task_breaker_api_message(
 			array(
 			'message' => 'fail',
@@ -177,7 +180,7 @@ function task_breaker_transaction_delete_ticket() {
 
 	$project_id = (int) filter_input( INPUT_POST, 'project_id', FILTER_VALIDATE_INT );
 
-	$task = ThriveProjectTasksController::get_instance();
+	$task = TaskBreakerTasksController::get_instance();
 
 	$deleteTask = $task->deleteTask( $ticket_id, $project_id );
 
@@ -221,12 +224,13 @@ function task_breaker_transaction_fetch_task() {
 	$callback_template = filter_input( INPUT_GET, 'template', FILTER_SANITIZE_STRING );
 	$html_template = 'task_breaker_render_task';
 	$template = '';
+	$task_user_access = TaskBreakerCT::get_instance();
 
 	if ( ! empty( $callback_template ) && function_exists( $callback_template ) ) {
 		$html_template = $callback_template;
 	}
 
-	if ( ! task_breaker_can_see_project_tasks( $project_id ) ) {
+	if ( ! $task_user_access->can_see_project_tasks( $project_id ) ) {
 
 		task_breaker_api_message(
 			array(
@@ -243,7 +247,7 @@ function task_breaker_transaction_fetch_task() {
 
 	}
 
-	$task = ThriveProjectTasksController::get_instance();
+	$task = TaskBreakerTasksController::get_instance();
 
 	$args = array(
 		'project_id' => $project_id,
@@ -307,7 +311,9 @@ function task_breaker_transaction_edit_ticket() {
 	$assigned_users = filter_input( INPUT_POST, 'user_id_collection', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 	$template = '';
 
-	$task = ThriveProjectTasksController::get_instance();
+	$user_access = TaskBreakerCT::get_instance();
+
+	$task = TaskBreakerTasksController::get_instance();
 
 	// Clean $assigned_users var in case the users submits non array parameters.
 	if ( ! $assigned_users ) {
@@ -334,7 +340,7 @@ function task_breaker_transaction_edit_ticket() {
 	$json_response = array_merge( $json_response, $args );
 
 	// Make sure the current user is able to update the task.
-	if ( task_breaker_can_update_task( $project_id ) ) {
+	if ( $user_access->can_update_task( $project_id ) ) {
 	
 		if ( $task->updateTask( $task_id, $args ) ) {
 
@@ -377,7 +383,7 @@ function task_breaker_transaction_complete_task() {
 	'task_id' => 0,
 	);
 
-	$task = ThriveProjectTasksController::get_instance();
+	$task = TaskBreakerTasksController::get_instance();
 
 	$task_id = $task->completeTask( $task_id, $user_id );
 
@@ -402,7 +408,7 @@ function task_breaker_transaction_renew_task() {
 	'task_id' => 0,
 	);
 
-	$task = ThriveProjectTasksController::get_instance();
+	$task = TaskBreakerTasksController::get_instance();
 
 	$task_id = $task->renewTask( $task_id );
 
@@ -421,18 +427,19 @@ function task_breaker_transaction_add_comment_to_ticket() {
 	include_once plugin_dir_path( __FILE__ ) . '../models/comments.php';
 	include_once plugin_dir_path( __FILE__ ) . '../models/tasks.php';
 
-	$comment   = new ThriveComments();
-	$task      = new ThriveProjectTasksModel();
+	$comment   = new TaskBreakerTaskComment();
+	$task      = new TaskBreakerTask();
 
 	$details    = filter_input( INPUT_POST, 'details', FILTER_SANITIZE_STRING );
 	$ticket_id  = filter_input( INPUT_POST, 'ticket_id', FILTER_VALIDATE_INT );
 	$priority   = filter_input( INPUT_POST, 'priority', FILTER_VALIDATE_INT );
 	$completed  = filter_input( INPUT_POST, 'completed', FILTER_SANITIZE_STRING );
 	$project_id = filter_input( INPUT_POST, 'project_id', FILTER_SANITIZE_STRING );
-	;
+	
+	$user_access = TaskBreakerCT::get_instance();
 
 	// Check if current user can add comment
-	if ( ! task_breaker_can_add_task_comment( $project_id, $ticket_id ) ) {
+	if ( ! $user_access->can_add_task_comment( $project_id, $ticket_id ) ) {
 
 		task_breaker_api_message(
 			array(
@@ -513,7 +520,7 @@ function task_breaker_transaction_delete_comment() {
 	}
 
 	// Proceed.
-	$comment = new ThriveComments();
+	$comment = new TaskBreakerTaskComment();
 
 	// Delete the comment and handle the result
 	if ( $comment->set_id( $comment_id )->set_user( get_current_user_id() )->delete() ) {
@@ -538,7 +545,9 @@ function task_breaker_transactions_update_project() {
 
 	include_once plugin_dir_path( __FILE__ ) . '../models/project.php';
 
-	$project = new ThriveProject();
+	$project = new TaskBreakerProject();
+
+	$user_access = TaskBreakerCT::get_instance();
 
 	// The project id. Leave blank if creating new project.
 	$project_id = filter_input( INPUT_POST, 'id', FILTER_VALIDATE_INT );
@@ -556,7 +565,7 @@ function task_breaker_transactions_update_project() {
 	$no_json = filter_input( INPUT_POST, 'no_json', FILTER_SANITIZE_STRING );
 
 	// Check if current user can add project to group
-	if ( ! task_breaker_can_add_project_to_group( $project_group_id ) ) {
+	if ( ! $user_access->can_add_project_to_group( $project_group_id ) ) {
 		task_breaker_api_message(
 			array(
 			'message' => 'failure',
@@ -572,7 +581,7 @@ function task_breaker_transactions_update_project() {
 
 	// Only users who can edit project can access this transaction
 	if ( ! empty( $project_id ) ) {
-		if ( ! task_breaker_can_edit_project( $project_id ) ) {
+		if ( ! $user_access->can_edit_project( $project_id ) ) {
 			task_breaker_api_message(
 				array(
 				'message' => 'failure',
@@ -619,7 +628,9 @@ function task_breaker_transactions_delete_project() {
 
 	include_once plugin_dir_path( __FILE__ ) . '../models/project.php';
 
-	$project = new ThriveProject();
+	$user_access = TaskBreakerCT::get_instance();
+
+	$project = new TaskBreakerProject();
 
 	$project_id = filter_input( INPUT_POST, 'id', FILTER_VALIDATE_INT );
 
@@ -627,7 +638,7 @@ function task_breaker_transactions_delete_project() {
 
 	$redirect = home_url();
 
-	if ( ! task_breaker_can_delete_project( $project_id ) ) {
+	if ( ! $user_access->can_delete_project( $project_id ) ) {
 
 		task_breaker_api_message(
 			array(

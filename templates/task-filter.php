@@ -15,6 +15,8 @@ $completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) 
 
 // Remaining Tasks.
 $remaining = absint( $total - $completed );
+
+$user_access = TaskBreakerCT::get_instance();
 ?>
 	<div id="task_breaker-tasks-filter">
 		<div class="clearfix">
@@ -38,7 +40,7 @@ $remaining = absint( $total - $completed );
 							</span>
 						</a>
 					</li>
-					<?php if ( task_breaker_can_update_task( $post->ID ) ) { ?>
+					<?php if ( $user_access->can_update_task( $post->ID ) ) { ?>
 					<li id="task_breaker-task-add-tab" class="task_breaker-task-tabs"><a href="#tasks/add">
 						<span class="dashicons dashicons-plus"></span>
 							<?php esc_html_e('Create New Task', 'task_breaker'); ?>

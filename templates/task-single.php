@@ -1,9 +1,9 @@
 <?php if ( empty( $args ) ) { return; } ?>
-
+<?php $user_access = TaskBreakerCT::get_instance(); ?>
 <?php
 if ( ! empty( $args->user ) ) {
 	// Only allow members who has an access view to view the task.
-	if ( ! task_breaker_can_see_project_tasks( $args->project_id ) ) { ?>
+	if ( ! $user_access->can_see_project_tasks( $args->project_id ) ) { ?>
 
 		<div id="task_breaker-single-task">
 			<p class="info" id="message">
@@ -85,11 +85,9 @@ if ( ! empty( $args->user ) ) {
 						<?php _e( '&larr; Tasks List', 'task_breaker' ); ?>
 					</a>
 
-					<?php if ( task_breaker_can_update_task( $args->project_id ) ) { ?>
 						<a href="#tasks/edit/<?php echo intval( $args->id ); ?>" class="button">
 							<?php _e( 'Edit', 'task_breaker' ); ?>
 						</a>
-					<?php } ?>
 				</div>
 
 				<div class="clearfix"></div>
@@ -116,7 +114,7 @@ if ( ! empty( $args->user ) ) {
 
 		</ul><!--#task-lists-->
 
-		<?php if ( task_breaker_can_add_task_comment( $args->project_id, $args->task_id ) ) { ?>
+		<?php if ( $user_access->can_add_task_comment( $args->project_id, $args->id ) ) { ?>
 
 			<div id="task-editor">
 				<div id="task-editor_update-status" class="task_breaker-form-field">

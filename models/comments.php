@@ -10,7 +10,7 @@
  *
  * The structure of our comments object
  */
-class ThriveComments {
+class TaskBreakerTaskComment {
 
 
 	/**

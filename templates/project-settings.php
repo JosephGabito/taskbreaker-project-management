@@ -1,6 +1,8 @@
 <?php global $post; ?>
 
-<?php if ( task_breaker_can_edit_project( $post->ID ) ) { ?>
+<?php $user_access = TaskBreakerCT::get_instance(); ?>
+
+<?php if ( $user_access->can_edit_project( $post->ID ) ) { ?>
 
 <div id="task_breaker-project-settings">
 
@@ -69,11 +71,11 @@
                 <?php echo _e( 'Update Project', 'task_breaker' ); ?>
             </button>
 
-            <?php if ( task_breaker_can_delete_project( $post->ID ) ) { ?>
+            <?php if ( $user_access->can_delete_project( $post->ID ) ) { ?>
 
-            <button id="task_breakerDeleteProjectBtn" type="button" class="button button-danger">
-                <?php echo _e( 'Delete', 'task_breaker' ); ?>
-            </button>
+                <button id="task_breakerDeleteProjectBtn" type="button" class="button button-danger">
+                    <?php echo _e( 'Delete', 'task_breaker' ); ?>
+                </button>
 
             <?php } ?>
 

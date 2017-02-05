@@ -1,8 +1,9 @@
 <?php $tasks = &$args; ?>
 
-<?php $task_breaker_tasks = ThriveProjectTasksController::get_instance(); ?>
+<?php $task_breaker_tasks = TaskBreakerTasksController::get_instance(); ?>
+<?php $task_user_access = TaskBreakerCT::get_instance(); ?>
 
-<?php if ( task_breaker_can_see_project_tasks( intval( $tasks['project_id'] ) ) ) { ?>
+<?php if ( $task_user_access->can_see_project_tasks( intval( $tasks['project_id'] ) ) ) { ?>
 
 	<?php if ( ! empty( $tasks['results'] ) ) { ?>
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * ThriveProjectTasksModel
+ * TaskBreakerTask
  *
  * This model contains the object used for TaskBreaker
  *
@@ -8,7 +8,7 @@
  * @since   1.0
  * @version 1.1
  */
-class ThriveProjectTasksModel {
+class TaskBreakerTask {
 
 	/**
 	 * Contains the name of task
@@ -79,6 +79,11 @@ class ThriveProjectTasksModel {
 	var $group_members_assigned = '';
 
 	/**
+	 * The current user role or capability.
+	 * @var string
+	 */
+	protected $user_access = '';
+	/**
 	 * Update the table name on initiate
 	 */
 	public function __construct() {
@@ -89,6 +94,9 @@ class ThriveProjectTasksModel {
 		
 		// Set the date to general format using PHP timestamp not MYSQL.
 		$this->date = date( "Y-m-d H:i:s", current_time('timestamp') );
+
+		// Set the use access to the instance of TaskBreakerCT.
+		$this->user_access = TaskBreakerCT::get_instance();
 
 	}
 
@@ -551,6 +559,8 @@ class ThriveProjectTasksModel {
 
 		global $wpdb;
 
+		$user_access = TaskBreakerCT::get_instance();
+
 		$args = array(
 			'title' => $this->title,
 			'description' => $this->description,
@@ -595,7 +605,7 @@ class ThriveProjectTasksModel {
 			$this->assign_members( $this->id, $this->group_members_assigned );
 
 			// Make sure the current logged in user is able to update task. Otherwise, bail out.
-			if ( ! task_breaker_can_update_task(  $this->project_id ) ) {
+			if ( ! $user_access->can_update_task(  $this->project_id ) ) {
 				return false;
 			}
 
@@ -604,7 +614,7 @@ class ThriveProjectTasksModel {
 		} else {
 
 			// Make sure the current logged in user is able to add task. Otherwise, bail out.
-			if ( ! task_breaker_can_add_task(  $this->project_id ) ) {
+			if ( ! $this->user_access->can_add_task(  $this->project_id ) ) {
 				return false;
 			}
 
@@ -796,15 +806,16 @@ class ThriveProjectTasksModel {
 	/**
 	 * Deletes the task
 	 *
-	 * @php    todo should return the task id if successfal otherwise return false
 	 * @return
 	 */
 	public function delete() {
 
 		global $wpdb;
 
+		$user_access = TaskBreakerCT::get_instance();
+
 		// Make sure that user can delete this task.
-		if ( ! task_breaker_can_delete_task( $this->project_id ) ) {
+		if ( ! $user_access->can_delete_task( $this->project_id ) ) {
 			
 			return false;
 

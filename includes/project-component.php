@@ -11,7 +11,8 @@
  * @author     dunhakdis
  */
 
-if ( ! defined( 'ABSPATH' ) ) { die();
+if ( ! defined( 'ABSPATH' ) ) { 
+	return;
 }
 
 /**

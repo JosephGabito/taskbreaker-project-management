@@ -1,5 +1,5 @@
 <?php
-class ThriveProject {
+class TaskBreakerProject {
 	
 	protected $id = 0;
 	protected $title = '';

@@ -7,7 +7,8 @@
  * @return [type]                 [description]
  */
 
-if ( ! defined( 'ABSPATH' ) ) { die();
+if ( ! defined( 'ABSPATH' ) ) { 
+	return;
 }
 
 function task_breaker_bp_projects_load_template_filter( $found_template, $templates ) {
