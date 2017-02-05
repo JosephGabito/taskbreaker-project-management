@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the Task_Breaker_Projects_Component
+ * This file contains the TaskBreakerProjectsComponent
  * which is responsible for our project component
  * structre and at the same time make it possible
  * to be used in buddypress profiles
@@ -11,7 +11,7 @@
  * @author     dunhakdis
  */
 
-if ( ! defined( 'ABSPATH' ) ) { 
+if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
 
@@ -26,7 +26,7 @@ require_once plugin_dir_path( __FILE__ ) . '../core/functions.php';
 require_once plugin_dir_path( __FILE__ ) . '../core/conditional-tags.php';
 
 /**
- * Task_Breaker_Projects_Component
+ * TaskBreakerProjectsComponent
  *
  * BP Projects Components extends the
  * BP Component object which is provided
@@ -36,10 +36,7 @@ require_once plugin_dir_path( __FILE__ ) . '../core/conditional-tags.php';
  * @since 1.0
  * @uses  BP_Component the boilerplate
  */
-
-
-class Task_Breaker_Projects_Component extends BP_Component {
-
+class TaskBreakerProjectsComponent extends BP_Component {
 
 	/**
 	 * Holds the ID of our 'Projects' component
@@ -54,13 +51,14 @@ class Task_Breaker_Projects_Component extends BP_Component {
 	 * @var The name of the 'Project' component.
 	 */
 	var $name = '';
+
 	/**
 	 * Register our 'Projects' Component to BuddyPress Components
 	 */
 	function __construct() {
 
 		$this->id = task_breaker_component_id();
-		
+
 		$this->name = task_breaker_component_name();
 
 		parent::start(
@@ -77,7 +75,7 @@ class Task_Breaker_Projects_Component extends BP_Component {
 
 	/**
 	 * All actions and hooks that are related to
-	 * Task_Breaker_Projects_Component are listed here
+	 * TaskBreakerProjectsComponent are listed here
 	 *
 	 * @uses   buddypress()
 	 * @return void
@@ -125,11 +123,11 @@ class Task_Breaker_Projects_Component extends BP_Component {
 		}
 
 		$globals = array(
-		 'slug' => BP_PROJECTS_SLUG,
-		 'root_slug' => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_PROJECTS_SLUG,
-		 'has_directory' => true,
-		 'directory_title' => __( 'Projects', 'component directory title', 'task_breaker' ),
-		 'search_string' => __( 'Search Projects...', 'buddypress' ),
+			'slug' => BP_PROJECTS_SLUG,
+			'root_slug' => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_PROJECTS_SLUG,
+		 	'has_directory' => true,
+		 	'directory_title' => __( 'Projects', 'task_breaker' ),
+		 	'search_string' => __( 'Search Projects...', 'task_breaker' ),
 		);
 
 		parent::setup_globals( $globals );
@@ -148,32 +146,32 @@ class Task_Breaker_Projects_Component extends BP_Component {
 	function setup_nav( $main_nav = array(), $sub_nav = array() ) {
 
 		$main_nav = array(
-		 'name' => $this->name,
-		 'slug' => $this->id,
-		 'position' => 80,
-		 /* main nav screen function callback */
-		 'screen_function' => 'task_breaker_bp_projects_main_screen_function',
-		 'default_subnav_slug' => 'all',
+			'name' => $this->name,
+			'slug' => $this->id,
+			'position' => 80,
+			/* main nav screen function callback */
+			'screen_function' => 'task_breaker_bp_projects_main_screen_function',
+			'default_subnav_slug' => 'all',
 		);
 
 		// Add a few subnav items under the main tab.
 		$sub_nav[] = array(
-		 'name'            => __( 'My Projects', 'task_breaker' ),
-		 'slug'            => 'all',
-		 'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
-		 'parent_slug'     => 'projects',
-		 'screen_function' => 'task_breaker_bp_projects_main_screen_function',
-		 'position'        => 10,
+			'name'            => __( 'My Projects', 'task_breaker' ),
+			'slug'            => 'all',
+			'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
+			'parent_slug'     => 'projects',
+			'screen_function' => 'task_breaker_bp_projects_main_screen_function',
+			'position'        => 10,
 		);
 
 		// Edit subnav.
 		$sub_nav[] = array(
-		 'name'            => __( 'New Project', 'task_breaker' ),
-		 'slug'            => 'new',
-		 'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
-		 'parent_slug'     => 'projects',
-		 'screen_function' => 'task_breaker_bp_projects_main_screen_function_new_project',
-		 'position'        => 10,
+			'name'            => __( 'New Project', 'task_breaker' ),
+			'slug'            => 'new',
+			'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
+			'parent_slug'     => 'projects',
+			'screen_function' => 'task_breaker_bp_projects_main_screen_function_new_project',
+			'position'        => 10,
 		);
 
 		parent::setup_nav( $main_nav, $sub_nav );
@@ -187,5 +185,4 @@ class Task_Breaker_Projects_Component extends BP_Component {
  *
  * @return void
  */
-buddypress()->projects = new Task_Breaker_Projects_Component;
-
+buddypress()->projects = new TaskBreakerProjectsComponent;

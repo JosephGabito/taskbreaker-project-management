@@ -6,6 +6,10 @@
  * @package TaskBreaker\TaskBreakerEnqueue
  */
 
+if ( ! defined( 'ABSPATH' ) ) { 
+	return; 
+}
+
 /**
  * Enqueues and register all TaskBreaker Javascript and CSS.
  *
