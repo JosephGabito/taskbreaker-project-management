@@ -445,9 +445,11 @@ class TaskBreakerCT {
 	 */
 	public function is_project_group_public( $project_id = 0 ) {
 
+		$core = new TaskBreakerCore();
+		
 		$public_status = 'public';
 
-		$group_id = task_breaker_get_project_group_id( $project_id );
+		$group_id = $core->get_project_group_id( $project_id );
 
 		$group = groups_get_group( $group_id );
 

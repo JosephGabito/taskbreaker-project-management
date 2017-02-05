@@ -2,6 +2,10 @@
 
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
 
+<?php $core = new TaskBreakerCore(); ?>
+
+<?php $template = new TaskBreakerTemplate(); ?>
+
 <?php if ( $user_access->can_edit_project( $post->ID ) ) { ?>
 
 <div id="task_breaker-project-settings">
@@ -20,7 +24,7 @@
 
     <div class="task_breaker-form-field">
 
-        <?php task_breaker_settings_display_editor(); ?>
+        <?php $template->display_settings_editor(); ?>
 
         <span class="description">
 
@@ -38,7 +42,7 @@
 
         </label>
 
-        <?php $current_user_groups= task_breaker_get_current_user_owned_groups(); ?>
+        <?php $current_user_groups= $core->get_current_user_owned_groups(); ?>
 
         <?php $current_project_group= intval( get_post_meta( $post->ID, 'task_breaker_project_group_id', true ) ); ?>
 

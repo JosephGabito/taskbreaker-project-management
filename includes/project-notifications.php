@@ -62,10 +62,12 @@ final class TaskBreakerNotifications {
 	 */
 	function tb_new_task_notification_text( $action, $item_id, $secondary_item_id, $total_items, $format = 'string' ) {
 
+		$core = new TaskBreakerCore();
+		
 		// New task_breaker_ua_notifications_name notifications.
 		if ( 'task_breaker_ua_action' === $action ) {
 
-			$task = task_breaker_get_task( $item_id );
+			$task = $core->get_task( $item_id );
 
 			$project = get_post( $task->project_id );
 

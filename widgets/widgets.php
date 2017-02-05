@@ -42,6 +42,7 @@ class TaskBreakerWidgets extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
+		$core = new TaskBreakerCore();
 		// outputs the content of the widget.
 		echo $args['before_widget'];
 		
@@ -51,7 +52,7 @@ class TaskBreakerWidgets extends WP_Widget {
 		
 		$task_number = ( ! empty ( $instance['task_number'] ) ) ? absint ( $instance['task_number'] ): $this->task_number;
 
-		$user_tasks = task_breaker_get_current_user_tasks( array(
+		$user_tasks = $core->get_current_user_tasks( array(
 				'task_number' => absint( $task_number )
 			));
 

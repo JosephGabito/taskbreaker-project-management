@@ -1,21 +1,70 @@
 <?php
+/**
+ * This file is part of the TaskBreaker WordPress Plugin package.
+ *
+ * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskBreakerTemplate
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	return;
+}
+
+/**
+ * TaskBreakerTemplate is a collection of methods that are used as a template tags.
+ *
+ * @package TaskBreaker\TaskBreakerTemplate
+ */
 class TaskBreakerTemplate {
 
+	/**
+	 * Includes the task add form.
+	 *
+	 * @return void
+	 */
 	function task_add_form() {
 
 		include plugin_dir_path( __FILE__ ) . '../templates/task-add.php';
 
 	}
 
+	/**
+	 * Includes the task edit form.
+	 *
+	 * @return void
+	 */
 	function task_edit_form() {
 
 		include plugin_dir_path( __FILE__ ) . '../templates/task-edit.php';
 
 	}
 
+	/**
+	 * Includes the task filters form.
+	 *
+	 * @return void
+	 */
 	function task_filters() {
 
 		include plugin_dir_path( __FILE__ ) . '../templates/task-filter.php';
+
+	}
+
+	/**
+	 * Displays the project model markup
+	 *
+	 * @param  integer $group_id The group id.
+	 * @return void
+	 */
+	function display_new_project_modal( $group_id = 0 ) {
+
+		include plugin_dir_path( __FILE__ ) . '../templates/project-add-modal.php';
+
+		return;
 
 	}
 
@@ -72,7 +121,7 @@ class TaskBreakerTemplate {
 
 		} else {
 
-			if ( $show_completed == 'no' ) {
+			if ( 'no' === $show_completed ) {
 				echo '<p id="task_breaker-view-info">' . sprintf( _n( 'Currently showing %d task ', 'Currently showing %d tasks ', $open_tasks_no, 'task_breaker' ), $open_tasks_no );
 				echo sprintf( __( 'out of %d', 'task_breaker' ), $all_tasks_no ) . '</p>';
 			}
@@ -193,7 +242,7 @@ class TaskBreakerTemplate {
 
 		ob_start();
 
-		require_once ( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
+		require_once( plugin_dir_path( __FILE__ ) . '../controllers/tasks.php' );
 
 		$config = array(
 				'project_id' => 0,
@@ -243,19 +292,19 @@ class TaskBreakerTemplate {
 
 		<div id="task_breaker-project-tasks">
 
-			<?php task_breaker_locate_template( 'task-loop', $tasks ); ?>
+			<?php $this->locate_template( 'task-loop', $tasks ); ?>
 
 		</div><!--#task_breaker-project-tasks-->
 
 		<?php
 
 		return ob_get_clean();
-		
+
 	}
 
 	/**
 	 * Returns the markup for the single tasks.
-	 * 
+	 *
 	 * @param  array $task The argument you want to pass inside the single task template.
 	 * @return string 	   The html markup.
 	 */
@@ -263,10 +312,264 @@ class TaskBreakerTemplate {
 
 		ob_start();
 
-		task_breaker_locate_template( 'task-single', $task );
+		$this->locate_template( 'task-single', $task );
 
 		return ob_get_clean();
 
+	}
+
+	/**
+	 * The markup for our comments
+	 *
+	 * @param  array $args The arguments required to show to comments template.
+	 * @param  array $task The callback argument that you can use to get the task props.
+	 * @return string 		The comment template.
+	 */
+	function comments_template( $args = array(), $task = array() ) {
+
+		ob_start();
+
+		$this->locate_template( 'task-comment-item', $args );
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Loads the project settings tempalte.
+	 *
+	 * @return void
+	 */
+	function project_settings() {
+
+		include plugin_dir_path( __FILE__ ) . '../templates/project-settings.php';
+
+		return;
+
+	}
+
+	/**
+	 * The pagination of tasks.
+	 *
+	 * @param  WP_Query $object an instance of WP_Query
+	 * @return void.
+	 */
+	function the_project_navigation( WP_Query $object ) {
+
+		// Maximum page.
+		$maximum_page = absint( $object->max_num_pages );
+
+		// Current page.
+		$current_page = absint( $object->query_vars['paged'] );
+
+		// Do no display pagination if there is only 1 project.
+		if ( 1 === $maximum_page ) { return; }
+		?>
+
+		<nav>
+
+			<?php echo esc_html( apply_filters( 'task_breaker_projects_page_label', __( 'Page:', 'task_breaker' ) ) ); ?>
+			
+			<?php for ( $page = 1; $page <= $maximum_page; $page++ ) { ?>
+				
+				<?php $active = ''; ?>
+				
+				<?php if ( $page === $current_page ) { $active = 'active '; } ?> 
+
+				<a class="<?php echo sanitize_html_class( $active );?>project-nav-link" 
+					title="<?php echo sprintf( esc_attr__( 'Go to page %d &raquo;', 'task_breaker' ), absint( $page ) ); ?>" 
+					href="?paged=<?php echo absint( $page ); ?>">
+
+					<?php echo esc_html( $page ); ?>
+
+				</a>
+
+			<?php } ?>
+
+		</nav>
+		
+		<?php
+
+		return;
+	}
+
+	/**
+	 * Renders the project add form inside a group
+	 *
+	 * @param  integer $group_id The group id.
+	 * @return void
+	 */
+	function display_new_project_form( $group_id = 0 ) {
+
+		if ( ! is_user_logged_in() ) { return; }
+
+		include plugin_dir_path( __FILE__ ) . '../templates/project-add.php';
+
+		return;
+	}
+
+	/**
+	 * Renders the project task meta
+	 *
+	 * @param  integer $project_id The project id.
+	 * @return void
+	 */
+	function the_project_meta( $project_id = 0 ) {
+
+		$core = new TaskBreakerCore();
+
+		if ( 0 === $project_id ) { return; }
+
+		$tasks_total = absint( $core->count_tasks( $project_id, $type = 'all' ) );
+		$tasks_completed  = absint( $core->count_tasks( $project_id, $type = 'completed' ) );
+		$tasks_remaining = absint( $tasks_total - $tasks_completed );
+
+		if ( 0 !== $tasks_total ) {
+
+			$tasks_progress = ceil( ( $tasks_completed / $tasks_total ) * 100 );
+
+			$args = array(
+				'tasks_total' => $tasks_total,
+				'tasks_completed' => $tasks_completed,
+				'tasks_remaining' => $tasks_remaining,
+				'tasks_progress' => $tasks_progress,
+			);
+
+			do_action( 'taskbreaker_template_before_project_meta' );
+
+			$this->locate_template( 'task-meta', $args );
+
+			do_action( 'taskbreaker_template_after_project_meta' );
+
+		} // end if
+
+		return;
+	}
+
+	/**
+	 * Renders the project of the current user.
+	 *
+	 * @param  integer $user_id The user id.
+	 * @param  integer $post_id The post id.
+	 * @return void.
+	 */
+	function display_project_user( $user_id = 0, $post_id = 0 ) {
+
+		if ( 0 === $post_id ) { return; }
+
+		if ( 0 === $user_id ) { return; }
+
+		$user_profile_url = get_author_posts_url( $user_id );
+
+		if ( function_exists( 'bp_core_get_user_domain' ) ) {
+			$user_profile_url = bp_core_get_user_domain( $user_id );
+		}
+
+			esc_html_e( 'Started by ', 'task_breaker' ); ?>
+
+			<a href="<?php echo esc_url( $user_profile_url ); ?>" title="<?php esc_attr_e( 'Visit User Profile', 'task_breaker' ); ?>">
+				<?php echo get_avatar( $user_id, 32 ); ?>
+				<?php echo esc_html( get_the_author_meta( 'display_name' ) ); ?>
+			</a>
+
+		<?php
+		$group_id = absint( get_post_meta( $post_id, 'task_breaker_project_group_id', true ) );
+
+		if ( function_exists( 'groups_get_group' ) ) {
+
+			$group = groups_get_group( array( 'group_id' => $group_id ) );
+
+			if ( ! empty( $group->id ) ) {
+
+				esc_html_e( 'under &raquo;', 'task_breaker' ); ?>
+
+				<a href="<?php echo esc_url( bp_get_group_permalink( $group ) ); ?>" title="<?php echo esc_attr( $group->name ); ?>">
+
+					<?php echo bp_core_fetch_avatar( array( 'object' => 'group', 'item_id' => absint( $group_id ) ) ) ?>
+
+					<?php echo esc_html( $group->name ); ?>
+
+				</a>
+
+			<?php }
+		}
+		return;
+	}
+
+	/**
+	 * Includes the specific template file.
+	 *
+	 * @param  string $file_name The file name.
+	 * @param  string $args      The arguments you wish to pass into the template.
+	 * @return void
+	 */
+	function locate_template( $file_name = '', $args = '' ) {
+
+		if ( empty( $file_name ) ) {
+			return;
+		}
+
+		include plugin_dir_path( __FILE__ ) . '../templates/' . esc_attr( $file_name ) . '.php';
+
+		return;
+	}
+
+	/**
+	 * Renders the project loop template
+	 *
+	 * @param  array $args The arguments you wish to pass on the project loop content.
+	 * @return void
+	 */
+	function display_project_loop( $args = array() ) {
+
+		if ( ! is_array( $args ) ) {
+			return;
+		}
+
+		$args['post_type'] = 'project';
+
+		$args['paged'] = get_query_var( 'paged' );
+
+		include plugin_dir_path( __FILE__ ) . '../templates/project-loop-content.php';
+
+		return;
+
+	}
+
+	/**
+	 * Displays the editor settings form of a project.
+	 *
+	 * @return string The WordPress wp_editor.
+	 */
+	function display_settings_editor() {
+
+		$taskbreaker = new TaskBreaker();
+
+		$tb_post = $taskbreaker->get_post();
+
+		$content = $tb_post->post_content;
+
+		$args = array(
+			'teeny' => true,
+			'editor_height' => 100,
+			'media_buttons' => false,
+		);
+
+		return wp_editor( $content, $editor_id = 'task_breakerProjectContent', $args );
+
+	}
+
+	/**
+	 * The button for our add new project.
+	 *
+	 * @return void
+	 */
+	function display_new_project_modal_button() {
+		if ( is_user_logged_in() ) { ?>
+			<a id="task_breaker-new-project-btn" class="<?php echo esc_attr( apply_filters( 'task_breaker_new_project_modal_button_class', 'button' ) ); ?>" href="#">
+			    <?php esc_html_e( 'New Project', 'task_breaker' ); ?>
+			</a>
+		<?php
+		}
 	}
 
 }

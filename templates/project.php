@@ -36,7 +36,7 @@
 
 	?>
 		<h3>
-	<?php _e( 'At a Glance', 'task_breaker' ); ?>
+			<?php _e( 'At a Glance', 'task_breaker' ); ?>
 		</h3>
 		<ul>
 			<li>
@@ -107,7 +107,7 @@
 </div><!--#task_breaker-project-tasks-context-->
 
 <div class="task_breaker-project-tab-content-item" data-content="task_breaker-project-settings" id="task_breaker-project-settings-context">
-	<?php task_breaker_project_settings(); ?>
+	<?php $template->project_settings(); ?>
 </div>
 
 <div class="task_breaker-project-tab-content-item" data-content="task_breaker-project-add-new" id="task_breaker-project-add-new-context">

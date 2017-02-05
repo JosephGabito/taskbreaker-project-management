@@ -1,4 +1,5 @@
 <?php if ( bp_is_active( 'groups' ) ) { ?>
+<?php $core = new TaskBreakerCore(); ?>
 
 	<div id="task_breaker-project-add-new-form">
 
@@ -41,7 +42,7 @@
 
 			</div>
 
-			<?php $current_user_groups = task_breaker_get_current_user_owned_groups(); ?>
+			<?php $current_user_groups = $core->get_current_user_owned_groups(); ?>
 
 			<?php $group_id = 0; ?>
 

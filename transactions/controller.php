@@ -429,8 +429,9 @@ function task_breaker_transaction_add_comment_to_ticket() {
 	include_once plugin_dir_path( __FILE__ ) . '../models/comments.php';
 	include_once plugin_dir_path( __FILE__ ) . '../models/tasks.php';
 
-	$comment   = new TaskBreakerTaskComment();
 	$task      = new TaskBreakerTask();
+	$comment   = new TaskBreakerTaskComment();
+	$template  = new TaskBreakerTemplate();
 
 	$details    = filter_input( INPUT_POST, 'details', FILTER_SANITIZE_STRING );
 	$ticket_id  = filter_input( INPUT_POST, 'ticket_id', FILTER_VALIDATE_INT );
@@ -447,7 +448,7 @@ function task_breaker_transaction_add_comment_to_ticket() {
 			array(
 			'message' => 'fail',
 			'stats' => $task->getTaskStatistics( $project_id, $ticket_id ),
-			'result' => task_breaker_comments_template( $added_comment ),
+			'result' => $template->comments_template( $added_comment ),
 			)
 		);
 
@@ -498,7 +499,7 @@ function task_breaker_transaction_add_comment_to_ticket() {
 			array(
 			'message' => 'success',
 			'stats' => $task->getTaskStatistics( $project_id, $ticket_id ),
-			'result' => task_breaker_comments_template( $added_comment ),
+			'result' => $template->comments_template( $added_comment ),
 			)
 		);
 	}

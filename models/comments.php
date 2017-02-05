@@ -187,6 +187,7 @@ class TaskBreakerTaskComment {
 		if ( empty( $this->ticket_id ) ) { return false; }
 
 		$table = $this->model;
+		$core = new TaskBreakerCore();
 
 		$data = array(
 		  'details' => $this->details,
@@ -239,9 +240,9 @@ class TaskBreakerTaskComment {
 
 				 if ( function_exists( 'groups_record_activity' ) ) {
 
-						  $project = task_breaker_get_task( absint( $this->ticket_id ) );
+						  $project = $core->get_task( absint( $this->ticket_id ) );
 
-						  $group_id = task_breaker_get_project_group_id( absint( $project->project_id ) );
+						  $group_id = $core->get_project_group_id( absint( $project->project_id ) );
 
 						  $group_link_template = '';
 

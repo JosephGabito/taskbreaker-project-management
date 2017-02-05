@@ -1,6 +1,8 @@
 <?php if ( empty( $args ) ) { return; } ?>
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
 <?php $core = new TaskBreakerCore(); ?>
+<?php $template = new TaskBreakerTemplate(); ?>
+
 <?php
 if ( ! empty( $args->user ) ) {
 	// Only allow members who has an access view to view the task.
@@ -64,7 +66,7 @@ if ( ! empty( $args->user ) ) {
 						<?php esc_attr_e( 'This task is assigned to:', 'task_breaker' ); ?>
 					</h5>
 					<?php
-						$assign_users = task_breaker_parse_assigned_users( $args->assign_users );
+						$assign_users = $core->parse_assigned_users( $args->assign_users );
 					?>
 					<ul class="task-members-items">
 						<?php foreach ( $assign_users as $assign_user ) { ?>
@@ -105,11 +107,11 @@ if ( ! empty( $args->user ) ) {
 				</h3>
 			</li>
 
-			<?php $comments = task_breaker_get_tasks_comments( $args->id ); ?>
+			<?php $comments = $core->get_tasks_comments( $args->id ); ?>
 
 			<?php if ( ! empty( $comments ) ) { ?>
 				<?php foreach ( $comments as $comment ) { ?>
-					<?php echo task_breaker_comments_template( $comment, (array) $args ); ?>
+					<?php echo $template->comments_template( $comment, (array) $args ); ?>
 				<?php } ?>
 			<?php } ?>
 

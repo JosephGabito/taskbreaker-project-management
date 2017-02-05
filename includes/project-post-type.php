@@ -70,11 +70,13 @@ function task_breaker_filter_single_project() {
 
 function task_breaker_project_content_filter( $content ) {
 
-	global $post;
+	$template = new TaskBreakerTemplate();
+	$taskbreaker = new TaskBreaker();
+	$taskbreaker_post = $taskbreaker->get_post();
 
 	include_once plugin_dir_path( __FILE__ ) . '../core/functions.php';
 
-	task_breaker_locate_template( 'project-single', $post );
+	$template->locate_template( 'project-single', $taskbreaker_post );
 
 	return;
 }

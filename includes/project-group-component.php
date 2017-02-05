@@ -56,13 +56,16 @@ class TaskBreakerProjectsGroupExtension extends BP_Group_Extension {
 
 		do_action( 'task_breaker_before_projects_archive' );
 
-		$group_id = bp_get_group_id(); ?>
+		$group_id = bp_get_group_id(); 
+
+		$template = new TaskBreakerTemplate();
+		?>
 
 		<h3><?php esc_html_e( 'Projects', 'task_breaker' ); ?></h3>
 
 		<div id="task_breaker-intranet-projects">
 
-			<?php task_breaker_new_project_modal( $group_id ); ?>
+			<?php $template->display_new_project_modal( $group_id ); ?>
 
 			<?php
 				$args = array(
@@ -71,7 +74,7 @@ class TaskBreakerProjectsGroupExtension extends BP_Group_Extension {
 				);
 			?>
 
-			<?php task_breaker_project_loop( $args ); ?>
+			<?php $template->display_project_loop( $args ); ?>
 
 		</div>
 

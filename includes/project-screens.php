@@ -187,11 +187,15 @@ function task_breaker_bp_projects_title() {
 
 function task_breaker_bp_projects_content() {
 
+	$core = new TaskBreakerCore();
+
+	$template = new TaskBreakerTemplate();
+
 	echo '<div id="task_breaker-intranet-projects">';
 
-	$user_groups = task_breaker_get_displayed_user_groups();
+	$user_groups = $core->get_displayed_user_groups();
 
-	$current_user_groups = task_breaker_get_current_user_owned_groups();
+	$current_user_groups = $core->get_current_user_owned_groups();
 
 	$groups_collection = array();
 
@@ -222,7 +226,7 @@ function task_breaker_bp_projects_content() {
 		),
 	);
 	
-	task_breaker_project_loop( $args );
+	$template->display_project_loop( $args );
 
 	echo '</div>';
 
@@ -234,7 +238,8 @@ function task_breaker_bp_projects_add_new_title() {
 }
 
 function task_breaker_bp_projects_add_new_content() {
-	task_breaker_new_project_form();
+	$template = new TaskBreakerTemplate();
+	$template->display_new_project_form();
 }
 
 /**

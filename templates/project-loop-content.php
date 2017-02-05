@@ -1,4 +1,5 @@
 <?php $projects = new WP_Query( $args ); ?>
+<?php $template = new TaskBreakerTemplate(); ?>
 
 <?php if ( bp_is_active( 'groups' ) ) { ?>
 
@@ -17,14 +18,14 @@
 		<div class="task_breaker-project-title">
 			<h3>
 				<a href="<?php echo the_permalink(); ?>">
-		<?php the_title(); ?>
+					<?php the_title(); ?>
 				</a>
 			</h3>
 		</div>
 
 		<div class="task_breaker-project-meta">
 
-			<?php task_breaker_project_meta( get_the_ID() ); ?>
+			<?php $template->the_project_meta( get_the_ID() ); ?>
 
 		</div>
 
@@ -38,7 +39,7 @@
 
 		<div class="task_breaker-project-author">
 
-			<?php task_breaker_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
+			<?php $template->display_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
 
 		</div>
 	</li>
@@ -49,7 +50,7 @@
 
 <div id="project-navigation">
 
-	<?php task_breaker_project_nav( $projects ); ?>
+	<?php $template->the_project_navigation( $projects ); ?>
 
 </div>
 
