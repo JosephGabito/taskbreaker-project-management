@@ -9,7 +9,9 @@
  *
  * @package TaskBreaker\TaskController
  */
-
+if ( ! defined( 'ABSPATH') ) {
+	return;
+}
 /**
  * Manually include the TaskBreakerTasksController dependency.
  */

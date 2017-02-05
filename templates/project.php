@@ -1,4 +1,6 @@
 <?php global $post; ?>
+<?php $core = new TaskBreakerCore(); ?>
+<?php $template = new TaskBreakerTemplate(); ?>
 
 <div id="task_breaker-preloader">
 
@@ -26,9 +28,9 @@
 	<?php
 
 	// Total tasks.
-	$total     = intval( task_breaker_count_tasks( $post->ID ) );
+	$total     = intval( $core->count_tasks( $post->ID ) );
 	// Completed tasks.
-	$completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
+	$completed = intval( $core->count_tasks( $post->ID, $type = 'completed' ) );
 	// Remaining Tasks.
 	$remaining = absint( $total - $completed );
 
@@ -91,16 +93,16 @@
 <div class="task_breaker-project-tab-content-item" data-content="task_breaker-project-tasks" id="task_breaker-project-tasks-context">
 
 	<?php
-	$args = array(
-				'project_id' => $post->ID,
-				'orderby' => 'priority',
-				'order' => 'desc',
-	);
+		$args = array(
+			'project_id' => $post->ID,
+			'orderby' => 'priority',
+			'order' => 'desc',
+		);
 	?>
 
-	<?php task_breaker_task_filters(); ?>
+	<?php $template->task_filters(); ?>
 
-	<?php echo task_breaker_the_tasks( $args ); ?>
+	<?php echo $template->render_tasks( $args ); ?>
 
 </div><!--#task_breaker-project-tasks-context-->
 
@@ -109,11 +111,11 @@
 </div>
 
 <div class="task_breaker-project-tab-content-item" data-content="task_breaker-project-add-new" id="task_breaker-project-add-new-context">
-	<?php task_breaker_add_task_form(); ?>
+	<?php $template->task_add_form(); ?>
 </div>
 
 <div class="task_breaker-project-tab-content-item" id="task_breaker-project-edit-context">
-	<?php task_breaker_edit_task_form(); ?>
+	<?php $template->task_edit_form(); ?>
 </div>
 
 <script>

@@ -1,12 +1,13 @@
 <?php if ( bp_is_active( 'groups' ) ) { ?>
 
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
+<?php $core = new TaskBreakerCore(); ?>
 
 	<div id="task_breaker-project">
 
 		<?php if ( $user_access->can_view_project( $args->ID ) ) { ?>
 
-			<?php include task_breaker_template_dir() . '/project-heading.php'; ?>
+			<?php include $core->get_template_directory() . '/project-heading.php'; ?>
 			
 			<div class="task_breaker-project-tabs">
 
@@ -44,7 +45,7 @@
 			<div id="task_breaker-project-tab-content">
 				<?php
 					if ( $post->post_type === 'project' ) {
-						include task_breaker_template_dir() . '/project.php';
+						include $core->get_template_directory() . '/project.php';
 					}
 				?>
 			</div>

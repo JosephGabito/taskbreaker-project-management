@@ -1,6 +1,6 @@
 <?php global $post; ?>
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
-
+<?php $core = new TaskBreakerCore(); ?>
 <div id="task-breaker-task-edit-form" class="form-wrap">
 
 	<?php if ( $user_access->can_update_task( $post->ID ) ) { ?>
@@ -39,11 +39,7 @@
 					<?php _e( 'Priority:', 'task_breaker' ); ?>
 				</strong>
 				<?php
-					echo task_breaker_task_priority_select(
-							$default = 1,
-							$name = 'task_breaker-task-edit-priority',
-							$id = 'task_breaker-task-edit-select-id'
-						);
+					$core->task_priority_select( 1, 'task_breaker-task-edit-priority', 'task_breaker-task-edit-select-id' );
 				?>
 			</label>
 		</div>

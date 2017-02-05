@@ -222,11 +222,11 @@ function task_breaker_transaction_fetch_task() {
 	$search = filter_input( INPUT_GET, 'search', FILTER_SANITIZE_URL );
 	$show_completed = filter_input( INPUT_GET, 'show_completed', FILTER_SANITIZE_STRING );
 	$callback_template = filter_input( INPUT_GET, 'template', FILTER_SANITIZE_STRING );
-	$html_template = 'task_breaker_render_task';
+	$html_template = 'render_tasks';
 	$template = '';
 	$task_user_access = TaskBreakerCT::get_instance();
 
-	if ( ! empty( $callback_template ) && function_exists( $callback_template ) ) {
+	if ( ! empty( $callback_template ) ) {
 		$html_template = $callback_template;
 	}
 
@@ -263,17 +263,19 @@ function task_breaker_transaction_fetch_task() {
 
 	$task_collection = $task->renderTasks( $args );
 
+	$taskbreaker_template = new TaskBreakerTemplate();
+
 	if ( 0 === $task_id ) {
 
 		$task_id = null;
 
-		$template = $html_template( $args );
+		$template = $taskbreaker_template->$html_template( $args );
 
 	} else {
 
 		if ( ! empty( $callback_template ) ) {
 
-			$template = $html_template( $task_collection );
+			$template = $taskbreaker_template->$html_template( $task_collection );
 
 		}
 	}

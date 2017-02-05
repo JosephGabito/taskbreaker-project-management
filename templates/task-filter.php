@@ -7,11 +7,13 @@
 
 global $post;
 
+$core = new TaskBreakerCore();
+
 // Total tasks.
-$total = intval( task_breaker_count_tasks( $post->ID ) );
+$total = intval( $core->count_tasks( $post->ID ) );
 
 // Completed tasks.
-$completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
+$completed = intval( $core->count_tasks( $post->ID, $type = 'completed' ) );
 
 // Remaining Tasks.
 $remaining = absint( $total - $completed );

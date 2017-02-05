@@ -63,6 +63,20 @@ class TaskBreakerTaskComment {
 	 */
 	private $model = '';
 
+	/**
+	 * The date added
+	 * 
+	 * @var string
+	 */
+	private $date = '';
+
+	/**
+	 * The object that will hold the wpdb class later on in construct.
+	 * 
+	 * @var string
+	 */
+	private $dbase = '';
+
 	// Set allowed status.
 	// 0 for 'In Progress'
 	// 1 for 'Completed'
@@ -75,10 +89,9 @@ class TaskBreakerTaskComment {
 	 * @return object self
 	 */
 	public function __construct() {
-		global $wpdb;
-		$this->model = $wpdb->prefix . 'task_breaker_comments';
+		$this->dbase = TaskBreaker::wpdb();
+		$this->model = $this->dbase->prefix . 'task_breaker_comments';
 		$this->date_added = date( 'Y-m-d g:i:s' );
-
 	}
 
 	/**
@@ -169,13 +182,9 @@ class TaskBreakerTaskComment {
 	 */
 	public function save() {
 
-		if ( empty( $this->user ) ) { return false;
-		}
+		if ( empty( $this->user ) ) { return false; }
 
-		if ( empty( $this->ticket_id ) ) { return false;
-		}
-
-		global $wpdb;
+		if ( empty( $this->ticket_id ) ) { return false; }
 
 		$table = $this->model;
 
@@ -184,6 +193,7 @@ class TaskBreakerTaskComment {
 		  'user' => $this->user,
 		  'ticket_id' => $this->ticket_id,
 		  'status' => $this->get_status(),
+		  'date_added' => $this->date_added
 		 );
 
 		$formats = array(
@@ -191,13 +201,14 @@ class TaskBreakerTaskComment {
 		  '%d', // The format for user.
 		  '%d', // The format for ticket_id.
 		  '%d', // The format for status.
+		  '%s', // The format for date_added.
 		 );
 
-		$insert_comments = $wpdb->insert( $table, $data, $formats ); // Db call ok.
+		$insert_comments = $this->dbase->insert( $table, $data, $formats ); // Db call ok.
 
 		if ( $insert_comments ) {
 
-			$last_insert_id = $wpdb->insert_id;
+			$last_insert_id = $this->dbase->insert_id;
 
 			// Add new activity. Check if buddypress is active first
 			if ( function_exists( 'bp_activity_add' ) ) {
@@ -211,15 +222,15 @@ class TaskBreakerTaskComment {
 				}
 
 				 $status_label = array(
-				   __( 'posted a new update in', 'task_breaker' ),
-				   __( 'completed', 'task_breaker' ),
-				   __( 'reopened', 'task_breaker' ),
+				  	__( 'posted a new update in', 'task_breaker' ),
+				   	__( 'completed', 'task_breaker' ),
+				   	__( 'reopened', 'task_breaker' ),
 				  );
 
 				 $status_content_label = array(
-				   __( 'Updated', 'task_breaker' ),
-				   __( 'Completed', 'task_breaker' ),
-				   __( 'Reopened', 'task_breaker' ),
+				   	__( 'Updated', 'task_breaker' ),
+				   	__( 'Completed', 'task_breaker' ),
+				   	__( 'Reopened', 'task_breaker' ),
 				  );
 
 				 $type = $status_label[ $this->get_status() ];
@@ -286,8 +297,8 @@ class TaskBreakerTaskComment {
 						    $new_task_comment_object->user_assigned = new stdClass;
 
 						    // Get all the assigned users.
-						    $users_assigned = $wpdb->get_results( $wpdb->prepare(
-						    		"SELECT task_id, member_id FROM {$wpdb->prefix}task_breaker_tasks_user_assignment WHERE task_id = %d",
+						    $users_assigned = $this->dbase->get_results( $this->dbase->prepare(
+						    		"SELECT task_id, member_id FROM {$this->dbase->prefix}task_breaker_tasks_user_assignment WHERE task_id = %d",
 						    		$this->ticket_id
 						    ), OBJECT );
 

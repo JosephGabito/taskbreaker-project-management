@@ -1,5 +1,6 @@
 <?php global $post; ?>
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
+<?php $core = new TaskBreakerCore(); ?>
 
 <div class="form-wrap">
 
@@ -31,13 +32,16 @@
 			);
 		?>
 
-	<?php echo wp_editor( $content = null, $editor_id = 'task_breakerTaskDescription', $args ); ?>
+		<?php echo wp_editor( $content = null, $editor_id = 'task_breakerTaskDescription', $args ); ?>
+
 		</div>
 
 		<div class="task_breaker-form-field">
 			<label for="task_breaker-task-priority-select">
-				<strong><?php _e( 'Priority:', 'task_breaker' ); ?> </strong>
-				<?php echo task_breaker_task_priority_select(); ?>
+				<strong>
+					<?php _e( 'Priority:', 'task_breaker' ); ?> 
+				</strong>
+				<?php $core->task_priority_select(); ?>
 			</label>
 		</div>
 

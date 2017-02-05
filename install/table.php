@@ -13,9 +13,9 @@ define( 'TASK_BREAKER_TASKS_TABLE', 'task_breaker_tasks' );
 define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE', 'task_breaker_tasks_user_assignment' );
 define( 'TASK_BREAKER_COMMENTS_TABLE', 'task_breaker_comments' );
 
-define( 'TASK_BREAKER_TASKS_TABLE_VERSION', '1.2.04082016v3' );
-define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION', '1.0.1' );
-define( 'TASK_BREAKER_COMMENTS_TABLE_VERSION', '1.2.1122016v3' );
+define( 'TASK_BREAKER_TASKS_TABLE_VERSION', '1.2.02062017v4' );
+define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION', '1.2.02062017v4' );
+define( 'TASK_BREAKER_COMMENTS_TABLE_VERSION', '1.2.02062017v4' );
 
 function task_breaker_install() {
 
@@ -48,6 +48,7 @@ function task_breaker_import_thrive_intranet_data() {
  * @return void
  */
 function task_breaker_tasks_setup_table() {
+
 	global $wpdb;
 
 	$tasks_table_name = $wpdb->prefix . TASK_BREAKER_TASKS_TABLE;
@@ -64,7 +65,7 @@ function task_breaker_tasks_setup_table() {
   		project_id int(10) NOT NULL,
   		priority int(2) NOT NULL,
   		completed_by int(10) NOT NULL,
-  		date_created timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  		date_created datetime DEFAULT NULL
   		UNIQUE KEY (id)
 	) $charset_collate ;";
 
@@ -85,6 +86,7 @@ function task_breaker_tasks_setup_table() {
  * @return void
  */
 function task_breaker_comments_setup_table() {
+
 	global $wpdb;
 
 	$comments_table_name = $wpdb->prefix . TASK_BREAKER_COMMENTS_TABLE;
@@ -97,7 +99,7 @@ function task_breaker_comments_setup_table() {
 		  	user int(10) NOT NULL,
 		  	ticket_id int(10) NOT NULL,
 		  	status int(11) NOT NULL DEFAULT '0',
-		  	date_added timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  	date_created datetime DEFAULT NULL,
 		  	UNIQUE KEY (id)
 		) $charset_collate";
 
@@ -183,7 +185,7 @@ function task_breaker_tasks_user_assignment_setup_table() {
 		  	id int(10) NOT NULL AUTO_INCREMENT,
 		  	task_id int(10) NOT NULL,
 		  	member_id int(10) NOT NULL,
-		  	date_added timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  	date_created datetime DEFAULT NULL,
 		  	UNIQUE KEY (id)
 		) $charset_collate";
 

@@ -76,6 +76,10 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/project-notifications.php';
 // Require widgets file.
 require_once plugin_dir_path( __FILE__ ) . 'widgets/widgets.php';
 
+// Require the template tags.
+include_once plugin_dir_path( __FILE__ ) . 'core/template-tags.php';
+
+
 /**
  * TaskBreaker l10n callback.
  *

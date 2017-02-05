@@ -1,5 +1,6 @@
 <?php if ( empty( $args ) ) { return; } ?>
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
+<?php $core = new TaskBreakerCore(); ?>
 <?php
 if ( ! empty( $args->user ) ) {
 	// Only allow members who has an access view to view the task.
@@ -190,7 +191,10 @@ if ( ! empty( $args->user ) ) {
 				<div id="task-editor_update-priority" class="task_breaker-form-field">
 					<label for="task_breaker-task-priority-select" class="task_breaker-form-field">
 						<?php _e( 'Update Priority:', 'task_breaker' ); ?>
-						<?php task_breaker_task_priority_select( $select = absint( $args->priority ), $name = 'task_breaker-task-priority-update-select', $id = 'task_breaker-task-priority-update-select' );?>
+						<?php $core->task_priority_select( absint( $args->priority ), 
+							'task_breaker-task-priority-update-select', 
+							'task_breaker-task-priority-update-select' );
+						?>
 					</label>
 				</div>
 

@@ -1,4 +1,22 @@
 <?php
+/**
+ * This file is part of the TaskBreaker WordPress Plugin package.
+ *
+ * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskController
+ */
+if ( ! defined( 'ABSPATH') ) {
+	return;
+}
+/**
+ * TaskBreakerWidgets extends WP_Widget to implement custom Widgets for TaskBreaker
+ *
+ * @package TaskBreaker\TaskBreakerWidgets
+ */
 class TaskBreakerWidgets extends WP_Widget {
 
 	var $task_number = 5;

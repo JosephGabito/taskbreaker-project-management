@@ -57,14 +57,16 @@ class TaskBreakerProjectsComponent extends BP_Component {
 	 */
 	function __construct() {
 
-		$this->id = task_breaker_component_id();
+		$this->core = new TaskBreakerCore();
 
-		$this->name = task_breaker_component_name();
+		$this->id = $this->core->get_component_id();
+
+		$this->name = $this->core->get_component_name();
 
 		parent::start(
 			$this->id,
 			$this->name,
-			task_breaker_include_dir()
+			$this->core->get_include_directory()
 		);
 
 		$this->includes();

@@ -1,6 +1,5 @@
 <?php
 /**
- * @TODO TODO TODO
  * [task_breaker_bp_projects_load_template_filter description]
  * @param  [type] $found_template [description]
  * @param  [type] $templates      [description]
@@ -12,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function task_breaker_bp_projects_load_template_filter( $found_template, $templates ) {
+
+	$core = new TaskBreakerCore();
 
 	// Only filter the template location when we're on the bp-plugin component pages.
 	if ( ! bp_is_current_component( 'projects' ) ) {
@@ -38,7 +39,7 @@ function task_breaker_bp_projects_load_template_filter( $found_template, $templa
 
 		} else {
 
-			$filtered_templates[] = task_breaker_template_dir() . '/' . $template;
+			$filtered_templates[] = $core->get_template_directory() . '/' . $template;
 
 		}
 	}
@@ -103,12 +104,12 @@ add_action( 'bp_screens', 'task_breaker_bp_projects_screen_index' );
  * @return [type]            [description]
  */
 function bp_projects_add_template_stack( $templates ) {
-
+	$core = new TaskBreakerCore();
 	// if we're on a page of our plugin and the theme is not BP Default, then we
 	// add our path to the template path array
 	if ( bp_is_current_component( 'projects' ) && ! task_breaker_bp_projects_is_bp_default() ) {
 
-		$templates[] = task_breaker_template_dir();
+		$templates[] = $core->get_template_directory();
 	}
 	return $templates;
 }
