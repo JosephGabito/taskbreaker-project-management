@@ -141,7 +141,7 @@ final class Task_Breaker_BP_Mail_Register {
 
 	/**
 	 * Sends email to users when there is a new task assigned to them.
-	 * @param  mixed $task The object that contains the email tokens that we should passed to.
+	 * @param  mixed $task Contains the email tokens that we should passed to.
 	 * @return void
 	 */
 	function tb_new_task( $task ) {

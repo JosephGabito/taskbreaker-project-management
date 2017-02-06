@@ -68,7 +68,7 @@ class TaskBreakerTaskComment {
 	 * 
 	 * @var string
 	 */
-	private $date = '';
+	private $date_added = '';
 
 	/**
 	 * The object that will hold the wpdb class later on in construct.
@@ -235,8 +235,6 @@ class TaskBreakerTaskComment {
 				  );
 
 				 $type = $status_label[ $this->get_status() ];
-
-				 $action = sprintf( __( '%1$s %1$s the task: %1$s - ', 'task_breaker' ), $bp_user_link, $type, '#' . $this->ticket_id );
 
 				 if ( function_exists( 'groups_record_activity' ) ) {
 

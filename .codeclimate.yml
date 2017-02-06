@@ -20,3 +20,4 @@ exclude_paths:
   - assets/js/task-breaker.dev.js
   - assets/js/task-breaker.min.js
   - assets/js/task-breaker.min.js.map
+  

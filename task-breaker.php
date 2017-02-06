@@ -158,6 +158,34 @@ function task_breaker_deactivate_thrive_intranet() {
 	return;
 }
 
+
+class TaskBreaker {
+
+	public static function wpdb() {
+		
+		global $wpdb;
+
+		return $wpdb;
+
+	}
+
+	public static function get_post() {
+		
+		global $post;
+		
+		return $post;
+
+	}
+
+	public static function wpfilesystem() {
+		
+		global $wp_filesystem;
+		
+		return $wp_filesystem;
+
+	}
+}
+
 /**
  * Enable Github Updater.
  */
@@ -170,7 +198,6 @@ add_action( 'init', 'task_breaker_plugin_updater_init' );
  * @return void
  */
 function task_breaker_plugin_updater_init() {
-
 	/**
 	 * Do not trigger the updater script on ajax requests.
 	 */
@@ -205,14 +232,4 @@ function task_breaker_plugin_updater_init() {
 	return;
 }
 
-class TaskBreaker {
-	public static function wpdb() {
-		global $wpdb;
-			return $wpdb;
-	}
 
-	public static function get_post() {
-		global $post;
-			return $post;
-	}
-}

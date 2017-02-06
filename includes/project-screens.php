@@ -204,10 +204,9 @@ final class TaskBreakerProjectScreens {
 	 *
 	 * @param  string $templates The template name.
 	 * @param  string $slug      The template slug name.
-	 * @param  string $name      The template name.
 	 * @return array             The templates.
 	 */
-	public function task_breaker_bp_projects_user_template_part( $templates, $slug, $name ) {
+	public function task_breaker_bp_projects_user_template_part( $templates, $slug ) {
 
 		if ( 'members/single/plugins' !== $slug ) {
 
@@ -257,8 +256,6 @@ final class TaskBreakerProjectScreens {
 		echo '<div id="task_breaker-intranet-projects">';
 
 		$user_groups = $core->get_displayed_user_groups();
-
-		$current_user_groups = $core->get_current_user_owned_groups();
 
 		$groups_collection = array();
 

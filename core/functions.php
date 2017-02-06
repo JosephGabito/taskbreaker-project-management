@@ -176,8 +176,6 @@ class TaskBreakerCore {
 
 		$groups = array();
 
-		$bp_table = buddypress()->groups->table_name_members;
-
 		$user_id = get_current_user_id();
 
 		$group_results_stmt = "SELECT

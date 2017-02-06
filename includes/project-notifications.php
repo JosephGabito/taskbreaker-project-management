@@ -69,8 +69,6 @@ final class TaskBreakerNotifications {
 
 			$task = $core->get_task( $item_id );
 
-			$project = get_post( $task->project_id );
-
 			$secondary_item_user = get_user_by( 'id', absint( $secondary_item_id ) );
 
 			$secondary_item_user_name = $secondary_item_user->display_name;

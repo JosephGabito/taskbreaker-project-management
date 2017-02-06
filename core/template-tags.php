@@ -111,9 +111,9 @@ class TaskBreakerTemplate {
 
 		echo '<div id="task_breaker-task-list-canvas">';
 
-		$open_tasks_no     = $core->count_tasks( $project_id, $type = 'open' );
-		$completed_task_no = $core->count_tasks( $project_id, $type = 'completed' );
-		$all_tasks_no      = $core->count_tasks( $project_id, $type = 'all' );
+		$open_tasks_no     = $core->count_tasks( $project_id, 'open' );
+		$completed_task_no = $core->count_tasks( $project_id, 'completed' );
+		$all_tasks_no      = $core->count_tasks( $project_id, 'all' );
 
 		if ( ! empty( $search ) ) {
 
@@ -187,7 +187,6 @@ class TaskBreakerTemplate {
 			echo '</table>';
 
 			$total      = intval( $stats['total'] );
-			$perpage    = intval( $stats['perpage'] );
 			$total_page = intval( $stats['total_page'] );
 			$currpage   = intval( $stats['current_page'] );
 			$min_page	= intval( $stats['min_page'] );
@@ -322,10 +321,9 @@ class TaskBreakerTemplate {
 	 * The markup for our comments
 	 *
 	 * @param  array $args The arguments required to show to comments template.
-	 * @param  array $task The callback argument that you can use to get the task props.
 	 * @return string 		The comment template.
 	 */
-	function comments_template( $args = array(), $task = array() ) {
+	function comments_template( $args = array() ) {
 
 		ob_start();
 
@@ -419,8 +417,8 @@ class TaskBreakerTemplate {
 
 		if ( 0 === $project_id ) { return; }
 
-		$tasks_total = absint( $core->count_tasks( $project_id, $type = 'all' ) );
-		$tasks_completed  = absint( $core->count_tasks( $project_id, $type = 'completed' ) );
+		$tasks_total = absint( $core->count_tasks( $project_id, 'all' ) );
+		$tasks_completed  = absint( $core->count_tasks( $project_id, 'completed' ) );
 		$tasks_remaining = absint( $tasks_total - $tasks_completed );
 
 		if ( 0 !== $tasks_total ) {
@@ -554,7 +552,9 @@ class TaskBreakerTemplate {
 			'media_buttons' => false,
 		);
 
-		return wp_editor( $content, $editor_id = 'task_breakerProjectContent', $args );
+		$editor_id = 'task_breakerProjectContent';
+		
+		return wp_editor( $content, $editor_id, $args );
 
 	}
 

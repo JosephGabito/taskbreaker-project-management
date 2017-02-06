@@ -120,12 +120,15 @@ class TaskBreakerTransactions {
 
 		// Check if the method is allowed.
 		if ( in_array( $method, $allowed_callbacks, true ) ) {
+			
 			$needles = array(
 					'task_breaker_transaction_',
 					'task_breaker_transactions_',
 				);
+			
 			// Load the method.
 			$method = str_replace( '_', '-', str_replace( $needles, '', $method ) );
+
 			$method_module = trailingslashit( plugin_dir_path( __FILE__ ) ) . 'routes/' . sanitize_file_name( $method ) . '.php';
 
 			if ( file_exists( $method_module ) ) {

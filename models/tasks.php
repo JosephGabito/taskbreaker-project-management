@@ -462,7 +462,6 @@ class TaskBreakerTask {
 
 				$total     = $stats['total']	= $row_count;
 				$perpage   = $stats['perpage'] = $perpage;
-				$totalpage = $stats['total_page'] = ceil( $total / $perpage );
 				$currpage  = $stats['current_page'] = $currpage;
 				$min_page  = $stats['min_page'] = $min_page;
 				$max_page  = $stats['max_page'] = $max_page;
