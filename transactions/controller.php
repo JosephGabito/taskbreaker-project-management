@@ -1,131 +1,136 @@
 <?php
 /**
- * This file acts as an api for our admin-ajax requests.
+ * This file is part of the TaskBreaker WordPress Plugin package.
  *
- * @since  1.0
- * @author dunhakdis
+ * (c) Joseph G. <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskBreakerTransactions
  */
 
-// check if access directly
 if ( ! defined( 'ABSPATH' ) ) {   
 	return; 
 }
 
-$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
-
-// Try getting post request if $action is empty when getting request via 'get' method.
-if ( empty( $action ) ) {
-	$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
-}
-
-if ( 'task_breaker_transactions_request' !== $action ) {
-	return;
-}
-
-// Format our page header when Unit Testing
-if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
-
-	header( 'Content-Type: application/json; charset=utf-8' );
-
-} else {
-
-	// Hide warnings when running tests
-	header( 'Content-type:application/json; charset=utf-8' );
-
-}
-
-add_action( 'wp_ajax_task_breaker_transactions_request', 'task_breaker_transactions_callblack' );
-
 require_once plugin_dir_path( __FILE__ ) . '../controllers/tasks.php';
 
-/**
- * Executes the method or function requested by the client
- *
- * @return void
- */
-function task_breaker_transactions_callblack() {
+class TaskBreakerTransactions {
 
-	// Always check for nonce before proceeding...
-	$nonce = filter_input( INPUT_GET, 'nonce', FILTER_SANITIZE_STRING );
+	public function __construct() {
 
-	// If INPUT_GET is empty try input post
-	if ( empty( $nonce ) ) {
-
-		$nonce = filter_input( INPUT_POST, 'nonce', FILTER_SANITIZE_STRING );
+		add_action( 'wp_ajax_task_breaker_transactions_request', array( $this, 'transactions_callblack' ) );
 
 	}
 
-	if ( ! wp_verify_nonce( $nonce, 'task_breaker-transaction-request' ) ) {
+	public function prepare_request() {
 
-		echo __( 'Invalid Request. Your session has already expired (invalid nonce). Please go back and refresh your browser. Thanks!', 'task_breaker' );
-		return;
+		header( 'Content-type:application/json; charset=utf-8' );
+
+		$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+
+		// Try getting post request if $action is empty when getting request via 'get' method.
+		if ( empty( $action ) ) {
+			$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
+		}
+
+		// Bail out if action request is not 'task_breaker_transactions_request'.
+		if ( 'task_breaker_transactions_request' !== $action ) {
+			return;
+		}
 
 	}
 
-	$method = filter_input( INPUT_POST, 'method', FILTER_SANITIZE_ENCODED );
+	/**
+	 * Executes the method or function requested by the client
+	 *
+	 * @return void
+	 */
+	public function transactions_callblack() {
 
-	if ( empty( $method ) ) {
-		// try get action
-		$method = filter_input( INPUT_GET, 'method', FILTER_SANITIZE_ENCODED );
-	}
+		// Always check for nonce before proceeding...
+		$nonce = filter_input( INPUT_GET, 'nonce', FILTER_SANITIZE_STRING );
 
-	$allowed_callbacks = array(
-	// Tickets/Tasks callbacks
-	'task_breaker_transaction_add_ticket',
-	'task_breaker_transaction_delete_ticket',
-	'task_breaker_transaction_fetch_task',
-	'task_breaker_transaction_edit_ticket',
-	'task_breaker_transaction_complete_task',
-	'task_breaker_transaction_renew_task',
+		// If INPUT_GET is empty try input post
+		if ( empty( $nonce ) ) {
 
-	// Comments callback functions.
-	'task_breaker_transaction_add_comment_to_ticket',
-	'task_breaker_transaction_delete_comment',
+			$nonce = filter_input( INPUT_POST, 'nonce', FILTER_SANITIZE_STRING );
 
-	// Project callback functions.
-	'task_breaker_transactions_update_project',
-	'task_breaker_transactions_delete_project',
+		}
 
-	// Task autosuggest
-	'task_breaker_transactions_user_suggest',
-	);
+		if ( ! wp_verify_nonce( $nonce, 'task_breaker-transaction-request' ) ) {
 
-	if ( function_exists( $method ) ) {
-		if ( in_array( $method, $allowed_callbacks ) ) {
-			// execute the callback
-			$method();
+			echo __( 'Invalid Request. Your session has already expired (invalid nonce). Please go back and refresh your browser. Thanks!', 'task_breaker' );
+			return;
+
+		}
+
+		$method = filter_input( INPUT_POST, 'method', FILTER_SANITIZE_ENCODED );
+
+		if ( empty( $method ) ) {
+			// try get action
+			$method = filter_input( INPUT_GET, 'method', FILTER_SANITIZE_ENCODED );
+		}
+
+		$allowed_callbacks = array(
+		// Tickets/Tasks callbacks
+		'task_breaker_transaction_add_ticket',
+		'task_breaker_transaction_delete_ticket',
+		'task_breaker_transaction_fetch_task',
+		'task_breaker_transaction_edit_ticket',
+		'task_breaker_transaction_complete_task',
+		'task_breaker_transaction_renew_task',
+
+		// Comments callback functions.
+		'task_breaker_transaction_add_comment_to_ticket',
+		'task_breaker_transaction_delete_comment',
+
+		// Project callback functions.
+		'task_breaker_transactions_update_project',
+		'task_breaker_transactions_delete_project',
+
+		// Task autosuggest
+		'task_breaker_transactions_user_suggest',
+		);
+
+		if ( function_exists( $method ) ) {
+			if ( in_array( $method, $allowed_callbacks ) ) {
+				// execute the callback
+				$method();
+			} else {
+				task_breaker_api_message(
+					array(
+					'message' => 'method is not listed in the callback',
+					)
+				);
+			}
 		} else {
 			task_breaker_api_message(
 				array(
-				'message' => 'method is not listed in the callback',
+				'message' => 'method not allowed or method does not exists',
 				)
 			);
 		}
-	} else {
-		task_breaker_api_message(
+
+		$this->task_breaker_api_message(
 			array(
-			'message' => 'method not allowed or method does not exists',
+			'message' => 'transaction callback executed',
 			)
 		);
 	}
 
-	task_breaker_api_message(
-		array(
-		'message' => 'transaction callback executed',
-		)
-	);
+	public function task_breaker_api_message( $args = array() ) {
+	
+		echo json_encode( $args );
+
+		wp_die();
+
+	}
 }
 
-function task_breaker_api_message( $args = array() ) {
-	
-	// Added @ to server php 7
-	header( 'Content-type: application/json' );
-	
-	echo json_encode( $args );
+//@todo...
 
-	wp_die();
-
-}
 
 function task_breaker_transaction_add_ticket() {
 

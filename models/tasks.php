@@ -407,7 +407,7 @@ class TaskBreakerTask {
 				$filters .= "{$funnel['column']} {$funnel['operand']} {$funnel['value']} AND ";
 
 			}
-			// echo $filters;
+
 			$filters = substr( $filters, 0, strlen( $filters ) - 4 );
 
 			// limit claused

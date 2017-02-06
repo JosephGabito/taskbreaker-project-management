@@ -90,7 +90,8 @@ class TaskBreakerWidgets extends WP_Widget {
 									array( 'type' => 'second', 'value' => $time_since->s )
 								);
 								echo 'added ';
-								for( $y = 0; $y < count( $time_since_stack ); $y ++ ) {
+								$tsstack_length = count( $time_since_stack );
+								for( $y = 0; $y < $tsstack_length; $y ++ ) {
 									if ( $time_since_stack[$y]['value'] > 0 ) {
 										echo $time_since_stack[$y]['value'] . ' ' . $time_since_stack[$y]['type'];
 										if ( $time_since_stack[$y]['value'] >1 ) {

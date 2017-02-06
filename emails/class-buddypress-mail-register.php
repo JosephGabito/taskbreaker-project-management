@@ -141,10 +141,10 @@ final class Task_Breaker_BP_Mail_Register {
 
 	/**
 	 * Sends email to users when there is a new task assigned to them.
-	 * @param  object $task_object The object that contains the email tokens that we should passed to.
+	 * @param  mixed $task The object that contains the email tokens that we should passed to.
 	 * @return void
 	 */
-	function tb_new_task( $task_object ) {
+	function tb_new_task( $task ) {
 
 		// Bail out if notifications are disabled or BP version does not support e-mail api.
 		if ( ! function_exists( 'bp_send_email' ) ) {
@@ -155,13 +155,13 @@ final class Task_Breaker_BP_Mail_Register {
 		$args = array(
 				'tokens' => array(
 						'site.name' => get_bloginfo( 'name' ),
-						'task.url' => $task_object->task_url
+						'task.url' => $task->task_url
 					)
 			);
 
-		if ( ! empty( $task_object->task_assigned_members ) ) {
+		if ( ! empty( $task->task_assigned_members ) ) {
 
-			foreach( $task_object->task_assigned_members as $user_assigned_id ) {
+			foreach( $task->task_assigned_members as $user_assigned_id ) {
 
 				$user_id = absint( $user_assigned_id );
 
@@ -194,10 +194,10 @@ final class Task_Breaker_BP_Mail_Register {
 	}
 	/**
 	 * Sends email to user assigned when there is a new comment
-	 * @param  object $task_comment_object Callback parameter for 'tb_new_task_comment' action
+	 * @param  mixed $task_comment Callback parameter for 'tb_new_task_comment' action
 	 * @return void
 	 */
-	function tb_new_task_comment( $task_comment_object ) {
+	function tb_new_task_comment( $task_comment ) {
 		
 		// Bail out if notifications are disabled or BP version does not support e-mail api.
 		if ( ! function_exists( 'bp_send_email' ) ) {
@@ -208,15 +208,15 @@ final class Task_Breaker_BP_Mail_Register {
 		$args = array(
 		        'tokens' => array(
 		        'site.name' => get_bloginfo( 'name' ),
-		        'task.url' => $task_comment_object->task_url,
-		        'user.url' => $task_comment_object->user_url,
-		        'user.display_name' => $task_comment_object->user_display_name,
+		        'task.url' => $task_comment->task_url,
+		        'user.url' => $task_comment->user_url,
+		        'user.display_name' => $task_comment->user_display_name,
 		  	),
 		);
 
-        if ( !empty( $task_comment_object->user_assigned ) ) {
+        if ( !empty( $task_comment->user_assigned ) ) {
 
-            foreach ( $task_comment_object->user_assigned as $user_assigned ) {
+            foreach ( $task_comment->user_assigned as $user_assigned ) {
 
                 // Send args and user ID to receive email.
                 $user_id = absint( $user_assigned->member_id );
