@@ -359,15 +359,15 @@ class TaskBreakerThemeCompatibility {
 	public function directory_dummy_post() {
 		bp_theme_compat_reset_post(
 			array(
-			'ID'             => 0,
-			'post_title'     => apply_filters( 'task_breaker_projects_dir_title', __( 'Projects Directory', 'task_breaker' ) ),
-			'post_author'    => 0,
-			'post_date'      => 0,
-			'post_content'   => '',
-			'post_type'      => 'bp_projects',
-			'post_status'    => 'publish',
-			'is_archive'     => true,
-			'comment_status' => 'closed',
+				'ID'             => 0,
+				'post_title'     => apply_filters( 'task_breaker_projects_dir_title', __( 'Projects Directory', 'task_breaker' ) ),
+				'post_author'    => 0,
+				'post_date'      => 0,
+				'post_content'   => '',
+				'post_type'      => 'project',
+				'post_status'    => 'publish',
+				'is_archive'     => true,
+				'comment_status' => 'closed',
 			)
 		);
 	}

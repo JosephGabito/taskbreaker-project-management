@@ -197,13 +197,7 @@ class TaskBreakerTaskComment {
 			'date_added' => $this->date_added
 		 );
 
-		$formats = array(
-			'%s', // The format for details.,
-			'%d', // The format for user.
-			'%d', // The format for ticket_id.
-			'%d', // The format for status.
-			'%s', // The format for date_added.
-		 );
+		$formats = array( '%s', '%d','%d', '%d',  '%s' );
 
 		$insert_comments = $this->dbase->insert( $table, $data, $formats ); // Db call ok.
 
@@ -228,11 +222,7 @@ class TaskBreakerTaskComment {
 				   	__( 'reopened', 'task_breaker' ),
 				  );
 
-				 $status_content_label = array(
-				   	__( 'Updated', 'task_breaker' ),
-				   	__( 'Completed', 'task_breaker' ),
-				   	__( 'Reopened', 'task_breaker' ),
-				  );
+				 $status_content_label = array( __( 'Updated', 'task_breaker' ), __( 'Completed', 'task_breaker' ), __( 'Reopened', 'task_breaker' ) );
 
 				 $type = $status_label[ $this->get_status() ];
 

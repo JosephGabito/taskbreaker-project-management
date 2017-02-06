@@ -423,7 +423,7 @@ if ( ! class_exists( 'WP_GitHub_Updater' ) ) {
 		  * @return object $response the plugin info
 		  */
 		public function get_plugin_info( $false, $action, $response ) {
-
+			
 			// Check if this call API is for the right plugin
 			if ( ! isset( $response->slug ) || $response->slug != $this->config['slug'] ) {
 				return false;

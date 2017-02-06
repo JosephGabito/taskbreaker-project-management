@@ -460,7 +460,6 @@ class TaskBreakerTask {
 
 				$stats = array();
 
-				$total     = $stats['total']	= $row_count;
 				$perpage   = $stats['perpage'] = $perpage;
 				$currpage  = $stats['current_page'] = $currpage;
 				$min_page  = $stats['min_page'] = $min_page;
