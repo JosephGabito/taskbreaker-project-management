@@ -115,7 +115,7 @@ var __ThriveProjectView = Backbone.View.extend({
     single: function(ticket_id) {
         this.progress(true);
         var __this = this;
-        this.template = 'task_breaker_ticket_single';
+        this.template = 'single_task_index';
         // load the task
         this.renderTask(function( response ) {
 
@@ -251,7 +251,7 @@ var __ThriveProjectView = Backbone.View.extend({
                 page: this.model.page,
                 search: this.search,
                 priority: this.model.priority,
-                template: 'task_breaker_the_tasks',
+                template: 'render_tasks',
                 show_completed: this.model.show_completed,
                 nonce: task_breakerProjectSettings.nonce
             },

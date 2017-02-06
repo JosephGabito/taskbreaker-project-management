@@ -9,23 +9,25 @@
  *
  * @package TaskBreaker\TaskController
  */
-
+if ( ! defined( 'ABSPATH') ) {
+	return;
+}
 /**
- * Manually include the ThriveProjectTasksController dependency.
+ * Manually include the TaskBreakerTasksController dependency.
  */
 require_once plugin_dir_path( __FILE__ ) . '../models/tasks.php';
 
 /**
- * ThriveProjectTasksController class is a Singleton object
+ * TaskBreakerTasksController class is a Singleton object
  * that handles the request coming from Transactions Controller
  * and delegates the task to the right methods. This class uses
- * ThriveProjectTasksModel methods to add, edit, delete, and display tasks
+ * TaskBreakerTask methods to add, edit, delete, and display tasks
  *
  * @since    1.0 Early Plugin Release
  * @author   Joseph G. [joseph@useissuestabinstead.com]
  * @version  1.0
  */
-class ThriveProjectTasksController extends ThriveProjectTasksModel {
+class TaskBreakerTasksController extends TaskBreakerTask {
 
 	/**
 	 * Class constructor.
@@ -49,7 +51,7 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 
 		if ( null === $instance ) {
 
-			$instance = new ThriveProjectTasksController();
+			$instance = new TaskBreakerTasksController();
 
 		}
 
@@ -112,12 +114,14 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 	 */
 	public function deleteTask( $id = 0, $project_id = 0 ) {
 
+		$user_access = TaskBreakerCT::get_instance();
+
 		// Return false if there is no id specified.
 		if ( 0 === $id ) {
 			return false;
 		}
 
-		if ( ! task_breaker_can_delete_task( $project_id ) ) {
+		if ( ! $user_access->can_delete_task( $project_id ) ) {
 			return false;
 		}
 
@@ -134,8 +138,10 @@ class ThriveProjectTasksController extends ThriveProjectTasksModel {
 	 */
 	public function updateTask( $id = 0, $args = array() ) {
 
+		$user_access = TaskBreakerCT::get_instance();
+
 		// Make sure the current user is able to update the task.
-		if ( ! task_breaker_can_update_task( $args['project_id'] ) ) {
+		if ( ! $user_access->can_update_task( $args['project_id'] ) ) {
 
 			return false;
 

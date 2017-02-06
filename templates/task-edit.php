@@ -1,8 +1,26 @@
-<?php global $post; ?>
+<?php
+/**
+ * This file is part of the TaskBreaker WordPress Plugin package.
+ *
+ * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskBreakerCore
+ */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	return;
+}
+?>
+
+<?php $user_access = TaskBreakerCT::get_instance(); ?>
+<?php $__post = TaskBreaker::get_post(); ?>
+<?php $core = new TaskBreakerCore(); ?>
 <div id="task-breaker-task-edit-form" class="form-wrap">
 
-	<?php if ( task_breaker_can_update_task( $post->ID ) ) { ?>
+	<?php if ( $user_access->can_update_task( $__post->ID ) ) { ?>
 
 		<div id="task_breaker-edit-task-message" class="task_breaker-notifier"></div>
 
@@ -38,11 +56,7 @@
 					<?php _e( 'Priority:', 'task_breaker' ); ?>
 				</strong>
 				<?php
-					echo task_breaker_task_priority_select(
-							$default = 1,
-							$name = 'task_breaker-task-edit-priority',
-							$id = 'task_breaker-task-edit-select-id'
-						);
+					$core->task_priority_select( 1, 'task_breaker-task-edit-priority', 'task_breaker-task-edit-select-id' );
 				?>
 			</label>
 		</div>

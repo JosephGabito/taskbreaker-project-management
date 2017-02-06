@@ -1,8 +1,12 @@
 <?php $tasks = &$args; ?>
 
-<?php $task_breaker_tasks = ThriveProjectTasksController::get_instance(); ?>
+<?php $task_breaker_tasks = TaskBreakerTasksController::get_instance(); ?>
 
-<?php if ( task_breaker_can_see_project_tasks( intval( $tasks['project_id'] ) ) ) { ?>
+<?php $core = new TaskBreakerCore(); ?>
+
+<?php $task_user_access = TaskBreakerCT::get_instance(); ?>
+
+<?php if ( $task_user_access->can_see_project_tasks( intval( $tasks['project_id'] ) ) ) { ?>
 
 	<?php if ( ! empty( $tasks['results'] ) ) { ?>
 
@@ -47,7 +51,7 @@
 
 							<div class="task-members">
 								<?php
-									$assign_users = task_breaker_parse_assigned_users( $task->assign_users );
+									$assign_users = $core->parse_assigned_users( $task->assign_users );
 								?>
 								<?php $assigned_users_count = count( $assign_users ); ?>
 								<?php $assigned_users_limit = 4; ?>

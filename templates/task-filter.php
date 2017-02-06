@@ -1,20 +1,33 @@
 <?php
 /**
- * This file handles the filter for tasks
+ * This file is part of the TaskBreaker WordPress Plugin package.
  *
- * @since 1.0
+ * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskBreakerCore
  */
 
-global $post;
+if ( ! defined( 'ABSPATH' ) ) {
+	return;
+}
+
+$__post = TaskBreaker::get_post();
+
+$core = new TaskBreakerCore();
 
 // Total tasks.
-$total = intval( task_breaker_count_tasks( $post->ID ) );
+$total = intval( $core->count_tasks( $__post->ID ) );
 
 // Completed tasks.
-$completed = intval( task_breaker_count_tasks( $post->ID, $type = 'completed' ) );
+$completed = intval( $core->count_tasks( $__post->ID, $type = 'completed' ) );
 
 // Remaining Tasks.
 $remaining = absint( $total - $completed );
+
+$user_access = TaskBreakerCT::get_instance();
 ?>
 	<div id="task_breaker-tasks-filter">
 		<div class="clearfix">
@@ -38,7 +51,7 @@ $remaining = absint( $total - $completed );
 							</span>
 						</a>
 					</li>
-					<?php if ( task_breaker_can_update_task( $post->ID ) ) { ?>
+					<?php if ( $user_access->can_update_task( $__post->ID ) ) { ?>
 					<li id="task_breaker-task-add-tab" class="task_breaker-task-tabs"><a href="#tasks/add">
 						<span class="dashicons dashicons-plus"></span>
 							<?php esc_html_e('Create New Task', 'task_breaker'); ?>

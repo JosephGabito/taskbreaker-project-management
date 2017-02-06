@@ -1,9 +1,12 @@
 <?php if ( empty( $args ) ) { return; } ?>
+<?php $user_access = TaskBreakerCT::get_instance(); ?>
+<?php $core = new TaskBreakerCore(); ?>
+<?php $template = new TaskBreakerTemplate(); ?>
 
 <?php
 if ( ! empty( $args->user ) ) {
 	// Only allow members who has an access view to view the task.
-	if ( ! task_breaker_can_see_project_tasks( $args->project_id ) ) { ?>
+	if ( ! $user_access->can_see_project_tasks( $args->project_id ) ) { ?>
 
 		<div id="task_breaker-single-task">
 			<p class="info" id="message">
@@ -63,7 +66,7 @@ if ( ! empty( $args->user ) ) {
 						<?php esc_attr_e( 'This task is assigned to:', 'task_breaker' ); ?>
 					</h5>
 					<?php
-						$assign_users = task_breaker_parse_assigned_users( $args->assign_users );
+						$assign_users = $core->parse_assigned_users( $args->assign_users );
 					?>
 					<ul class="task-members-items">
 						<?php foreach ( $assign_users as $assign_user ) { ?>
@@ -85,11 +88,9 @@ if ( ! empty( $args->user ) ) {
 						<?php _e( '&larr; Tasks List', 'task_breaker' ); ?>
 					</a>
 
-					<?php if ( task_breaker_can_update_task( $args->project_id ) ) { ?>
 						<a href="#tasks/edit/<?php echo intval( $args->id ); ?>" class="button">
 							<?php _e( 'Edit', 'task_breaker' ); ?>
 						</a>
-					<?php } ?>
 				</div>
 
 				<div class="clearfix"></div>
@@ -106,17 +107,17 @@ if ( ! empty( $args->user ) ) {
 				</h3>
 			</li>
 
-			<?php $comments = task_breaker_get_tasks_comments( $args->id ); ?>
+			<?php $comments = $core->get_tasks_comments( $args->id ); ?>
 
 			<?php if ( ! empty( $comments ) ) { ?>
 				<?php foreach ( $comments as $comment ) { ?>
-					<?php echo task_breaker_comments_template( $comment, (array) $args ); ?>
+					<?php echo $template->comments_template( $comment, (array) $args ); ?>
 				<?php } ?>
 			<?php } ?>
 
 		</ul><!--#task-lists-->
 
-		<?php if ( task_breaker_can_add_task_comment( $args->project_id, $args->task_id ) ) { ?>
+		<?php if ( $user_access->can_add_task_comment( $args->project_id, $args->id ) ) { ?>
 
 			<div id="task-editor">
 				<div id="task-editor_update-status" class="task_breaker-form-field">
@@ -192,7 +193,10 @@ if ( ! empty( $args->user ) ) {
 				<div id="task-editor_update-priority" class="task_breaker-form-field">
 					<label for="task_breaker-task-priority-select" class="task_breaker-form-field">
 						<?php _e( 'Update Priority:', 'task_breaker' ); ?>
-						<?php task_breaker_task_priority_select( $select = absint( $args->priority ), $name = 'task_breaker-task-priority-update-select', $id = 'task_breaker-task-priority-update-select' );?>
+						<?php $core->task_priority_select( absint( $args->priority ), 
+							'task_breaker-task-priority-update-select', 
+							'task_breaker-task-priority-update-select' );
+						?>
 					</label>
 				</div>
 

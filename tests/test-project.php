@@ -8,7 +8,7 @@ class ThriveProjectTest extends WP_UnitTestCase {
 	public function testSaveShouldReturnFalseIfTitleAndContentAndGroupIdIsEmpty() {
 
 		// Setup.
-		$a = new ThriveProject();
+		$a = new TaskBreakerProject();
 
 		// Popular Some Data
 		$a->set_title( '' )
@@ -22,7 +22,7 @@ class ThriveProjectTest extends WP_UnitTestCase {
 
 	public function testSaveShouldReturnTrueIfDataIsPopulated() {
 
-		$project = new ThriveProject();
+		$project = new TaskBreakerProject();
 
 		$project->set_title( 'Hello TestCase' )
 			->set_content( "I'm a new TestCase." )
@@ -35,7 +35,7 @@ class ThriveProjectTest extends WP_UnitTestCase {
 
 	public function testDeleteShouldReturnFalseWhenIdIsEmpty() {
 
-		$project = new ThriveProject();
+		$project = new TaskBreakerProject();
 
 		$project->set_id( 0 );
 
@@ -44,7 +44,7 @@ class ThriveProjectTest extends WP_UnitTestCase {
 
 	public function testDeleteShouldReturnTrueWhenIdIsProvided() {
 
-		$project = new ThriveProject();
+		$project = new TaskBreakerProject();
 
 		$post_id = $this->factory->post->create(
 			array(

@@ -10,7 +10,7 @@
  *
  * The structure of our comments object
  */
-class ThriveComments {
+class TaskBreakerTaskComment {
 
 
 	/**
@@ -63,6 +63,20 @@ class ThriveComments {
 	 */
 	private $model = '';
 
+	/**
+	 * The date added
+	 * 
+	 * @var string
+	 */
+	private $date_added = '';
+
+	/**
+	 * The object that will hold the wpdb class later on in construct.
+	 * 
+	 * @var string
+	 */
+	private $dbase = '';
+
 	// Set allowed status.
 	// 0 for 'In Progress'
 	// 1 for 'Completed'
@@ -75,10 +89,9 @@ class ThriveComments {
 	 * @return object self
 	 */
 	public function __construct() {
-		global $wpdb;
-		$this->model = $wpdb->prefix . 'task_breaker_comments';
+		$this->dbase = TaskBreaker::wpdb();
+		$this->model = $this->dbase->prefix . 'task_breaker_comments';
 		$this->date_added = date( 'Y-m-d g:i:s' );
-
 	}
 
 	/**
@@ -169,35 +182,28 @@ class ThriveComments {
 	 */
 	public function save() {
 
-		if ( empty( $this->user ) ) { return false;
-		}
+		if ( empty( $this->user ) ) { return false; }
 
-		if ( empty( $this->ticket_id ) ) { return false;
-		}
-
-		global $wpdb;
+		if ( empty( $this->ticket_id ) ) { return false; }
 
 		$table = $this->model;
+		$core = new TaskBreakerCore();
 
 		$data = array(
-		  'details' => $this->details,
-		  'user' => $this->user,
-		  'ticket_id' => $this->ticket_id,
-		  'status' => $this->get_status(),
+			'details' => $this->details,
+			'user' => $this->user,
+			'ticket_id' => $this->ticket_id,
+			'status' => $this->get_status(),
+			'date_added' => $this->date_added
 		 );
 
-		$formats = array(
-		  '%s', // The format for details.,
-		  '%d', // The format for user.
-		  '%d', // The format for ticket_id.
-		  '%d', // The format for status.
-		 );
+		$formats = array( '%s', '%d','%d', '%d',  '%s' );
 
-		$insert_comments = $wpdb->insert( $table, $data, $formats ); // Db call ok.
+		$insert_comments = $this->dbase->insert( $table, $data, $formats ); // Db call ok.
 
 		if ( $insert_comments ) {
 
-			$last_insert_id = $wpdb->insert_id;
+			$last_insert_id = $this->dbase->insert_id;
 
 			// Add new activity. Check if buddypress is active first
 			if ( function_exists( 'bp_activity_add' ) ) {
@@ -211,26 +217,20 @@ class ThriveComments {
 				}
 
 				 $status_label = array(
-				   __( 'posted a new update in', 'task_breaker' ),
-				   __( 'completed', 'task_breaker' ),
-				   __( 'reopened', 'task_breaker' ),
+				  	__( 'posted a new update in', 'task_breaker' ),
+				   	__( 'completed', 'task_breaker' ),
+				   	__( 'reopened', 'task_breaker' ),
 				  );
 
-				 $status_content_label = array(
-				   __( 'Updated', 'task_breaker' ),
-				   __( 'Completed', 'task_breaker' ),
-				   __( 'Reopened', 'task_breaker' ),
-				  );
+				 $status_content_label = array( __( 'Updated', 'task_breaker' ), __( 'Completed', 'task_breaker' ), __( 'Reopened', 'task_breaker' ) );
 
 				 $type = $status_label[ $this->get_status() ];
 
-				 $action = sprintf( __( '%1$s %1$s the task: %1$s - ', 'task_breaker' ), $bp_user_link, $type, '#' . $this->ticket_id );
-
 				 if ( function_exists( 'groups_record_activity' ) ) {
 
-						  $project = task_breaker_get_task( absint( $this->ticket_id ) );
+						  $project = $core->get_task( absint( $this->ticket_id ) );
 
-						  $group_id = task_breaker_get_project_group_id( absint( $project->project_id ) );
+						  $group_id = $core->get_project_group_id( absint( $project->project_id ) );
 
 						  $group_link_template = '';
 
@@ -286,8 +286,8 @@ class ThriveComments {
 						    $new_task_comment_object->user_assigned = new stdClass;
 
 						    // Get all the assigned users.
-						    $users_assigned = $wpdb->get_results( $wpdb->prepare(
-						    		"SELECT task_id, member_id FROM {$wpdb->prefix}task_breaker_tasks_user_assignment WHERE task_id = %d",
+						    $users_assigned = $this->dbase->get_results( $this->dbase->prepare(
+						    		"SELECT task_id, member_id FROM {$this->dbase->prefix}task_breaker_tasks_user_assignment WHERE task_id = %d",
 						    		$this->ticket_id
 						    ), OBJECT );
 
@@ -358,7 +358,7 @@ class ThriveComments {
 	 */
 	public function fetch( $comment_id = 0, $task_id = 0 ) {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		// Make sure $comment_id and $task_id are integer and non-negative value.
 		$comment_id = absint( $comment_id );
@@ -368,12 +368,12 @@ class ThriveComments {
 
 		if ( $comment_id === 0 ) {
 			$stmt = sprintf( "SELECT * FROM $this->model WHERE task_id = %d ORDER BY dated_added DESC;", $task_id );
-			$results = $wpdb->get_results( $stmt, 'ARRAY_A' );
+			$results = $dbase->get_results( $stmt, 'ARRAY_A' );
 		}
 
 		if ( $comment_id !== 0 ) {
 			$stmt = sprintf( "SELECT * FROM $this->model WHERE id = %d;", $comment_id );
-			$results = $wpdb->get_row( $stmt, 'ARRAY_A' );
+			$results = $dbase->get_row( $stmt, 'ARRAY_A' );
 		}
 
 		if ( ! empty( $results ) ) {
@@ -391,7 +391,7 @@ class ThriveComments {
 	 */
 	public function delete() {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		if ( empty( $this->id ) ) {
 			return false;
@@ -400,7 +400,7 @@ class ThriveComments {
 		// Check if current user can delete the requested comment.
 		if ( $this->current_user_can_delete() ) {
 
-			$_delete_comment = $wpdb->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
+			$_delete_comment = $dbase->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
 
 			 return $_delete_comment;
 
@@ -425,7 +425,7 @@ class ThriveComments {
 	 */
 	public function current_user_can_delete() {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		$comment_id = absint( $this->id );
 
@@ -442,7 +442,7 @@ class ThriveComments {
 		// Only allow the same user to delete his own comment.
 		$current_user_id = get_current_user_id();
 
-		$comment_user = $wpdb->get_var( "SELECT user FROM $this->model WHERE id = $comment_id" ); // Db call ok; no-cache pass.
+		$comment_user = $dbase->get_var( "SELECT user FROM $this->model WHERE id = $comment_id" ); // Db call ok; no-cache pass.
 		
 		$comment_user = absint( $comment_user );
 

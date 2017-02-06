@@ -1,8 +1,27 @@
-<?php global $post; ?>
+<?php
+/**
+ * This file is part of the TaskBreaker WordPress Plugin package.
+ *
+ * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskBreakerCore
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	return;
+}
+?>
+
+<?php $user_access = TaskBreakerCT::get_instance(); ?>
+<?php $__post = TaskBreaker::get_post(); ?>
+<?php $core = new TaskBreakerCore(); ?>
 
 <div class="form-wrap">
 
-	<?php if ( task_breaker_can_add_task( $post->ID ) ) { ?>
+	<?php if ( $user_access->can_add_task( $__post->ID ) ) { ?>
 
 		<div id="task_breaker-add-task-message" class="task_breaker-notifier"></div>
 
@@ -30,13 +49,16 @@
 			);
 		?>
 
-	<?php echo wp_editor( $content = null, $editor_id = 'task_breakerTaskDescription', $args ); ?>
+		<?php echo wp_editor( $content = null, $editor_id = 'task_breakerTaskDescription', $args ); ?>
+
 		</div>
 
 		<div class="task_breaker-form-field">
 			<label for="task_breaker-task-priority-select">
-				<strong><?php _e( 'Priority:', 'task_breaker' ); ?> </strong>
-				<?php echo task_breaker_task_priority_select(); ?>
+				<strong>
+					<?php _e( 'Priority:', 'task_breaker' ); ?> 
+				</strong>
+				<?php $core->task_priority_select(); ?>
 			</label>
 		</div>
 

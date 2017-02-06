@@ -984,6 +984,12 @@
 	margin: 15px 0;
 }
 
+.task_breaker-form-field textarea#task_breaker-project-content,
+.task_breaker-form-field textarea {
+	padding-top: 7.5px;
+	padding-bottom: 5px;
+}
+
 .task_breaker-form-field label[for=task_breaker-task-priority-select] {
 	padding: 10px 15px;
     background: #f9f9f9;

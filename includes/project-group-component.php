@@ -1,33 +1,49 @@
 <?php
 /**
  * Extends the BP_Group_Extension to create new 'Project' component.
+ *
+ * @since  1.0 Initial Release
+ * @package TaskBreaker\TaskBreakerProjectsGroupExtension
  */
-if ( ! class_exists( 'BP_Group_Extension' ) ) { return;
+
+if ( ! class_exists( 'BP_Group_Extension' ) ) {
+	return;
 }
 
-class Task_Breaker_Projects_Group extends BP_Group_Extension {
-
+/**
+ * Extends BuddyPress Group Extension
+ *
+ * @package TaskBreaker\TaskBreakerProjectGroupExtension
+ */
+class TaskBreakerProjectsGroupExtension extends BP_Group_Extension {
 
 	/**
-	 * Here you can see more customization of the config options
+	 * Configures the Project Settings inside the Group.
+	 *
+	 * @return  void
 	 */
 	function __construct() {
+
 		$args = array(
-		 'slug' => 'projects',
-		 'name' => 'Projects',
-		 'nav_item_position' => 105,
-		 'screens' => array(
-		  'edit' => array(
-		'name' => 'Projects',
-		// Changes the text of the Submit button.
-		'submit_text' => 'Submit, submit',
-		  ),
-		  'create' => array(
-		   'position' => 100,
-		  ),
-		 ),
+			'slug' => 'projects',
+			'name' => __( 'Projects', 'task_breaker' ),
+			'nav_item_position' => 105,
+			'screens' => array(
+			'edit' => array(
+					'name' => 'Projects',
+					// Changes the text of the Submit button.
+					'submit_text' => 'Submit, submit',
+				),
+		  	'create' => array(
+		   			'position' => 100,
+				),
+			),
 		);
+
 		parent::init( $args );
+
+		return;
+
 	}
 
 	/**
@@ -40,26 +56,27 @@ class Task_Breaker_Projects_Group extends BP_Group_Extension {
 
 		do_action( 'task_breaker_before_projects_archive' );
 
-		$group_id = bp_get_group_id(); ?>
+		$group_id = bp_get_group_id(); 
 
-		 <h3>
-			<?php esc_html_e( 'Projects', 'task_breaker' ); ?>
-		 </h3>
+		$template = new TaskBreakerTemplate();
+		?>
 
-		 <div id="task_breaker-intranet-projects">
+		<h3><?php esc_html_e( 'Projects', 'task_breaker' ); ?></h3>
 
-			<?php task_breaker_new_project_modal( $group_id ); ?>
+		<div id="task_breaker-intranet-projects">
+
+			<?php $template->display_new_project_modal( $group_id ); ?>
 
 			<?php
-			$args = array(
-			'meta_key'   => 'task_breaker_project_group_id',
-			'meta_value' => absint( $group_id ),
-			);
+				$args = array(
+					'meta_key'   => 'task_breaker_project_group_id',
+					'meta_value' => absint( $group_id ),
+				);
 			?>
 
-			<?php task_breaker_project_loop( $args ); ?>
+			<?php $template->display_project_loop( $args ); ?>
 
-		 </div>
+		</div>
 
 		<?php
 
@@ -70,4 +87,4 @@ class Task_Breaker_Projects_Group extends BP_Group_Extension {
 
 }
 
-bp_register_group_extension( 'Task_Breaker_Projects_Group' );
+bp_register_group_extension( 'TaskBreakerProjectsGroupExtension' );

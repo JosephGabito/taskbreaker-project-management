@@ -1,10 +1,33 @@
+<?php
+/**
+ * This file is part of the TaskBreaker WordPress Plugin package.
+ *
+ * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskBreakerCore
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	return;
+}
+?>
+
 <?php if ( bp_is_active( 'groups' ) ) { ?>
+
+<?php $user_access = TaskBreakerCT::get_instance(); ?>
+
+<?php $__post = TaskBreaker::get_post(); ?>
+
+<?php $core = new TaskBreakerCore(); ?>
 
 	<div id="task_breaker-project">
 
-		<?php if ( task_breaker_can_view_project( $args->ID ) ) { ?>
+		<?php if ( $user_access->can_view_project( $args->ID ) ) { ?>
 
-			<?php include task_breaker_template_dir() . '/project-heading.php'; ?>
+			<?php include $core->get_template_directory() . '/project-heading.php'; ?>
 			
 			<div class="task_breaker-project-tabs">
 
@@ -29,7 +52,7 @@
 							<?php esc_html_e( 'Edit', 'task-breaker' ); ?>
 						</a>
 					</li>
-					<?php if ( task_breaker_can_edit_project( $post->ID ) ) { ?>
+					<?php if ( $user_access->can_edit_project( $__post->ID ) ) { ?>
 						<li class="task_breaker-project-tab-li-item">
 							<a data-content="task_breaker-project-settings" class="task_breaker-project-tab-li-item-a" href="#tasks/settings">
 								<?php esc_html_e( 'Settings', 'task-breaker' ); ?>
@@ -41,8 +64,8 @@
 			</div><!--.task_breaker-project-tabs-->
 			<div id="task_breaker-project-tab-content">
 				<?php
-					if ( $post->post_type === 'project' ) {
-						include task_breaker_template_dir() . '/project.php';
+					if ( $__post->post_type === 'project' ) {
+						include $core->get_template_directory() . '/project.php';
 					}
 				?>
 			</div>

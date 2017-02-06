@@ -19,7 +19,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit();
+	return;
 }
 
 /**
@@ -42,6 +42,8 @@ define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
 define( 'TASK_BREAKER_PROJECT_SLUG', 'project' );
 
 define( 'TASK_BREAKER_ASSET_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
+
+define( 'TASKBREAKER_DIRECTORY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 // Setup the tables on activation.
 register_activation_hook( __FILE__, 'task_breaker_install' );
@@ -75,6 +77,10 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/project-notifications.php';
 
 // Require widgets file.
 require_once plugin_dir_path( __FILE__ ) . 'widgets/widgets.php';
+
+// Require the template tags.
+include_once plugin_dir_path( __FILE__ ) . 'core/template-tags.php';
+
 
 /**
  * TaskBreaker l10n callback.
@@ -152,6 +158,34 @@ function task_breaker_deactivate_thrive_intranet() {
 	return;
 }
 
+
+class TaskBreaker {
+
+	public static function wpdb() {
+		
+		global $wpdb;
+
+		return $wpdb;
+
+	}
+
+	public static function get_post() {
+		
+		global $post;
+		
+		return $post;
+
+	}
+
+	public static function wpfilesystem() {
+		
+		global $wp_filesystem;
+		
+		return $wp_filesystem;
+
+	}
+}
+
 /**
  * Enable Github Updater.
  */
@@ -164,7 +198,6 @@ add_action( 'init', 'task_breaker_plugin_updater_init' );
  * @return void
  */
 function task_breaker_plugin_updater_init() {
-
 	/**
 	 * Do not trigger the updater script on ajax requests.
 	 */
@@ -198,3 +231,5 @@ function task_breaker_plugin_updater_init() {
 
 	return;
 }
+
+

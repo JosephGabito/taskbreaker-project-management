@@ -1,6 +1,6 @@
 <?php
 /**
- * ThriveProjectTasksModel
+ * TaskBreakerTask
  *
  * This model contains the object used for TaskBreaker
  *
@@ -8,7 +8,7 @@
  * @since   1.0
  * @version 1.1
  */
-class ThriveProjectTasksModel {
+class TaskBreakerTask {
 
 	/**
 	 * Contains the name of task
@@ -79,16 +79,25 @@ class ThriveProjectTasksModel {
 	var $group_members_assigned = '';
 
 	/**
+	 * The current user role or capability.
+	 * @var string
+	 */
+	protected $user_access = '';
+
+	/**
 	 * Update the table name on initiate
 	 */
 	public function __construct() {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
-		$this->model = sprintf( '%stask_breaker_tasks', $wpdb->prefix );
+		$this->model = sprintf( '%stask_breaker_tasks', $dbase->prefix );
 		
 		// Set the date to general format using PHP timestamp not MYSQL.
 		$this->date = date( "Y-m-d H:i:s", current_time('timestamp') );
+
+		// Set the use access to the instance of TaskBreakerCT.
+		$this->user_access = TaskBreakerCT::get_instance();
 
 	}
 
@@ -213,7 +222,7 @@ class ThriveProjectTasksModel {
 
 		} else {
 
-			global $wpdb;
+			$dbase = TaskBreaker::wpdb();
 
 			$task = array(
 			  'completed_by' => $user_id,
@@ -222,12 +231,12 @@ class ThriveProjectTasksModel {
 			$task_format = array( '%d' );
 
 			$updated_task = array(
-			  'id' => $task_id,
+				'id' => $task_id,
 			 );
 
 			$updated_task_format = array( '%d' );
 
-			$updated_task_query = $wpdb->update( $this->model, $task, $updated_task, $task_format, $updated_task_format );
+			$updated_task_query = $dbase->update( $this->model, $task, $updated_task, $task_format, $updated_task_format );
 
 			if ( $updated_task_query === 1 ) {
 				return $task_id;
@@ -249,11 +258,11 @@ class ThriveProjectTasksModel {
 
 		} else {
 
-			global $wpdb;
+			$dbase = TaskBreaker::wpdb();
 
 			$task = array(
-			  'completed_by' => $user_unassigned,
-			 );
+				'completed_by' => $user_unassigned,
+			);
 
 			$task_format  = array( '%d' );
 
@@ -261,7 +270,7 @@ class ThriveProjectTasksModel {
 
 			$updated_task_format = array( '%d' );
 
-			$updated_task_query = $wpdb->update( $this->model, $task, $updated_task, $task_format, $updated_task_format );
+			$updated_task_query = $dbase->update( $this->model, $task, $updated_task, $task_format, $updated_task_format );
 
 			if ( 1 === $updated_task_query ) {
 
@@ -291,7 +300,7 @@ class ThriveProjectTasksModel {
 	public function fetch( $args = array() ) {
 
 		// fetch all tickets if there is no id specified
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		$defaults = array(
 			'project_id' => 0,
@@ -307,6 +316,7 @@ class ThriveProjectTasksModel {
 
 		// Assign default values and sanitize everything!
 		foreach ( $defaults as $option => $value ) {
+
 			if ( ! empty( $args[ $option ] ) ) {
 
 				$$option = $args[ $option ];
@@ -316,6 +326,7 @@ class ThriveProjectTasksModel {
 				$$option = $value;
 
 			}
+
 		}
 
 		// project id should be specified
@@ -347,7 +358,7 @@ class ThriveProjectTasksModel {
 				$funnels[] = array(
 				  'column'  => 'title',
 				  'operand' => 'like',
-				  'value'   => '%' . $wpdb->_real_escape( $search ) . '%',
+				  'value'   => '%' . $dbase->_real_escape( $search ) . '%',
 				  'format'  => 'string',
 				 );
 			}
@@ -396,7 +407,7 @@ class ThriveProjectTasksModel {
 				$filters .= "{$funnel['column']} {$funnel['operand']} {$funnel['value']} AND ";
 
 			}
-			// echo $filters;
+
 			$filters = substr( $filters, 0, strlen( $filters ) - 4 );
 
 			// limit claused
@@ -415,8 +426,8 @@ class ThriveProjectTasksModel {
 
 			// get total number of rows in the table
 			$row_count_stmt = "SELECT COUNT(*) as count from {$this->model} {$filters}";
-			 $row = $wpdb->get_row( $row_count_stmt, OBJECT );
-			  $row_count = intval( $row->count );
+			$row = $dbase->get_row( $row_count_stmt, OBJECT );
+			$row_count = intval( $row->count );
 
 			// control the offset
 			if ( $currpage !== 0 ) {
@@ -443,22 +454,20 @@ class ThriveProjectTasksModel {
 
 			$stmt = "SELECT * FROM {$this->model} {$filters} ORDER BY {$orderby} {$order}, id desc LIMIT {$perpage} OFFSET {$offset}";
 
-			$results = $wpdb->get_results( $stmt, OBJECT );
+			$results = $dbase->get_results( $stmt, OBJECT );
 
 			if ( ! empty( $results ) ) {
 
 				$stats = array();
 
-				 $total     = $stats['total']         = $row_count;
-				 $perpage   = $stats['perpage']         = $perpage;
-				 $totalpage = $stats['total_page']     = ceil( $total / $perpage );
-				 $currpage  = $stats['current_page'] = $currpage;
-				 $min_page  = $stats['min_page']     = $min_page;
-				 $max_page  = $stats['max_page']     = $max_page;
+				$perpage   = $stats['perpage'] = $perpage;
+				$currpage  = $stats['current_page'] = $currpage;
+				$min_page  = $stats['min_page'] = $min_page;
+				$max_page  = $stats['max_page'] = $max_page;
 
 				return array(
-				  'stats' => $stats,
-				  'results' => (object) $results,
+					'stats' => $stats,
+					'results' => (object) $results,
 				 );
 			}
 		}
@@ -467,7 +476,7 @@ class ThriveProjectTasksModel {
 
 			$stmt = sprintf( "SELECT * FROM {$this->model} WHERE id = {$id} order by priority desc, date_created desc" );
 
-			$result = $wpdb->get_row( $stmt );
+			$result = $dbase->get_row( $stmt );
 
 			if ( ! empty( $result ) ) {
 
@@ -504,39 +513,41 @@ class ThriveProjectTasksModel {
 
 				// Assign users meta data.
 				$result->assign_users_meta = array(
-				 'members_stack' => $members_stack,
-				 'count' => 0,
+					'members_stack' => $members_stack,
+					'count' => 0,
 				);
 
 				$assign_users = explode( ',', $result->assign_users );
 
 				if ( ! empty( $assign_users ) && is_array( $assign_users ) ) {
 
-						  $get_assigned_users_record = new WP_User_Query( array( 'include' => $assign_users ) );
+					$get_assigned_users_record = new WP_User_Query( array( 'include' => $assign_users ) );
 
 					if ( ! empty( $get_assigned_users_record->results ) ) {
 
 						foreach ( $get_assigned_users_record->results as $ua_result ) {
 
 							$members_stack[] = array(
-							 'ID' => absint( $ua_result->data->ID ),
-							 'display_name' => wp_kses( $ua_result->data->display_name, $allowed_html ),
+								'ID' => absint( $ua_result->data->ID ),
+								'display_name' => wp_kses( $ua_result->data->display_name, $allowed_html ),
 							);
+
 						}
 
 						$result->assign_users_meta = array(
-						 'members_stack' => $members_stack,
-						 'count' => absint( count( $members_stack ) ),
+							'members_stack' => $members_stack,
+							'count' => absint( count( $members_stack ) ),
 						);
 					}
 				}
 
-				// Group ID
+				// Group ID.
 				$result->group_id = get_post_meta( $result->project_id, 'task_breaker_project_group_id', true );
 
 			}
 
 			return $result;
+
 		}
 
 		return array();
@@ -549,7 +560,9 @@ class ThriveProjectTasksModel {
 	 */
 	public function save( $args = array() ) {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
+
+		$user_access = TaskBreakerCT::get_instance();
 
 		$args = array(
 			'title' => $this->title,
@@ -595,22 +608,22 @@ class ThriveProjectTasksModel {
 			$this->assign_members( $this->id, $this->group_members_assigned );
 
 			// Make sure the current logged in user is able to update task. Otherwise, bail out.
-			if ( ! task_breaker_can_update_task(  $this->project_id ) ) {
+			if ( ! $user_access->can_update_task(  $this->project_id ) ) {
 				return false;
 			}
 
-			return ( $wpdb->update( $this->model, $args, array( 'id' => $this->id ), $format, array( '%d' ) ) === 0 );
+			return ( $dbase->update( $this->model, $args, array( 'id' => $this->id ), $format, array( '%d' ) ) === 0 );
 
 		} else {
 
 			// Make sure the current logged in user is able to add task. Otherwise, bail out.
-			if ( ! task_breaker_can_add_task(  $this->project_id ) ) {
+			if ( ! $this->user_access->can_add_task(  $this->project_id ) ) {
 				return false;
 			}
 
-			if ( $wpdb->insert( $this->model, $args, $format ) ) {
+			if ( $dbase->insert( $this->model, $args, $format ) ) {
 
-				$last_insert_id = $wpdb->insert_id;
+				$last_insert_id = $dbase->insert_id;
 
 				// Assign members to the task.
 				$this->assign_members( $last_insert_id, $this->group_members_assigned );
@@ -703,7 +716,7 @@ class ThriveProjectTasksModel {
 
 	public function assign_members( $task_id = 0, $members_assign = '' ) {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		if ( 0 === $task_id ) {
 			return $this;
@@ -713,10 +726,10 @@ class ThriveProjectTasksModel {
 			return $this;
 		}
 
-		$table = $wpdb->prefix . TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE;
+		$table = $dbase->prefix . TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE;
 
 		// Clear any existing records.
-		$wpdb->delete(
+		$dbase->delete(
 			$table,
 			array( 'task_id' => $task_id ), // Entry
 			array( '%d' ) // Format.
@@ -727,7 +740,7 @@ class ThriveProjectTasksModel {
 		if ( ! empty( $exp_members_assigned ) ) {
 
 			foreach ( $exp_members_assigned as $task_member_id ) {
-				$wpdb->insert(
+				$dbase->insert(
 					$table,
 					array( 
 						'task_id' => intval( $task_id ), 
@@ -744,7 +757,7 @@ class ThriveProjectTasksModel {
 
 	public function getCount( $project_id = 0, $type = 'all' ) {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		if ( $project_id === 0 ) {
 			return 0;
@@ -765,15 +778,17 @@ class ThriveProjectTasksModel {
 		$row_count = 0;
 
 		$row_count_stmt = "SELECT COUNT(*) as count from {$this->model} {$where}";
-		 $row = $wpdb->get_row( $row_count_stmt, OBJECT );
-		  $row_count = intval( $row->count );
+
+		$row = $dbase->get_row( $row_count_stmt, OBJECT );
+		
+		$row_count = intval( $row->count );
 
 		return $row_count;
 	}
 
 	public function update_priority( $task_id = 0, $new_priority = 1 ) {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		if ( $task_id === 0 ) {
 			return false;
@@ -781,7 +796,7 @@ class ThriveProjectTasksModel {
 
 		$this->setPriority( $new_priority );
 
-		$wpdb->update(
+		$dbase->update(
 			$this->model,
 			array( 'priority' => $this->priority ), // integer (number)
 			array( 'id' => $task_id ),
@@ -796,15 +811,16 @@ class ThriveProjectTasksModel {
 	/**
 	 * Deletes the task
 	 *
-	 * @php    todo should return the task id if successfal otherwise return false
 	 * @return
 	 */
 	public function delete() {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
+
+		$user_access = TaskBreakerCT::get_instance();
 
 		// Make sure that user can delete this task.
-		if ( ! task_breaker_can_delete_task( $this->project_id ) ) {
+		if ( ! $user_access->can_delete_task( $this->project_id ) ) {
 			
 			return false;
 
@@ -816,7 +832,7 @@ class ThriveProjectTasksModel {
 
 		} else {
 			
-			$wpdb->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
+			$dbase->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
 
 			return true;
 

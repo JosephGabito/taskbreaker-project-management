@@ -1,294 +1,329 @@
 <?php
 /**
- * @TODO TODO TODO
- * [task_breaker_bp_projects_load_template_filter description]
- * @param  [type] $found_template [description]
- * @param  [type] $templates      [description]
- * @return [type]                 [description]
+ * This file is part of the TaskBreaker WordPress Plugin package.
+ *
+ * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskBreakerProjectScreens
  */
 
-if ( ! defined( 'ABSPATH' ) ) { die();
+if ( ! defined( 'ABSPATH' ) ) {
+	return;
 }
 
-function task_breaker_bp_projects_load_template_filter( $found_template, $templates ) {
+/**
+ * The BuddyPress integration of Projects. This class defines the sceens and template of taskbreaker Project component.
+ *
+ * @package TaskBreaker\TaskBreakerProjectScreens
+ */
+final class TaskBreakerProjectScreens {
 
-	// Only filter the template location when we're on the bp-plugin component pages.
-	if ( ! bp_is_current_component( 'projects' ) ) {
+	/**
+	 * CLass constructor.
+	 *
+	 * @return  void
+	 */
+	public function __construct() {
 
-		return $found_template;
+		add_filter( 'bp_located_template', array( $this, 'load_template_filter' ), 10, 2 );
+		add_filter( 'bp_get_template_stack', array( $this, 'bp_projects_add_template_stack' ), 10, 1 );
+		add_action( 'bp_screens', array( $this, 'bp_projects_screen_index' ) );
+
+	}
+	/**
+	 * Overwrites the template for projects component
+	 *
+	 * @param  string $found_template The found template, if there is one.
+	 * @param  string $templates      The templates.
+	 * @return string                    The path of the template (filtered)
+	 */
+	public function load_template_filter( $found_template, $templates  ) {
+
+		$core = new TaskBreakerCore();
+
+		// Only filter the template location when we're on the bp-plugin component pages.
+		if ( ! bp_is_current_component( 'projects' ) ) {
+			return $found_template;
+		}
+
+		if ( ! $this->projects_is_bp_default() ) {
+			return $found_template;
+		}
+
+		foreach ( (array) $templates as $template ) {
+
+			if ( file_exists( STYLESHEETPATH . '/' . $template ) ) {
+
+				$filtered_templates[] = STYLESHEETPATH . '/' . $template;
+
+			} elseif ( file_exists( TEMPLATEPATH . '/' . $template ) ) {
+
+				$filtered_templates[] = TEMPLATEPATH . '/' . $template;
+
+			} else {
+
+				$filtered_templates[] = $core->get_template_directory() . '/' . $template;
+
+			}
+		}
+
+		$found_template = $filtered_templates[0];
+
+		return apply_filters( 'task_breaker_bp_projects_load_template_filter', $found_template );
 
 	}
 
-	if ( ! task_breaker_bp_projects_is_bp_default() ) {
+	/**
+	 * Check if current theme supports buddypress.
+	 *
+	 * @return boolean True on success. Otherwise, false.
+	 */
+	public function projects_is_bp_default() {
 
-		return $found_template;
+		// If active theme is BP Default or a child theme, then we return true.
+		// If the Buddypress version  is < 1.7, then return true too.
+		if ( current_theme_supports( 'buddypress' ) ||
+			in_array( 'bp-default', array( get_stylesheet(), get_template() ), true )  ||
+			( defined( 'BP_VERSION' ) && version_compare( BP_VERSION, '1.7', '<' ) ) ) {
 
-	}
-
-	foreach ( ( array ) $templates as $template ) {
-
-		if ( file_exists( STYLESHEETPATH . '/' . $template ) ) {
-
-			$filtered_templates[] = STYLESHEETPATH . '/' . $template;
-
-		} elseif ( file_exists( TEMPLATEPATH . '/' . $template ) ) {
-
-			$filtered_templates[] = TEMPLATEPATH . '/' . $template;
-
-		} else {
-
-			$filtered_templates[] = task_breaker_template_dir() . '/' . $template;
+			return true;
 
 		}
-	}
-
-	$found_template = $filtered_templates[0];
-
-	return apply_filters( 'task_breaker_bp_projects_load_template_filter', $found_template );
-
-}
-
-add_filter( 'bp_located_template', 'task_breaker_bp_projects_load_template_filter', 10, 2 );
-
-/**
- * [task_breaker_bp_projects_is_bp_default description]
- *
- * @return [type] [description]
- */
-function task_breaker_bp_projects_is_bp_default() {
-
-	// if active theme is BP Default or a child theme, then we return true
-	// If the Buddypress version  is < 1.7, then return true too
-	if ( current_theme_supports( 'buddypress' ) || in_array( 'bp-default', array( get_stylesheet(), get_template() ) )  || ( defined( 'BP_VERSION' ) && version_compare( BP_VERSION, '1.7', '<' ) ) ) {
-
-		return true;
-
-	} else {
 
 		return false;
-
 	}
 
-	return false;
-}
 
-/**
- * [task_breaker_bp_projects_screen_index description]
- *
- * @return void
- */
-function task_breaker_bp_projects_screen_index() {
+	/**
+	 * The projects template stacks.
+	 *
+	 * @param  mixed $templates The template stacks collection.
+	 * @return mixed The template.
+	 */
+	public function bp_projects_add_template_stack( $templates ) {
 
-	// Check if on current project directory page.
-	if ( ! bp_displayed_user_id() && bp_is_current_component( 'projects' ) && ! bp_current_action() ) {
+		$core = new TaskBreakerCore();
 
-		bp_update_is_directory( true, 'projects' );
-
-		// ... before using bp_core_load_template to ask BuddyPress
-		// to load the template bp-plugin (which is located in
-		// BP_PLUGIN_DIR . '/templates/bp-plugin.php)
-		bp_core_load_template( apply_filters( 'task_breaker_bp_projects_screen_index', 'project-loop' ) );
-
-	}
-}
-
-add_action( 'bp_screens', 'task_breaker_bp_projects_screen_index' );
-
-
-/**
- * [bp_projects_add_template_stack description]
- *
- * @param  [type] $templates [description]
- * @return [type]            [description]
- */
-function bp_projects_add_template_stack( $templates ) {
-
-	// if we're on a page of our plugin and the theme is not BP Default, then we
-	// add our path to the template path array
-	if ( bp_is_current_component( 'projects' ) && ! task_breaker_bp_projects_is_bp_default() ) {
-
-		$templates[] = task_breaker_template_dir();
-	}
-	return $templates;
-}
-
-add_filter( 'bp_get_template_stack', 'bp_projects_add_template_stack', 10, 1 );
-
-/**
- * [task_breaker_bp_projects_locate_template description]
- *
- * @param  boolean $template [description]
- * @return [type]            [description]
- */
-function task_breaker_bp_projects_locate_template( $template = false ) {
-
-	if ( empty( $template ) ) {
-		return false;
-	}
-
-	if ( task_breaker_bp_projects_is_bp_default() ) {
-
-		locate_template( array( $template . '.php' ), true );
-
-	} else {
-
-		bp_get_template_part( $template );
-
-	}
-}
-
-
-function task_breaker_bp_projects_main_screen_function() {
-
-	add_action( 'bp_template_title', 'task_breaker_bp_projects_title' );
-
-	add_action( 'bp_template_content', 'task_breaker_bp_projects_content' );
-
-	bp_core_load_template( apply_filters( 'task_breaker_bp_projects_main_screen_function', 'project-dashboard' ) );
-
-	return;
-	
-}
-
-function task_breaker_bp_projects_main_screen_function_new_project() {
-
-	add_action( 'bp_template_title', 'task_breaker_bp_projects_add_new_title' );
-
-	add_action( 'bp_template_content', 'task_breaker_bp_projects_add_new_content' );
-
-	bp_core_load_template( apply_filters( 'task_breaker_bp_projects_main_screen_function_new_project', 'project-dashboard-new-project' ) );
-
-	return;
-
-}
-
-function task_breaker_bp_projects_user_template_part( $templates, $slug, $name ) {
-
-	if ( $slug != 'members/single/plugins' ) {
+		// if we're on a page of our plugin and the theme is not BP Default, then we add our path to the template path array.
+		if ( bp_is_current_component( 'projects' ) && ! $this->projects_is_bp_default() ) {
+			$templates[] = $core->get_template_directory();
+		}
 
 		return $templates;
 
 	}
 
-	return array( 'project-dashboard.php' );
+	/**
+	 * Gets the template for our project loop container
+	 *
+	 * @param  boolean $template The template file.
+	 * @return mixed   false if template is null, otherwise void.
+	 */
+	public function bp_projects_locate_template( $template = false ) {
 
-}
+		if ( empty( $template ) ) {
+			return false;
+		}
 
-function task_breaker_bp_projects_menu_header() {
-	_e( 'Menu Header', 'task_breaker' );
-}
+		if ( $this->projects_is_bp_default() ) {
 
-function task_breaker_bp_projects_title() {
-	_e( 'Projects', 'task_breaker' );
-}
+			locate_template( array( $template . '.php' ), true );
 
+		} else {
 
-function task_breaker_bp_projects_content() {
-
-	echo '<div id="task_breaker-intranet-projects">';
-
-	$user_groups = task_breaker_get_displayed_user_groups();
-
-	$current_user_groups = task_breaker_get_current_user_owned_groups();
-
-	$groups_collection = array();
-
-	if ( ! empty( $user_groups ) ) {
-
-		foreach ( $user_groups as $key => $group ) {
-
-			$groups_collection[] = $group['group_id'];
+			bp_get_template_part( $template );
 
 		}
-	}
 
-	// If there are no groups found assign negative value
-	// so that WP_Query will return empty result
-	if ( empty( $groups_collection ) ) {
-
-		$groups_collection = array( -1 );
+		return;
 
 	}
 
-	$args = array(
-		'meta_query' => array(
-			array(
-				'key'     => 'task_breaker_project_group_id',
-				'value'   => $groups_collection,
-				'compare' => 'IN',
+	/**
+	 * The callback function for displaying the project loop inside screen index.
+	 *
+	 * @return void.
+	 */
+	function bp_projects_screen_index() {
+
+		// Check if on current project directory page.
+		if ( ! bp_displayed_user_id() && bp_is_current_component( 'projects' ) && ! bp_current_action() ) {
+
+			bp_update_is_directory( true, 'projects' );
+
+			// ... before using bp_core_load_template to ask BuddyPress
+			// to load the template bp-plugin (which is located in
+			// BP_PLUGIN_DIR . '/templates/bp-plugin.php)
+			bp_core_load_template( apply_filters( 'bp_projects_screen_index', 'project-loop' ) );
+
+		}
+
+		return;
+
+	}
+
+	/**
+	 * The main screen function for our projects component
+	 *
+	 * @return void
+	 */
+	public static function bp_projects_main_screen_function() {
+
+		add_action( 'bp_template_title', array( 'TaskBreakerProjectScreens', 'bp_projects_title' ) );
+
+		add_action( 'bp_template_content', array( 'TaskBreakerProjectScreens', 'bp_projects_content' ) );
+
+		bp_core_load_template( apply_filters( 'task_breaker_bp_projects_main_screen_function', 'project-dashboard' ) );
+
+		return;
+
+	}
+
+	/**
+	 * The handler for user profile new project.
+	 *
+	 * @return void
+	 */
+	public static function bp_projects_main_screen_function_new_project() {
+
+		add_action( 'bp_template_title', array( 'TaskBreakerProjectScreens', 'bp_projects_add_new_title' ) );
+
+		add_action( 'bp_template_content', array( 'TaskBreakerProjectScreens', 'bp_projects_add_new_content' ) );
+
+		bp_core_load_template( apply_filters( 'task_breaker_bp_projects_main_screen_function_new_project', 'project-dashboard-new-project' ) );
+
+		return;
+
+	}
+
+	/**
+	 * Stray function task_breaker_bp_projects_user_template_part
+	 *
+	 * @param  string $templates The template name.
+	 * @param  string $slug      The template slug name.
+	 * @return array             The templates.
+	 */
+	public function task_breaker_bp_projects_user_template_part( $templates, $slug ) {
+
+		if ( 'members/single/plugins' !== $slug ) {
+
+			return $templates;
+
+		}
+
+		return array( 'project-dashboard.php' );
+
+	}
+
+	/**
+	 * The projects mene header.
+	 *
+	 * @return void
+	 */
+	public function bp_projects_menu_header() {
+
+		esc_html_e( 'Menu Header', 'task_breaker' );
+
+		return;
+	}
+
+	/**
+	 * The projects title.
+	 *
+	 * @return void
+	 */
+	public static function bp_projects_title() {
+
+		esc_html_e( 'Projects', 'task_breaker' );
+
+		return;
+	}
+
+	/**
+	 * The projects body.
+	 *
+	 * @return void
+	 */
+	public static function bp_projects_content() {
+
+		$core = new TaskBreakerCore();
+
+		$template = new TaskBreakerTemplate();
+
+		echo '<div id="task_breaker-intranet-projects">';
+
+		$user_groups = $core->get_displayed_user_groups();
+
+		$groups_collection = array();
+
+		if ( ! empty( $user_groups ) ) {
+
+			foreach ( $user_groups as $key => $group ) {
+
+				$groups_collection[] = $group['group_id'];
+
+			}
+		}
+
+		// If there are no groups found assign negative value so that WP_Query will return empty result.
+		if ( empty( $groups_collection ) ) {
+
+			$groups_collection = array( -1 );
+
+		}
+
+		$args = array(
+			'meta_query' => array(
+				array(
+					'key'     => 'task_breaker_project_group_id',
+					'value'   => $groups_collection,
+					'compare' => 'IN',
+				),
 			),
-		),
-	);
-	
-	task_breaker_project_loop( $args );
-
-	echo '</div>';
-
-	return;
-}
-
-function task_breaker_bp_projects_add_new_title() {
-	_e( 'New Project', 'task_breaker' );
-}
-
-function task_breaker_bp_projects_add_new_content() {
-	task_breaker_new_project_form();
-}
-
-/**
- * BP Projects Theme Compatability
- */
-class Task_Breaker_Projects_Theme_Compat {
-
-	/**
-	 * Setup the bp plugin component theme compatibility
-	 */
-	public function __construct() {
-		/* this is where we hook bp_setup_theme_compat !! */
-		add_action( 'bp_setup_theme_compat', array( $this, 'is_bp_projects' ) );
-	}
-
-	/**
-	 * Are we looking at something that needs theme compatability?
-	 */
-	public function is_bp_projects() {
-
-		if ( ! bp_current_action() && ! bp_displayed_user_id() && bp_is_current_component( 'projects' ) ) {
-			// first we reset the post
-			add_action( 'bp_template_include_reset_dummy_post_data', array( $this, 'directory_dummy_post' ) );
-			// then we filter 'the_content' thanks to bp_replace_the_content
-			add_filter( 'bp_replace_the_content', array( $this, 'directory_content' ) );
-		}
-	}
-
-	/**
-	 * Update the global $post with directory data
-	 */
-	public function directory_dummy_post() {
-		bp_theme_compat_reset_post(
-			array(
-			'ID'             => 0,
-			'post_title'     => apply_filters( 'task_breaker_projects_dir_title', __( 'Projects Directory', 'task_breaker' ) ),
-			'post_author'    => 0,
-			'post_date'      => 0,
-			'post_content'   => '',
-			'post_type'      => 'bp_projects',
-			'post_status'    => 'publish',
-			'is_archive'     => true,
-			'comment_status' => 'closed',
-			)
 		);
+
+		$template->display_project_loop( $args );
+
+		echo '</div>';
+
+		return;
+
 	}
 
 	/**
-	 * Filter the_content with bp-plugin index template part
+	 * Projects 'Add New' title.
+	 *
+	 * @return void
 	 */
-	public function directory_content() {
+	public static function bp_projects_add_new_title() {
 
-		bp_buffer_template_part( 'project-loop' );
+		esc_html_e( 'New Project', 'task_breaker' );
+
+		return;
+	}
+
+	/**
+	 * Projects 'Add New' Content
+	 *
+	 * @return void
+	 */
+	public static function bp_projects_add_new_content() {
+
+		$template = new TaskBreakerTemplate();
+
+		$template->display_new_project_form();
+
+		return;
 
 	}
 }
 
-new Task_Breaker_Projects_Theme_Compat();
+$taskbreaker_project_screens = new TaskBreakerProjectScreens();
 
+// Include and start the theme compatibility.
+require_once TASKBREAKER_DIRECTORY_PATH . 'includes/project-theme-compat.php';
+
+$taskbreaker_theme_compat = new TaskBreakerThemeCompatibility();

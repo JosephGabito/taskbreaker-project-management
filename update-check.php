@@ -423,7 +423,7 @@ if ( ! class_exists( 'WP_GitHub_Updater' ) ) {
 		  * @return object $response the plugin info
 		  */
 		public function get_plugin_info( $false, $action, $response ) {
-
+			
 			// Check if this call API is for the right plugin
 			if ( ! isset( $response->slug ) || $response->slug != $this->config['slug'] ) {
 				return false;
@@ -457,11 +457,11 @@ if ( ! class_exists( 'WP_GitHub_Updater' ) ) {
 		  */
 		public function upgrader_post_install( $true, $hook_extra, $result ) {
 
-			global $wp_filesystem;
+			$fs = TaskBreaker::wpfilesystem();
 
 			// Move & Activate
 			$proper_destination = WP_PLUGIN_DIR . '/' . $this->config['proper_folder_name'];
-			$wp_filesystem->move( $result['destination'], $proper_destination );
+			$fs->move( $result['destination'], $proper_destination );
 			$result['destination'] = $proper_destination;
 			$activate = activate_plugin( WP_PLUGIN_DIR . '/' . $this->config['slug'] );
 

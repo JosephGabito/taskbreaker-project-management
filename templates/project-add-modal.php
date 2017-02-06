@@ -1,4 +1,6 @@
-<?php task_breaker_new_project_modal_button(); ?>
+<?php $template = new TaskBreakerTemplate(); ?>
+
+<?php $template->display_new_project_modal_button(); ?>
 
 <div class="clearfix"></div>
 
@@ -24,7 +26,7 @@
 
 		<div id="task_breaker-modal-body">
 
-			<?php task_breaker_new_project_form( $group_id ); ?>
+			<?php $template->display_new_project_form( $group_id ); ?>
 
 		</div>
 

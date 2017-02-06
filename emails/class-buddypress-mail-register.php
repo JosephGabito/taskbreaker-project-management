@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	return;
 }
 
 final class Task_Breaker_BP_Mail_Register {
@@ -141,10 +141,10 @@ final class Task_Breaker_BP_Mail_Register {
 
 	/**
 	 * Sends email to users when there is a new task assigned to them.
-	 * @param  object $task_object The object that contains the email tokens that we should passed to.
+	 * @param  mixed $task Contains the email tokens that we should passed to.
 	 * @return void
 	 */
-	function tb_new_task( $task_object ) {
+	function tb_new_task( $task ) {
 
 		// Bail out if notifications are disabled or BP version does not support e-mail api.
 		if ( ! function_exists( 'bp_send_email' ) ) {
@@ -155,13 +155,13 @@ final class Task_Breaker_BP_Mail_Register {
 		$args = array(
 				'tokens' => array(
 						'site.name' => get_bloginfo( 'name' ),
-						'task.url' => $task_object->task_url
+						'task.url' => $task->task_url
 					)
 			);
 
-		if ( ! empty( $task_object->task_assigned_members ) ) {
+		if ( ! empty( $task->task_assigned_members ) ) {
 
-			foreach( $task_object->task_assigned_members as $user_assigned_id ) {
+			foreach( $task->task_assigned_members as $user_assigned_id ) {
 
 				$user_id = absint( $user_assigned_id );
 
@@ -194,10 +194,10 @@ final class Task_Breaker_BP_Mail_Register {
 	}
 	/**
 	 * Sends email to user assigned when there is a new comment
-	 * @param  object $task_comment_object Callback parameter for 'tb_new_task_comment' action
+	 * @param  mixed $task_comment Callback parameter for 'tb_new_task_comment' action
 	 * @return void
 	 */
-	function tb_new_task_comment( $task_comment_object ) {
+	function tb_new_task_comment( $task_comment ) {
 		
 		// Bail out if notifications are disabled or BP version does not support e-mail api.
 		if ( ! function_exists( 'bp_send_email' ) ) {
@@ -208,15 +208,15 @@ final class Task_Breaker_BP_Mail_Register {
 		$args = array(
 		        'tokens' => array(
 		        'site.name' => get_bloginfo( 'name' ),
-		        'task.url' => $task_comment_object->task_url,
-		        'user.url' => $task_comment_object->user_url,
-		        'user.display_name' => $task_comment_object->user_display_name,
+		        'task.url' => $task_comment->task_url,
+		        'user.url' => $task_comment->user_url,
+		        'user.display_name' => $task_comment->user_display_name,
 		  	),
 		);
 
-        if ( !empty( $task_comment_object->user_assigned ) ) {
+        if ( !empty( $task_comment->user_assigned ) ) {
 
-            foreach ( $task_comment_object->user_assigned as $user_assigned ) {
+            foreach ( $task_comment->user_assigned as $user_assigned ) {
 
                 // Send args and user ID to receive email.
                 $user_id = absint( $user_assigned->member_id );
@@ -254,141 +254,10 @@ final class Task_Breaker_BP_Mail_Register {
 	 * @return void
 	 */
 	function tb_render_task_email_settings() {
-		?>
-	
-		<table class="notification-settings" id="friends-notification-settings">
-
-		<thead>
-		  
-	   <tr>
-
-		 <th class="icon"></th>
-
-		 <th class="title">
-		<?php
-		esc_html_e( 'Project Management', 'task_breaker' ); ?>
-		 </th>
-
-		 <th class="yes">
-			<?php
-			esc_html_e( 'Yes', 'task_breaker' ); ?>
-		 </th>
-
-		 <th class="no">
-			<?php
-			esc_html_e( 'No', 'task_breaker' ); ?>
-		 </th>
-
-		  </tr>
-
-		</thead>
-
-		<tbody>
-
-		  <tr id="friends-notification-settings-request">
-			
-		 <td></td>
-			
-		 <td>
-			<?php
-			esc_html_e( 'A member of the project under the same task added a new update', 'task_breaker' ); ?>
-		 </td>
-
-			<?php
-			$task_breaker_comment_new = bp_get_user_meta( bp_displayed_user_id(), 'task_breaker_comment_new', true ); ?>
-
-            <?php if ( ! $task_breaker_comment_new ) { ?>
-                
-                <?php $task_breaker_comment_new = 'yes'; ?>
-
-            <?php } ?>
-
-		 <td class="yes">
-
-		   <input type="radio" name="notifications[task_breaker_comment_new]" 
-		   id="task-breaker-comment-new-yes" value="yes" <?php
-			checked( $task_breaker_comment_new, 'yes', true ) ?> />
-
-		   <label for="task-breaker-comment-new-yes" class="bp-screen-reader-text">
-
-			<?php
-			esc_html_e( 'Yes, send email', 'task_breaker' ); ?>
-
-		   </label>
-
-		 </td>
-
-		 <td class="no">
-
-		   <input type="radio" name="notifications[task_breaker_comment_new]" 
-		   id="task-breaker-comment-new-no" value="no" <?php
-			checked( $task_breaker_comment_new, 'no', true ) ?> />
-
-		   <label for="task-breaker-comment-new-no" class="bp-screen-reader-text">
-			  
-			<?php
-			esc_html_e( 'No, do not send email', 'task_breaker' ); ?>
-
-		   </label>
-
-		 </td>
-
-		  </tr>
-
-
-		  <tr id="friends-notification-settings-accepted">
-
-		 <td></td>
-			
-		 <td>
-			<?php
-			esc_html_e( 'A new task is assigned to me', 'task_breaker' ); ?>
-		 </td>
-
-			<?php
-			$task_breaker_task_new = bp_get_user_meta( bp_displayed_user_id(), 'task_breaker_task_new', true ); ?>
-
-            <?php if ( ! $task_breaker_task_new ) { ?>
-                
-                <?php $task_breaker_task_new = 'yes'; ?>
-
-            <?php } ?>
-			
-		 <td class="yes">
-
-		   <input type="radio" name="notifications[task_breaker_task_new]" 
-		   id="task-breaker-task-new-yes" value="yes" <?php
-			checked( $task_breaker_task_new, 'yes', true ) ?> />
-
-		   <label for="task-breaker-task-new-yes" class="bp-screen-reader-text">
-
-			<?php
-			esc_html_e( 'Yes, send email', 'task_breaker' ); ?>
-
-		   </label>
-
-		 </td>
-
-		 <td class="no">
-
-		   <input type="radio" name="notifications[task_breaker_task_new]" 
-		   id="task-breaker-task-new-no" value="no" <?php
-			checked( $task_breaker_task_new, 'no', true ) ?> />
-
-		   <label for="task-breaker-task-new-no" class="bp-screen-reader-text">
-
-			<?php
-			esc_html_e( 'No, do not send email', 'task_breaker' ); ?>
-
-		   </label>
-		 </td>
-
-		  </tr>
-		  
-		</tbody>
 		
-		</table>
-		<?php
+		include TASKBREAKER_DIRECTORY_PATH . 'templates/email-notifications-settings.php';
+
+		return;
 	} // End function tb_render_task_email_settings().
 } // End class 'Task_Breaker_BP_Mail_Register'.
 
