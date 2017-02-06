@@ -190,19 +190,19 @@ class TaskBreakerTaskComment {
 		$core = new TaskBreakerCore();
 
 		$data = array(
-		  'details' => $this->details,
-		  'user' => $this->user,
-		  'ticket_id' => $this->ticket_id,
-		  'status' => $this->get_status(),
-		  'date_added' => $this->date_added
+			'details' => $this->details,
+			'user' => $this->user,
+			'ticket_id' => $this->ticket_id,
+			'status' => $this->get_status(),
+			'date_added' => $this->date_added
 		 );
 
 		$formats = array(
-		  '%s', // The format for details.,
-		  '%d', // The format for user.
-		  '%d', // The format for ticket_id.
-		  '%d', // The format for status.
-		  '%s', // The format for date_added.
+			'%s', // The format for details.,
+			'%d', // The format for user.
+			'%d', // The format for ticket_id.
+			'%d', // The format for status.
+			'%s', // The format for date_added.
 		 );
 
 		$insert_comments = $this->dbase->insert( $table, $data, $formats ); // Db call ok.
@@ -370,7 +370,7 @@ class TaskBreakerTaskComment {
 	 */
 	public function fetch( $comment_id = 0, $task_id = 0 ) {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		// Make sure $comment_id and $task_id are integer and non-negative value.
 		$comment_id = absint( $comment_id );
@@ -380,12 +380,12 @@ class TaskBreakerTaskComment {
 
 		if ( $comment_id === 0 ) {
 			$stmt = sprintf( "SELECT * FROM $this->model WHERE task_id = %d ORDER BY dated_added DESC;", $task_id );
-			$results = $wpdb->get_results( $stmt, 'ARRAY_A' );
+			$results = $dbase->get_results( $stmt, 'ARRAY_A' );
 		}
 
 		if ( $comment_id !== 0 ) {
 			$stmt = sprintf( "SELECT * FROM $this->model WHERE id = %d;", $comment_id );
-			$results = $wpdb->get_row( $stmt, 'ARRAY_A' );
+			$results = $dbase->get_row( $stmt, 'ARRAY_A' );
 		}
 
 		if ( ! empty( $results ) ) {
@@ -403,7 +403,7 @@ class TaskBreakerTaskComment {
 	 */
 	public function delete() {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		if ( empty( $this->id ) ) {
 			return false;
@@ -412,7 +412,7 @@ class TaskBreakerTaskComment {
 		// Check if current user can delete the requested comment.
 		if ( $this->current_user_can_delete() ) {
 
-			$_delete_comment = $wpdb->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
+			$_delete_comment = $dbase->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
 
 			 return $_delete_comment;
 
@@ -437,7 +437,7 @@ class TaskBreakerTaskComment {
 	 */
 	public function current_user_can_delete() {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		$comment_id = absint( $this->id );
 
@@ -454,7 +454,7 @@ class TaskBreakerTaskComment {
 		// Only allow the same user to delete his own comment.
 		$current_user_id = get_current_user_id();
 
-		$comment_user = $wpdb->get_var( "SELECT user FROM $this->model WHERE id = $comment_id" ); // Db call ok; no-cache pass.
+		$comment_user = $dbase->get_var( "SELECT user FROM $this->model WHERE id = $comment_id" ); // Db call ok; no-cache pass.
 		
 		$comment_user = absint( $comment_user );
 

@@ -125,7 +125,7 @@ class TaskBreakerProject {
 	 */
 	public function delete() {
 
-		global $wpdb;
+		$dbase = TaskBreaker::wpdb();
 
 		if ( 0 === $this->get_id() ) {
 			return false;
@@ -145,7 +145,7 @@ class TaskBreakerProject {
 			$is_returned_ok = wp_delete_post( $this->get_id() );
 
 			// delete all the task under that project
-			$wpdb->delete( $wpdb->prefix . 'task_breaker_tasks', array( 'project_id' => $this->get_id() ), array( '%d' ) );
+			$dbase->delete( $dbase->prefix . 'task_breaker_tasks', array( 'project_id' => $this->get_id() ), array( '%d' ) );
 
 		}
 
