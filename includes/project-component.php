@@ -117,8 +117,6 @@ class TaskBreakerProjectsComponent extends BP_Component {
 	 */
 	public function setup_globals( $args = array() ) {
 
-		global $bp;
-
 		// Define some slug here.
 		if ( ! defined( 'BP_PROJECTS_SLUG' ) ) {
 			define( 'BP_PROJECTS_SLUG', $this->id );
@@ -126,7 +124,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 
 		$globals = array(
 			'slug' => BP_PROJECTS_SLUG,
-			'root_slug' => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_PROJECTS_SLUG,
+			'root_slug' => isset( buddypress()->pages->{$this->id}->slug ) ? buddypress()->pages->{$this->id}->slug : BP_PROJECTS_SLUG,
 		 	'has_directory' => true,
 		 	'directory_title' => __( 'Projects', 'task_breaker' ),
 		 	'search_string' => __( 'Search Projects...', 'task_breaker' ),

@@ -189,9 +189,9 @@ final class TaskBreakerProjectScreens {
 	 */
 	public static function bp_projects_main_screen_function_new_project() {
 
-		add_action( 'bp_template_title', 'task_breaker_bp_projects_add_new_title' );
+		add_action( 'bp_template_title', array( 'TaskBreakerProjectScreens', 'bp_projects_add_new_title' ) );
 
-		add_action( 'bp_template_content', 'task_breaker_bp_projects_add_new_content' );
+		add_action( 'bp_template_content', array( 'TaskBreakerProjectScreens', 'bp_projects_add_new_content' ) );
 
 		bp_core_load_template( apply_filters( 'task_breaker_bp_projects_main_screen_function_new_project', 'project-dashboard-new-project' ) );
 
@@ -301,7 +301,7 @@ final class TaskBreakerProjectScreens {
 	 *
 	 * @return void
 	 */
-	function task_breaker_bp_projects_add_new_title() {
+	public static function bp_projects_add_new_title() {
 
 		esc_html_e( 'New Project', 'task_breaker' );
 
@@ -313,7 +313,7 @@ final class TaskBreakerProjectScreens {
 	 *
 	 * @return void
 	 */
-	function task_breaker_bp_projects_add_new_content() {
+	public static function bp_projects_add_new_content() {
 
 		$template = new TaskBreakerTemplate();
 
@@ -357,7 +357,7 @@ class TaskBreakerThemeCompatibility {
 	}
 
 	/**
-	 * Update the global $post with directory data
+	 * Update the with directory data
 	 */
 	public function directory_dummy_post() {
 		bp_theme_compat_reset_post(

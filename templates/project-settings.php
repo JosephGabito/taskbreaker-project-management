@@ -1,22 +1,40 @@
-<?php global $post; ?>
+<?php
+/**
+ * This file is part of the TaskBreaker WordPress Plugin package.
+ *
+ * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package TaskBreaker\TaskBreakerCore
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    return;
+}
+?>
 
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
+
+<?php $__post = TaskBreaker::get_post(); ?>
 
 <?php $core = new TaskBreakerCore(); ?>
 
 <?php $template = new TaskBreakerTemplate(); ?>
 
-<?php if ( $user_access->can_edit_project( $post->ID ) ) { ?>
+
+<?php if ( $user_access->can_edit_project( $__post->ID ) ) { ?>
 
 <div id="task_breaker-project-settings">
 
-    <input type="hidden" name="task_breaker-project-id" id="task_breaker-project-id" value="<?php echo absint( $post->ID ); ?>" />
+    <input type="hidden" name="task_breaker-project-id" id="task_breaker-project-id" value="<?php echo absint( $__post->ID ); ?>" />
 
     <div class="task_breaker-form-field">
 
         <?php $placeholder = __( 'Enter the new title for this project', 'task_breaker' ); ?>
 
-        <?php $title = $post->post_title; ?>
+        <?php $title = $__post->post_title; ?>
 
         <input value="<?php echo esc_attr( $title ); ?>" placeholder="<?php echo $placeholder; ?>" type="text" name="task_breaker-project-name" id="task_breaker-project-name" />
 
@@ -44,7 +62,7 @@
 
         <?php $current_user_groups= $core->get_current_user_owned_groups(); ?>
 
-        <?php $current_project_group= intval( get_post_meta( $post->ID, 'task_breaker_project_group_id', true ) ); ?>
+        <?php $current_project_group= intval( get_post_meta( $__post->ID, 'task_breaker_project_group_id', true ) ); ?>
 
         <?php if ( ! empty( $current_user_groups ) ) { ?>
 
@@ -75,7 +93,7 @@
                 <?php echo _e( 'Update Project', 'task_breaker' ); ?>
             </button>
 
-            <?php if ( $user_access->can_delete_project( $post->ID ) ) { ?>
+            <?php if ( $user_access->can_delete_project( $__post->ID ) ) { ?>
 
                 <button id="task_breakerDeleteProjectBtn" type="button" class="button button-danger">
                     <?php echo _e( 'Delete', 'task_breaker' ); ?>
