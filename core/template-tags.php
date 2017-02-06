@@ -273,12 +273,12 @@ class TaskBreakerTemplate {
 			// Default parameters.
 			$tasks = array(
 				'stats' => array(
-					'total' 		=> 0,
-					'perpage' 		=> 5,
-					'current_page' 	=> 1,
-					'total_page' 	=> 1,
-					'min_page' 		=> 0,
-					'max_page' 		=> 0,
+				'total' 		=> 0,
+				'perpage' 		=> 5,
+				'current_page' 	=> 1,
+				'total_page' 	=> 1,
+				'min_page' 		=> 0,
+				'max_page' 		=> 0,
 				),
 			);
 		}

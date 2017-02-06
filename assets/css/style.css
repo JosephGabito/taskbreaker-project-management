@@ -379,7 +379,7 @@
 }
 
 .single-project #task_breaker-project-tasks h3 {
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: normal;
 	line-height: 1.3;
 }
@@ -770,7 +770,7 @@
 #task_breaker-project #task_breaker-single-project-group-details {
 	display: inline-block;
 	width: 100%;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 /**
@@ -805,11 +805,16 @@
 	display: inline;
 	vertical-align: middle;
 }
+
 .task_breaker-project-meta .task-progress {
 	display: block;
 	width: 100%;
 	position: relative;
-	margin: 40px 0 15px 0;
+	margin: 40px 0 0 0;
+}
+
+.task_breaker-project-excerpt {
+	margin-top: 15px;
 }
 
 .task_breaker-project-meta .task-progress-task-count {
@@ -860,30 +865,16 @@
 	min-width: 100px;
 }
 .task_breaker-project-meta .task-progress-bar {
-	background: #E0E0E0;
-	border-radius: 25px;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	border: 1px solid #9E9E9E;
-	box-shadow: inset -2px 2px 1px #BDBDBD;
+    background: #E0E0E0;
+    border-radius: 4px;
 }
 
 .task_breaker-project-meta .task-progress-percentage {
-	background: repeating-linear-gradient(
-	  -55deg,
-	  #8BC34A,
-	  #8BC34A 10px,
-	  #9CCC65 10px,
-	  #9CCC65 20px
-	);
-	position: relative;
-	color: #38572C;
-	border-radius: 25px;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	display: block;
-	padding: 0 5px;
-	box-shadow: 1px 0px 0px 0px #538D4D;
+    background: #03A9F4;
+    position: relative;
+    color: #ffffff;
+    display: block;
+    padding: 1.5px 5px;
 }
 
 .task-progress-percentage-label {

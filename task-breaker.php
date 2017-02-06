@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TaskBreaker - Group Project Management
  * Description: A simple WordPress plugin for managing projects and tasks. Integrated into BuddyPress Groups for best collaborative experience.
- * Version: 1.3.6
+ * Version: 1.3.7
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.com
  * Text Domain: task_breaker
@@ -35,7 +35,7 @@ if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
 	return;
 }
 
-define( 'TASK_BREAKER_VERSION', '1.3.6' );
+define( 'TASK_BREAKER_VERSION', '1.3.7' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
 
