@@ -64,13 +64,6 @@ class TaskBreakerTaskComment {
 	private $model = '';
 
 	/**
-	 * The date added
-	 * 
-	 * @var string
-	 */
-	private $date_added = '';
-
-	/**
 	 * The object that will hold the wpdb class later on in construct.
 	 * 
 	 * @var string

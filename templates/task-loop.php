@@ -1,18 +1,16 @@
-<?php $tasks = &$args; ?>
-
 <?php $task_breaker_tasks = TaskBreakerTasksController::get_instance(); ?>
 
 <?php $core = new TaskBreakerCore(); ?>
 
 <?php $task_user_access = TaskBreakerCT::get_instance(); ?>
 
-<?php if ( $task_user_access->can_see_project_tasks( intval( $tasks['project_id'] ) ) ) { ?>
+<?php if ( $task_user_access->can_see_project_tasks( intval( $args['project_id'] ) ) ) { ?>
 
-	<?php if ( ! empty( $tasks['results'] ) ) { ?>
+	<?php if ( ! empty( $args['results'] ) ) { ?>
 
 		<ul class="project-tasks-results">
 
-		<?php foreach ( $tasks['results'] as $task ) { ?>
+		<?php foreach ( $args['results'] as $task ) { ?>
 
 			<?php $priority_label = $task_breaker_tasks->getPriority( $task->priority ); ?>
 
@@ -92,16 +90,24 @@
 	<?php } ?>
 
 	<?php
+	$stats = $args['stats'];
+	$total = 0;
+	$total_page = 1;
 
-	$stats = $tasks['stats'];
-	$total = intval( $stats['total'] );
+	if ( isset( $stats['total'] ) ) {
+		$total = intval( $stats['total'] );
+	}
+
+	if ( isset( $stats['total_page'] ) ) { 
+		$total_page = intval( $stats['total_page'] );
+	}
+
 	$perpage = intval( $stats['perpage'] );
-	$total_page = intval( $stats['total_page'] );
-	$currpage   = intval( $stats['current_page'] );
-	$min_page    = intval( $stats['min_page'] );
-	$max_page   = intval( $stats['max_page'] );
+	$currpage = intval( $stats['current_page'] );
+	$min_page = intval( $stats['min_page'] );
+	$max_page = intval( $stats['max_page'] );
 
-	if ( 0 !== $total ) { ?>
+	if ( $total > 1 ) { ?>
 
 		<div class="tablenav">
 		
