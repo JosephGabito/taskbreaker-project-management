@@ -43,6 +43,8 @@ define( 'TASK_BREAKER_PROJECT_SLUG', 'project' );
 
 define( 'TASK_BREAKER_ASSET_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 
+define( 'TASKBREAKER_DIRECTORY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+
 // Setup the tables on activation.
 register_activation_hook( __FILE__, 'task_breaker_install' );
 
