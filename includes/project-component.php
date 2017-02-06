@@ -151,8 +151,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 			'name' => $this->name,
 			'slug' => $this->id,
 			'position' => 80,
-			/* main nav screen function callback */
-			'screen_function' => 'task_breaker_bp_projects_main_screen_function',
+			'screen_function' => array('TaskBreakerProjectScreens', 'bp_projects_main_screen_function'),
 			'default_subnav_slug' => 'all',
 		);
 
@@ -160,9 +159,9 @@ class TaskBreakerProjectsComponent extends BP_Component {
 		$sub_nav[] = array(
 			'name'            => __( 'My Projects', 'task_breaker' ),
 			'slug'            => 'all',
-			'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
+			'parent_url'      => bp_loggedin_user_domain() . $this->id . '/',
 			'parent_slug'     => 'projects',
-			'screen_function' => 'task_breaker_bp_projects_main_screen_function',
+			'screen_function' => array('TaskBreakerProjectScreens', 'bp_projects_main_screen_function'),
 			'position'        => 10,
 		);
 
@@ -172,7 +171,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 			'slug'            => 'new',
 			'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
 			'parent_slug'     => 'projects',
-			'screen_function' => 'task_breaker_bp_projects_main_screen_function_new_project',
+			'screen_function' => array('TaskBreakerProjectScreens', 'bp_projects_main_screen_function_new_project'),
 			'position'        => 10,
 		);
 
