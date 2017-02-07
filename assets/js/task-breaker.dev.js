@@ -574,6 +574,79 @@ $('#task_breaker-submit-btn').click(function(e) {
     }); // end $.ajax
 }); // end $('#task_breaker-submit-btn').click()
 
+// test
+$('#task-breaker-form-file-attachment-field').on('change', function( event ){
+
+    var files = event.target.files;
+    var data = new FormData();
+
+    
+    $.each( files, function(key, value) {
+        data.append(key, value);
+    });
+
+    data.append( 'action', 'task_breaker_transactions_request' );
+    data.append( 'method', 'task_breaker_transaction_task_file_attachment' );
+    data.append( 'nonce', task_breakerProjectSettings.nonce )
+
+    $.ajax({
+        url: task_breakerAjaxUrl,
+        type: 'POST',
+        data: data,
+        cache: false,
+        dataType: 'json',
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        success: function( response, textStatus, jqXHR )
+        {
+            if( typeof response.error === 'undefined' )
+            {
+                // Success so call function to process the form
+                console.log('sucessfully sent the data..');
+                console.log('here is the response');
+                console.log( response );
+            }
+            else
+            {
+                // Handle errors here
+                console.log('ERRORS: ' + response.error);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            // Handle errors here
+            console.log('ERRORS: ' + textStatus);
+            // STOP LOADING SPINNER
+        },
+        xhr: function(){
+            var myXhr = $.ajaxSettings.xhr();
+            var progress = 0;
+            if ( myXhr.upload ) {
+                // For handling the progress of the upload
+                myXhr.upload.addEventListener('progress', function(e) {
+
+                    if ( e.lengthComputable ) {
+                        $('progress').attr({
+                            value: e.loaded,
+                            max: e.total,
+                        });
+                        progress = ( e.loaded / e.total ) * 100;
+                        $('#tb-file-attachment-progress').html( progress + '%' );
+                    }
+                } , false );
+
+            }
+            return myXhr;
+        },
+        complete: function() {
+            console.log('request complete... stopping the spinner...');
+        }
+    });
+
+    
+
+});
+
 $('#task_breaker-edit-btn').click(function(e) {
 
     e.preventDefault();

@@ -53,6 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		</div>
 
+		<!-- priority -->
 		<div class="task_breaker-form-field">
 			<label for="task_breaker-task-priority-select">
 				<strong>
@@ -61,6 +62,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php $core->task_priority_select(); ?>
 			</label>
 		</div>
+		<!--end priority-->
+
+		<div class="task_breaker-form-field">
+			<label for="task_breaker-task-priority-select">
+				<strong>
+					<?php _e( 'File Attachment:', 'task_breaker' ); ?> 
+				</strong>
+				<div class="task-breaker-form-file-attachment">
+					<input type="file" name="file" id="task-breaker-form-file-attachment-field" />
+				</div>
+			</label>
+			<div id="tb-file-attachment-progress">ss</div>
+		</div>
+
+		<div class="task_breaker-form-field ie-fallback hidden">
+			<label for="task_breaker-task-priority-select">
+			Asynchronous file upload is not supported with your browser. Please use IE 10 and above.
+			</label>
+		</div>
+		
 
 		<div class="task_breaker-form-field">
 			<button id="task_breaker-submit-btn" class="button button-primary button-large" style="float:right">

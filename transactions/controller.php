@@ -116,6 +116,9 @@ class TaskBreakerTransactions {
 
 			// Task autosuggest.
 			'task_breaker_transactions_user_suggest',
+
+			// Task file attachment.
+			'task_breaker_transaction_task_file_attachment'
 		));
 
 		// Check if the method is allowed.

@@ -77,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php }  else { ?>
 		<p class="task-breaker-message info">
-			<?php echo sprintf( esc_html__('Ops! Looks like you are lost. %s', 'task_breaker'), '<a href="#tasks">'.__('Go back to safely tasks.', 'task_breaker').'</a>'); ?>
+			<?php echo sprintf( esc_html__('Ops! Looks like you are lost. %s', 'task_breaker'), '<a href="#tasks">'.__('Go back to tasks.', 'task_breaker').'</a>'); ?>
 		</p>
 	<?php } ?> 
 

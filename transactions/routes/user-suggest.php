@@ -51,6 +51,6 @@ if ( ! empty( $results ) ) {
 
 $this->task_breaker_api_message(
 	array(
-	'results' => $formatted_results,
+		'results' => $formatted_results,
 	)
 );
