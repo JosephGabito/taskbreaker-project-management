@@ -13,9 +13,9 @@ define( 'TASK_BREAKER_TASKS_TABLE', 'task_breaker_tasks' );
 define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE', 'task_breaker_tasks_user_assignment' );
 define( 'TASK_BREAKER_COMMENTS_TABLE', 'task_breaker_comments' );
 
-define( 'TASK_BREAKER_TASKS_TABLE_VERSION', '1.2.02062017v4' );
-define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION', '1.2.02062017v4' );
-define( 'TASK_BREAKER_COMMENTS_TABLE_VERSION', '1.2.02062017v4' );
+define( 'TASK_BREAKER_TASKS_TABLE_VERSION', '1.2.02072017v4' );
+define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION', '1.2.02072017v4' );
+define( 'TASK_BREAKER_COMMENTS_TABLE_VERSION', '1.2.02072017v4' );
 
 function task_breaker_install() {
 
@@ -30,18 +30,6 @@ function task_breaker_install() {
 
 	return;
 }
-
-function task_breaker_import_thrive_intranet_data() {
-
-	// Import existing tasks.
-	task_breaker_import_thrive_tasks();
-
-	// Import existing comments.
-	task_breaker_import_thrive_comments();
-
-	return;
-}
-
 /**
  * Add tasks table to database
  *
@@ -65,8 +53,8 @@ function task_breaker_tasks_setup_table() {
   		project_id int(10) NOT NULL,
   		priority int(2) NOT NULL,
   		completed_by int(10) NOT NULL,
-  		date_created datetime DEFAULT NULL,
-  		UNIQUE KEY (id)
+  		date_added datetime DEFAULT NULL,
+  		UNIQUE KEY id (id)
 	) $charset_collate ;";
 
 	// Include the 'upgrade' script inside WP include dir.
@@ -94,14 +82,14 @@ function task_breaker_comments_setup_table() {
 	$charset_collate = $wpdb->get_charset_collate();
 
 	$comments_table_structure = "CREATE TABLE $comments_table_name (
-		  	id int(10) NOT NULL AUTO_INCREMENT,
-		  	details text NOT NULL,
-		  	user int(10) NOT NULL,
-		  	ticket_id int(10) NOT NULL,
-		  	status int(11) NOT NULL DEFAULT '0',
-		  	date_created datetime DEFAULT NULL,
-		  	UNIQUE KEY (id)
-		) $charset_collate";
+	  	id int(10) NOT NULL AUTO_INCREMENT,
+	  	details text NOT NULL,
+	  	user int(10) NOT NULL,
+	  	ticket_id int(10) NOT NULL,
+	  	status int(11) NOT NULL DEFAULT '0',
+	  	date_added datetime DEFAULT NULL,
+	  	UNIQUE KEY id (id)
+	) $charset_collate";
 
 	// Include the 'upgrade' script inside WP include dir.
 	include_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -110,65 +98,6 @@ function task_breaker_comments_setup_table() {
 	dbDelta( $comments_table_structure );
 
 	add_option( 'task_breaker_comments_table_version', TASK_BREAKER_COMMENTS_TABLE_VERSION );
-
-	return;
-}
-
-function task_breaker_import_thrive_tasks() {
-
-	global $wpdb;
-
-	$tasks_table_name = $wpdb->prefix . TASK_BREAKER_TASKS_TABLE;
-
-	// Check if it has data in wp_thrive_tasks.
-	// Copy the data if it has.
-	$old_table = $wpdb->prefix . 'thrive_tasks';
-	$has_table = $wpdb->get_results( "SHOW TABLES LIKE '" . $old_table . "'" );
-
-	// Only run once
-	if ( ! get_option( 'task_breaker_tasks_imported' ) ) {
-
-		if ( $has_table ) {
-
-			$wpdb->query( "INSERT {$tasks_table_name} SELECT * FROM {$old_table};" );
-
-			update_option( 'task_breaker_tasks_imported', 'yes' );
-
-			// Update the meta
-			$wpdb->update(
-				$wpdb->postmeta,
-				array(
-				'meta_key' => 'task_breaker_project_group_id',    // string
-				),
-				array( 'meta_key' => 'thrive_project_group_id' ),
-				array(
-				'%s',    // value1
-				),
-				array( '%s' )
-			);
-		}
-	}
-
-	return;
-}
-
-function task_breaker_import_thrive_comments() {
-
-	global $wpdb;
-
-	$comments_table_name = $wpdb->prefix . TASK_BREAKER_COMMENTS_TABLE;
-
-	// Check if it has data in wp_thrive_comments.
-	// Copy the data if it has.
-	$old_table = $wpdb->prefix . 'thrive_comments';
-	$has_table = $wpdb->get_results( "SHOW TABLES LIKE '" . $old_table . "'" );
-
-	if ( ! get_option( 'task_breaker_comments_imported' ) ) {
-		if ( $has_table ) {
-			$wpdb->query( "INSERT {$comments_table_name} SELECT * FROM {$old_table};" );
-			update_option( 'task_breaker_comments_imported', 'yes' );
-		}
-	}
 
 	return;
 }
@@ -182,12 +111,12 @@ function task_breaker_tasks_user_assignment_setup_table() {
 	$charset_collate = $wpdb->get_charset_collate();
 
 	$task_user_assignment_table_structure = "CREATE TABLE $task_user_assignment_table_name (
-		  	id int(10) NOT NULL AUTO_INCREMENT,
-		  	task_id int(10) NOT NULL,
-		  	member_id int(10) NOT NULL,
-		  	date_created datetime DEFAULT NULL,
-		  	UNIQUE KEY (id)
-		) $charset_collate";
+	  	id int(10) NOT NULL AUTO_INCREMENT,
+	  	task_id int(10) NOT NULL,
+	  	member_id int(10) NOT NULL,
+	  	date_added datetime DEFAULT NULL,
+	  	UNIQUE KEY id (id)
+	) $charset_collate";
 
 	// Include the 'upgrade' script inside WP include dir.
 	include_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -199,4 +128,3 @@ function task_breaker_tasks_user_assignment_setup_table() {
 
 	return;
 }
-

@@ -308,7 +308,7 @@ class TaskBreakerTask {
 			'page' => 1,
 			'priority' => -1,
 			'search' => '',
-			'orderby' => 'date_created',
+			'orderby' => 'date_added',
 			'order' => 'asc',
 			'show_completed' => 'no',
 			'echo' => true,
@@ -477,7 +477,7 @@ class TaskBreakerTask {
 
 		if ( $id !== 0 ) {
 
-			$stmt = sprintf( "SELECT * FROM {$this->model} WHERE id = {$id} order by priority desc, date_created desc" );
+			$stmt = sprintf( "SELECT * FROM {$this->model} WHERE id = {$id} order by priority desc, date_added desc" );
 
 			$result = $dbase->get_row( $stmt );
 
@@ -574,7 +574,7 @@ class TaskBreakerTask {
 			'milestone_id' => $this->milestone_id,
 			'project_id' => $this->project_id,
 			'priority' => $this->priority,
-			'date_created' => $this->date,
+			'date_added' => $this->date,
 			'assign_users' => $this->group_members_assigned,
 		);
 

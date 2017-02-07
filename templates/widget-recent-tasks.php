@@ -34,7 +34,7 @@ if ( ! empty( $user_tasks ) ) { ?>
 			</h5>
 			<div class="date">
 
-				<?php $dated_added = new DateTime( $task->date_created ); ?>
+				<?php $dated_added = new DateTime( $task->date_added ); ?>
 				<?php $time_since  = $dated_added->diff( new DateTime( date( "Y-m-d H:i:s", current_time( 'timestamp' ) ) ) );  ?>
 				<?php 
 					$time_since_stack = array(
