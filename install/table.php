@@ -65,7 +65,7 @@ function task_breaker_tasks_setup_table() {
   		project_id int(10) NOT NULL,
   		priority int(2) NOT NULL,
   		completed_by int(10) NOT NULL,
-  		date_created datetime DEFAULT NULL
+  		date_created datetime DEFAULT NULL,
   		UNIQUE KEY (id)
 	) $charset_collate ;";
 
