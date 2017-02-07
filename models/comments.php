@@ -104,6 +104,7 @@ class TaskBreakerTaskComment {
 		$this->id = absint( $id );
 
 		return $this;
+
 	}
 
 	/**
@@ -180,6 +181,7 @@ class TaskBreakerTaskComment {
 		if ( empty( $this->ticket_id ) ) { return false; }
 
 		$table = $this->model;
+		
 		$core = new TaskBreakerCore();
 
 		$data = array(

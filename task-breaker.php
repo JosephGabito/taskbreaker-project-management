@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TaskBreaker - Group Project Management
  * Description: A simple WordPress plugin for managing projects and tasks. Integrated into BuddyPress Groups for best collaborative experience.
- * Version: 1.3.7
+ * Version: 1.3.8
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.com
  * Text Domain: task_breaker
@@ -22,20 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
 
-/**
- * Do not run TaskBreaker on PHP version 5.3.0-
- */
-if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
-	add_action( 'admin_notices', 'taskbreaker_admin_notice' );
-	function taskbreaker_admin_notice() { ?>
-		<div class="notice notice-error is-dismissible">
-	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.3.0 and above.', 'task_breaker' ); ?></strong></p>
-	    </div>
-	<?php } 
-	return;
-}
-
-define( 'TASK_BREAKER_VERSION', '1.3.7' );
+define( 'TASK_BREAKER_VERSION', '1.3.8' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
 
@@ -45,11 +32,36 @@ define( 'TASK_BREAKER_ASSET_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 
 define( 'TASKBREAKER_DIRECTORY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
+/**
+ * Do not run TaskBreaker on PHP version 5.3.0-
+ */
+if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
+	add_action( 'admin_notices', 'taskbreaker_admin_notice' );
+	function taskbreaker_admin_notice() { ?>
+		<div class="notice notice-error is-dismissible">
+	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.3.0 and above.', 'task_breaker' ); ?></strong></p>
+	    </div>
+	<?php }
+}
+
+add_action('bp_loaded', 'taskbreaker_is_group_active');
+
+function taskbreaker_is_group_active() {
+	if ( function_exists('bp_is_active') ) {
+		if ( ! bp_is_active( 'groups' ) ) {
+			add_action( 'admin_notices', 'taskbreaker_admin_notice_group_required' );
+		}
+	}
+}
+
+function taskbreaker_admin_notice_group_required() { ?>
+	<div class="notice notice-warning is-dismissible">
+        <p><strong><?php _e( 'Notice: TaskBreaker requires BuddyPress Groups Component to be enabled.', 'task_breaker' ); ?></strong></p>
+    </div>
+<?php } 
+
 // Setup the tables on activation.
 register_activation_hook( __FILE__, 'task_breaker_install' );
-
-// Migration over the old version.
-register_activation_hook( __FILE__, 'task_breaker_import_thrive_intranet_data' );
 
 // Plugin l10n.
 add_action( 'plugins_loaded', 'task_breaker_localize_plugin' );
