@@ -7,15 +7,17 @@
  * @since   1.0
  */
 
-
 // @reference <https://codex.wordpress.org/Creating_Tables_with_Plugins>
+define( 'TASKBREAKER_DB_VERSION', '1.3.1231' );
 define( 'TASK_BREAKER_TASKS_TABLE', 'task_breaker_tasks' );
 define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE', 'task_breaker_tasks_user_assignment' );
 define( 'TASK_BREAKER_COMMENTS_TABLE', 'task_breaker_comments' );
+define( 'TASK_BREAKER_META_TABLE', 'task_breaker_task_meta' );
 
-define( 'TASK_BREAKER_TASKS_TABLE_VERSION', '1.2.02072017v4' );
-define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION', '1.2.02072017v4' );
-define( 'TASK_BREAKER_COMMENTS_TABLE_VERSION', '1.2.02072017v4' );
+define( 'TASK_BREAKER_TASKS_TABLE_VERSION', TASKBREAKER_DB_VERSION );
+define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION', TASKBREAKER_DB_VERSION );
+define( 'TASK_BREAKER_COMMENTS_TABLE_VERSION', TASKBREAKER_DB_VERSION );
+define( 'TASK_BREAKER_META_TABLE_VERSION', TASKBREAKER_DB_VERSION );
 
 function task_breaker_install() {
 
@@ -27,6 +29,9 @@ function task_breaker_install() {
 
 	// Setup our task comments user assignment.
 	task_breaker_tasks_user_assignment_setup_table();
+
+	// Setup task meta table
+	task_breaker_setup_task_meta_table();
 
 	return;
 }
@@ -123,6 +128,34 @@ function task_breaker_tasks_user_assignment_setup_table() {
 
 	// Run the dbDelta function with our table specification.
 	dbDelta( $task_user_assignment_table_structure );
+
+	add_option( 'task_breaker_comments_table_version', TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION );
+
+	return;
+}
+
+function task_breaker_setup_task_meta_table() {
+
+	global $wpdb;
+
+	//TASK_BREAKER_META_TABLE_VERSION
+	$task_meta_table = $wpdb->prefix . TASK_BREAKER_META_TABLE;
+
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$task_meta_table_struct = "CREATE TABLE $task_meta_table (
+	  	id int(10) NOT NULL AUTO_INCREMENT,
+	  	task_id int(10) NOT NULL,
+	  	meta_key varchar(255) NOT NULL,
+	  	meta_value text NOT NULL,
+	  	UNIQUE KEY id (id)
+	) $charset_collate";
+
+	// Include the 'upgrade' script inside WP include dir.
+	include_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+	// Run the dbDelta function with our table specification.
+	dbDelta( $task_meta_table_struct );
 
 	add_option( 'task_breaker_comments_table_version', TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE_VERSION );
 

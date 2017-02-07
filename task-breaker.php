@@ -90,6 +90,9 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/project-notifications.php';
 // Require widgets file.
 require_once plugin_dir_path( __FILE__ ) . 'widgets/widgets.php';
 
+// Require attachments library.
+require_once plugin_dir_path( __FILE__ ) . 'core/file-attachments.php';
+
 // Require the template tags.
 include_once plugin_dir_path( __FILE__ ) . 'core/template-tags.php';
 

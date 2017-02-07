@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
 
+
 $task = TaskBreakerTasksController::get_instance();
 
 $user_access = TaskBreakerCT::get_instance();
@@ -30,6 +31,14 @@ if ( ! $user_access->can_add_task( (int) $_POST['project_id'] ) ) {
 }
 
 if ( $task_id ) {
+
+	do_action( 'taskbreaker_task_saved' );
+	
+	// Attach the file into the task.
+	if ( !empty( $_POST['file_attachments'] ) ) {
+		$taskbreaker_file_attachment = new TaskBreakerFileAttachment();
+		$taskbreaker_file_attachment->task_attach_file( $_POST['file_attachments'], $task_id );
+	}
 
 	$this->task_breaker_api_message(
 		array(

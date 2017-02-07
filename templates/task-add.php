@@ -72,8 +72,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="task-breaker-form-file-attachment">
 					<input type="file" name="file" id="task-breaker-form-file-attachment-field" />
 				</div>
+				<div id="tb-file-attachment-progress">
+					<div id="tb-file-attachment-progress-movable"></div>
+				</div>
 			</label>
-			<div id="tb-file-attachment-progress">ss</div>
+			<input type="hidden" name="taskbreaker-file-attachment-field" id="taskbreaker-file-attachment-field" value="" />
 		</div>
 
 		<div class="task_breaker-form-field ie-fallback hidden">

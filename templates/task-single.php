@@ -1,10 +1,12 @@
 <?php if ( empty( $args ) ) { return; } ?>
+
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
 <?php $core = new TaskBreakerCore(); ?>
 <?php $template = new TaskBreakerTemplate(); ?>
 
 <?php
 if ( ! empty( $args->user ) ) {
+	
 	// Only allow members who has an access view to view the task.
 	if ( ! $user_access->can_see_project_tasks( $args->project_id ) ) { ?>
 
@@ -80,6 +82,18 @@ if ( ! empty( $args->user ) ) {
 				</div>
 			<?php } ?>
 
+			<?php // print_r( $args->user ); ?>
+			<strong>File Attachments</strong>
+			<p>
+				<?php $attachments = TaskBreakerFileAttachment::task_get_attached_files( $args->id, $args->user ); ?>
+				<?php if ( ! empty( $attachments ) ) { ?>
+					<?php foreach( $attachments as $attachment ) { ?>
+						<a href="<?php echo esc_url( $attachment['url'] ); ?>" title="Download File">
+							<?php echo esc_html( $attachment['name'] ); ?>
+						</a>
+					<?php } ?>
+				<?php } ?>
+			</p>
 
 			<div class="task-content-meta">
 

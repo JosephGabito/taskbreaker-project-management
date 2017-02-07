@@ -1675,3 +1675,21 @@
     left: -20px;
     top: 7px;
 }
+
+#tb-file-attachment-progress {
+	height: 5px;
+    background: #fff;
+    width: 100%;
+    display: none;
+    overflow: hidden;
+}
+
+#tb-file-attachment-progress.active {
+	display: block;
+}
+#tb-file-attachment-progress > #tb-file-attachment-progress-movable {
+	height: 5px;
+	background: #2196F3;
+	width: 0%;
+	display: block;
+}

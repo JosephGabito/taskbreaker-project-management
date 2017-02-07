@@ -491,6 +491,8 @@ ThriveProjectRoute.on('route', function(route) {
 
 Backbone.history.start();
 
+var client_files = '';
+
 $('#task_breaker-submit-btn').click(function(e) {
 
     e.preventDefault();
@@ -526,7 +528,8 @@ $('#task_breaker-submit-btn').click(function(e) {
 
             project_id: task_breakerTaskConfig.currentProjectId,
             user_id: task_breakerTaskConfig.currentUserId,
-            user_id_collection: $('select#task-user-assigned').val()
+            user_id_collection: $('select#task-user-assigned').val(),
+            file_attachments: client_files
         },
 
         method: 'post',
@@ -560,8 +563,6 @@ $('#task_breaker-submit-btn').click(function(e) {
 
                 $('#task_breaker-add-task-message').html('<p class="error">'+message.response+'</p>').show().addClass('error');
 
-
-
                 element.text('Save Task');
 
                 element.removeAttr('disabled');
@@ -580,7 +581,6 @@ $('#task-breaker-form-file-attachment-field').on('change', function( event ){
     var files = event.target.files;
     var data = new FormData();
 
-    
     $.each( files, function(key, value) {
         data.append(key, value);
     });
@@ -605,6 +605,7 @@ $('#task-breaker-form-file-attachment-field').on('change', function( event ){
                 console.log('sucessfully sent the data..');
                 console.log('here is the response');
                 console.log( response );
+                client_files = response.file;
             }
             else
             {
@@ -622,7 +623,11 @@ $('#task-breaker-form-file-attachment-field').on('change', function( event ){
             var myXhr = $.ajaxSettings.xhr();
             var progress = 0;
             if ( myXhr.upload ) {
+
                 // For handling the progress of the upload
+                $('#tb-file-attachment-progress').addClass('active');
+                $('#task_breaker-submit-btn').attr('disabled', true);
+
                 myXhr.upload.addEventListener('progress', function(e) {
 
                     if ( e.lengthComputable ) {
@@ -631,8 +636,17 @@ $('#task-breaker-form-file-attachment-field').on('change', function( event ){
                             max: e.total,
                         });
                         progress = ( e.loaded / e.total ) * 100;
-                        $('#tb-file-attachment-progress').html( progress + '%' );
+                        if ( typeof progress === 'number' ) {
+                            $('#tb-file-attachment-progress-movable').css({
+                                width: Math.floor( progress ) + '%'
+                            });
+                        }
                     }
+
+                    if ( progress === 100 ) {
+                        $('#task_breaker-submit-btn').removeAttr('disabled');
+                    }
+
                 } , false );
 
             }
