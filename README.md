@@ -1,4 +1,4 @@
-~Current Version:1.3.8~
+~Current Version: 1.3.9~
 
 # TaskBreaker - Group Project and Task Management
 

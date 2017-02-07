@@ -83,7 +83,7 @@ class TaskBreakerTemplate {
 				'page' => 1,
 				'priority' => -1,
 				'search' => '',
-				'orderby' => 'date_created',
+				'orderby' => 'date_added',
 				'order' => 'desc',
 				'show_completed' => 'no',
 				'echo' => true,
@@ -176,8 +176,8 @@ class TaskBreakerTemplate {
 					echo '<td><strong><a class="row-title" href="#tasks/edit/' . intval( $task->id ) . '">' . stripslashes( esc_html( $task->title ) ) . '</a></strong>' . $row_actions . '</td>';
 					echo '<td>' . esc_html( $priority_label ) . '</h3></td>';
 
-				if ( '0000-00-00 00:00:00' !== $task->date_created ) {
-					echo '<td>' . esc_html( date( 'M d, o @H:i', strtotime( $task->date_created ) ) ) . '</h3></td>';
+				if ( '0000-00-00 00:00:00' !== $task->date_added ) {
+					echo '<td>' . esc_html( date( 'M d, o @H:i', strtotime( $task->date_added ) ) ) . '</h3></td>';
 				} else {
 					echo '<td>' . __( 'N/A','task_breaker' ) . '</td>';
 				}
@@ -248,7 +248,7 @@ class TaskBreakerTemplate {
 				'page' => 1,
 				'priority' => -1,
 				'search' => '',
-				'orderby' => 'date_created',
+				'orderby' => 'date_added',
 				'order' => 'desc',
 				'show_completed' => 'no',
 				'echo' => true,
