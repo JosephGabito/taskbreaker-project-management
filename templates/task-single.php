@@ -82,29 +82,32 @@ if ( ! empty( $args->user ) ) {
 				</div>
 			<?php } ?>
 
-			<?php // print_r( $args->user ); ?>
-			<strong>File Attachments</strong>
-			<p>
-				<?php $attachments = TaskBreakerFileAttachment::task_get_attached_files( $args->id, $args->user ); ?>
-				<?php if ( ! empty( $attachments ) ) { ?>
+			<?php $attachments = TaskBreakerFileAttachment::task_get_attached_files( $args->id, $args->user ); ?>
+			
+			<?php if ( ! empty( $attachments ) ) { ?>
+				<strong>
+					<?php esc_html_e( 'File Attachments', 'task_breaker' ); ?>
+				</strong>
+				<p>
 					<?php foreach( $attachments as $attachment ) { ?>
 						<a href="<?php echo esc_url( $attachment['url'] ); ?>" title="Download File">
 							<?php echo esc_html( $attachment['name'] ); ?>
 						</a>
 					<?php } ?>
-				<?php } ?>
-			</p>
+				</p>
+			<?php } ?>
 
 			<div class="task-content-meta">
 
-				<div class="alignright">
+				<div class="alignleft">
 					<a href="#tasks" title="<?php _e( 'Tasks List', 'task_breaker' ); ?>" class="button">
 						<?php _e( '&larr; Tasks List', 'task_breaker' ); ?>
 					</a>
-
-						<a href="#tasks/edit/<?php echo intval( $args->id ); ?>" class="button">
-							<?php _e( 'Edit', 'task_breaker' ); ?>
-						</a>
+				</div>
+				<div class="alignright">
+					<a href="#tasks/edit/<?php echo intval( $args->id ); ?>" class="button">
+						<?php _e( 'Edit', 'task_breaker' ); ?>
+					</a>
 				</div>
 
 				<div class="clearfix"></div>

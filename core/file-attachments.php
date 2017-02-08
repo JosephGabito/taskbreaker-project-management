@@ -47,6 +47,15 @@ class TaskBreakerFileAttachment {
 	}
 
 	protected function transport_file( $file_name, $task_id ) {
+		
+		if ( ! class_exists('WP_Filesystem_Direct') ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+		    require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' );
+		}
+
+		$args = array();
+
+		$fs = new WP_Filesystem_Direct( $args );
 
 		$path = wp_upload_dir();
 		$tmp_directory = $path['basedir'] . '/taskbreaker/'. get_current_user_id() .'/tmp/' . $file_name;
@@ -54,7 +63,7 @@ class TaskBreakerFileAttachment {
 		$final_destination = $destination_directory . $file_name;
 
 		if ( wp_mkdir_p( $destination_directory ) ) {
-			if ( ! rename( $tmp_directory, $final_destination ) ) {
+			if ( ! $fs->move( $tmp_directory, $final_destination ) ) {
 			    echo "failed to copy $file...\n";
 			}
 		}

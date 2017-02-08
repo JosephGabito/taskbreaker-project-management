@@ -314,8 +314,16 @@ class TaskBreakerCore {
 		$stmt = $dbase->prepare( "SELECT * FROM {$user_assignment_tbl} INNER JOIN {$task_tbl} ON task_table.id = user_task_assignment.task_id WHERE user_task_assignment.member_id = %d ORDER BY task_table.id DESC LIMIT %d", $user_id, $limit );
 
 		return $dbase->get_results( $stmt, OBJECT );
-		;
 
+	}
+
+	public function get_wp_max_upload_size() {
+		$in_bytes = 1000000;
+		$wp_max_upload_size = 0;
+		if ( wp_max_upload_size() > 1100000 ) {
+			$wp_max_upload_size = floor( wp_max_upload_size() / $in_bytes );
+		}
+		return  $wp_max_upload_size;
 	}
 
 }

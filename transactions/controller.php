@@ -135,6 +135,7 @@ class TaskBreakerTransactions {
 			$method_module = trailingslashit( plugin_dir_path( __FILE__ ) ) . 'routes/' . sanitize_file_name( $method ) . '.php';
 
 			if ( file_exists( $method_module ) ) {
+				do_action( 'taskbreaker_before_route_call', $method );
 				require_once $method_module;
 			} else {
 				$this->task_breaker_api_message

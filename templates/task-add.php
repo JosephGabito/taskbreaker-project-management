@@ -63,13 +63,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</label>
 		</div>
 		<!--end priority-->
-
 		<div class="task_breaker-form-field">
 			<div class="taskbreaker-task-file-attachment">
 				<div class="task-breaker-form-file-attachment">
 					<input type="file" name="file" id="task-breaker-form-file-attachment-field" />
 					<label for="task-breaker-form-file-attachment-field">
-						Click to attach a file
+						<?php esc_html_e('Click to attach a file', 'task_breaker'); ?>
+						<?php echo sprintf( __('(maximum file size: %d MB)', 'task_breaker'), absint( $core->get_wp_max_upload_size() ) ); ?>
 					</label>
 				</div>
 				<div id="tb-file-attachment-progress-wrap">
@@ -79,22 +79,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<?php esc_html_e('. File attached successfully.', 'task_breaker'); ?>
 						</span>
 						<span id="taskbreaker-upload-error-text-helper">
-							<?php esc_html_e('. Upload finished but there were errors. See message below.', 'task_breaker'); ?>
+							<?php esc_html_e('. Upload successfully initiated, but the server was unable to process it. See message below.', 'task_breaker'); ?>
 						</span>
 					</div>
 					<div id="tb-file-attachment-progress">
 						<div id="tb-file-attachment-progress-movable"></div>
 					</div>
 				</div>
-			</div><!--.taskbreaker-task-file-attachment-->
+			</div>
 			<input type="hidden" name="taskbreaker-file-attachment-field" id="taskbreaker-file-attachment-field" value="" />
 		</div>
-
-		<div class="task_breaker-form-field ie-fallback hidden">
-			<label for="task_breaker-task-priority-select">
-				<?php esc_html_e('Asynchronous file upload is not supported with your browser. Please use IE 10 and above.', 'task_breaker'); ?>
-			</label>
-		</div>
+		
+		<!--[if lte IE 9]>
+			<div class="task_breaker-form-field ie-fallback ie-10">
+				<label for="task_breaker-task-priority-select">
+					<?php esc_html_e('File attachment is disabled for this browser. Please update to latest version', 'task_breaker'); ?>
+				</label>
+			</div>
+		<![endif]-->
 		
 
 		<div class="task_breaker-form-field">

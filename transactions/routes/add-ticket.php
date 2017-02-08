@@ -56,7 +56,7 @@ if ( $task_id ) {
 		array(
 			'message' => 'fail',
 			'response' => __(
-				'There was an error trying to add this task. Title and Description fields are required or there wasan unexpected error.', ' task_breaker'
+				'There was an error trying to add this task. Title and Description fields are required or there was an unexpected error.', ' task_breaker'
 			),
 		)
 	);

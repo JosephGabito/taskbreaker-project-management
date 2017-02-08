@@ -600,22 +600,29 @@ $('#task-breaker-form-file-attachment-field').on('change', function( event ){
         success: function( response, textStatus, jqXHR )
         {
             if( typeof response.error === 'undefined' )
-            { 
+            {   
+
                 // Success so call function to process the form
                 console.log('sucessfully sent the data..');
                 console.log('here is the response');
                 console.log( response.message );
-                if ( response.message === 'fail' ) {
-                    client_files = '';
-                    $('#tb-file-attachment-progress').parent().append('<div id="taskbreaker-upload-error">'+response.response+'</div>');
+                if ( typeof response !== 'undefined' ) {
+                    if ( response.message === 'fail' ) {
+                        client_files = '';
+                        $('#tb-file-attachment-progress').parent().append('<div id="taskbreaker-upload-error">'+response.response+'</div>');
+                        $('#taskbreaker-upload-error-text-helper').addClass('active');
+                        $('#taskbreaker-upload-success-text-helper').removeClass('active');
+                    } else {
+                        client_files = response.file;
+                        $('#taskbreaker-upload-error').remove();
+                        $('#taskbreaker-upload-error-text-helper').removeClass('active');
+                        $('#taskbreaker-upload-success-text-helper').addClass('active');
+                        
+                    }   
+                } else {
                     $('#taskbreaker-upload-error-text-helper').addClass('active');
                     $('#taskbreaker-upload-success-text-helper').removeClass('active');
-                } else {
-                    client_files = response.file;
-                    $('#taskbreaker-upload-error').remove();
-                    $('#taskbreaker-upload-error-text-helper').removeClass('active');
-                    $('#taskbreaker-upload-success-text-helper').addClass('active');
-                    
+                    $('#tb-file-attachment-progress').parent().append('<div id="taskbreaker-upload-error">The application did not received any response from the server. Try uploading smaller files.</div>');
                 }
                 
             }
