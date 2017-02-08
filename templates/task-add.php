@@ -65,23 +65,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!--end priority-->
 
 		<div class="task_breaker-form-field">
-			<label for="task_breaker-task-priority-select">
-				<strong>
-					<?php _e( 'File Attachment:', 'task_breaker' ); ?> 
-				</strong>
+			<div class="taskbreaker-task-file-attachment">
 				<div class="task-breaker-form-file-attachment">
 					<input type="file" name="file" id="task-breaker-form-file-attachment-field" />
+					<label for="task-breaker-form-file-attachment-field">
+						Click to attach a file
+					</label>
 				</div>
-				<div id="tb-file-attachment-progress">
-					<div id="tb-file-attachment-progress-movable"></div>
+				<div id="tb-file-attachment-progress-wrap">
+					<div id="tb-file-attachment-progress-text">
+						<?php esc_html_e('Uploading', 'task_breaker'); ?>&hellip;<span id="taskbreaker-upload-progress-value">(0%)</span>
+						<span id="taskbreaker-upload-success-text-helper">
+							<?php esc_html_e('. File attached successfully.', 'task_breaker'); ?>
+						</span>
+						<span id="taskbreaker-upload-error-text-helper">
+							<?php esc_html_e('. Upload finished but there were errors. See message below.', 'task_breaker'); ?>
+						</span>
+					</div>
+					<div id="tb-file-attachment-progress">
+						<div id="tb-file-attachment-progress-movable"></div>
+					</div>
 				</div>
-			</label>
+			</div><!--.taskbreaker-task-file-attachment-->
 			<input type="hidden" name="taskbreaker-file-attachment-field" id="taskbreaker-file-attachment-field" value="" />
 		</div>
 
 		<div class="task_breaker-form-field ie-fallback hidden">
 			<label for="task_breaker-task-priority-select">
-			Asynchronous file upload is not supported with your browser. Please use IE 10 and above.
+				<?php esc_html_e('Asynchronous file upload is not supported with your browser. Please use IE 10 and above.', 'task_breaker'); ?>
 			</label>
 		</div>
 		

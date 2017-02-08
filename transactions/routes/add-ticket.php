@@ -42,11 +42,11 @@ if ( $task_id ) {
 
 	$this->task_breaker_api_message(
 		array(
-		'message' => 'success',
-		'response' => array(
-				'id' => $task_id,
-			),
-		'stats' => $task->getTaskStatistics( (int) $_POST['project_id'] ),
+			'message' => 'success',
+			'response' => array(
+					'id' => $task_id,
+				),
+			'stats' => $task->getTaskStatistics( (int) $_POST['project_id'] ),
 		)
 	);
 

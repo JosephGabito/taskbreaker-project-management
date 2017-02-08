@@ -600,12 +600,24 @@ $('#task-breaker-form-file-attachment-field').on('change', function( event ){
         success: function( response, textStatus, jqXHR )
         {
             if( typeof response.error === 'undefined' )
-            {
+            { 
                 // Success so call function to process the form
                 console.log('sucessfully sent the data..');
                 console.log('here is the response');
-                console.log( response );
-                client_files = response.file;
+                console.log( response.message );
+                if ( response.message === 'fail' ) {
+                    client_files = '';
+                    $('#tb-file-attachment-progress').parent().append('<div id="taskbreaker-upload-error">'+response.response+'</div>');
+                    $('#taskbreaker-upload-error-text-helper').addClass('active');
+                    $('#taskbreaker-upload-success-text-helper').removeClass('active');
+                } else {
+                    client_files = response.file;
+                    $('#taskbreaker-upload-error').remove();
+                    $('#taskbreaker-upload-error-text-helper').removeClass('active');
+                    $('#taskbreaker-upload-success-text-helper').addClass('active');
+                    
+                }
+                
             }
             else
             {
@@ -622,10 +634,12 @@ $('#task-breaker-form-file-attachment-field').on('change', function( event ){
         xhr: function(){
             var myXhr = $.ajaxSettings.xhr();
             var progress = 0;
+            var progress_percentage = '0%';
+
             if ( myXhr.upload ) {
 
                 // For handling the progress of the upload
-                $('#tb-file-attachment-progress').addClass('active');
+                $('#tb-file-attachment-progress-wrap').addClass('active');
                 $('#task_breaker-submit-btn').attr('disabled', true);
 
                 myXhr.upload.addEventListener('progress', function(e) {
@@ -637,9 +651,11 @@ $('#task-breaker-form-file-attachment-field').on('change', function( event ){
                         });
                         progress = ( e.loaded / e.total ) * 100;
                         if ( typeof progress === 'number' ) {
+                            var progress_percentage = Math.floor( progress ) + '%';
                             $('#tb-file-attachment-progress-movable').css({
-                                width: Math.floor( progress ) + '%'
+                                width: progress_percentage
                             });
+                            $('#taskbreaker-upload-progress-value').html( progress_percentage );
                         }
                     }
 
