@@ -253,6 +253,9 @@
 #task_breaker-project div.mce-panel {
 	border: 0 solid #ddd;
 }
+#task_breaker-project div.mce-edit-area {
+	border-right: 1px solid!important; /*Added important because wp_editor is adding inline border*/
+}
 #task_breaker-project div.mce-toolbar-grp {
 	background: #fff;
 }
@@ -1306,7 +1309,7 @@
 	outline: 0;
 	box-shadow: none;
 	margin: 0;
-	padding: 0;
+	padding: 3.5px 0;
 	-webkit-appearance: textfield; }
 
 	.select2-container--default .select2-results > .select2-results__options {
@@ -1744,13 +1747,14 @@
     width: 100%;
     padding: 40px 20px 10px 20px;
     text-align: center;
-    border: 1px dashed #dddddd;
+    border: 2px dashed #dddddd;
     font-size: 14px;
     background-image: url(../images/ic_attach_file_black_48dp_2x.png);
     outline: none!important;
     background-position: center 15px;
     background-repeat: no-repeat;
     background-size: 20px;
+    margin: 0;
 }
 
 #task-breaker-form-file-attachment-field:focus + label {
