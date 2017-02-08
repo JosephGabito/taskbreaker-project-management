@@ -250,6 +250,6 @@ function task_breaker_plugin_updater_init() {
 	}
 
 	return;
-}
 
+}
 

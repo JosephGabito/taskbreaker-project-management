@@ -24,7 +24,7 @@ class TaskBreakerFileAttachment {
 
 		$upload_overwrites = array( 'test_form' => false );
 
-		$movefile = wp_handle_upload( $uploaded_file, $upload_overwrites );
+		$movefile = wp_handle_upload( $uploaded_file, $upload_overwrites);
 
 		if ( $movefile && ! isset( $movefile['error'] ) ) {
 		    
