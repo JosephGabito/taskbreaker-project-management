@@ -1,4 +1,6 @@
-$('#task_breaker-edit-btn').click(function(e) {
+taskbreaker_file_attachments.attached_files = '';
+
+$('#task_breaker-edit-btn').click( function( e ) {
 
     e.preventDefault();
 
@@ -34,7 +36,8 @@ $('#task_breaker-edit-btn').click(function(e) {
         milestone_id: $('#task_breakerTaskMilestone').val(),
         id: $('#task_breakerTaskId').val(),
         priority: $('select[name="task_breaker-task-edit-priority"]').val(),
-        user_id_collection: $('select#task-user-assigned-edit').val()
+        user_id_collection: $('select#task-user-assigned-edit').val(),
+        file_attachments: taskbreaker_file_attachments.attached_files
     }
 
     $.ajax({
@@ -86,7 +89,10 @@ $('#task_breaker-edit-btn').click(function(e) {
  */
 $('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event ) {
     console.log('test');
-    taskbreaker_process_file_attachment( event, 'taskbreaker-file-attachment-edit' );
+    var form_attr = {
+        'edit_file_attachment': 'yes'
+    };
+    taskbreaker_process_file_attachment( event, 'taskbreaker-file-attachment-edit', form_attr  );
 
     return;
 });

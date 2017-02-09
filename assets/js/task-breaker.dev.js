@@ -14,7 +14,7 @@ var taskbreaker_file_attachments = {
  * @param  object event The onchange event callback argument.
  * @return void
  */
-var taskbreaker_process_file_attachment = function ( event, container_id ) {
+var taskbreaker_process_file_attachment = function ( event, container_id, __form_data ) {
 
     // The upload file event object.
     var files = event.target.files;
@@ -27,6 +27,13 @@ var taskbreaker_process_file_attachment = function ( event, container_id ) {
     $.each( files, function( key, value ) {
         data.append( key, value );
     });
+
+    // Append __form_data attribute if not empty.
+    if ( typeof __form_data !== 'null' ) {
+    	$.each( __form_data, function(k, v){
+    		data.append(k, v);
+    	});
+    }
 
     // Append the action.
     data.append( 'action', 'task_breaker_transactions_request' );
@@ -363,6 +370,8 @@ var __ThriveProjectView = Backbone.View.extend({
                     $.each ( task.meta, function( key, val ){
                         if ( "file_attachment" === val.meta_key ) {
                             $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html(val.meta_value);
+                            // Assign the existing file to client file.
+                            taskbreaker_file_attachments.attached_files = val.meta_value;
                             $('#task-breaker-form-file-attachment-edit-field').removeAttr('disabled');
                         }
                     });
@@ -735,7 +744,9 @@ $('#task-breaker-form-file-attachment-field').on( 'change', function( event ) {
     return;
 });
 
-$('#task_breaker-edit-btn').click(function(e) {
+taskbreaker_file_attachments.attached_files = '';
+
+$('#task_breaker-edit-btn').click( function( e ) {
 
     e.preventDefault();
 
@@ -771,7 +782,8 @@ $('#task_breaker-edit-btn').click(function(e) {
         milestone_id: $('#task_breakerTaskMilestone').val(),
         id: $('#task_breakerTaskId').val(),
         priority: $('select[name="task_breaker-task-edit-priority"]').val(),
-        user_id_collection: $('select#task-user-assigned-edit').val()
+        user_id_collection: $('select#task-user-assigned-edit').val(),
+        file_attachments: taskbreaker_file_attachments.attached_files
     }
 
     $.ajax({
@@ -823,7 +835,10 @@ $('#task_breaker-edit-btn').click(function(e) {
  */
 $('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event ) {
     console.log('test');
-    taskbreaker_process_file_attachment( event, 'taskbreaker-file-attachment-edit' );
+    var form_attr = {
+        'edit_file_attachment': 'yes'
+    };
+    taskbreaker_process_file_attachment( event, 'taskbreaker-file-attachment-edit', form_attr  );
 
     return;
 });

@@ -105,11 +105,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Task Controls -->
 		<div class="task_breaker-form-field">
 
-			<button class="task_breaker-delete-btn" class="button button-primary button-large" style="float:right; margin-left: 10px;">
+			<button id="task_breaker-delete-btn" class="button button-primary button-large" style="float:right; margin-left: 10px;">
 				<?php esc_attr_e( 'Delete', 'task-breaker' ); ?>
 			</button>
 
-			<button class="task_breaker-edit-btn" class="button button-primary button-large" style="float:right">
+			<button id="task_breaker-edit-btn" class="button button-primary button-large" style="float:right">
 				<?php esc_attr_e( 'Update Task', 'task-breaker' ); ?>
 			</button>
 

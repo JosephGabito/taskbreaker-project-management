@@ -10,7 +10,7 @@ var taskbreaker_file_attachments = {
  * @param  object event The onchange event callback argument.
  * @return void
  */
-var taskbreaker_process_file_attachment = function ( event, container_id ) {
+var taskbreaker_process_file_attachment = function ( event, container_id, __form_data ) {
 
     // The upload file event object.
     var files = event.target.files;
@@ -23,6 +23,13 @@ var taskbreaker_process_file_attachment = function ( event, container_id ) {
     $.each( files, function( key, value ) {
         data.append( key, value );
     });
+
+    // Append __form_data attribute if not empty.
+    if ( typeof __form_data !== 'null' ) {
+    	$.each( __form_data, function(k, v){
+    		data.append(k, v);
+    	});
+    }
 
     // Append the action.
     data.append( 'action', 'task_breaker_transactions_request' );

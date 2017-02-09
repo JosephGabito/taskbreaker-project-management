@@ -213,6 +213,8 @@ var __ThriveProjectView = Backbone.View.extend({
                     $.each ( task.meta, function( key, val ){
                         if ( "file_attachment" === val.meta_key ) {
                             $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html(val.meta_value);
+                            // Assign the existing file to client file.
+                            taskbreaker_file_attachments.attached_files = val.meta_value;
                             $('#task-breaker-form-file-attachment-edit-field').removeAttr('disabled');
                         }
                     });
