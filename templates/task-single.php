@@ -99,12 +99,10 @@ if ( ! empty( $args->user ) ) {
 
 			<div class="task-content-meta">
 
-				<div class="alignleft">
+				<div class="alignright">
 					<a href="#tasks" title="<?php _e( 'Tasks List', 'task_breaker' ); ?>" class="button">
 						<?php _e( '&larr; Tasks List', 'task_breaker' ); ?>
 					</a>
-				</div>
-				<div class="alignright">
 					<a href="#tasks/edit/<?php echo intval( $args->id ); ?>" class="button">
 						<?php _e( 'Edit', 'task_breaker' ); ?>
 					</a>

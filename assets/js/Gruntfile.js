@@ -7,6 +7,7 @@ grunt.initConfig({
         basic: {
             src:[
                     'dist/header.js',
+                    'dist/functions.js',
                     'dist/model.js',
                     'dist/view.js',
                     'dist/router.js',
@@ -45,6 +46,7 @@ grunt.initConfig({
         scripts: {
             files: [
                 'dist/header.js',
+                'dist/functions.js',
                 'dist/model.js',
                 'dist/view.js',
                 'dist/router.js',

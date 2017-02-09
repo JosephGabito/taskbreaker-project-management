@@ -63,7 +63,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</label>
 		</div>
 		<!--end priority-->
-		<div class="task_breaker-form-field">
+		<!--file attachments-->
+		<div class="task_breaker-form-field" id="taskbreaker-file-attachment-add">
 			<div class="taskbreaker-task-file-attachment">
 				<div class="task-breaker-form-file-attachment">
 					<input type="file" name="file" id="task-breaker-form-file-attachment-field" />
@@ -72,22 +73,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php echo sprintf( __('(maximum file size: %d MB)', 'task_breaker'), absint( $core->get_wp_max_upload_size() ) ); ?>
 					</label>
 				</div>
-				<div id="tb-file-attachment-progress-wrap">
-					<div id="tb-file-attachment-progress-text">
-						<?php esc_html_e('Uploading', 'task_breaker'); ?>&hellip;<span id="taskbreaker-upload-progress-value">(0%)</span>
-						<span id="taskbreaker-upload-success-text-helper">
+				<div class="tb-file-attachment-progress-wrap">
+					<div class="tb-file-attachment-progress-text">
+						<?php esc_html_e('Uploading', 'task_breaker'); ?>&hellip;<span class="taskbreaker-upload-progress-value">(0%)</span>
+						<span class="taskbreaker-upload-success-text-helper">
 							<?php esc_html_e('. File attached successfully.', 'task_breaker'); ?>
 						</span>
-						<span id="taskbreaker-upload-error-text-helper">
+						<span class="taskbreaker-upload-error-text-helper">
 							<?php esc_html_e('. Upload successfully initiated, but the server was unable to process it. See message below.', 'task_breaker'); ?>
 						</span>
 					</div>
-					<div id="tb-file-attachment-progress">
-						<div id="tb-file-attachment-progress-movable"></div>
+					<div class="tb-file-attachment-progress">
+						<div class="tb-file-attachment-progress-movable"></div>
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name="taskbreaker-file-attachment-field" id="taskbreaker-file-attachment-field" value="" />
+			<input type="hidden" name="taskbreaker-file-attachment-field" class="taskbreaker-file-attachment-field" value="" />
 		</div>
 		
 		<!--[if lte IE 9]>
@@ -97,7 +98,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</label>
 			</div>
 		<![endif]-->
-		
+		<!-- end file attachments -->
 
 		<div class="task_breaker-form-field">
 			<button id="task_breaker-submit-btn" class="button button-primary button-large" style="float:right">

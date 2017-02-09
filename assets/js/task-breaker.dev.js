@@ -2,6 +2,137 @@ jQuery(document).ready(function($) {
 	'use strict'
 	$(window).load( function() {  
 
+/**
+ * This global object will hold the string that contains the name of the file attached in to task.
+ * @type Object
+ */
+var taskbreaker_file_attachments = {
+	attached_files: ''
+};
+/**
+ * This function serves as a callback function for the file attachment event handler.
+ * @param  object event The onchange event callback argument.
+ * @return void
+ */
+var taskbreaker_process_file_attachment = function ( event, container_id ) {
+
+    // The upload file event object.
+    var files = event.target.files;
+    // The form data.
+    var data = new FormData();
+
+    var container = '#' + container_id + ' ';
+
+    // Append all files into data form data.
+    $.each( files, function( key, value ) {
+        data.append( key, value );
+    });
+
+    // Append the action.
+    data.append( 'action', 'task_breaker_transactions_request' );
+    // Append the method.
+    data.append( 'method', 'task_breaker_transaction_task_file_attachment' );
+    // Append the nonce.
+    data.append( 'nonce', task_breakerProjectSettings.nonce );
+    // Remove any existing error messages.
+    $( container + '.taskbreaker-upload-error' ).remove();
+    // Clear any progress messages.
+    $( container + '.taskbreaker-upload-error-text-helper').removeClass('active');
+    $( container + '.taskbreaker-upload-success-text-helper').removeClass('active');
+
+    // Begin ajax request.
+    $.ajax({
+        url: task_breakerAjaxUrl,
+        type: 'POST',
+        data: data,
+        cache: false,
+        dataType: 'json',
+        processData: false, // Don't process the files.
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request.
+        success: function( response, textStatus, jqXHR )
+        {
+            console.log(response);
+            if( typeof response.error === 'undefined' )
+            {   
+                if ( response !== 0 ) {
+
+                    if ( response.message === 'fail' ) {
+                        taskbreaker_file_attachments.attached_files = '';
+                        $( container + '.tb-file-attachment-progress').parent().append('<div class="taskbreaker-upload-error">'+response.response+'</div>');
+                        $( container + '.taskbreaker-upload-error-text-helper').addClass('active');
+                        $( container + '.taskbreaker-upload-success-text-helper').removeClass('active');
+                    } else {
+                        taskbreaker_file_attachments.attached_files = response.file;
+                        $( container + '.taskbreaker-upload-error').remove();
+                        $( container + '.taskbreaker-upload-error-text-helper').removeClass('active');
+                        $( container + '.taskbreaker-upload-success-text-helper').addClass('active');
+                        console.log('setting data to $taskbreaker_file_attachments.attached_files...');
+                        console.log(taskbreaker_file_attachments.attached_files);
+                    }
+                    
+                } else {
+                    $( container + '.taskbreaker-upload-error-text-helper').addClass('active');
+                    $( container + '.taskbreaker-upload-success-text-helper').removeClass('active');
+                    $( container + '.tb-file-attachment-progress').parent().append('<div class="taskbreaker-upload-error">The application did not received any response from the server. Try uploading smaller files.</div>');
+                    taskbreaker_file_attachments.attached_files = '';
+                }
+                
+            }
+            else
+            {
+                // Handle errors here
+                console.log('ERRORS: ' + response.error);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            // Handle errors here
+            console.log('ERRORS: ' + textStatus);
+            // STOP LOADING SPINNER
+        },
+        xhr: function(){
+
+            var myXhr = $.ajaxSettings.xhr();
+            var progress = 0;
+            var progress_percentage = '0%';
+
+            if ( myXhr.upload ) {
+
+                // For handling the progress of the upload
+                $( container + '.tb-file-attachment-progress-wrap').addClass('active');
+                $( container + '.task_breaker-submit-btn').attr('disabled', true);
+
+                myXhr.upload.addEventListener('progress', function(e) {
+
+                    if ( e.lengthComputable ) {
+                        $('progress').attr({
+                            value: e.loaded,
+                            max: e.total,
+                        });
+                        progress = ( e.loaded / e.total ) * 100;
+                        if ( typeof progress === 'number' ) {
+                            progress_percentage = Math.floor( progress ) + '%';
+                            $( container + '.tb-file-attachment-progress-movable').css({
+                                width: progress_percentage
+                            });
+                            $( container + '.taskbreaker-upload-progress-value').html( progress_percentage );
+                        }
+                    }
+
+                    if ( progress === 100 ) {
+                        $( container + '.task_breaker-submit-btn').removeAttr('disabled');
+                    }
+
+                } , false );
+
+            }
+            return myXhr;
+        },
+        complete: function() {
+            console.log('request complete... stopping the spinner...');
+        }
+    });
+};
 var __ThriveProjectModel = Backbone.View.extend({
     id: 0,
     project_id: task_breakerProjectSettings.project_id,
@@ -225,6 +356,19 @@ var __ThriveProjectView = Backbone.View.extend({
                 __this.autoSuggestMembers( $("#task-user-assigned-edit"), true, task );
 
                 $( "#task_breaker-task-edit-select-id" ).val( task.priority ).change().removeAttr("disabled");
+
+                // Update Files Attached here..
+                //alert('Updating file attachments...');
+                if ( task.meta ) {
+                    $.each ( task.meta, function( key, val ){
+                        if ( "file_attachment" === val.meta_key ) {
+                            $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html(val.meta_value);
+                            $('#task-breaker-form-file-attachment-edit-field').removeAttr('disabled');
+                        }
+                    });
+                } else {
+                    $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html('No files attached');
+                }
 
             }
 
@@ -491,8 +635,10 @@ ThriveProjectRoute.on('route', function(route) {
 
 Backbone.history.start();
 
-var client_files = '';
-
+/**
+ * This variable is really important for holding client uploaded files.
+ * @type string The file name.
+ */
 $('#task_breaker-submit-btn').click(function(e) {
 
     e.preventDefault();
@@ -529,7 +675,7 @@ $('#task_breaker-submit-btn').click(function(e) {
             project_id: task_breakerTaskConfig.currentProjectId,
             user_id: task_breakerTaskConfig.currentUserId,
             user_id_collection: $('select#task-user-assigned').val(),
-            file_attachments: client_files
+            file_attachments: taskbreaker_file_attachments.attached_files
         },
 
         method: 'post',
@@ -558,6 +704,9 @@ $('#task_breaker-submit-btn').click(function(e) {
 
                 location.href = "#tasks/view/" + message.response.id;
 
+                 console.log('checking $taskbreaker_file_attachments.attached_files value...');
+                        console.log(taskbreaker_file_attachments.attached_files);
+
 
             } else {
 
@@ -572,116 +721,18 @@ $('#task_breaker-submit-btn').click(function(e) {
         error: function() {
 
         }
-    }); // end $.ajax
-}); // end $('#task_breaker-submit-btn').click()
+    }); // End $.ajax call.
+}); // End $('#task_breaker-submit-btn').click() call.
 
-// test
-$('#task-breaker-form-file-attachment-field').on('change', function( event ){
-
-    var files = event.target.files;
-    var data = new FormData();
-
-    $.each( files, function(key, value) {
-        data.append(key, value);
-    });
-
-    data.append( 'action', 'task_breaker_transactions_request' );
-    data.append( 'method', 'task_breaker_transaction_task_file_attachment' );
-    data.append( 'nonce', task_breakerProjectSettings.nonce )
-
-    $.ajax({
-        url: task_breakerAjaxUrl,
-        type: 'POST',
-        data: data,
-        cache: false,
-        dataType: 'json',
-        processData: false, // Don't process the files
-        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-        success: function( response, textStatus, jqXHR )
-        {
-            if( typeof response.error === 'undefined' )
-            {   
-
-                // Success so call function to process the form
-                console.log('sucessfully sent the data..');
-                console.log('here is the response');
-                console.log( response.message );
-                if ( typeof response !== 'undefined' ) {
-                    if ( response.message === 'fail' ) {
-                        client_files = '';
-                        $('#tb-file-attachment-progress').parent().append('<div id="taskbreaker-upload-error">'+response.response+'</div>');
-                        $('#taskbreaker-upload-error-text-helper').addClass('active');
-                        $('#taskbreaker-upload-success-text-helper').removeClass('active');
-                    } else {
-                        client_files = response.file;
-                        $('#taskbreaker-upload-error').remove();
-                        $('#taskbreaker-upload-error-text-helper').removeClass('active');
-                        $('#taskbreaker-upload-success-text-helper').addClass('active');
-                        
-                    }   
-                } else {
-                    $('#taskbreaker-upload-error-text-helper').addClass('active');
-                    $('#taskbreaker-upload-success-text-helper').removeClass('active');
-                    $('#tb-file-attachment-progress').parent().append('<div id="taskbreaker-upload-error">The application did not received any response from the server. Try uploading smaller files.</div>');
-                }
-                
-            }
-            else
-            {
-                // Handle errors here
-                console.log('ERRORS: ' + response.error);
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown)
-        {
-            // Handle errors here
-            console.log('ERRORS: ' + textStatus);
-            // STOP LOADING SPINNER
-        },
-        xhr: function(){
-            var myXhr = $.ajaxSettings.xhr();
-            var progress = 0;
-            var progress_percentage = '0%';
-
-            if ( myXhr.upload ) {
-
-                // For handling the progress of the upload
-                $('#tb-file-attachment-progress-wrap').addClass('active');
-                $('#task_breaker-submit-btn').attr('disabled', true);
-
-                myXhr.upload.addEventListener('progress', function(e) {
-
-                    if ( e.lengthComputable ) {
-                        $('progress').attr({
-                            value: e.loaded,
-                            max: e.total,
-                        });
-                        progress = ( e.loaded / e.total ) * 100;
-                        if ( typeof progress === 'number' ) {
-                            var progress_percentage = Math.floor( progress ) + '%';
-                            $('#tb-file-attachment-progress-movable').css({
-                                width: progress_percentage
-                            });
-                            $('#taskbreaker-upload-progress-value').html( progress_percentage );
-                        }
-                    }
-
-                    if ( progress === 100 ) {
-                        $('#task_breaker-submit-btn').removeAttr('disabled');
-                    }
-
-                } , false );
-
-            }
-            return myXhr;
-        },
-        complete: function() {
-            console.log('request complete... stopping the spinner...');
-        }
-    });
-
+/**
+ * Attach event to file attachment. When changed upload the file to user logged in '/tmp' directory.
+ * @return void
+ */
+$('#task-breaker-form-file-attachment-field').on( 'change', function( event ) {
     
+    taskbreaker_process_file_attachment( event, 'taskbreaker-file-attachment-add' );
 
+    return;
 });
 
 $('#task_breaker-edit-btn').click(function(e) {
@@ -765,6 +816,17 @@ $('#task_breaker-edit-btn').click(function(e) {
         }
     });
 }); // end $('#task_breaker-edit-btn').click()
+
+/**
+ * Attach event to file attachment. When changed upload the file to user logged in '/tmp' directory.
+ * @return void
+ */
+$('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event ) {
+    console.log('test');
+    taskbreaker_process_file_attachment( event, 'taskbreaker-file-attachment-edit' );
+
+    return;
+});
 
  // Delete Task Single
  $('body').on('click', '#task_breaker-delete-btn', function() {

@@ -79,3 +79,14 @@ $('#task_breaker-edit-btn').click(function(e) {
         }
     });
 }); // end $('#task_breaker-edit-btn').click()
+
+/**
+ * Attach event to file attachment. When changed upload the file to user logged in '/tmp' directory.
+ * @return void
+ */
+$('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event ) {
+    console.log('test');
+    taskbreaker_process_file_attachment( event, 'taskbreaker-file-attachment-edit' );
+
+    return;
+});

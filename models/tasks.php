@@ -547,6 +547,16 @@ class TaskBreakerTask {
 				// Group ID.
 				$result->group_id = get_post_meta( $result->project_id, 'task_breaker_project_group_id', true );
 
+				// Meta
+				
+				$task_meta_stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta WHERE task_id = %d", $id );
+				$task_meta = $dbase->get_results( $task_meta_stmt, OBJECT);
+				if ( empty( $task_meta ) ) {
+					$result->meta = null;
+				} else {
+					$result->meta = $task_meta;
+				}
+
 			}
 
 			return $result;

@@ -207,6 +207,19 @@ var __ThriveProjectView = Backbone.View.extend({
 
                 $( "#task_breaker-task-edit-select-id" ).val( task.priority ).change().removeAttr("disabled");
 
+                // Update Files Attached here..
+                //alert('Updating file attachments...');
+                if ( task.meta ) {
+                    $.each ( task.meta, function( key, val ){
+                        if ( "file_attachment" === val.meta_key ) {
+                            $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html(val.meta_value);
+                            $('#task-breaker-form-file-attachment-edit-field').removeAttr('disabled');
+                        }
+                    });
+                } else {
+                    $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html('No files attached');
+                }
+
             }
 
             return;

@@ -253,9 +253,7 @@
 #task_breaker-project div.mce-panel {
 	border: 0 solid #ddd;
 }
-#task_breaker-project div.mce-edit-area {
-	border-right: 1px solid!important; /*Added important because wp_editor is adding inline border*/
-}
+
 #task_breaker-project div.mce-toolbar-grp {
 	background: #fff;
 }
@@ -706,6 +704,7 @@
 		padding: 12px 15px;
 	    border: 1px solid #ddd;
 	    height: 85px;
+	    width: 100%;
 	}
 
 	.task_breaker-edit-comment,
@@ -1685,7 +1684,7 @@
 }
 
 /** File Attachment */
-#tb-file-attachment-progress-wrap {
+.tb-file-attachment-progress-wrap {
     display: none;
     z-index: 2;
     position: relative;
@@ -1693,43 +1692,44 @@
     font-size: 12px;
     color: #9E9E9E;
     background: #f9f9f9;
-    box-shadow: inset 0px -1px 1px 0px #ccc8c8;
+    box-shadow: inset 0px -1px 1px 0px #6b6b6b;
     margin-top: -10px;
     padding: 5px 0 0 0;
 }
 
-#taskbreaker-upload-success-text-helper,
-#taskbreaker-upload-error-text-helper {
+.taskbreaker-upload-success-text-helper,
+.taskbreaker-upload-error-text-helper {
 	display: none;
 }
-#taskbreaker-upload-success-text-helper.active,
-#taskbreaker-upload-error-text-helper.active {
+.taskbreaker-upload-success-text-helper.active,
+.taskbreaker-upload-error-text-helper.active {
 	display: inline-block;
 }
-#tb-file-attachment-progress-wrap.active {
+.tb-file-attachment-progress-wrap.active {
 	display: block;
 }
 
-#tb-file-attachment-progress {
+.tb-file-attachment-progress {
 	height: 5px;
     background: #fff;
     width: 100%;
     overflow: hidden;
 }
 
-#tb-file-attachment-progress > #tb-file-attachment-progress-movable {
+.tb-file-attachment-progress > .tb-file-attachment-progress-movable {
 	height: 5px;
 	background: #2196F3;
 	width: 0%;
 	display: block;
 }
 
-#taskbreaker-upload-error {
+.taskbreaker-upload-error {
     color: #ffffff;
     padding: 0px 0;
     background: #FF5722;
 }
 
+#task-breaker-form-file-attachment-edit-field,
 #task-breaker-form-file-attachment-field {
 	width: 0.1px;
 	height: 0.1px;
@@ -1738,6 +1738,8 @@
 	position: absolute;
 	z-index: -1;
 }
+
+#task-breaker-form-file-attachment-edit-field + label,
 #task-breaker-form-file-attachment-field + label {
     font-weight: 400;
     color: #6d6d6d;
@@ -1747,7 +1749,7 @@
     width: 100%;
     padding: 40px 20px 10px 20px;
     text-align: center;
-    border: 2px dashed #dddddd;
+    border: 1px solid #dddddd;
     font-size: 14px;
     background-image: url(../images/ic_attach_file_black_48dp_2x.png);
     outline: none!important;
@@ -1757,11 +1759,14 @@
     margin: 0;
 }
 
+#task-breaker-form-file-attachment-edit-field:focus + label,
 #task-breaker-form-file-attachment-field:focus + label {
 	outline: 1px dotted #000;
 	outline: -webkit-focus-ring-color auto 5px;
 }
 
+#task-breaker-form-file-attachment-edit-field:focus + label,
+#task-breaker-form-file-attachment-edit-field + label:hover,
 #task-breaker-form-file-attachment-field:focus + label,
 #task-breaker-form-file-attachment-field + label:hover {
     background-color: #f5f5f5;

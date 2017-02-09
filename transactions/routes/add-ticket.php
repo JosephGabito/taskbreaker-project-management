@@ -33,7 +33,6 @@ if ( ! $user_access->can_add_task( (int) $_POST['project_id'] ) ) {
 if ( $task_id ) {
 
 	do_action( 'taskbreaker_task_saved' );
-	
 	// Attach the file into the task.
 	if ( !empty( $_POST['file_attachments'] ) ) {
 		$taskbreaker_file_attachment = new TaskBreakerFileAttachment();
