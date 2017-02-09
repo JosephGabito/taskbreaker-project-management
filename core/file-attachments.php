@@ -34,11 +34,26 @@ class TaskBreakerFileAttachment {
 
 		$dbase = TaskBreaker::wpdb();
 
-		$data = array( 'task_id' => $task_id,'meta_key'=>'file_attachment', 'meta_value'=> $name );
+		$stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta WHERE task_id = %d", $task_id );
 
-		$format = array('%s', '%s');
+		$files_attached = $dbase->get_row( $stmt, OBJECT );
 
-		$dbase->insert( "{$dbase->prefix}task_breaker_task_meta", $data, $format );
+		if ( ! empty( $files_attached ) ) {
+
+			$data = array( 'meta_value' => $name);
+			$format = array('%s');
+			$where = array( 'task_id' => $task_id );
+			$where_format = array('%d');
+
+			$dbase->update( "{$dbase->prefix}task_breaker_task_meta", $data, $where, $format, $where_format );
+
+		} else {
+
+			$data = array( 'task_id' => $task_id,'meta_key'=>'file_attachment', 'meta_value'=> $name );
+			$format = array('%s', '%s');
+			$dbase->insert( "{$dbase->prefix}task_breaker_task_meta", $data, $format );
+
+		}
 
 		$this->transport_file( $name, $task_id );
 
@@ -63,9 +78,7 @@ class TaskBreakerFileAttachment {
 		$final_destination = $destination_directory . $file_name;
 
 		if ( wp_mkdir_p( $destination_directory ) ) {
-			if ( ! $fs->move( $tmp_directory, $final_destination ) ) {
-			    echo "failed to copy $file...\n";
-			}
+			if ( ! $fs->move( $tmp_directory, $final_destination ) ) {}
 		}
 		
 	}

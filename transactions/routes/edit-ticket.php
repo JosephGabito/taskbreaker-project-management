@@ -21,6 +21,7 @@ $priority = filter_input( INPUT_POST, 'priority', FILTER_UNSAFE_RAW );
 $user_id = filter_input( INPUT_POST, 'user_id', FILTER_VALIDATE_INT );
 $project_id = filter_input( INPUT_POST, 'project_id', FILTER_VALIDATE_INT );
 $assigned_users = filter_input( INPUT_POST, 'user_id_collection', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+$file_attachments = filter_input( INPUT_POST, 'file_attachments', FILTER_UNSAFE_RAW );
 $template = '';
 
 $user_access = TaskBreakerCT::get_instance();
@@ -47,6 +48,12 @@ $json_response = array(
 	'debug' => $task_id,
 	'html' => $template,
 );
+
+// Update file attachment
+if ( ! empty ( $file_attachments ) ) {
+	$taskbreaker_file_attachment = new TaskBreakerFileAttachment();
+	$taskbreaker_file_attachment->task_attach_file( $file_attachments, $task_id );
+}
 
 $json_response = array_merge( $json_response, $args );
 

@@ -88,13 +88,15 @@ if ( ! empty( $args->user ) ) {
 				<strong>
 					<?php esc_html_e( 'File Attachments', 'task_breaker' ); ?>
 				</strong>
-				<p>
+				<div id="taskbreaker-file-attachment">
 					<?php foreach( $attachments as $attachment ) { ?>
-						<a href="<?php echo esc_url( $attachment['url'] ); ?>" title="Download File">
-							<?php echo esc_html( $attachment['name'] ); ?>
-						</a>
+						<div class="taskbreaker-file-attachment-item">
+							<a href="<?php echo esc_url( $attachment['url'] ); ?>" title="<?php esc_attr_e('Download File', 'task_breaker'); ?>">
+								<?php echo esc_html( $attachment['name'] ); ?>
+							</a>
+						</div>
 					<?php } ?>
-				</p>
+				</div>
 			<?php } ?>
 
 			<div class="task-content-meta">
