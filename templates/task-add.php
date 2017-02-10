@@ -69,6 +69,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="task-breaker-form-file-attachment">
 					<input type="file" name="file" id="task-breaker-form-file-attachment-field" />
 					<label for="task-breaker-form-file-attachment-field">
+						<strong class="tasbreaker-file-attached">
+							<?php esc_html_e( 'No File Selected', 'task_breaker' ); ?>
+						</strong>
+						<div class="taskbreaker-task-attached-file"></div>
 						<?php esc_html_e('Click to attach a file', 'task_breaker'); ?>
 						<?php echo sprintf( __('(maximum file size: %d MB)', 'task_breaker'), absint( $core->get_wp_max_upload_size() ) ); ?>
 					</label>
