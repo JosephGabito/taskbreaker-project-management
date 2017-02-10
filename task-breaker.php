@@ -32,34 +32,6 @@ define( 'TASK_BREAKER_ASSET_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 
 define( 'TASKBREAKER_DIRECTORY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
-/**
- * Do not run TaskBreaker on PHP version 5.3.0-
- */
-if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
-	add_action( 'admin_notices', 'taskbreaker_admin_notice' );
-	function taskbreaker_admin_notice() { ?>
-		<div class="notice notice-error is-dismissible">
-	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.3.0 and above.', 'task_breaker' ); ?></strong></p>
-	    </div>
-	<?php }
-}
-
-add_action('bp_loaded', 'taskbreaker_is_group_active');
-
-function taskbreaker_is_group_active() {
-	if ( function_exists('bp_is_active') ) {
-		if ( ! bp_is_active( 'groups' ) ) {
-			add_action( 'admin_notices', 'taskbreaker_admin_notice_group_required' );
-		}
-	}
-}
-
-function taskbreaker_admin_notice_group_required() { ?>
-	<div class="notice notice-warning is-dismissible">
-        <p><strong><?php _e( 'Notice: TaskBreaker requires BuddyPress Groups Component to be enabled.', 'task_breaker' ); ?></strong></p>
-    </div>
-<?php } 
-
 // Setup the tables on activation.
 register_activation_hook( __FILE__, 'task_breaker_install' );
 
@@ -74,6 +46,34 @@ add_action( 'bp_loaded', 'task_breaker_register_projects_component' );
 
 // Included other taskbreaker components.
 add_action( 'bp_loaded', 'task_breaker_load_components' );
+
+add_action('bp_loaded', 'taskbreaker_is_group_active');
+
+/**
+ * Do not run TaskBreaker on PHP version 5.3.0-
+ */
+if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
+	add_action( 'admin_notices', 'taskbreaker_admin_notice' );
+	function taskbreaker_admin_notice() { ?>
+		<div class="notice notice-error is-dismissible">
+	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.3.0 and above.', 'task_breaker' ); ?></strong></p>
+	    </div>
+	<?php }
+}
+
+function taskbreaker_is_group_active() {
+	if ( function_exists('bp_is_active') ) {
+		if ( ! bp_is_active( 'groups' ) ) {
+			add_action( 'admin_notices', 'taskbreaker_admin_notice_group_required' );
+		}
+	}
+}
+
+function taskbreaker_admin_notice_group_required() { ?>
+	<div class="notice notice-warning is-dismissible">
+        <p><strong><?php _e( 'Notice: TaskBreaker requires BuddyPress Groups Component to be enabled.', 'task_breaker' ); ?></strong></p>
+    </div>
+<?php } 
 
 // Require the assets needed.
 require_once plugin_dir_path( __FILE__ ) . 'core/enqueue.php';
@@ -90,7 +90,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/project-notifications.php';
 // Require widgets file.
 require_once plugin_dir_path( __FILE__ ) . 'widgets/widgets.php';
 
-// Require attachments library.
+// Require file attachments class.
 require_once plugin_dir_path( __FILE__ ) . 'core/file-attachments.php';
 
 // Require the template tags.
@@ -152,27 +152,6 @@ function task_breaker_load_components() {
 
 	return;
 }
-
-/**
- * Register Task Breaker Deactivation Scripts
- */
-register_activation_hook( __FILE__, 'task_breaker_deactivate_thrive_intranet' );
-
-/**
- * This is the legacy version of task breaker.
- *
- * @return void
- */
-function task_breaker_deactivate_thrive_intranet() {
-
-	// De-activate Thrive Intranet in case it is used to prevent conflict.
-	include_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-	deactivate_plugins( '/thrive-intranet/thrive-intranet.php' );
-
-	return;
-}
-
 
 /**
  * A flat class to prevent calls to WordPress globals
