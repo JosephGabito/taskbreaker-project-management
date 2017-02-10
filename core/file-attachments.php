@@ -15,18 +15,45 @@ class TaskBreakerFileAttachment {
 	    $dirs['url'] = trailingslashit( $dirs['baseurl'] ) . $upload_dir;
 
 	    return $dirs;
-
 	}
 
 	public function process_http_file() {
+
+		if ( ! class_exists('WP_Filesystem_Direct') ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+		    require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' );
+		}
+
+		$fs = new WP_Filesystem_Direct( array() );
 
 		$uploaded_file = $_FILES[0];
 
 		$upload_overwrites = array( 'test_form' => false );
 
-		$movefile = wp_handle_upload( $uploaded_file, $upload_overwrites);
+		// First delete everything in tmp directory.
+		$path = wp_upload_dir();
 
-		return $movefile;
+		$tmp_dir = $path['basedir'] . sprintf('/taskbreaker/%d/tmp', get_current_user_id() );
+
+		$chmod = 0755;
+
+		if ( defined('FS_CHMOD_DIR') ) {
+			$chmod = false;
+		}
+
+		if ( $fs->delete( $tmp_dir, true ) ) {
+			// Re-create the directory
+			if ( $fs->mkdir( $tmp_dir ) ) {
+				// Then, move the file.
+				return wp_handle_upload( $uploaded_file, $upload_overwrites );
+			} else {
+				return array('error' => __('Enable to create temporary directory. Permission error.'));
+			}
+		} else {
+			return array('error' => __('Enable to clear temporary directory. Permission error.'));
+		}
+
+		return array('error' => __('Unable to handle file upload.'));
 
 	}
 
@@ -61,6 +88,46 @@ class TaskBreakerFileAttachment {
 
 	}
 
+	public function delete_file( $task_id = '', $file_name = '') {
+
+		if ( ! class_exists('WP_Filesystem_Direct') ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+		    require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' );
+		}
+
+		$fs = new WP_Filesystem_Direct( $args );
+
+		$dbase = TaskBreaker::wpdb();
+
+		if ( empty ( $task_id ) ) {
+			return false;
+		}
+		if ( empty ( $file_name ) ) {
+			return false;
+		}
+
+		// Start deleting the file.
+		$fs->delete( $this->get_current_user_file_path( $task_id, $file_name ) );
+		
+	}
+	public function get_current_user_file_path ( $task_id = '', $name = '' ) {
+
+		if ( ! empty( $task_id ) ) {
+			return false;
+		}
+		if ( ! empty( $name ) ) {
+			return false;
+		}
+
+		$path = wp_upload_dir();
+
+		$upload_dir = $path['basedir'] . '/taskbreaker/';
+
+		$file = sprintf ( '%1$s/%2$d/tasks/%3$d/%4$d', $upload_dir, absint( get_current_user_id() ), absint( $task_id ), sanitize_file_name( $name ) );
+
+		return $file;
+
+	}
 	protected function transport_file( $file_name, $task_id ) {
 		
 		if ( ! class_exists('WP_Filesystem_Direct') ) {
@@ -99,7 +166,6 @@ class TaskBreakerFileAttachment {
 					'name' => $result->meta_value,
 					'url' => esc_url( content_url( 'uploads/taskbreaker/'. $user_id . '/tasks/' . $task_id . '/' . $result->meta_value ) )
 				);
-
 			}
 		}
 
