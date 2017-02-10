@@ -74,6 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php esc_html_e('Click to update file attachment', 'task_breaker'); ?>
 						<?php echo sprintf( __('(maximum file size: %d MB)', 'task_breaker'), absint( $core->get_wp_max_upload_size() ) ); ?>
 					</label>
+
 				</div>
 				<div class="tb-file-attachment-progress-wrap">
 					<div class="tb-file-attachment-progress-text">
@@ -90,7 +91,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name="taskbreaker-file-attachment-field" class="taskbreaker-file-attachment-field" value="" />
+			
 		</div>
 		
 		<!--[if lte IE 9]>
@@ -108,7 +109,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<button id="task_breaker-delete-btn" class="button button-primary button-large" style="float:right; margin-left: 10px;">
 				<?php esc_attr_e( 'Delete', 'task-breaker' ); ?>
 			</button>
-
+			
 			<button id="task_breaker-edit-btn" class="button button-primary button-large" style="float:right">
 				<?php esc_attr_e( 'Update Task', 'task-breaker' ); ?>
 			</button>
