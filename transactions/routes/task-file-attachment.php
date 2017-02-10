@@ -8,9 +8,7 @@ if ( ! is_user_logged_in() ) {
 }
 
 if ( ! function_exists( 'wp_handle_upload' ) ) {
-    
     require_once( ABSPATH . 'wp-admin/includes/file.php' );
-
 }
 
 $fileAttachment = new TaskBreakerFileAttachment();
@@ -21,10 +19,10 @@ $file_name  = '';
 
 if ( ! empty ( $file ) ) {
 
-	if ( ! empty ( basename( $file['file'] ) ) )  {
-		
-		$file_name = basename( $file['file'] );
-
+	if ( isset ( $file['file'] ) ) {
+		if ( ! empty ( basename( $file['file'] ) ) )  {
+			$file_name = basename( $file['file'] );
+		}
 	}
 
 	if ( ! empty( $file['error'] ) ) {
