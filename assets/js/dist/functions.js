@@ -16,8 +16,13 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
     var files = event.target.files;
     // The form data.
     var data = new FormData();
-
+    // The unique container that will hold the file attachments.
     var container = '#' + container_id + ' ';
+    // The name of the file selected.
+    var file_name = event.target.files[0].name;
+
+   	// Change the file name accordingly.
+   	$( container + '.tasbreaker-file-attached').html( file_name );
 
     // Append all files into data form data.
     $.each( files, function( key, value ) {
