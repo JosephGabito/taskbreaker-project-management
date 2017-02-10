@@ -85,13 +85,11 @@ if ( ! empty( $args->user ) ) {
 			<?php $attachments = TaskBreakerFileAttachment::task_get_attached_files( $args->id, $args->user ); ?>
 			
 			<?php if ( ! empty( $attachments ) ) { ?>
-				<strong>
-					<?php esc_html_e( 'File Attachments', 'task_breaker' ); ?>
-				</strong>
+				
 				<div id="taskbreaker-file-attachment">
 					<?php foreach( $attachments as $attachment ) { ?>
 						<div class="taskbreaker-file-attachment-item">
-							<a href="<?php echo esc_url( $attachment['url'] ); ?>" title="<?php esc_attr_e('Download File', 'task_breaker'); ?>">
+							<a target="_blank" href="<?php echo esc_url( $attachment['url'] ); ?>" title="<?php esc_attr_e('Download File', 'task_breaker'); ?>">
 								<?php echo esc_html( $attachment['name'] ); ?>
 							</a>
 						</div>
