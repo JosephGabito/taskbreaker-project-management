@@ -96,3 +96,11 @@ $('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event
 
     return;
 });
+
+$('#task_breaker-project').on('click', '.taskbreaker-unlink-file-btn > a', function(e){
+    e.preventDefault();
+    var __confirm = confirm("Are you sure you want to delete this file attachment? This process is not reversible.");
+        if ( __confirm ) {
+            console.log('deleting file...');
+        }
+});

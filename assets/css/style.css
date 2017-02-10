@@ -980,6 +980,7 @@
 
 .task_breaker-form-field {
 	margin: 15px 0;
+	position: relative;
 }
 
 .task_breaker-form-field textarea#task_breaker-project-content,
@@ -1747,7 +1748,7 @@
     display: inline-block;
     cursor: pointer;
     width: 100%;
-    padding: 40px 20px 10px 20px;
+    padding: 40px 20px 30px 20px;
     text-align: center;
     border: 1px solid #dddddd;
     font-size: 14px;
@@ -1772,5 +1773,46 @@
     background-color: #f5f5f5;
 }
 
+.taskbreaker-unlink-file-btn {
+	position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 29;
+}	
+
+.taskbreaker-unlink-file-btn a {
+	color: #ffffff;
+	display: block;
+    border-radius: 50%;
+    background: #F44336;
+    width: 25px;
+    text-align: center;
+    height: 25px;
+}
+
+.taskbreaker-unlink-file-btn a:hover {
+	color: #fff;
+	background: #ff1100;
+}
+
+#taskbreaker-file-attachment {
+    background-color: #f5f5f5;
+    background-image: url(../images/ic_attach_file_black_48dp_2x.png);
+    background-size: 18px;
+    background-repeat: no-repeat;
+    padding: 10px 15px 10px 35px;
+    background-position: 8px 11px;
+    border: 2px dashed #eee;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+#taskbreaker-file-attachment  a {
+	color: #444;
+}
+#taskbreaker-file-attachment:hover  a {
+	text-decoration: underline;
+}
 /** End file Attachment */
 
