@@ -110,6 +110,36 @@ class TaskBreakerFileAttachment {
 		$fs->delete( $this->get_current_user_file_path( $task_id, $file_name ) );
 		
 	}
+
+	public function delete_task_attachments( $task_id = 0 ) {
+
+		if ( empty( $task_id ) ) {
+			return false;
+		}
+
+		if ( ! class_exists('WP_Filesystem_Direct') ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+		    require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' );
+		}
+
+		$fs = new WP_Filesystem_Direct( array() );
+
+		$dbase = TaskBreaker::wpdb();
+
+		$path = wp_upload_dir();
+
+		$task_dir = $path['basedir'] . sprintf('/taskbreaker/%d/tasks/%d', get_current_user_id(), $task_id );
+
+		if ( $fs->delete( $task_dir, true ) ) {
+			$dbase->delete( "{$dbase->prefix}task_breaker_task_meta", array( 'task_id' => absint( $task_id ) ), array( '%d' ) );
+			return true;
+		}
+
+
+		return false;
+
+	}
+
 	public function get_current_user_file_path ( $task_id = '', $name = '' ) {
 
 		if ( ! empty( $task_id ) ) {

@@ -89,7 +89,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="tb-file-attachment-progress">
 						<div class="tb-file-attachment-progress-movable"></div>
 					</div>
+
 				</div>
+				<div id="taskbreaker-unlink-file-btn" role="button"></div>
 			</div>
 			
 		</div>

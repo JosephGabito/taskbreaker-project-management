@@ -212,20 +212,17 @@ var __ThriveProjectView = Backbone.View.extend({
                 if ( task.meta ) {
                     $.each ( task.meta, function( key, val ){
                         if ( "file_attachment" === val.meta_key ) {
+                            var unlink_file_template = '';
                             $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html(val.meta_value);
                             // Assign the existing file to client file.
                             taskbreaker_file_attachments.attached_files = val.meta_value;
-                            var unlink_file_template = '';
-
-                            unlink_file_template += '<div class="taskbreaker-unlink-file-btn" role="button">';
                             unlink_file_template += '<a href="#" title="Click to remove file attachment" data-attachment="'+val.meta_value+'">&times;</a>';
-                            unlink_file_template += '</div>';
-                            
-                            $('#taskbreaker-file-attachment-edit').append( unlink_file_template );
+                            $('#taskbreaker-unlink-file-btn').html( unlink_file_template );
                         }
                     });
                 } else {
                     $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html('No files attached');
+                    $('#taskbreaker-unlink-file-btn a').remove();
                 }
 
             }

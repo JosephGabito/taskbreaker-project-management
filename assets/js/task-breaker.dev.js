@@ -374,20 +374,17 @@ var __ThriveProjectView = Backbone.View.extend({
                 if ( task.meta ) {
                     $.each ( task.meta, function( key, val ){
                         if ( "file_attachment" === val.meta_key ) {
+                            var unlink_file_template = '';
                             $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html(val.meta_value);
                             // Assign the existing file to client file.
                             taskbreaker_file_attachments.attached_files = val.meta_value;
-                            var unlink_file_template = '';
-
-                            unlink_file_template += '<div class="taskbreaker-unlink-file-btn" role="button">';
                             unlink_file_template += '<a href="#" title="Click to remove file attachment" data-attachment="'+val.meta_value+'">&times;</a>';
-                            unlink_file_template += '</div>';
-                            
-                            $('#taskbreaker-file-attachment-edit').append( unlink_file_template );
+                            $('#taskbreaker-unlink-file-btn').html( unlink_file_template );
                         }
                     });
                 } else {
                     $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html('No files attached');
+                    $('#taskbreaker-unlink-file-btn a').remove();
                 }
 
             }
@@ -854,12 +851,30 @@ $('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event
     return;
 });
 
-$('#task_breaker-project').on('click', '.taskbreaker-unlink-file-btn > a', function(e){
+$('#task_breaker-project').on('click', '#taskbreaker-unlink-file-btn > a', function(e){
     e.preventDefault();
     var __confirm = confirm("Are you sure you want to delete this file attachment? This process is not reversible.");
         if ( __confirm ) {
             console.log('deleting file...');
         }
+    var __ticket_id = $('#task_breakerTaskId').val();
+    $('.tasbreaker-file-attached').html('Deleting file attachment...');
+    $.ajax({
+        method: 'POST',
+        url: task_breakerAjaxUrl,
+        data: {
+            nonce: task_breakerProjectSettings.nonce,
+            ticket_id: __ticket_id,
+            action: 'task_breaker_transactions_request',
+            method: 'task_breaker_transaction_delete_ticket_attachment'
+        },
+        success: function( response ) {
+            $('.tasbreaker-file-attached').html('No files attached');
+            $('#taskbreaker-unlink-file-btn > a').remove();
+            // Clear the flies
+            taskbreaker_file_attachments.attached_files = '';
+        }
+    });   
 });
  // Delete Task Single
  $('body').on('click', '#task_breaker-delete-btn', function() {

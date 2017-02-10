@@ -1773,14 +1773,14 @@
     background-color: #f5f5f5;
 }
 
-.taskbreaker-unlink-file-btn {
+#taskbreaker-unlink-file-btn {
 	position: absolute;
     top: 15px;
     right: 15px;
     z-index: 29;
 }	
 
-.taskbreaker-unlink-file-btn a {
+#taskbreaker-unlink-file-btn a {
 	color: #ffffff;
 	display: block;
     border-radius: 50%;
@@ -1790,7 +1790,7 @@
     height: 25px;
 }
 
-.taskbreaker-unlink-file-btn a:hover {
+#taskbreaker-unlink-file-btn a:hover {
 	color: #fff;
 	background: #ff1100;
 }

@@ -97,10 +97,28 @@ $('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event
     return;
 });
 
-$('#task_breaker-project').on('click', '.taskbreaker-unlink-file-btn > a', function(e){
+$('#task_breaker-project').on('click', '#taskbreaker-unlink-file-btn > a', function(e){
     e.preventDefault();
     var __confirm = confirm("Are you sure you want to delete this file attachment? This process is not reversible.");
         if ( __confirm ) {
             console.log('deleting file...');
         }
+    var __ticket_id = $('#task_breakerTaskId').val();
+    $('.tasbreaker-file-attached').html('Deleting file attachment...');
+    $.ajax({
+        method: 'POST',
+        url: task_breakerAjaxUrl,
+        data: {
+            nonce: task_breakerProjectSettings.nonce,
+            ticket_id: __ticket_id,
+            action: 'task_breaker_transactions_request',
+            method: 'task_breaker_transaction_delete_ticket_attachment'
+        },
+        success: function( response ) {
+            $('.tasbreaker-file-attached').html('No files attached');
+            $('#taskbreaker-unlink-file-btn > a').remove();
+            // Clear the flies
+            taskbreaker_file_attachments.attached_files = '';
+        }
+    });   
 });
