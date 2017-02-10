@@ -20,8 +20,13 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
     var files = event.target.files;
     // The form data.
     var data = new FormData();
-
+    // The unique container that will hold the file attachments.
     var container = '#' + container_id + ' ';
+    // The name of the file selected.
+    var file_name = event.target.files[0].name;
+
+   	// Change the file name accordingly.
+   	$( container + '.tasbreaker-file-attached').html( file_name );
 
     // Append all files into data form data.
     $.each( files, function( key, value ) {
@@ -171,23 +176,23 @@ var __ThriveProjectView = Backbone.View.extend({
 
     switchView: function( e, elementID ) {
 
-        if (e) {
+        if ( e ) {
             
             var $elementClicked = $( e.currentTarget );
-
             // Disable clicking on the 'Add New Tab' if we are on 'Task Add' Route.
             var $tab_disabled = ['task_breaker-project-edit-tab', 'task_breaker-project-edit', 'task_breaker-project-add-new'];
             var $is_tab_enabled = $.inArray( $elementClicked.attr( 'id' ), $tab_disabled );
-
-            console.log( $is_tab_enabled );
-
             if ( -1 !== $is_tab_enabled ) {
-                console.log( $elementClicked.attr( 'id' ) );
                 return false;
             } 
 
         }
 
+        // Disable any stay files.
+        taskbreaker_file_attachments.attached_files = '';
+        $('.tasbreaker-file-attached').html('No Files Selected.');
+
+        // Disable edit tab.
         $('#task_breaker-project-edit-tab').css('display', 'none');
         $('#task_breaker-project-add-new').css('display', 'none');
 
@@ -372,6 +377,13 @@ var __ThriveProjectView = Backbone.View.extend({
                             $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html(val.meta_value);
                             // Assign the existing file to client file.
                             taskbreaker_file_attachments.attached_files = val.meta_value;
+                            var unlink_file_template = '';
+
+                            unlink_file_template += '<div class="taskbreaker-unlink-file-btn" role="button">';
+                            unlink_file_template += '<a href="#" title="Click to remove file attachment" data-attachment="'+val.meta_value+'">&times;</a>';
+                            unlink_file_template += '</div>';
+                            
+                            $('#taskbreaker-file-attachment-edit').append( unlink_file_template );
                         }
                     });
                 } else {
@@ -842,6 +854,13 @@ $('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event
     return;
 });
 
+$('#task_breaker-project').on('click', '.taskbreaker-unlink-file-btn > a', function(e){
+    e.preventDefault();
+    var __confirm = confirm("Are you sure you want to delete this file attachment? This process is not reversible.");
+        if ( __confirm ) {
+            console.log('deleting file...');
+        }
+});
  // Delete Task Single
  $('body').on('click', '#task_breaker-delete-btn', function() {
 
