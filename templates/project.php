@@ -130,6 +130,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 var task_breakerProjectSettings = {
 	project_id: '<?php echo absint( $__post->ID ); ?>',
 	nonce: '<?php echo wp_create_nonce( 'task_breaker-transaction-request' ); ?>',
-	current_group_id: '<?php echo absint( get_post_meta( $__post->ID, 'task_breaker_project_group_id', true ) ); ?>'
+	current_group_id: '<?php echo absint( get_post_meta( $__post->ID, 'task_breaker_project_group_id', true ) ); ?>',
+	max_file_size: '<?php echo absint( wp_max_upload_size() ); ?>'
 };
 </script>
