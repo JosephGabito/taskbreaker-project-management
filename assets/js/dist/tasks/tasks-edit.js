@@ -69,6 +69,10 @@ $('#task_breaker-edit-btn').click( function( e ) {
 
             element.text('Update Task');
 
+            $('html, body').animate({
+                scrollTop: $("#task_breaker-edit-task-message").offset().top - 300
+            }, 100);
+
             return;
 
         },
