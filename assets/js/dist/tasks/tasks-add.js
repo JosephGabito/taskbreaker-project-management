@@ -67,10 +67,6 @@ $('#task_breaker-submit-btn').click(function(e) {
 
                 location.href = "#tasks/view/" + message.response.id;
 
-                 console.log('checking $taskbreaker_file_attachments.attached_files value...');
-                        console.log(taskbreaker_file_attachments.attached_files);
-
-
             } else {
 
                 $('#task_breaker-add-task-message').html('<p class="error">'+message.response+'</p>').show().addClass('error');
