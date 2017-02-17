@@ -142,10 +142,9 @@ class TaskBreakerProject {
 
 		if ( current_user_can( 'delete_post', $this->get_id() ) || $post->post_author == get_current_user_id() ) {
 
-			$is_returned_ok = wp_delete_post( $this->get_id() );
+			$force_delete = true;
 
-			// delete all the task under that project
-			$dbase->delete( $dbase->prefix . 'task_breaker_tasks', array( 'project_id' => $this->get_id() ), array( '%d' ) );
+			$is_returned_ok = wp_delete_post( $this->get_id(), $force_delete );
 
 		}
 
