@@ -14,15 +14,35 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
 
     // The upload file event object.
     var files = event.target.files;
+
+    if ( files.length <= 0 ) {
+        return;
+    }
+    
     // The form data.
     var data = new FormData();
     // The unique container that will hold the file attachments.
     var container = '#' + container_id + ' ';
     // The name of the file selected.
     var file_name = event.target.files[0].name;
+    // The file errors count
+    var file_errors = 0;
 
-   	// Change the file name accordingly.
-   	$( container + '.tasbreaker-file-attached').html( file_name );
+    if ( files.length >= 1 ) {
+        $.each( files, function() {
+            if ( this.size > parseInt( task_breakerProjectSettings.max_file_size ) ) {
+                file_errors++;
+            }
+        });
+    }
+
+    if ( file_errors >= 1 ) {
+        alert('There was an error uploading your file. File size exceeded the allowed number of bytes per request.');
+        return;
+    }
+
+    // Change the file name accordingly.
+    $( container + '.tasbreaker-file-attached').html( file_name );
 
     // Append all files into data form data.
     $.each( files, function( key, value ) {
@@ -59,7 +79,7 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
         contentType: false, // Set content type to false as jQuery will tell the server its a query string request.
         success: function( response, textStatus, jqXHR )
         {
-            console.log(response);
+           
             if( typeof response.error === 'undefined' )
             {   
                 if ( response !== 0 ) {
@@ -74,8 +94,6 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
                         $( container + '.taskbreaker-upload-error').remove();
                         $( container + '.taskbreaker-upload-error-text-helper').removeClass('active');
                         $( container + '.taskbreaker-upload-success-text-helper').addClass('active');
-                        console.log('setting data to $taskbreaker_file_attachments.attached_files...');
-                        console.log(taskbreaker_file_attachments.attached_files);
                     }
                     
                 } else {
@@ -89,13 +107,13 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
             else
             {
                 // Handle errors here
-                console.log('ERRORS: ' + response.error);
+                console.log('File attachment errors debug: ' + response.error);
             }
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
             // Handle errors here
-            console.log('ERRORS: ' + textStatus);
+            console.log('File attachment errors debug: ' + textStatus);
             // STOP LOADING SPINNER
         },
         xhr: function(){
@@ -128,18 +146,15 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
                         }
                     }
 
-                    if ( progress === 100 ) {
-                        $( '#task_breaker-submit-btn').removeAttr('disabled');
-                        $( '#task_breaker-edit-btn').removeAttr('disabled');
-                    }
-
                 } , false );
 
             }
             return myXhr;
         },
         complete: function() {
-            console.log('request complete... stopping the spinner...');
+            console.log('finished');
+            $( '#task_breaker-submit-btn').removeAttr( 'disabled' );
+            $( '#task_breaker-edit-btn').removeAttr( 'disabled' );
         }
     });
 };
