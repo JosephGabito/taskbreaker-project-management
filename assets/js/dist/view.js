@@ -14,23 +14,24 @@ var __ThriveProjectView = Backbone.View.extend({
 
     switchView: function( e, elementID ) {
 
-        if (e) {
+        if ( e ) {
             
             var $elementClicked = $( e.currentTarget );
-
             // Disable clicking on the 'Add New Tab' if we are on 'Task Add' Route.
             var $tab_disabled = ['task_breaker-project-edit-tab', 'task_breaker-project-edit', 'task_breaker-project-add-new'];
             var $is_tab_enabled = $.inArray( $elementClicked.attr( 'id' ), $tab_disabled );
-
-            console.log( $is_tab_enabled );
-
             if ( -1 !== $is_tab_enabled ) {
-                console.log( $elementClicked.attr( 'id' ) );
                 return false;
             } 
 
         }
 
+        // Disable any stay files and progress.
+        taskbreaker_file_attachments.attached_files = '';
+        $('.tasbreaker-file-attached').html('No Files Selected.');
+        $('.tb-file-attachment-progress-wrap').removeClass('active');
+
+        // Disable edit tab.
         $('#task_breaker-project-edit-tab').css('display', 'none');
         $('#task_breaker-project-add-new').css('display', 'none');
 
@@ -206,6 +207,24 @@ var __ThriveProjectView = Backbone.View.extend({
                 __this.autoSuggestMembers( $("#task-user-assigned-edit"), true, task );
 
                 $( "#task_breaker-task-edit-select-id" ).val( task.priority ).change().removeAttr("disabled");
+
+                // Update Files Attached here..
+                $('#task-breaker-form-file-attachment-edit-field').removeAttr('disabled');
+                if ( task.meta ) {
+                    $.each ( task.meta, function( key, val ){
+                        if ( "file_attachment" === val.meta_key ) {
+                            var unlink_file_template = '';
+                            $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html(val.meta_value);
+                            // Assign the existing file to client file.
+                            taskbreaker_file_attachments.attached_files = val.meta_value;
+                            unlink_file_template += '<a href="#" title="Click to remove file attachment" data-attachment="'+val.meta_value+'">&times;</a>';
+                            $('#taskbreaker-unlink-file-btn').html( unlink_file_template );
+                        }
+                    });
+                } else {
+                    $('#taskbreaker-file-attachment-edit .tasbreaker-file-attached').html('No files attached');
+                    $('#taskbreaker-unlink-file-btn a').remove();
+                }
 
             }
 

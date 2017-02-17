@@ -1,4 +1,6 @@
-$('#task_breaker-edit-btn').click(function(e) {
+taskbreaker_file_attachments.attached_files = '';
+
+$('#task_breaker-edit-btn').click( function( e ) {
 
     e.preventDefault();
 
@@ -34,7 +36,8 @@ $('#task_breaker-edit-btn').click(function(e) {
         milestone_id: $('#task_breakerTaskMilestone').val(),
         id: $('#task_breakerTaskId').val(),
         priority: $('select[name="task_breaker-task-edit-priority"]').val(),
-        user_id_collection: $('select#task-user-assigned-edit').val()
+        user_id_collection: $('select#task-user-assigned-edit').val(),
+        file_attachments: taskbreaker_file_attachments.attached_files
     }
 
     $.ajax({
@@ -66,6 +69,10 @@ $('#task_breaker-edit-btn').click(function(e) {
 
             element.text('Update Task');
 
+            $('html, body').animate({
+                scrollTop: $("#task_breaker-edit-task-message").offset().top - 300
+            }, 100);
+
             return;
 
         },
@@ -79,3 +86,43 @@ $('#task_breaker-edit-btn').click(function(e) {
         }
     });
 }); // end $('#task_breaker-edit-btn').click()
+
+/**
+ * Attach event to file attachment. When changed upload the file to user logged in '/tmp' directory.
+ * @return void
+ */
+$('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event ) {
+    console.log('test');
+    var form_attr = {
+        'edit_file_attachment': 'yes'
+    };
+    taskbreaker_process_file_attachment( event, 'taskbreaker-file-attachment-edit', form_attr  );
+
+    return;
+});
+
+$('#task_breaker-project').on('click', '#taskbreaker-unlink-file-btn > a', function(e){
+    e.preventDefault();
+    var __confirm = confirm("Are you sure you want to delete this file attachment? This process is not reversible.");
+        if ( __confirm ) {
+            console.log('deleting file...');
+        }
+    var __ticket_id = $('#task_breakerTaskId').val();
+    $('.tasbreaker-file-attached').html('Deleting file attachment...');
+    $.ajax({
+        method: 'POST',
+        url: task_breakerAjaxUrl,
+        data: {
+            nonce: task_breakerProjectSettings.nonce,
+            ticket_id: __ticket_id,
+            action: 'task_breaker_transactions_request',
+            method: 'task_breaker_transaction_delete_ticket_attachment'
+        },
+        success: function( response ) {
+            $('.tasbreaker-file-attached').html('No files attached');
+            $('#taskbreaker-unlink-file-btn > a').remove();
+            // Clear the flies
+            taskbreaker_file_attachments.attached_files = '';
+        }
+    });   
+});

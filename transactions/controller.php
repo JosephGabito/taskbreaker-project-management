@@ -69,6 +69,12 @@ class TaskBreakerTransactions {
 
 		$this->prepare_request();
 
+		if ( TASK_BREAKER_PROFILER ) {
+			if ( function_exists( 'getrusage' ) ) {
+				$this->rustart = getrusage();
+			}
+		}
+
 		require_once TASKBREAKER_DIRECTORY_PATH . 'controllers/tasks.php';
 
 		// Always check for nonce before proceeding...
@@ -116,6 +122,10 @@ class TaskBreakerTransactions {
 
 			// Task autosuggest.
 			'task_breaker_transactions_user_suggest',
+
+			// Task file attachment.
+			'task_breaker_transaction_task_file_attachment',
+			'task_breaker_transaction_delete_ticket_attachment'
 		));
 
 		// Check if the method is allowed.
@@ -132,6 +142,7 @@ class TaskBreakerTransactions {
 			$method_module = trailingslashit( plugin_dir_path( __FILE__ ) ) . 'routes/' . sanitize_file_name( $method ) . '.php';
 
 			if ( file_exists( $method_module ) ) {
+				do_action( 'taskbreaker_before_route_call', $method );
 				require_once $method_module;
 			} else {
 				$this->task_breaker_api_message
@@ -165,11 +176,26 @@ class TaskBreakerTransactions {
 	 */
 	public function task_breaker_api_message( $args = array() ) {
 
+		if ( TASK_BREAKER_PROFILER ) {
+			if ( function_exists( 'getrusage' ) ) {
+				$ru = getrusage();
+				$args['profiler'] = array(
+					'process_used_ms' => $this->task_breaker_profiler($ru, $this->rustart, "utime") . 'ms',
+					'system_calls_ms' => $this->task_breaker_profiler($ru, $this->rustart, "stime") . 'ms',
+					'queries' => get_num_queries()
+				);
+			}
+		}
+
 		echo wp_json_encode( $args );
 
 		wp_die();
 
 		return;
 
+	}
+
+	public function task_breaker_profiler( $ru, $rus, $index ) {
+		return ($ru["ru_$index.tv_sec"]*1000 + intval($ru["ru_$index.tv_usec"]/1000)) -  ($rus["ru_$index.tv_sec"]*1000 + intval($rus["ru_$index.tv_usec"]/1000));
 	}
 }

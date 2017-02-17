@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
 
+
 $task = TaskBreakerTasksController::get_instance();
 
 $user_access = TaskBreakerCT::get_instance();
@@ -31,13 +32,20 @@ if ( ! $user_access->can_add_task( (int) $_POST['project_id'] ) ) {
 
 if ( $task_id ) {
 
+	do_action( 'taskbreaker_task_saved' );
+	// Attach the file into the task.
+	if ( !empty( $_POST['file_attachments'] ) ) {
+		$taskbreaker_file_attachment = new TaskBreakerFileAttachment();
+		$taskbreaker_file_attachment->task_attach_file( $_POST['file_attachments'], $task_id );
+	}
+
 	$this->task_breaker_api_message(
 		array(
-		'message' => 'success',
-		'response' => array(
-				'id' => $task_id,
-			),
-		'stats' => $task->getTaskStatistics( (int) $_POST['project_id'] ),
+			'message' => 'success',
+			'response' => array(
+					'id' => $task_id,
+				),
+			'stats' => $task->getTaskStatistics( (int) $_POST['project_id'] ),
 		)
 	);
 
@@ -47,7 +55,7 @@ if ( $task_id ) {
 		array(
 			'message' => 'fail',
 			'response' => __(
-				'There was an error trying to add this task. Title and Description fields are required or there wasan unexpected error.', ' task_breaker'
+				'There was an error trying to add this task. Title and Description fields are required or there was an unexpected error.', ' task_breaker'
 			),
 		)
 	);

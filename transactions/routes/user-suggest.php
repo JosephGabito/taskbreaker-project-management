@@ -14,6 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
 
+if ( ! is_user_logged_in() ) {
+	return;
+}
+
 $dbase = TaskBreaker::wpdb();
 
 $term = filter_input( INPUT_GET, 'term', FILTER_SANITIZE_STRING );
@@ -51,6 +55,6 @@ if ( ! empty( $results ) ) {
 
 $this->task_breaker_api_message(
 	array(
-	'results' => $formatted_results,
+		'results' => $formatted_results,
 	)
 );

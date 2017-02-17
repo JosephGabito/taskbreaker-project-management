@@ -53,6 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		</div>
 
+		<!-- priority -->
 		<div class="task_breaker-form-field">
 			<label for="task_breaker-task-priority-select">
 				<strong>
@@ -61,6 +62,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php $core->task_priority_select(); ?>
 			</label>
 		</div>
+		<!--end priority-->
+		<!--file attachments-->
+		<div class="task_breaker-form-field" id="taskbreaker-file-attachment-add">
+			<div class="taskbreaker-task-file-attachment">
+				<div class="task-breaker-form-file-attachment">
+					<input type="file" name="file" id="task-breaker-form-file-attachment-field" />
+					<label for="task-breaker-form-file-attachment-field">
+						<strong class="tasbreaker-file-attached">
+							<?php esc_html_e( 'No File Selected', 'task_breaker' ); ?>
+						</strong>
+						<div class="taskbreaker-task-attached-file"></div>
+						<?php esc_html_e('Click to attach a file', 'task_breaker'); ?>
+						<?php echo sprintf( __('(maximum file size: %d MB)', 'task_breaker'), absint( $core->get_wp_max_upload_size() ) ); ?>
+					</label>
+				</div>
+				<div class="tb-file-attachment-progress-wrap">
+					<div class="tb-file-attachment-progress-text">
+						<?php esc_html_e('Uploading', 'task_breaker'); ?>&hellip;<span class="taskbreaker-upload-progress-value">(0%)</span>
+						<span class="taskbreaker-upload-success-text-helper">
+							<?php esc_html_e('. File attached successfully.', 'task_breaker'); ?>
+						</span>
+						<span class="taskbreaker-upload-error-text-helper">
+							<?php esc_html_e('. Upload successfully initiated, but the server was unable to process it. See message below.', 'task_breaker'); ?>
+						</span>
+					</div>
+					<div class="tb-file-attachment-progress">
+						<div class="tb-file-attachment-progress-movable"></div>
+					</div>
+				</div>
+			</div>
+			<input type="hidden" name="taskbreaker-file-attachment-field" class="taskbreaker-file-attachment-field" value="" />
+		</div>
+		
+		<!--[if lte IE 9]>
+			<div class="task_breaker-form-field ie-fallback ie-10">
+				<label for="task_breaker-task-priority-select">
+					<?php esc_html_e('File attachment is disabled for this browser. Please update to latest version', 'task_breaker'); ?>
+				</label>
+			</div>
+		<![endif]-->
+		<!-- end file attachments -->
 
 		<div class="task_breaker-form-field">
 			<button id="task_breaker-submit-btn" class="button button-primary button-large" style="float:right">

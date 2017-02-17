@@ -1,3 +1,7 @@
+/**
+ * This variable is really important for holding client uploaded files.
+ * @type string The file name.
+ */
 $('#task_breaker-submit-btn').click(function(e) {
 
     e.preventDefault();
@@ -33,7 +37,8 @@ $('#task_breaker-submit-btn').click(function(e) {
 
             project_id: task_breakerTaskConfig.currentProjectId,
             user_id: task_breakerTaskConfig.currentUserId,
-            user_id_collection: $('select#task-user-assigned').val()
+            user_id_collection: $('select#task-user-assigned').val(),
+            file_attachments: taskbreaker_file_attachments.attached_files
         },
 
         method: 'post',
@@ -62,12 +67,9 @@ $('#task_breaker-submit-btn').click(function(e) {
 
                 location.href = "#tasks/view/" + message.response.id;
 
-
             } else {
 
                 $('#task_breaker-add-task-message').html('<p class="error">'+message.response+'</p>').show().addClass('error');
-
-
 
                 element.text('Save Task');
 
@@ -78,5 +80,16 @@ $('#task_breaker-submit-btn').click(function(e) {
         error: function() {
 
         }
-    }); // end $.ajax
-}); // end $('#task_breaker-submit-btn').click()
+    }); // End $.ajax call.
+}); // End $('#task_breaker-submit-btn').click() call.
+
+/**
+ * Attach event to file attachment. When changed upload the file to user logged in '/tmp' directory.
+ * @return void
+ */
+$('#task-breaker-form-file-attachment-field').on( 'change', function( event ) {
+    
+    taskbreaker_process_file_attachment( event, 'taskbreaker-file-attachment-add' );
+
+    return;
+});

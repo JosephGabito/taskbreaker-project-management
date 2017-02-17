@@ -63,6 +63,10 @@ $args = array(
 
 $task_collection = $task->renderTasks( $args );
 
+if ( empty ( $task_collection ) ) {
+	$task_collection = array();
+}
+
 $taskbreaker_template = new TaskBreakerTemplate();
 
 if ( 0 === $task_id ) {

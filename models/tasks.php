@@ -483,33 +483,13 @@ class TaskBreakerTask {
 
 			if ( ! empty( $result ) ) {
 
-				$allowed_html = array(
-				  'a' => array(
-					  'href' => array(),
-					  'title' => array(),
-				  ),
-				  'br' => array(),
-				  'em' => array(),
-				  'strong' => array(),
-				  'del' => array(),
-				  'ul' => array(),
-				  'ol' => array(),
-				  'li' => array(),
-				  'code' => array(),
-				  'img' => array(),
-				  'ins' => array(),
-				  'blockquote' => array(),
-				  'hr' => array(),
-				  'p' => array(
-					'style' => array(),
-				   ),
-				 );
+				$allowed_html = wp_kses_allowed_html('post');
 
 				// Sanitize the title to prevent XSS.
 				$result->title = stripslashes( $result->title );
 
 				// Sanitize the description to prevent XSS.
-				$result->description = stripslashes( wp_kses( $result->description, $allowed_html ) );
+				$result->description = wp_kses( $result->description, $allowed_html );
 
 				// Let's assign custom meta for assigned users so that we can fetch the result easier later on.
 				$members_stack = array();
@@ -546,6 +526,16 @@ class TaskBreakerTask {
 
 				// Group ID.
 				$result->group_id = get_post_meta( $result->project_id, 'task_breaker_project_group_id', true );
+
+				// Meta
+				
+				$task_meta_stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta WHERE task_id = %d", $id );
+				$task_meta = $dbase->get_results( $task_meta_stmt, OBJECT);
+				if ( empty( $task_meta ) ) {
+					$result->meta = null;
+				} else {
+					$result->meta = $task_meta;
+				}
 
 			}
 
@@ -834,6 +824,8 @@ class TaskBreakerTask {
 			return false;
 
 		} else {
+			
+			do_action('task_breaker_before_task_delete');
 			
 			$dbase->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
 

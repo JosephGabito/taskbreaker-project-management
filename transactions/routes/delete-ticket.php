@@ -14,36 +14,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
 
-$ticket_id = (int) filter_input( INPUT_POST, 'id', FILTER_VALIDATE_INT );
+if ( ! is_user_logged_in() ) {
+	return;
+}
 
-$project_id = (int) filter_input( INPUT_POST, 'project_id', FILTER_VALIDATE_INT );
+$ticket_id = filter_input( INPUT_POST, 'id', FILTER_VALIDATE_INT );
+
+$project_id = filter_input( INPUT_POST, 'project_id', FILTER_VALIDATE_INT );
 
 $task = TaskBreakerTasksController::get_instance();
 
-$deleteTask = $task->deleteTask( $ticket_id, $project_id );
+$delete_task = $task->deleteTask( $ticket_id, $project_id );
 
-if ( $deleteTask ) {
+if ( $delete_task ) {
 
 	$this->task_breaker_api_message(
 		array(
 			'message' => 'success',
 			'response' => array(
-				'id' => $ticket_id,
+				'id' => absint( $ticket_id ),
 			),
-			'stats' => $task->getTaskStatistics( $project_id ),
+			'stats' => $task->getTaskStatistics( absint( $project_id ) ),
 		)
 	);
 
 } else {
+
 	$this->task_breaker_api_message(
 		array(
 			'message' => 'fail',
 			'type'    => 'unauthorized',
 			'response' => array(
-				'id' => $ticket_id,
+				'id' => absint( $ticket_id ),
 			),
-			'message_text' => __( 'You are not allowed to delete this task. Only group administrators or group moderators are allowed.', 'task_breaker' ),
-			'stats' => $task->getTaskStatistics( $project_id ),
+			'message_text' => esc_html__( 'You are not allowed to delete this task. Only group administrators or group moderators are allowed.', 'task_breaker' ),
+			'stats' => $task->getTaskStatistics( absint( $project_id ) ),
 		)
 	);
+
 }

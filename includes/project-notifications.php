@@ -69,10 +69,13 @@ final class TaskBreakerNotifications {
 
 			$task = $core->get_task( $item_id );
 
+			if ( empty ( $task ) ) {
+				$text = esc_html__('You were assigned a new task, but it was deleted. You can ignore this notification.', 'task_breaker');
+				$out = sprintf( '<a href="#" title="%1$s">%1$s</a>', $text );
+				return $out;
+			}
 			$secondary_item_user = get_user_by( 'id', absint( $secondary_item_id ) );
-
 			$secondary_item_user_name = $secondary_item_user->display_name;
-
 			$project_id = absint( $task->project_id );
 
 			// Customized notification title for new task.
@@ -97,13 +100,12 @@ final class TaskBreakerNotifications {
 			// WordPress Toolbar.
 			if ( 'string' === $format ) {
 				$out = apply_filters( 'custom_filter', '<a href="' . esc_url( $notification_link ) . '" title="' . esc_attr( $notification_title ) . '">' . esc_html( $notification_text ) . '</a>', $notification_text, $notification_link );
-
 				// Deprecated BuddyBar.
 			} else {
 				$out = apply_filters(
 					'custom_filter', array(
-					'text' => $notification_text,
-					'link' => $notification_link,
+						'text' => $notification_text,
+						'link' => $notification_link,
 					), $notification_link, (int) $total_items, $notification_text, $notification_title
 				);
 			}

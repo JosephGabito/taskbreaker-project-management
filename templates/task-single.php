@@ -1,10 +1,12 @@
 <?php if ( empty( $args ) ) { return; } ?>
+
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
 <?php $core = new TaskBreakerCore(); ?>
 <?php $template = new TaskBreakerTemplate(); ?>
 
 <?php
 if ( ! empty( $args->user ) ) {
+	
 	// Only allow members who has an access view to view the task.
 	if ( ! $user_access->can_see_project_tasks( $args->project_id ) ) { ?>
 
@@ -80,6 +82,20 @@ if ( ! empty( $args->user ) ) {
 				</div>
 			<?php } ?>
 
+			<?php $attachments = TaskBreakerFileAttachment::task_get_attached_files( $args->id, $args->user ); ?>
+			
+			<?php if ( ! empty( $attachments ) ) { ?>
+				
+				<div id="taskbreaker-file-attachment">
+					<?php foreach( $attachments as $attachment ) { ?>
+						<div class="taskbreaker-file-attachment-item">
+							<a target="_blank" href="<?php echo esc_url( $attachment['url'] ); ?>" title="<?php esc_attr_e('Download File', 'task_breaker'); ?>">
+								<?php echo esc_html( $attachment['name'] ); ?>
+							</a>
+						</div>
+					<?php } ?>
+				</div>
+			<?php } ?>
 
 			<div class="task-content-meta">
 
@@ -87,10 +103,9 @@ if ( ! empty( $args->user ) ) {
 					<a href="#tasks" title="<?php _e( 'Tasks List', 'task_breaker' ); ?>" class="button">
 						<?php _e( '&larr; Tasks List', 'task_breaker' ); ?>
 					</a>
-
-						<a href="#tasks/edit/<?php echo intval( $args->id ); ?>" class="button">
-							<?php _e( 'Edit', 'task_breaker' ); ?>
-						</a>
+					<a href="#tasks/edit/<?php echo intval( $args->id ); ?>" class="button">
+						<?php _e( 'Edit', 'task_breaker' ); ?>
+					</a>
 				</div>
 
 				<div class="clearfix"></div>

@@ -7,6 +7,7 @@ grunt.initConfig({
         basic: {
             src:[
                     'dist/header.js',
+                    'dist/functions.js',
                     'dist/model.js',
                     'dist/view.js',
                     'dist/router.js',
@@ -45,6 +46,7 @@ grunt.initConfig({
         scripts: {
             files: [
                 'dist/header.js',
+                'dist/functions.js',
                 'dist/model.js',
                 'dist/view.js',
                 'dist/router.js',
@@ -112,4 +114,10 @@ grunt.registerTask('default', ['watch']);
  * npm install grunt-contrib-concat --save-dev;
  * npm install grunt-jsbeautifier --save-dev
  * npm install grunt-contrib-jshint --save-dev
+ */
+
+/**
+ * Shortcude
+ * npm install grunt --save-dev
+ * npm install grunt-contrib-uglify --save-dev;npm install grunt-contrib-watch --save-dev;npm install grunt-contrib-concat --save-dev;npm install grunt-jsbeautifier --save-dev;npm install grunt-contrib-jshint --save-dev;
  */

@@ -253,6 +253,7 @@
 #task_breaker-project div.mce-panel {
 	border: 0 solid #ddd;
 }
+
 #task_breaker-project div.mce-toolbar-grp {
 	background: #fff;
 }
@@ -316,6 +317,10 @@
  */
 #task_breaker-project-tab-content {
 	position: relative;
+}
+
+#task_breaker-project-tab-content * {
+	box-sizing: border-box;
 }
 
 #task_breaker-project-tab-content .task_breaker-project-tab-content-item {
@@ -487,6 +492,7 @@
 .single-project #task_breaker-project-tasks ul li.priority {
 	width: 10%;
 	margin-right: 2%;
+	min-width: 70px;
 }
 	.task-priority,
 	.single-project #task_breaker-project-tasks ul li.priority span {
@@ -590,6 +596,10 @@
 	box-sizing: border-box;
 }
 
+.single-project  img.avatar {
+	max-width: 100%;
+	height: auto;
+}
 .single-project #task_breaker-project #task_breaker-tasks-filter #task_breaker-task-search-submit {
 	float: left;
 	width: 30%;
@@ -698,6 +708,7 @@
 		padding: 12px 15px;
 	    border: 1px solid #ddd;
 	    height: 85px;
+	    width: 100%;
 	}
 
 	.task_breaker-edit-comment,
@@ -973,6 +984,7 @@
 
 .task_breaker-form-field {
 	margin: 15px 0;
+	position: relative;
 }
 
 .task_breaker-form-field textarea#task_breaker-project-content,
@@ -1301,7 +1313,7 @@
 	outline: 0;
 	box-shadow: none;
 	margin: 0;
-	padding: 0;
+	padding: 3.5px 0;
 	-webkit-appearance: textfield; }
 
 	.select2-container--default .select2-results > .select2-results__options {
@@ -1612,7 +1624,7 @@
 #task_breaker-project-name {
 	width: 100%;
 	display: block;
-	padding: 0 15px;
+	padding: 5px 15px;
 	margin-bottom: 0;
 	border: 1px solid #ddd;
 }
@@ -1675,3 +1687,136 @@
     left: -20px;
     top: 7px;
 }
+
+/** File Attachment */
+.tb-file-attachment-progress-wrap {
+    display: none;
+    z-index: 2;
+    position: relative;
+    text-align: center;
+    font-size: 12px;
+    color: #9E9E9E;
+    background: #f9f9f9;
+    box-shadow: inset 0px -1px 1px 0px #6b6b6b;
+    margin-top: -10px;
+    padding: 5px 0 0 0;
+}
+
+.taskbreaker-upload-success-text-helper,
+.taskbreaker-upload-error-text-helper {
+	display: none;
+}
+.taskbreaker-upload-success-text-helper.active,
+.taskbreaker-upload-error-text-helper.active {
+	display: inline-block;
+}
+.tb-file-attachment-progress-wrap.active {
+	display: block;
+}
+
+.tb-file-attachment-progress {
+	height: 5px;
+    background: #fff;
+    width: 100%;
+    overflow: hidden;
+}
+
+.tb-file-attachment-progress > .tb-file-attachment-progress-movable {
+	height: 5px;
+	background: #2196F3;
+	width: 0%;
+	display: block;
+}
+
+.taskbreaker-upload-error {
+    color: #ffffff;
+    padding: 0px 0;
+    background: #FF5722;
+}
+
+#task-breaker-form-file-attachment-edit-field,
+#task-breaker-form-file-attachment-field {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#task-breaker-form-file-attachment-edit-field + label,
+#task-breaker-form-file-attachment-field + label {
+    font-weight: 400;
+    color: #6d6d6d;
+    background-color: #fff;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    padding: 40px 20px 30px 20px;
+    text-align: center;
+    border: 1px solid #dddddd;
+    font-size: 14px;
+    background-image: url(../images/ic_attach_file_black_48dp_2x.png);
+    outline: none!important;
+    background-position: center 15px;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    margin: 0;
+}
+
+#task-breaker-form-file-attachment-edit-field:focus + label,
+#task-breaker-form-file-attachment-field:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+#task-breaker-form-file-attachment-edit-field:focus + label,
+#task-breaker-form-file-attachment-edit-field + label:hover,
+#task-breaker-form-file-attachment-field:focus + label,
+#task-breaker-form-file-attachment-field + label:hover {
+    background-color: #f5f5f5;
+}
+
+#taskbreaker-unlink-file-btn {
+	position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 29;
+}	
+
+#taskbreaker-unlink-file-btn a {
+	color: #ffffff;
+	display: block;
+    border-radius: 50%;
+    background: #F44336;
+    width: 25px;
+    text-align: center;
+    height: 25px;
+}
+
+#taskbreaker-unlink-file-btn a:hover {
+	color: #fff;
+	background: #ff1100;
+}
+
+#taskbreaker-file-attachment {
+    background-color: #f5f5f5;
+    background-image: url(../images/ic_attach_file_black_48dp_2x.png);
+    background-size: 18px;
+    background-repeat: no-repeat;
+    padding: 10px 15px 10px 35px;
+    background-position: 8px 11px;
+    border: 2px dashed #eee;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+#taskbreaker-file-attachment  a {
+	color: #444;
+}
+#taskbreaker-file-attachment:hover  a {
+	text-decoration: underline;
+}
+/** End file Attachment */
+
