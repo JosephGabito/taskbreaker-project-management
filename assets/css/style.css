@@ -596,6 +596,10 @@
 	box-sizing: border-box;
 }
 
+.single-project  img.avatar {
+	max-width: 100%;
+	height: auto;
+}
 .single-project #task_breaker-project #task_breaker-tasks-filter #task_breaker-task-search-submit {
 	float: left;
 	width: 30%;
