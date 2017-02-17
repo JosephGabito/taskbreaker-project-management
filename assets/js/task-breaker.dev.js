@@ -112,7 +112,8 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
 
                 // For handling the progress of the upload
                 $( container + '.tb-file-attachment-progress-wrap').addClass('active');
-                $( container + '.task_breaker-submit-btn').attr('disabled', true);
+                $( '#task_breaker-submit-btn').attr('disabled', true);
+                $( '#task_breaker-edit-btn').attr('disabled', true);
 
                 myXhr.upload.addEventListener('progress', function(e) {
 
@@ -132,7 +133,8 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
                     }
 
                     if ( progress === 100 ) {
-                        $( container + '.task_breaker-submit-btn').removeAttr('disabled');
+                        $( '#task_breaker-submit-btn').removeAttr('disabled');
+                        $( '#task_breaker-edit-btn').removeAttr('disabled');
                     }
 
                 } , false );
@@ -188,9 +190,10 @@ var __ThriveProjectView = Backbone.View.extend({
 
         }
 
-        // Disable any stay files.
+        // Disable any stay files and progress.
         taskbreaker_file_attachments.attached_files = '';
         $('.tasbreaker-file-attached').html('No Files Selected.');
+        $('.tb-file-attachment-progress-wrap').removeClass('active');
 
         // Disable edit tab.
         $('#task_breaker-project-edit-tab').css('display', 'none');
@@ -822,6 +825,10 @@ $('#task_breaker-edit-btn').click( function( e ) {
             element.attr('disabled', false);
 
             element.text('Update Task');
+
+            $('html, body').animate({
+                scrollTop: $("#task_breaker-edit-task-message").offset().top - 300
+            }, 100);
 
             return;
 
