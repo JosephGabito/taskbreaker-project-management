@@ -26,9 +26,10 @@ var __ThriveProjectView = Backbone.View.extend({
 
         }
 
-        // Disable any stay files.
+        // Disable any stay files and progress.
         taskbreaker_file_attachments.attached_files = '';
         $('.tasbreaker-file-attached').html('No Files Selected.');
+        $('.tb-file-attachment-progress-wrap').removeClass('active');
 
         // Disable edit tab.
         $('#task_breaker-project-edit-tab').css('display', 'none');
