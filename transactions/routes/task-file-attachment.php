@@ -20,8 +20,9 @@ $file_name  = '';
 if ( ! empty ( $file ) ) {
 
 	if ( isset ( $file['file'] ) ) {
-		if ( ! empty ( basename( $file['file'] ) ) )  {
-			$file_name = basename( $file['file'] );
+		$file_basename = basename( $file['file'] );
+		if ( ! empty ( $file_basename ) )  {
+			$file_name = $file_basename;
 		}
 	}
 
