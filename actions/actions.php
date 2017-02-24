@@ -1,4 +1,5 @@
 <?php
+
 final class TaskBreakerActions {
 
 	/**
@@ -60,26 +61,26 @@ final class TaskBreakerActions {
 								// Delete all user assignments.
 								if ( $dbase->delete( $task_user_assignment_table, array( 'task_id' => $task->id ), array( '%d' ) ) === FALSE  ) {
 									
-									die('Unable to delete user assignments. There was an error in db query.');
+									TaskBreaker::stop('Unable to delete user assignments. There was an error in db query.');
 
 								}
 
 							} else {
 
-								die('Unable to delete task comments. There was an error in db query.');
+								TaskBreaker::stop('Unable to delete task comments. There was an error in db query.');
 
 							}
 
 						// End task meta deletion.
 						} else {
 
-							die('Unable to delete attachments meta. There was an error in db query.');
+							TaskBreaker::stop('Unable to delete attachments meta. There was an error in db query.');
 
 						}
 					// End Delete all task attachments under the task inside a specific project.
 					} else {
 
-						die('Unable to delete attachments. There was an error in db query.');
+						TaskBreaker::stop('Unable to delete attachments. There was an error in db query.');
 
 					}
 
@@ -88,7 +89,7 @@ final class TaskBreakerActions {
 			// End Delete all the tasks under the project.
 			} else {
 
-				die('Unable to delete tasks. There was an error in db query. ');
+				TaskBreaker::stop('Unable to delete tasks. There was an error in db query. ');
 
 			}
 		} // End not empty.
