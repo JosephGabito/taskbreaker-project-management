@@ -6,7 +6,7 @@ Requires at least: 4.2.0
 Tested up to: 4.8.0
 Stable tag: 1.5.0
 
-A simple WordPress plugin for managing projects and tasks. Integrated into BuddyPress Groups for best collaborative experience.
+A simple WordPress plugin for managing projects and tasks. Integrated into BuddyPress Groups for best collaborative experience.  
 
 == Description ==
 
