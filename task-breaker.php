@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TaskBreaker - Group Project Management
  * Description: A simple WordPress plugin for managing projects and tasks. Integrated into BuddyPress Groups for best collaborative experience.
- * Version: 1.4.2
+ * Version: 1.4.3
  * Author: Dunhakdis
  * Author URI: http://dunhakdis.com
  * Text Domain: task_breaker
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'TASK_BREAKER_PROFILER', false );
 
-define( 'TASK_BREAKER_VERSION', '1.4.2' );
+define( 'TASK_BREAKER_VERSION', '1.4.3' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
 
@@ -199,51 +199,3 @@ class TaskBreaker {
 
 	}
 }
-
-/**
- * Enable Github Updater.
- */
-add_action( 'init', 'task_breaker_plugin_updater_init' );
-
-/**
- * The callback function that wraps 'WP_GitHub_Updater'
- * to init action of WordPress to check for our plugin updates.
- *
- * @return void
- */
-function task_breaker_plugin_updater_init() {
-	/**
-	 * Do not trigger the updater script on ajax requests.
-	 */
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-		return;
-	}
-
-	if ( is_admin() ) {
-
-		include_once plugin_dir_path( __FILE__ ) . '/update-check.php';
-
-		$repo_name = 'task-breaker';
-
-		$config = array(
-		 	'slug' => plugin_basename( __FILE__ ),
-		 	'proper_folder_name' => 'task-breaker',
-		 	'api_url' => sprintf( 'https://api.github.com/repos/codehaiku/%s', $repo_name ),
-		 	'raw_url' => sprintf( 'https://raw.github.com/codehaiku/%s/master', $repo_name ),
-		 	'github_url' => sprintf( 'https://github.com/codehaiku/%s', $repo_name ),
-			'zip_url' => sprintf( 'https://github.com/codehaiku/%s/zipball/master', $repo_name ),
-			'sslverify' => true,
-			'requires' => '4.0',
-			'tested' => '4.4.2',
-			'readme' => 'README.md',
-			'access_token' => '',
-		);
-
-		$github_updater = new WP_GitHub_Updater( $config );
-
-	}
-
-	return;
-
-}
-
