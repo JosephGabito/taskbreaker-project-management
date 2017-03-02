@@ -20,6 +20,10 @@ File attachments for Tasks are now available for version 1.4.1 and above. We are
 
 Your feedback is highly appreciated.
 
+<h4>Contribute</h4>
+
+If you're a developer and looking to contribute to this project. Please visit the <a href="https://github.com/codehaiku/taskbreaker-project-management" title="TaskBreaker Github Page" target="_blank">GitHub</a> page and kindly send a pull request. Your contribution is greatly appreciated :)
+
 <h4>Caveats</h4>
 
 TaskBreaker is tightly integrated with BuddyPress (<a href="https://buddypress.org/">https://buddypress.org/</a>). With that said, TaskBreaker will not work if BuddyPress is not installed or if BuddyPress Groups Component is not enabled.
@@ -28,10 +32,19 @@ TaskBreaker is tightly integrated with BuddyPress (<a href="https://buddypress.o
 
 **Manual**
 
-1.  Download and unzip "taskbreaker.zip" plugin.
-2.  Upload the entire "**taskbreaker**" directory to your '**/wp-content/plugins/' **directory.
-3.  Activate the "**TaskBreaker - Group Project Management**" plugin.
-4.  Go to Settings > TaskBreaker set set-up.
+1.  Download and unzip "taskbreaker-project-management.zip" plugin.
+2.  Upload the entire "taskbreaker-project-management" directory to your 'wp-content/plugins/' directory.
+3.  Activate the "TaskBreaker - Group Project Management" plugin.
+
+<strong>Note: Taskbreaker requires BuddyPress and BuddyPress Groups Component to work.</strong>
+
+<h4>Setting up Projects</h4>
+
+1. Go to Settings > BuddyPress
+2. Inside the BuddyPress Settings Page, find the tab named "Pages". Click it.
+3. Find the option that says "Projects".
+4. Select a page for your 'Projects' archive
+5. Click 'Save Settings'
 
 **Automatic**
 
@@ -44,4 +57,5 @@ TaskBreaker is tightly integrated with BuddyPress (<a href="https://buddypress.o
 == Changelog ==
 
 * 1.0.0 *
+
 - Initial Release -
