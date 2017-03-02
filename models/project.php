@@ -125,8 +125,6 @@ class TaskBreakerProject {
 	 */
 	public function delete() {
 
-		$dbase = TaskBreaker::wpdb();
-
 		if ( 0 === $this->get_id() ) {
 			return false;
 		}
