@@ -103,19 +103,15 @@ class TaskBreakerFileAttachment {
 
 		$tmp_dir = $path['basedir'] . sprintf( '/taskbreaker/%d/tmp', get_current_user_id() );
 
-		$chmod = 0755;
-
-		if ( defined( 'FS_CHMOD_DIR' ) ) {
-			$chmod = false;
-		}
-
 		if ( $fs->delete( $tmp_dir, true ) ) {
 
 			// Re-create the directory.
 			if ( $fs->mkdir( $tmp_dir ) ) {
 				// Then, move the file.
 				return wp_handle_upload( $file, $upload_overwrites );
+
 			} else {
+				
 				return array( 'error' => __( 'Unable to create temporary directory. Permission error.' ) );
 			}
 
@@ -195,8 +191,6 @@ class TaskBreakerFileAttachment {
 		}
 
 		$fs = new WP_Filesystem_Direct( $args );
-
-		$dbase = TaskBreaker::wpdb();
 
 		if ( empty( $task_id ) ) {
 			return false;
