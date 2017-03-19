@@ -31,6 +31,7 @@ class TaskBreakerWidgets extends WP_Widget {
 		);
 
 		parent::__construct( 'taskbreaker_user_recent_tasks', __('(TaskBreaker) My Recent Task', 'task_breaker'), $widget_ops );
+		$this->register_sidebar();
 
 	}
 
@@ -115,6 +116,20 @@ class TaskBreakerWidgets extends WP_Widget {
 
 		return $instance;
 	}
+
+	public function register_sidebar() {
+	    register_sidebar( 
+	    	array(
+		        'name' => __( 'Projects', 'taskbreaker' ),
+		        'id' => 'taskbreaker-projects',
+		        'description' => __( 'Use this sidebar area in your theme to display all the Widgets related to Projects.', 'taskbreaker' ),
+		        'before_widget' => '<aside id="%1$s" class="sidebar-widgets widget %2$s">',
+				'after_widget'  => '</aside>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3><div class="widget-clear"></div>',
+	    	)
+	    );
+	}
 }
 
-add_action( 'widgets_init', array('TaskBreakerWidgets', 'register_widget') );
+add_action( 'widgets_init', array('TaskBreakerWidgets', 'register_widget'), 20 );
