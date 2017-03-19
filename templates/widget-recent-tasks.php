@@ -78,10 +78,14 @@ if ( ! empty( $user_tasks ) ) { ?>
 
 <?php } else { ?>
 
-<div class="task-breaker-widget-no-task-assigned">
+	<div class="task-breaker-widget-no-task-assigned">
 
-	<?php esc_html_e( 'There are no tasks assigned to you. Enjoy your day!', 'tas_breaker' ); ?>
-	
-</div>
+		<?php if ( is_user_logged_in() ) { ?>
+			<?php esc_html_e( 'There are no tasks assigned to you. Enjoy your day!', 'tas_breaker' ); ?>
+		<?php } else { ?>
+			<?php esc_html_e( 'Please use the login form to sign in and view your tasks.', 'tas_breaker' ); ?>
+		<?php } ?>
+
+	</div>
 
 <?php } ?>
