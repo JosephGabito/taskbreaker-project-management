@@ -1,75 +1,77 @@
-<?php $projects = new WP_Query( $args ); ?>
+<?php global $post; ?>
+
 <?php $template = new TaskBreakerTemplate(); ?>
 
-<?php if ( bp_is_active( 'groups' ) ) { ?>
+<?php $core = new TaskBreakerCore(); ?>
 
-<?php if ( $projects->have_posts() ) { ?>
+<?php $projects = $core->get_user_groups_projects( get_current_user_id() ); ?>
 
-<ul id="task_breaker-projects-lists">
+<?php if ( bp_is_user() ) { ?>
+	
+	<?php $projects = $core->get_displayed_user_groups_projects(); ?>
 
-	<?php while ( $projects->have_posts() ) { ?>
+<?php } ?>
 
-	<?php $projects->the_post(); ?>
+<?php if ( bp_is_group() ) { ?>
+		
+	<?php $projects = $core->get_group_projects( bp_get_group_id() ); ?>
 
-	<li <?php post_class(); ?>>
+<?php } ?>
 
-	<?php the_post_thumbnail( 'thumbnail' ); ?>
+<p id="group-projects-explainer" class="mg-top-15 no-mg-bottom">
+	<?php 
+		echo $projects['summary'];
+	?>
+</p>
 
-		<div class="task_breaker-project-title">
-			<h3>
-				<a href="<?php echo the_permalink(); ?>">
-					<?php the_title(); ?>
-				</a>
-			</h3>
-		</div>
+<?php if ( ! empty( $projects['projects'] ) ) { ?>
 
-		<div class="task_breaker-project-meta">
+	<ul id="task_breaker-projects-lists">
 
-			<?php $template->the_project_meta( get_the_ID() ); ?>
+		<?php foreach ( $projects['projects'] as $post ) { ?>
 
-		</div>
+		<?php setup_postdata( $post ); ?>
 
-		<div class="task_breaker-project-excerpt">
+			<li <?php echo post_class( array( 'taskbreaker-project-item'), $post->ID ); ?>>
 
-			<?php the_excerpt(); ?>
+				<div class="task_breaker-project-title">
+					<h3>
+						<a href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>" title="<?php echo esc_attr( the_title() ); ?>">
+							<?php echo the_title(); ?>
+						</a>
+					</h3>
+				</div>
 
-		</div>
+				<div class="task_breaker-project-meta">
+					<?php $template->the_project_meta( get_the_ID() ); ?>
+				</div>
 
+				<div class="task_breaker-project-excerpt">
+					<?php the_excerpt(); ?>
+				</div>
 
+				<div class="task_breaker-project-author">
+					<?php $template->display_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
+				</div>
 
-		<div class="task_breaker-project-author">
+			</li>
+		<?php } ?>
+		<?php wp_reset_postdata(); ?>
+	</ul>
 
-			<?php $template->display_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
-
-		</div>
-	</li>
-
-	<?php } // endwhile ?>
-
-</ul> <!--#task_breaker-projects-lists-->
-
-<div id="project-navigation">
-
-	<?php $template->the_project_navigation( $projects ); ?>
-
-</div>
-
-<?php } else {  ?>
-
-	<div id="message" class="error">
-		<?php _e( 'There are no group projects found. You need to become a member of a group to participate in its project.', 'task_breaker' ); ?>
-	</div>
-
-<?php // No Project Found. ?>
-
-<?php } // endif ?>
-
-<?php
-// Reset the post data.
-wp_reset_postdata();
-?>
 <?php } else { ?>
 	<p id="message" class="info">
-	<?php esc_html_e( 'Please enable BuddyPress Groups Components to access projects', 'task-breaker' ); ?>
+		<?php esc_html_e( 'There are no Group Projects found at this time.', 'task-breaker' ); ?>
 	</p>
 <?php } ?>
+<div id="taskbreaker-project-navigation">
+	<?php
+		echo paginate_links( array(
+			'format' => '?paged=%#%',
+			'current' => max( 1, get_query_var('paged') ),
+			'total' => $projects['total_pages'],
+			'prev_text' => __('«'),
+			'next_text'  => __('»'),
+		) );
+	?>
+</div>
