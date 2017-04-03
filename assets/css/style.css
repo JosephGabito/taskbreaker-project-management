@@ -806,7 +806,8 @@
 #task_breaker-intranet-projects ul#task_breaker-projects-lists li.type-project .task_breaker-project-title h3 {
 	margin: 0;
 	padding: 0;
-	margin-bottom: 25px;
+	font-size: 16px;
+	margin-bottom: 5px;
 }
 
 #task_breaker-intranet-projects ul#task_breaker-projects-lists li.type-project img.avatar {
@@ -826,6 +827,8 @@
 
 .task_breaker-project-excerpt {
 	margin-top: 15px;
+	opacity: 0.87;
+	font-size: 13px;
 }
 
 .task_breaker-project-meta .task-progress-task-count {
@@ -1817,6 +1820,16 @@
 }
 #taskbreaker-file-attachment:hover  a {
 	text-decoration: underline;
+}
+#taskbreaker-project-navigation .page-numbers {
+    display: inline-block;
+    width: 35px;
+    text-align: center;
+    height: 35px;
+    vertical-align: middle;
+    background: #eceff1;
+    padding: 5px 5px;
+    border-radius: 50%;
 }
 /** End file Attachment */
 
