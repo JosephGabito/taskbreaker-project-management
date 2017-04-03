@@ -16,40 +16,9 @@ do_action( 'task_breaker_before_projects_directory' ); ?>
 
 	<?php if ( bp_is_active( 'groups' ) ) { ?>
 
-	<?php $template->display_new_project_modal(); ?>
-	
-	<?php 
-
-		$user_groups = $core->get_current_user_owned_groups();
+		<?php $template->display_new_project_modal(); ?>
 		
-		$user_groups = BP_Groups_Member::get_group_ids( get_current_user_id() );
-
-		$user_groups_id_collection = array();
-
-		$groups_collection = array();
-
-		if ( ! empty ( $user_groups['groups'] ) ) {
-
-			$user_groups_id_collection = $user_groups['groups'];
-
-		} else {
-
-			$user_groups_id_collection = array(-1);
-			
-		}
-
-		$config = array(
-			'meta_query' => array(
-				array(
-					'key'     => 'task_breaker_project_group_id',
-					'value'   => $user_groups_id_collection,
-					'compare' => 'IN',
-				),
-			),
-		);
-		
-	?>
-	<?php $template->display_project_loop( $config ); ?>
+		<?php $template->display_project_loop(); ?>
 
 	<?php } else { ?>
 
