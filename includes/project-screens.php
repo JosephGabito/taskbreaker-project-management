@@ -237,7 +237,7 @@ final class TaskBreakerProjectScreens {
 	 */
 	public static function bp_projects_title() {
 
-		esc_html_e( 'Projects', 'task_breaker' );
+		esc_html_e( 'Public Group Projects', 'task_breaker' );
 
 		return;
 	}

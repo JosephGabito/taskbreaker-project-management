@@ -145,21 +145,37 @@ class TaskBreakerProjectsComponent extends BP_Component {
 	 */
 	function setup_nav( $main_nav = array(), $sub_nav = array() ) {
 
+		$count = 0;
+
+		if ( bp_is_user() ) {
+			$core = new TaskBreakerCore();
+			$projects = $core->get_displayed_user_groups_projects();
+			$count = $projects['total'];
+		}
+
 		$main_nav = array(
-			'name' => $this->name,
+			'name' => sprintf( esc_html( 'Projects %s', 'taskbreaker' ), '<span class="count">' . absint( $count ) . '</span>' ),
 			'slug' => $this->id,
 			'position' => 80,
-			'screen_function' => array('TaskBreakerProjectScreens', 'bp_projects_main_screen_function'),
+			'screen_function' => array( 'TaskBreakerProjectScreens', 'bp_projects_main_screen_function' ),
 			'default_subnav_slug' => 'all',
 		);
 
 		// Add a few subnav items under the main tab.
+		$bp_userdata = get_userdata( bp_displayed_user_id() );
+		$displayed_user_name = '';
+
+		if ( ! empty( $bp_userdata ) ) {
+			$displayed_user_name = $bp_userdata->display_name;
+			$displayed_user_name = $displayed_user_name . '\'' . ($displayed_user_name[ strlen( $displayed_user_name ) - 1 ] != 's' ? 's' : '');
+		}
+
 		$sub_nav[] = array(
-			'name'            => __( 'My Projects', 'task_breaker' ),
+			'name'            => sprintf( __( '%s Projects', 'task_breaker' ), $displayed_user_name ),
 			'slug'            => 'all',
 			'parent_url'      => bp_loggedin_user_domain() . $this->id . '/',
 			'parent_slug'     => 'projects',
-			'screen_function' => array('TaskBreakerProjectScreens', 'bp_projects_main_screen_function'),
+			'screen_function' => array( 'TaskBreakerProjectScreens', 'bp_projects_main_screen_function' ),
 			'position'        => 10,
 		);
 
@@ -169,7 +185,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 			'slug'            => 'new',
 			'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
 			'parent_slug'     => 'projects',
-			'screen_function' => array('TaskBreakerProjectScreens', 'bp_projects_main_screen_function_new_project'),
+			'screen_function' => array( 'TaskBreakerProjectScreens', 'bp_projects_main_screen_function_new_project' ),
 			'position'        => 10,
 		);
 

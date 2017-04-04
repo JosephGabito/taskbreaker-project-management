@@ -103,9 +103,12 @@ if ( ! empty( $args->user ) ) {
 					<a href="#tasks" title="<?php _e( 'Tasks List', 'task_breaker' ); ?>" class="button">
 						<?php _e( '&larr; Tasks List', 'task_breaker' ); ?>
 					</a>
-					<a href="#tasks/edit/<?php echo intval( $args->id ); ?>" class="button">
-						<?php _e( 'Edit', 'task_breaker' ); ?>
-					</a>
+
+					<?php if ( $user_access->can_update_task( $args->project_id ) ) { ?>
+						<a href="#tasks/edit/<?php echo intval( $args->id ); ?>" class="button">
+							<?php _e( 'Edit', 'task_breaker' ); ?>
+						</a>
+					<?php } ?>
 				</div>
 
 				<div class="clearfix"></div>
