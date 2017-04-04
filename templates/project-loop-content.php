@@ -34,24 +34,28 @@
 
 			<li <?php echo post_class( array( 'taskbreaker-project-item'), $post->ID ); ?>>
 
-				<div class="task_breaker-project-title">
-					<h3>
-						<a href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>" title="<?php echo esc_attr( the_title() ); ?>">
-							<?php echo the_title(); ?>
-						</a>
-					</h3>
-				</div>
+				<div class="taskbreaker-project-item-wrap">
 
-				<div class="task_breaker-project-meta">
-					<?php $template->the_project_meta( get_the_ID() ); ?>
-				</div>
+					<div class="task_breaker-project-title">
+						<h3>
+							<a href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>" title="<?php echo esc_attr( the_title() ); ?>">
+								<?php echo the_title(); ?>
+							</a>
+						</h3>
+					</div>
 
-				<div class="task_breaker-project-excerpt">
-					<?php the_excerpt(); ?>
-				</div>
+					<div class="task_breaker-project-meta">
+						<?php $template->the_project_meta( get_the_ID() ); ?>
+					</div>
 
-				<div class="task_breaker-project-author">
-					<?php $template->display_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
+					<div class="task_breaker-project-excerpt">
+						<?php the_excerpt(); ?>
+					</div>
+
+					<div class="task_breaker-project-author">
+						<?php $template->display_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
+					</div>
+					
 				</div>
 
 			</li>
