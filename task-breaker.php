@@ -26,7 +26,7 @@ define( 'TASK_BREAKER_PROFILER', false );
 
 define( 'TASK_BREAKER_VERSION', '1.4.7' );
 
-define( 'TASK_BREAKER_PROJECT_LIMIT', 2 );
+define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
 
 define( 'TASK_BREAKER_PROJECT_SLUG', 'project' );
 
@@ -50,14 +50,15 @@ add_action( 'bp_loaded', 'task_breaker_register_projects_component' );
 add_action( 'bp_loaded', 'task_breaker_load_components' );
 
 // Check if group is active
-add_action('bp_loaded', 'taskbreaker_is_group_active');
+add_action( 'bp_loaded', 'taskbreaker_is_group_active' );
 
 /**
  * Do not run TaskBreaker on PHP version 5.3.0-
  */
 if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
 	add_action( 'admin_notices', 'taskbreaker_admin_notice' );
-	function taskbreaker_admin_notice() { ?>
+	function taskbreaker_admin_notice() {
+	?>
 		<div class="notice notice-error is-dismissible">
 	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.3.0 and above.', 'task_breaker' ); ?></strong></p>
 	    </div>
@@ -65,18 +66,19 @@ if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
 }
 
 function taskbreaker_is_group_active() {
-	if ( function_exists('bp_is_active') ) {
+	if ( function_exists( 'bp_is_active' ) ) {
 		if ( ! bp_is_active( 'groups' ) ) {
 			add_action( 'admin_notices', 'taskbreaker_admin_notice_group_required' );
 		}
 	}
 }
 
-function taskbreaker_admin_notice_group_required() { ?>
+function taskbreaker_admin_notice_group_required() {
+	?>
 	<div class="notice notice-warning is-dismissible">
-        <p><strong><?php _e( 'Notice: TaskBreaker requires BuddyPress Groups Component to be enabled.', 'task_breaker' ); ?></strong></p>
-    </div>
-<?php } 
+		<p><strong><?php _e( 'Notice: TaskBreaker requires BuddyPress Groups Component to be enabled.', 'task_breaker' ); ?></strong></p>
+	</div>
+<?php }
 
 // Require the assets needed.
 require_once plugin_dir_path( __FILE__ ) . 'core/enqueue.php';
@@ -162,13 +164,13 @@ function task_breaker_load_components() {
 /**
  * A flat class to prevent calls to WordPress globals
  *
- * @version  1.3.6 
+ * @version  1.3.6
  */
 class TaskBreaker {
 
 	/**
 	 * PHP Die Wrapper.
-	 * 
+	 *
 	 * @return void
 	 */
 	public static function stop( $message ) {
@@ -176,7 +178,7 @@ class TaskBreaker {
 	}
 
 	public static function wpdb() {
-		
+
 		global $wpdb;
 
 		return $wpdb;
@@ -184,17 +186,17 @@ class TaskBreaker {
 	}
 
 	public static function get_post() {
-		
+
 		global $post;
-		
+
 		return $post;
 
 	}
 
 	public static function wpfilesystem() {
-		
+
 		global $wp_filesystem;
-		
+
 		return $wp_filesystem;
 
 	}
