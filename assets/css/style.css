@@ -1831,5 +1831,11 @@
     padding: 5px 5px;
     border-radius: 50%;
 }
+
+#taskbreaker-project-navigation .page-numbers:hover,
+#taskbreaker-project-navigation .page-numbers.current {
+	background-color: #03A9F4;
+	color: #fff;
+}
 /** End file Attachment */
 
