@@ -319,7 +319,7 @@ class TaskBreakerCore {
 
 	/**
 	 * Get the maximum upload size of WordPress Site.
-	 * 
+	 *
 	 * @return integer the WordPress Site's maximum upload size settings.
 	 */
 	public function get_wp_max_upload_size() {
@@ -331,45 +331,52 @@ class TaskBreakerCore {
 		return  $wp_max_upload_size;
 	}
 
+	/**
+	 * Fetch all projects of specific user
+	 *
+	 * @param  integer $user_id The user ID.
+	 * @return array  The collection of projects.
+	 */
 	public function get_user_groups_projects( $user_id = 0 ) {
 
-		$db = TaskBreaker::wpdb(); 
+		$db = TaskBreaker::wpdb();
 
-		$tbl_posts = $db->prefix . 'posts'; 
-		$tbl_groups = $db->prefix . 'bp_groups'; 
-		$user_groups = groups_get_user_groups( $user_id ); 
+		$tbl_posts = $db->prefix . 'posts';
+		$tbl_groups = $db->prefix . 'bp_groups';
+		$user_groups = groups_get_user_groups( $user_id );
 
 		if ( empty( $user_groups['groups'] ) ) {
-			$user_groups['groups'] = array(0);
+			$user_groups['groups'] = array( 0 );
 		}
 
-		$limit = TASK_BREAKER_PROJECT_LIMIT; 
-		$paged = 1; 
+		$limit = TASK_BREAKER_PROJECT_LIMIT;
 
-		if ( isset ( $_GET['paged'] ) ) {  $paged = $_GET['paged'];  } 
-		
-		$offset = ( $paged - 1 ) * $limit; 
-		 
-		$user_public_projects = $db->get_results( 
+		$paged = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT );
+
+		if ( empty( $paged ) ) { $paged = 1; }
+
+		$offset = ( $paged - 1 ) * $limit;
+
+		$user_public_projects = $db->get_results(
 			$db->prepare(
-					"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content, 
+				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content, 
 						post.post_title, post_meta.meta_value as group_id, bp_group.status 
 					FROM wp_posts as post 
 					INNER JOIN wp_postmeta as post_meta on post.ID = post_meta.post_id 
 					INNER JOIN wp_bp_groups as bp_group ON bp_group.id = post_meta.meta_value 
 					WHERE post_meta.meta_key = 'task_breaker_project_group_id' 
-						  and bp_group.id IN (".esc_sql(implode(',', $user_groups['groups'])).")
-					ORDER BY post.ID DESC
-					LIMIT %d OFFSET %d;"
+						  and bp_group.id IN (" . esc_sql( implode( ',', $user_groups['groups'] ) ) . ')
+                    ORDER BY post.ID DESC
+                    LIMIT %d OFFSET %d;'
 					,
-					$limit,
-					$offset
-				)
+				$limit,
+				$offset
+			)
 			,
-			OBJECT 
+			OBJECT
 		);
 
-		$num_projects = $db->get_results( "SELECT FOUND_ROWS() as total", OBJECT );
+		$num_projects = $db->get_results( 'SELECT FOUND_ROWS() as total', OBJECT );
 
 		$total = $num_projects[0]->total;
 
@@ -378,56 +385,62 @@ class TaskBreakerCore {
 				'total' => $total,
 				'total_pages' => ceil( $num_projects[0]->total / $limit ),
 				'total_user_groups' => $user_groups['total'],
-				'summary' => sprintf( 
-						esc_html( 'There is a of total %s project(s) found in the %s group(s) that you have joined.', 'taskbreaker' ),
-						'<strong>'.$total.'</strong>', 
-						'<strong>'.$user_groups['total'].'</strong>'
-					)
+				'summary' => sprintf(
+					esc_html( 'There are a of total %s project(s) found in the %s group(s) that you have joined.', 'taskbreaker' ),
+					'<strong>' . $total . '</strong>',
+					'<strong>' . $user_groups['total'] . '</strong>'
+				),
 			);
 	}
 
+	/**
+	 * Fetch the current displayed user group projects.
+	 *
+	 * @return array The group projects.
+	 */
 	public function get_displayed_user_groups_projects() {
 
-		$db = TaskBreaker::wpdb(); 
+		$db = TaskBreaker::wpdb();
 
-		$tbl_posts = $db->prefix . 'posts'; 
+		$tbl_posts = $db->prefix . 'posts';
 		$tbl_groups = $db->prefix . 'bp_groups';
 
 		$user_id = bp_displayed_user_id();
-		$user_groups = groups_get_user_groups( $user_id ); 
-		
-		if ( empty( $user_groups['groups'] ) ) {
-			$user_groups['groups'] = array(0);
-		}
-	
-		$limit = TASK_BREAKER_PROJECT_LIMIT; 
-		$paged = 1; 
+		$user_groups = groups_get_user_groups( $user_id );
 
-		if ( isset ( $_GET['paged'] ) ) {  $paged = $_GET['paged'];  } 
-		
-		$offset = ( $paged - 1 ) * $limit; 
-		 
-		$user_public_projects = $db->get_results( 
+		if ( empty( $user_groups['groups'] ) ) {
+			$user_groups['groups'] = array( 0 );
+		}
+
+		$limit = TASK_BREAKER_PROJECT_LIMIT;
+
+		$paged = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT );
+
+		if ( empty( $paged ) ) { $paged = 1; }
+
+		$offset = ( $paged - 1 ) * $limit;
+
+		$user_public_projects = $db->get_results(
 			$db->prepare(
-					"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content, 
+				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content, 
 						post.post_title, post_meta.meta_value as group_id, bp_group.status 
 					FROM wp_posts as post 
 					INNER JOIN wp_postmeta as post_meta on post.ID = post_meta.post_id 
 					INNER JOIN wp_bp_groups as bp_group ON bp_group.id = post_meta.meta_value 
 					WHERE post_meta.meta_key = 'task_breaker_project_group_id' 
 						  and bp_group.status = 'public'
-						  and bp_group.id IN (".esc_sql(implode(',', $user_groups['groups'])).")
-					ORDER BY post.ID DESC
-					LIMIT %d OFFSET %d;"
+						  and bp_group.id IN (" . esc_sql( implode( ',', $user_groups['groups'] ) ) . ')
+                    ORDER BY post.ID DESC
+                    LIMIT %d OFFSET %d;'
 					,
-					$limit,
-					$offset
-				)
+				$limit,
+				$offset
+			)
 			,
-			OBJECT 
+			OBJECT
 		);
 
-		$num_projects = $db->get_results( "SELECT FOUND_ROWS() as total", OBJECT );
+		$num_projects = $db->get_results( 'SELECT FOUND_ROWS() as total', OBJECT );
 
 		$total = $num_projects[0]->total;
 
@@ -436,47 +449,54 @@ class TaskBreakerCore {
 				'total' => $total,
 				'total_pages' => ceil( $num_projects[0]->total / $limit ),
 				'total_user_groups' => $user_groups['total'],
-				'summary' => sprintf( 
-						esc_html( 'There are a total %s projects found in the %s group(s) of which %s is a member.', 'taskbreaker' ),
-						'<strong>'.$total.'</strong>',
-						'<strong>'.$user_groups['total'].'</strong>',
-						'<strong>'.get_userdata( absint($user_id) )->display_name.'</strong>'
-					)
+				'summary' => sprintf(
+					esc_html( 'There are a total of %s projects found in the %s group(s) of which %s is a member.', 'taskbreaker' ),
+					'<strong>' . $total . '</strong>',
+					'<strong>' . $user_groups['total'] . '</strong>',
+					'<strong>' . get_userdata( absint( $user_id ) )->display_name . '</strong>'
+				),
 			);
 	}
 
+	/**
+	 * Fetches all group projects.
+	 *
+	 * @param  integer $group_id The group ID.
+	 * @return array The collection of projects under the specified group.
+	 */
 	public function get_group_projects( $group_id ) {
 
-		$db = TaskBreaker::wpdb(); 
+		$db = TaskBreaker::wpdb();
 
-		$tbl_posts = $db->prefix . 'posts'; 
+		$tbl_posts = $db->prefix . 'posts';
 		$tbl_groups = $db->prefix . 'bp_groups';
-	
-		$limit = TASK_BREAKER_PROJECT_LIMIT; 
-		$paged = 1; 
 
-		if ( isset ( $_GET['paged'] ) ) {  $paged = $_GET['paged'];  } 
-		
-		$offset = ( $paged - 1 ) * $limit; 
-		 
-		$group_projects = $db->get_results( 
+		$limit = TASK_BREAKER_PROJECT_LIMIT;
+
+		$paged = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT );
+
+		if ( empty( $paged ) ) { $paged = 1; }
+
+		$offset = ( $paged - 1 ) * $limit;
+
+		$group_projects = $db->get_results(
 			$db->prepare(
-				   "SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_title, post_meta.meta_value as group_id FROM wp_posts as post
+				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_title, post_meta.meta_value as group_id FROM wp_posts as post
 					INNER JOIN wp_postmeta as post_meta on post.ID = post_meta.post_id
 					WHERE post_meta.meta_key = 'task_breaker_project_group_id'
 					AND post_meta.meta_value = %s
 					ORDER BY post.ID DESC
 					LIMIT %d OFFSET %d;"
 					,
-					$group_id,
-					$limit,
-					$offset
-				)
+				$group_id,
+				$limit,
+				$offset
+			)
 			,
-			OBJECT 
+			OBJECT
 		);
 
-		$num_projects = $db->get_results( "SELECT FOUND_ROWS() as total", OBJECT );
+		$num_projects = $db->get_results( 'SELECT FOUND_ROWS() as total', OBJECT );
 
 		$total = $num_projects[0]->total;
 
@@ -484,12 +504,10 @@ class TaskBreakerCore {
 				'projects' => $group_projects,
 				'total' => $total,
 				'total_pages' => ceil( $total / $limit ),
-				'summary' => sprintf( 
-						esc_html( 'There are a total %s projects found in this group.', 'taskbreaker' ),
-						'<strong>'.$total.'</strong>'
-					)
+				'summary' => sprintf(
+					esc_html( 'There are a of total %s projects found in this group.', 'taskbreaker' ),
+					'<strong>' . $total . '</strong>'
+				),
 			);
 	}
 }
-
-
