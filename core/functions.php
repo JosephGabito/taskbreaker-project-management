@@ -341,8 +341,6 @@ class TaskBreakerCore {
 
 		$db = TaskBreaker::wpdb();
 
-		$tbl_posts = $db->prefix . 'posts';
-		$tbl_groups = $db->prefix . 'bp_groups';
 		$user_groups = groups_get_user_groups( $user_id );
 
 		if ( empty( $user_groups['groups'] ) ) {
@@ -357,14 +355,16 @@ class TaskBreakerCore {
 
 		$offset = ( $paged - 1 ) * $limit;
 
+		$bp = buddypress();
+
 		$user_public_projects = $db->get_results(
 			$db->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content, 
-						post.post_title, post_meta.meta_value as group_id, bp_group.status 
-					FROM wp_posts as post 
-					INNER JOIN wp_postmeta as post_meta on post.ID = post_meta.post_id 
-					INNER JOIN wp_bp_groups as bp_group ON bp_group.id = post_meta.meta_value 
-					WHERE post_meta.meta_key = 'task_breaker_project_group_id' 
+				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content,
+						post.post_title, post_meta.meta_value as group_id, bp_group.status
+					FROM {$db->posts} as post
+					INNER JOIN {$db->postmeta} as post_meta on post.ID = post_meta.post_id
+					INNER JOIN {$bp->groups->table_name} as bp_group ON bp_group.id = post_meta.meta_value
+					WHERE post_meta.meta_key = 'task_breaker_project_group_id'
 						  and bp_group.id IN (" . esc_sql( implode( ',', $user_groups['groups'] ) ) . ')
                     ORDER BY post.ID DESC
                     LIMIT %d OFFSET %d;'
@@ -402,9 +402,6 @@ class TaskBreakerCore {
 
 		$db = TaskBreaker::wpdb();
 
-		$tbl_posts = $db->prefix . 'posts';
-		$tbl_groups = $db->prefix . 'bp_groups';
-
 		$user_id = bp_displayed_user_id();
 		$user_groups = groups_get_user_groups( $user_id );
 
@@ -420,14 +417,16 @@ class TaskBreakerCore {
 
 		$offset = ( $paged - 1 ) * $limit;
 
+		$bp = buddypress();
+
 		$user_public_projects = $db->get_results(
 			$db->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content, 
-						post.post_title, post_meta.meta_value as group_id, bp_group.status 
-					FROM wp_posts as post 
-					INNER JOIN wp_postmeta as post_meta on post.ID = post_meta.post_id 
-					INNER JOIN wp_bp_groups as bp_group ON bp_group.id = post_meta.meta_value 
-					WHERE post_meta.meta_key = 'task_breaker_project_group_id' 
+				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content,
+						post.post_title, post_meta.meta_value as group_id, bp_group.status
+					FROM {$db->posts} as post
+					INNER JOIN {$db->postmeta} as post_meta on post.ID = post_meta.post_id
+					INNER JOIN {$bp->groups->table_name} as bp_group ON bp_group.id = post_meta.meta_value
+					WHERE post_meta.meta_key = 'task_breaker_project_group_id'
 						  and bp_group.status = 'public'
 						  and bp_group.id IN (" . esc_sql( implode( ',', $user_groups['groups'] ) ) . ')
                     ORDER BY post.ID DESC
@@ -468,9 +467,6 @@ class TaskBreakerCore {
 
 		$db = TaskBreaker::wpdb();
 
-		$tbl_posts = $db->prefix . 'posts';
-		$tbl_groups = $db->prefix . 'bp_groups';
-
 		$limit = TASK_BREAKER_PROJECT_LIMIT;
 
 		$paged = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT );
@@ -479,10 +475,12 @@ class TaskBreakerCore {
 
 		$offset = ( $paged - 1 ) * $limit;
 
+		$bp = buddypress();
+
 		$group_projects = $db->get_results(
 			$db->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_title, post_meta.meta_value as group_id FROM wp_posts as post
-					INNER JOIN wp_postmeta as post_meta on post.ID = post_meta.post_id
+				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_title, post_meta.meta_value as group_id FROM {$db->posts} as post
+					INNER JOIN {$db->postmeta} as post_meta on post.ID = post_meta.post_id
 					WHERE post_meta.meta_key = 'task_breaker_project_group_id'
 					AND post_meta.meta_value = %s
 					ORDER BY post.ID DESC
