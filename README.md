@@ -1,4 +1,4 @@
-~Current Version: 1.4.6~
+~Current Version: 1.4.8~
 
 # TaskBreaker
 
