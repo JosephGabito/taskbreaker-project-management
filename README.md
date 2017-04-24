@@ -6,7 +6,7 @@
 
 A plugin for BuddyPress that allows you to manage your projects and assign a task to each of the members of a particular group. You can set the priority for each task (*Normal*, *High*, and *Critical*). TaskBreaker also sends email notifications to members whenever there are new tasks available, or there are new updates.
 
-####Up and Running
+<h3>Up and Running</h3>
  - [Setup and Installation](https://dunhakdis.com/taskbreaker-group-project-management/setup-and-installation/)
 	- [Download](https://dunhakdis.com/taskbreaker-group-project-management/setup-and-installation/download/)
 	- [Installation](https://dunhakdis.com/taskbreaker-group-project-management/setup-and-installation/installation/)
