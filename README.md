@@ -1,4 +1,4 @@
-#TaskBreaker Group Project Management
+<h1>TaskBreaker Group Project Management</h1>
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/118e1366-fbab-4ef8-bc07-0fffc4bc2f59/big.png)](https://insight.sensiolabs.com/projects/118e1366-fbab-4ef8-bc07-0fffc4bc2f59)
 
@@ -16,31 +16,31 @@ A plugin for BuddyPress that allows you to manage your projects and assign a tas
 	 - [Introduction to Tasks](https://dunhakdis.com/taskbreaker-group-project-management/features-and-usage/introduction-to-tasks/)
 
 Click [here](https://dunhakdis.com/taskbreaker-group-project-management/) to see the full documentation.
-####Screenshots
+<h3>Screenshots</h3>
 
 ![TaskBreaker Group Project Management](https://dunhakdis.com/wp-content/uploads/2017/04/TaskBreaker-Documentation-Screenshot.png)
 
-###FAQ
-####1: Cannot access 'Projects Directory' or 'Project Pages'
+<h3>FAQ</h3>
+<h4>1: Cannot access 'Projects Directory' or 'Project Pages'</h4>
 
 This issue commonly occurs when you have not enabled the '*BuddyPress Groups Component*' in your  '*BuddyPress Settings*' page that would accommodate the '*Projects Component*' properly on your site.
 
-#####Solve the issue by following the steps below:
+<h5>Solve the issue by following the steps below:</h5>
  1. Go to your '*WordPress Dashboard*' > '*Settings*' > '*BuddyPress*.'
  2. In the '*BuddyPress Settings*' page, go to the '*Components*' tab and check the checkbox labeled '*User Groups*' in the '*Component lists*.'
  3. Finally, click the '*Save Settings*' button.
 
-####2: Fatal error in User Profile Page
+<h4>2: Fatal error in User Profile Page</h4>
 
     Fatal error: Call to undefined function groups_get_user_groups() in C:\xampp\htdocs\dsc-test\wp-content\plugins\taskbreaker-project-management\core\functions.php on line 406`
 
-Solve this issue by enabling the Groups Component:
+<h5>Solve this issue by enabling the Groups Component:</h5>
 
  1. Go to your '*WordPress Dashboard*' > '*Settings*' > '*BuddyPress*.'
  2. In the '*BuddyPress Settings*' page, go to the '*Components*' tab and check the checkbox labeled '*User Groups*' in the '*Component lists*.'
  3. Finally, click the '*Save Settings*' button.
 
-#### 3. Project's Directory is empty (e.g. http://localhost/projects)
+<h4>3. Project's Directory is empty (e.g. http://localhost/projects)</h4>
 
 This issue will likely to occur when you forgot to assign a page for your 'Projects'. Solve this by following the steps below:
 
@@ -49,11 +49,11 @@ This issue will likely to occur when you forgot to assign a page for your 'Proje
  3. In the '*Directories*' section, go to the '*Projects*' setting drop-down and select a page in the drop-down selection.
  4. Finally, click the '*Save Settings*' button.
 
-####Known Issues
+<h3>Known Issues</h3>
 
 - Incompatibility with **[Yoast SEO](https://wordpress.org/plugins/wordpress-seo/)** - Will be fixed in next release cycle
 
-####Contributions
+<h3>Contributions</h3>
 
 Contributions are highly welcome, and there are various ways you can contribute:
 
@@ -62,6 +62,6 @@ Contributions are highly welcome, and there are various ways you can contribute:
 - Send us feedback and suggestions for enhancements, share it with the team [team ](https://github.com/codehaiku/taskbreaker-project-management/issues/new)
 - Translators are welcome.
 
-####License
+<h3>License</h3>
 
 TaskBreaker is licensed under [GNU General Public License 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
