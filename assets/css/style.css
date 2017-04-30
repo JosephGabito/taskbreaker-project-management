@@ -252,6 +252,7 @@
 #task_breaker-project .wp-editor-area,
 #task_breaker-project div.mce-panel {
 	border: 0 solid #ddd;
+	background: #f5f5f5;
 }
 
 #task_breaker-project div.mce-toolbar-grp {
@@ -273,7 +274,7 @@
 	padding-left: 0;
 	width: 100%;
 	display: inline-block;
-	margin: 0 0 -6px 0;
+	margin: 0 0 0 0;
 }
 
 #task_breaker-project-tab-li li {
@@ -317,6 +318,17 @@
  */
 #task_breaker-project-tab-content {
 	position: relative;
+}
+
+#task_breaker-project-tab-content .wp-switch-editor {
+	height: auto;
+	padding: 10px 15px;
+	margin: 0;
+}
+
+#task_breaker-project-tab-content .tmce-active .wp-switch-editor.switch-tmce {
+	background: #fff!important;
+	border-bottom: 0 none;
 }
 
 #task_breaker-project-tab-content * {
