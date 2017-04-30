@@ -93,10 +93,12 @@ final class TaskBreakerProjectPostType {
 	 */
 	public function single_project_filter() {
 
+		if ( ! wp_style_is('editor-buttons') ) {
+			wp_print_styles( 'editor-buttons' );
+		}
+
 		if ( is_singular( 'project' ) ) {
-
 			add_filter( 'the_content', array( $this, 'project_content_filter' ) );
-
 		}
 
 		return;
@@ -106,9 +108,11 @@ final class TaskBreakerProjectPostType {
 	 * Displays the project single template.
 	 *
 	 * @param  mixed $content The callback argument for the_content filter.
-	 * @return void
+	 * @return mixed The html output of the project.
 	 */
 	public function project_content_filter( $content ) {
+
+		ob_start();
 
 		$template = new TaskBreakerTemplate();
 
@@ -117,10 +121,11 @@ final class TaskBreakerProjectPostType {
 		$taskbreaker_post = $taskbreaker->get_post();
 
 		include_once plugin_dir_path( __FILE__ ) . '../core/functions.php';
-
+		
 		$template->locate_template( 'project-single', $taskbreaker_post );
 
-		return;
+		return ob_get_clean();
+
 	}
 }
 
