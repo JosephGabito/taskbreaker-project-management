@@ -23,7 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php $template = new TaskBreakerTemplate(); ?>
 
-
 <?php if ( $user_access->can_edit_project( $__post->ID ) ) { ?>
 
 <div id="task_breaker-project-settings">
@@ -46,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <span class="description">
 
-				<?php _e( 'Explain what this project is all about', 'task_breaker' ); ?>
+            <?php esc_html_e( 'Explain what this project is all about', 'task_breaker' ); ?>
 
 		</span>
 
@@ -56,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <label for="task_breaker-project-assigned-group">
 
-            <?php _e( 'Assign to Group:', 'task_breaker' ); ?>
+            <?php esc_html_e( 'Assign to Group:', 'task_breaker' ); ?>
 
         </label>
 
@@ -81,6 +80,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php } ?>
 
         </select>
+
         <?php } ?>
 
     </div>
@@ -90,13 +90,13 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="alignright">
 
             <button id="task_breakerUpdateProjectBtn" type="button" class="button">
-                <?php echo _e( 'Update Project', 'task_breaker' ); ?>
+                <?php esc_html_e( 'Update Project', 'task_breaker' ); ?>
             </button>
 
             <?php if ( $user_access->can_delete_project( $__post->ID ) ) { ?>
 
                 <button id="task_breakerDeleteProjectBtn" type="button" class="button button-danger">
-                    <?php echo _e( 'Delete', 'task_breaker' ); ?>
+                    <?php esc_html_e( 'Delete', 'task_breaker' ); ?>
                 </button>
 
             <?php } ?>
@@ -107,10 +107,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     </div>
 </div>
+
 <?php } else { ?>
 
 <p id="message" class="danger task-breaker-message">
-    <?php _e( 'You cannot access this group project settings page. Only the administrators and the moderators of this group are allowed to access.', 'task-breaker' ); ?>
+    <?php esc_htmle_( 'You cannot access this group project settings page. Only the administrators and the moderators of this group are allowed to access.', 'task-breaker' ); ?>
 </p>
 
 <?php } ?>
