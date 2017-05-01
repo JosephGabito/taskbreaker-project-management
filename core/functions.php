@@ -359,7 +359,7 @@ class TaskBreakerCore {
 
 		$user_public_projects = $db->get_results(
 			$db->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content,
+				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_author, post.post_content,
 						post.post_title, post_meta.meta_value as group_id, bp_group.status
 					FROM {$db->posts} as post
 					INNER JOIN {$db->postmeta} as post_meta on post.ID = post_meta.post_id
@@ -421,7 +421,7 @@ class TaskBreakerCore {
 
 		$user_public_projects = $db->get_results(
 			$db->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_content,
+				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_author, post.post_content,
 						post.post_title, post_meta.meta_value as group_id, bp_group.status
 					FROM {$db->posts} as post
 					INNER JOIN {$db->postmeta} as post_meta on post.ID = post_meta.post_id
@@ -475,11 +475,9 @@ class TaskBreakerCore {
 
 		$offset = ( $paged - 1 ) * $limit;
 
-		$bp = buddypress();
-
 		$group_projects = $db->get_results(
 			$db->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_title, post_meta.meta_value as group_id FROM {$db->posts} as post
+				"SELECT SQL_CALC_FOUND_ROWS post.ID, post.post_author, post.post_title, post_meta.meta_value as group_id FROM {$db->posts} as post
 					INNER JOIN {$db->postmeta} as post_meta on post.ID = post_meta.post_id
 					WHERE post_meta.meta_key = 'task_breaker_project_group_id'
 					AND post_meta.meta_value = %s
