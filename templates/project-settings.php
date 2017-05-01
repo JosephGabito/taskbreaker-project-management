@@ -111,7 +111,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php } else { ?>
 
 <p id="message" class="danger task-breaker-message">
-    <?php esc_htmle_( 'You cannot access this group project settings page. Only the administrators and the moderators of this group are allowed to access.', 'task-breaker' ); ?>
+    <?php esc_html_e( 'You cannot access this group project settings page. Only the administrators and the moderators of this group are allowed to access.', 'task-breaker' ); ?>
 </p>
 
 <?php } ?>

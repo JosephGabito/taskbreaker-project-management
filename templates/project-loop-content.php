@@ -43,7 +43,7 @@
 							</a>
 						</h3>
 					</div>
-
+				
 					<div class="task_breaker-project-meta">
 						<?php $template->the_project_meta( get_the_ID() ); ?>
 					</div>
