@@ -32,6 +32,9 @@ final class TaskBreakerProjectPostType {
 
 		add_action( 'wp', array( $this, 'single_project_filter' ) );
 
+		// Fixing Yoast Issue.
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
 		return;
 
 	}
@@ -93,10 +96,6 @@ final class TaskBreakerProjectPostType {
 	 */
 	public function single_project_filter() {
 
-		if ( ! wp_style_is('editor-buttons') ) {
-			wp_print_styles( 'editor-buttons' );
-		}
-
 		if ( is_singular( 'project' ) ) {
 			add_filter( 'the_content', array( $this, 'project_content_filter' ) );
 		}
@@ -126,6 +125,48 @@ final class TaskBreakerProjectPostType {
 
 		return ob_get_clean();
 
+	}
+
+	/**
+	 * Manually add the tinymce editor style.
+	 *
+	 * @return void
+	 */
+	public function enqueue_scripts() {
+
+		// Only load this fix on 'project' post type.
+		if ( is_singular( 'project' ) ) {
+
+			// Disable script enqueue when Yoast is not active
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			
+			if ( ! is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
+			  	return;
+			}
+
+			$__post = TaskBreaker::get_post();
+
+			if ( $__post->post_type  ) {
+
+				$loaded_styles = array(
+					'tb-dashicons' => array( 'src' => includes_url('css/dashicons.min.css'),'handle' => 'taskbreaker-tinymce-dashicons' ),
+					'editor-buttons' => array( 'src' => includes_url('css/editor.min.css'),'handle' => 'taskbreaker-tinymce-editor-buttons' ),
+					'buttons' => array( 'src' => includes_url('css/buttons.min.css'),'handle' => 'taskbreaker-tinymce-buttons' ),
+				);
+
+				foreach( $loaded_styles as $style_key => $style ) {
+
+					if ( ! wp_style_is( $style_key ) ) {
+						wp_enqueue_style( $style['handle'], $style['src'], array(), false );
+					}
+
+				}
+
+			}
+			
+		}
+	
+		return;
 	}
 }
 
