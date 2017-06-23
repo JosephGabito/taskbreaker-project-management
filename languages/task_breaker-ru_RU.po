@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TaskBreaker - Group Project Management\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-23 12:54+0800\n"
-"PO-Revision-Date: 2017-06-23 12:54+0800\n"
+"POT-Creation-Date: 2017-06-23 13:45+0800\n"
+"PO-Revision-Date: 2017-06-23 13:45+0800\n"
 "Last-Translator: Сергей Жигулев <sergori@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -156,7 +156,7 @@ msgstr " [{{{site.name}}}] для вас есть новые задачи "
 
 #: includes/project-notifications.php:94
 msgid " project"
-msgstr " Проект "
+msgstr " Проект"
 
 #: includes/project-post-type.php:51 includes/project-post-type.php:53
 msgid "Project"
