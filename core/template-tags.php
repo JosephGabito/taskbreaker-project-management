@@ -205,7 +205,7 @@ class TaskBreakerTemplate {
 							echo ' of <span class="total-pages">' . $total_page . '</span></span>';
 
 					echo '<a class="next-page" title="' . __( 'Go to the next page', 'task_breaker' ) . '" href="#">›</a>';
-					echo '<a class="last-page" title="' . __( 'Go to the last page', 'trive' ) . '" href="#tasks/page/' . $max_page . '">»</a></span>';
+					echo '<a class="last-page" title="' . __( 'Go to the last page', 'task_breaker' ) . '" href="#tasks/page/' . absint( $max_page ) . '">»</a></span>';
 				echo '</span>';
 			}
 

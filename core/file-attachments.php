@@ -70,9 +70,9 @@ class TaskBreakerFileAttachment {
 	 * @return array The http message.
 	 */
 	public function process_http_file() {
-		
+
 		if ( ! is_user_logged_in() ) {
-			return array( 'error' => __( 'Authentication issues. Terminating...' ) );
+			return array( 'error' => __( 'Authentication issues. Terminating...', 'task_breaker' ) );
 		}
 
 		if ( ! class_exists( 'WP_Filesystem_Direct' ) ) {
@@ -81,7 +81,7 @@ class TaskBreakerFileAttachment {
 		}
 
 		$fs = new WP_Filesystem_Direct( array() );
-		
+
 		$file = '';
 
 		if ( isset( $_FILES[0] ) && ! empty( $_FILES[0]['name'] ) ) {
@@ -89,11 +89,11 @@ class TaskBreakerFileAttachment {
 		}
 
 		if ( empty( $file ) ) {
-			return array( 'error' => __( 'Did not received any http file. Terminating...' ) );
+			return array( 'error' => __( 'Did not received any http file. Terminating...', 'task_breaker' ) );
 		}
 
 		if ( ! is_uploaded_file( $file['tmp_name'] ) ) {
-			return array( 'error' => __( 'An error occured. Please check maximum size and maximum header size.' ) );
+			return array( 'error' => __( 'An error occured. Please check maximum size and maximum header size.', 'task_breaker' ) );
 		}
 
 		$upload_overwrites = array( 'test_form' => false );
@@ -111,15 +111,15 @@ class TaskBreakerFileAttachment {
 				return wp_handle_upload( $file, $upload_overwrites );
 
 			} else {
-				
-				return array( 'error' => __( 'Unable to create temporary directory. Permission error.' ) );
+
+				return array( 'error' => __( 'Unable to create temporary directory. Permission error.', 'task_breaker' ) );
 			}
 
 		} else {
-			return array( 'error' => __( 'Unable to clear temporary directory. Permission error.' ) );
+			return array( 'error' => __( 'Unable to clear temporary directory. Permission error.', 'task_breaker' ) );
 		}
 
-		return array( 'error' => __( 'Unable to handle file upload.' ) );
+		return array( 'error' => __( 'Unable to handle file upload.', 'task_breaker' ) );
 
 	}
 
@@ -142,7 +142,7 @@ class TaskBreakerFileAttachment {
 
 		$dbase = TaskBreaker::wpdb();
 
-		$stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta 
+		$stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta
 			WHERE task_id = %d", $task_id );
 
 		$files_attached = $dbase->get_row( $stmt, OBJECT );
@@ -316,7 +316,7 @@ class TaskBreakerFileAttachment {
 
 		$dbase = TaskBreaker::wpdb();
 
-		$stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta 
+		$stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta
 			WHERE task_id = %d", $task_id );
 
 		$results = $dbase->get_results( $stmt, OBJECT );
