@@ -37,7 +37,7 @@
 
 				</label>
 
-				<textarea id="task_breaker-project-content" name="content" rows="5" 
+				<textarea id="task_breaker-project-content" name="content" rows="5"
 				placeholder="<?php esc_html_e( 'Describe what this project is all about. You can edit this later.', 'task_breaker' );?>" required ></textarea>
 
 			</div>
@@ -94,12 +94,12 @@
 			<?php } ?>
 				<div class="field-description">
 					<p class="task-breaker-message info">
-						<?php 
-						esc_attr_e( 'You can only add projects into the group that you are either the administrator or one of the moderator.', 'task-breaker' ); 
+						<?php
+						esc_attr_e( 'You can only add projects into the group that you are either the administrator or one of the moderator.', 'task_breaker' );
 						?>
 					</p>
 				</div>
-			
+
 			</div><!--.task_breaker-form-field-->
 
 			<div class="task_breaker-form-field">
@@ -122,12 +122,12 @@
 
 			<p class="task-breaker-message info">
 				<?php $groups_url = trailingslashit( bp_get_root_domain() . '/' . bp_get_groups_root_slug() ); ?>
-				<?php echo sprintf( 
-					esc_html__( 
-						'Only a group moderator or a group administrator can create a group project. 
-						%1$s Create your group %2$s or %3$s join an existing one %4$s to take part in projects.', 
-						'task_breaker' 
-					), 
+				<?php echo sprintf(
+					esc_html__(
+						'Only a group moderator or a group administrator can create a group project.
+						%1$s Create your group %2$s or %3$s join an existing one %4$s to take part in projects.',
+						'task_breaker'
+					),
 					'<a target="__blank" href="'.esc_url( $groups_url . 'create' ).'" title="'.__('Create Group', 'task_breaker').'">',
 					'</a>',
 					'<a target="__blank" href="'.esc_url( $groups_url ).'" title="'.__('Visit Groups', 'task_breaker').'">',
@@ -140,6 +140,6 @@
 
 <?php } else { ?>
 	<p id="message" class="info">
-		<?php esc_html_e( 'Please enable BuddyPress Groups Component to create new Project', 'task-breaker' ); ?>
+		<?php esc_html_e( 'Please enable BuddyPress Groups Component to create new Project', 'task_breaker' ); ?>
 	</p>
 <?php } ?>

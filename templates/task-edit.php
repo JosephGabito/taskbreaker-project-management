@@ -93,9 +93,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 				<div id="taskbreaker-unlink-file-btn" role="button"></div>
 			</div>
-			
+
 		</div>
-		
+
 		<!--[if lte IE 9]>
 			<div class="task_breaker-form-field ie-fallback ie-10">
 				<label for="task_breaker-task-priority-select">
@@ -109,11 +109,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="task_breaker-form-field">
 
 			<button id="task_breaker-delete-btn" class="button button-primary button-large" style="float:right; margin-left: 10px;">
-				<?php esc_attr_e( 'Delete', 'task-breaker' ); ?>
+				<?php esc_attr_e( 'Delete', 'task_breaker' ); ?>
 			</button>
-			
+
 			<button id="task_breaker-edit-btn" class="button button-primary button-large" style="float:right">
-				<?php esc_attr_e( 'Update Task', 'task-breaker' ); ?>
+				<?php esc_attr_e( 'Update Task', 'task_breaker' ); ?>
 			</button>
 
 			<div style="clear:both"></div>
@@ -123,6 +123,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p class="task-breaker-message info">
 			<?php echo sprintf( esc_html__('Ops! Looks like you are lost. %s', 'task_breaker'), '<a href="#tasks">'.__('Go back to tasks.', 'task_breaker').'</a>'); ?>
 		</p>
-	<?php } ?> 
+	<?php } ?>
 
 </div><!--#task-breaker-task-edit-form-->

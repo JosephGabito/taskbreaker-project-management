@@ -117,7 +117,7 @@ class TaskBreakerTemplate {
 
 		if ( ! empty( $search ) ) {
 
-			echo '<p id="task_breaker-view-info">' . sprintf( __( 'Search result for: "%s"', 'task-breaker' ), esc_html( $search ) ) . '</p>';
+			echo '<p id="task_breaker-view-info">' . sprintf( __( 'Search result for: "%s"', 'task_breaker' ), esc_html( $search ) ) . '</p>';
 
 		} else {
 
@@ -362,7 +362,7 @@ class TaskBreakerTemplate {
 
 		// Do no display pagination if there is only 1 project.
 		if ( 1 === $maximum_page ) { return; }
-		
+
 		include TASKBREAKER_DIRECTORY_PATH . 'templates/project-navigation.php';
 
 		return;
@@ -531,7 +531,7 @@ class TaskBreakerTemplate {
 		);
 
 		$editor_id = 'task_breakerProjectContent';
-		
+
 		return wp_editor( $content, $editor_id, $args );
 
 	}
