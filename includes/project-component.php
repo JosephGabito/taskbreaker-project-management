@@ -154,7 +154,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 		}
 
 		$main_nav = array(
-			'name' => sprintf( esc_html( 'Projects %s', 'taskbreaker' ), '<span class="count">' . absint( $count ) . '</span>' ),
+			'name' => sprintf( esc_html( 'Projects %s', 'task_breaker' ), '<span class="count">' . absint( $count ) . '</span>' ),
 			'slug' => $this->id,
 			'position' => 80,
 			'screen_function' => array( 'TaskBreakerProjectScreens', 'bp_projects_main_screen_function' ),

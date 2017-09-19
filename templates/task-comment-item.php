@@ -4,7 +4,7 @@
 
 	<li class="task-lists-item comment">
 		<p id="message" class="message error">
-			<?php _e( 'Unable to update the task. Please make sure you have the right privilege.', 'task-breaker' ); ?>
+			<?php _e( 'Unable to update the task. Please make sure you have the right privilege.', 'task_breaker' ); ?>
 		</p>
 	</li>
 
@@ -29,25 +29,25 @@
 					<?php $task_progress = absint( $args['status'] ); ?>
 
 					<?php if ( 1 === $task_progress ) { ?>
-								
+
 					<?php $progress_label = __( 'Completed by', 'task_breaker' );?>
-								
+
 					<?php } ?>
 
 					<?php if ( 2 === $task_progress ) { ?>
-									
+
 					<?php $progress_label = __( 'Reopened by', 'task_breaker' );?>
 
 					<?php } ?>
 
 					<p class="<?php echo sanitize_title( $progress_label ); ?>">
-						
+
 						<span class="opened-by">
-						
+
 							<?php echo esc_html( $progress_label ); ?>
-						
+
 						</span>
-						
+
 						<?php echo $user->display_name; ?>
 
 						<span class="added-on"> <?php echo date( sprintf( '%s / g:i:s a', get_option( 'date_format' ) ), strtotime( $args['date_added'] ) ); ?> </span>

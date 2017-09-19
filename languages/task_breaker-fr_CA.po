@@ -1,0 +1,838 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TaskBreaker - Group Project Management\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-23 17:52+0800\n"
+"PO-Revision-Date: 2017-06-23 17:52+0800\n"
+"Last-Translator: Justine Mathieu <justine.mathieu@therriencout2ure.com>\n"
+"Language-Team: French (Canada)\n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr_e;_n;_x;_ex;_nx;"
+"esc_attr__;esc_attr_x;esc_html_x;_n_noop\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: core/file-attachments.php:75
+msgid "Authentication issues. Terminating..."
+msgstr "Problèmes d'authentification. Terminer ..."
+
+#: core/file-attachments.php:92
+msgid "Did not received any http file. Terminating..."
+msgstr "N'a pas reçu de fichier HTTP. Terminer ..."
+
+#: core/file-attachments.php:96
+msgid "An error occured. Please check maximum size and maximum header size."
+msgstr ""
+"Une erreur s'est produite. Vérifiez la taille maximale et la taille d'en-"
+"tête maximale."
+
+#: core/file-attachments.php:115
+msgid "Unable to create temporary directory. Permission error."
+msgstr "Impossible de créer un répertoire temporaire. Erreur de permission."
+
+#: core/file-attachments.php:119
+msgid "Unable to clear temporary directory. Permission error."
+msgstr "Impossible d'effacer le répertoire temporaire. Erreur de permission."
+
+#: core/file-attachments.php:122
+msgid "Unable to handle file upload."
+msgstr "Impossible de gérer le téléchargement de fichiers."
+
+#: core/functions.php:39 includes/project-component.php:129
+#: includes/project-group-component.php:29
+#: includes/project-group-component.php:64 includes/project-post-type.php:50
+#: includes/project-post-type.php:52 widgets/widgets.php:123
+msgid "Projects"
+msgstr "Projets"
+
+#: core/template-tags.php:120
+#, php-format
+msgid "Search result for: \"%s\""
+msgstr "Résultat de la recherche pour: \"%s\""
+
+#: core/template-tags.php:125
+#, php-format
+msgid "Currently showing %d task "
+msgstr "Actuellement en %d tâche "
+
+#: core/template-tags.php:126 core/template-tags.php:131
+#, php-format
+msgid "out of %d"
+msgstr "en %d"
+
+#: core/template-tags.php:130
+#, php-format
+msgid "Currently showing %d completed task "
+msgstr "Actuellement affiché  %d tâche complétée "
+
+#: core/template-tags.php:138
+msgid "No results found. Try another filter or add new task."
+msgstr ""
+"Aucun résultat trouvé. Essayez un autre filtre ou ajoutez une nouvelle tâche."
+
+#: core/template-tags.php:145
+msgid "Title"
+msgstr "Titre"
+
+#: core/template-tags.php:146
+msgid "Priority"
+msgstr "Priorité"
+
+#: core/template-tags.php:147
+msgid "Date"
+msgstr "Date"
+
+#: core/template-tags.php:182
+msgid "N/A"
+msgstr "N/A"
+
+#: core/template-tags.php:196 templates/task-loop.php:117
+#, php-format
+msgid "%s task"
+msgstr "%s tâche"
+
+#: core/template-tags.php:200 templates/task-loop.php:124
+msgid "Go to the first page"
+msgstr "Aller à la première page"
+
+#: core/template-tags.php:201 templates/task-loop.php:125
+msgid "Go to the previous page"
+msgstr "Aller à la page précédente"
+
+#: core/template-tags.php:203 templates/task-loop.php:129
+msgid "Select Page"
+msgstr "Sélectionnez la page"
+
+#: core/template-tags.php:207
+msgid "Go to the next page"
+msgstr "Aller à la page suivante"
+
+#: core/template-tags.php:208 templates/task-loop.php:142
+msgid "Go to the last page"
+msgstr "Aller à la dernière page"
+
+#: core/template-tags.php:443
+msgid "Started by "
+msgstr "Commencé par "
+
+#: core/template-tags.php:445
+msgid "Visit User Profile"
+msgstr "Visiter le profil de l'utilisateur"
+
+#: core/template-tags.php:459
+msgid "under &raquo;"
+msgstr "sous &raquo;"
+
+#: core/template-tags.php:547 includes/project-component.php:184
+#: includes/project-post-type.php:56 includes/project-screens.php:303
+msgid "New Project"
+msgstr "Nouveau projet"
+
+#: emails/class-buddypress-mail-register.php:57
+msgid "[{{{site.name}}}] There is a new task waiting for you."
+msgstr "[{{{nom.site}}}] Il y a une nouvelle tâche qui vous attend."
+
+#: emails/class-buddypress-mail-register.php:79
+msgid "A member of a project received a new ask."
+msgstr "Un membre d'un projet a reçu une nouvelle demande."
+
+#: emails/class-buddypress-mail-register.php:112
+msgid "[{{{site.name}}}] New task update."
+msgstr "[{{{nom.site}}}] Nouvelle mise à jour de la tâche."
+
+#: emails/class-buddypress-mail-register.php:134
+msgid "A member of a project updated a task."
+msgstr "Un membre d'un projet a mis à jour une tâche."
+
+#: includes/project-component.php:130
+msgid "Search Projects..."
+msgstr "Rechercher des projets ..."
+
+#: includes/project-component.php:174
+#, php-format
+msgid "%s Projects"
+msgstr "%s Projets"
+
+#: includes/project-notifications.php:73
+msgid ""
+"You were assigned a new task, but it was deleted. You can ignore this "
+"notification."
+msgstr ""
+"On vous a assigné une nouvelle tâche, mais elle a été supprimée. Vous pouvez "
+"ignorer cette notification."
+
+#: includes/project-notifications.php:85
+msgid " assigned a new task for you &mdash; "
+msgstr " Vous a assigné une nouvelle tâche &mdash; "
+
+#: includes/project-notifications.php:92
+msgid " You have a new task waiting for you under "
+msgstr " [{{{nom.site}}}] Il y a une nouvelle tâche qui vous attend "
+
+#: includes/project-notifications.php:94
+msgid " project"
+msgstr " projet"
+
+#: includes/project-post-type.php:51 includes/project-post-type.php:53
+msgid "Project"
+msgstr "Projet"
+
+#: includes/project-post-type.php:54 templates/project-single.php:47
+msgid "Add New"
+msgstr "Ajouter nouveau"
+
+#: includes/project-post-type.php:55 templates/project-add-modal.php:15
+msgid "Add New Project"
+msgstr "Ajouter un nouveau projet"
+
+#: includes/project-post-type.php:57
+msgid "Edit Project"
+msgstr "Modifier le projet"
+
+#: includes/project-post-type.php:58
+msgid "View Project"
+msgstr "Afficher le projet"
+
+#: includes/project-post-type.php:59
+msgid "All Projects"
+msgstr "Tous les projets"
+
+#: includes/project-post-type.php:60
+msgid "Search Projects"
+msgstr "Rechercher des projets"
+
+#: includes/project-post-type.php:61
+msgid "Parent Projects:"
+msgstr "Projets parentaux:"
+
+#: includes/project-post-type.php:62
+msgid "No projects found."
+msgstr "Aucun projet trouvé."
+
+#: includes/project-post-type.php:63
+msgid "No projects found in Trash."
+msgstr "Aucun projet trouvé dans Trash."
+
+#: includes/project-screens.php:228
+msgid "Menu Header"
+msgstr "En-tête de menu"
+
+#: includes/project-screens.php:240
+msgid "Public Group Projects"
+msgstr "Tous les projets"
+
+#: includes/project-theme-compat.php:38
+msgid "Projects Directory"
+msgstr "Répertoire des projets"
+
+#: models/comments.php:215
+msgid "posted a new update in"
+msgstr "a publié une nouvelle mise à jour"
+
+#: models/comments.php:216
+msgid "completed"
+msgstr "terminé"
+
+#: models/comments.php:217
+msgid "reopened"
+msgstr "rouvert"
+
+#: models/comments.php:220
+msgid "Updated"
+msgstr "Actualisé"
+
+#: models/comments.php:220 models/tasks.php:879 templates/task-filter.php:48
+#: templates/task-meta.php:15 templates/task-single.php:42
+#: templates/task-single.php:160 templates/task-single.php:177
+msgid "Completed"
+msgstr "Terminé"
+
+#: models/comments.php:220
+msgid "Reopened"
+msgstr "Réouverture"
+
+#: models/comments.php:247
+#, php-format
+msgid "%1$s %2$s the task %3$s %4$s"
+msgstr "%1$s %2$s la tâche %3$s %4$s"
+
+#: models/tasks.php:652
+#, php-format
+msgid "%1$s added new task under %2$s"
+msgstr "%1$s ajoutée nouvelle tâche sous %2$s"
+
+#: models/tasks.php:861
+#, php-format
+msgid "%s Completed"
+msgstr "%s Completed"
+
+#: models/tasks.php:875 templates/task-single.php:46
+msgid "Open"
+msgstr "Ouvrir"
+
+#: task-breaker.php:63
+msgid "Notice: TaskBreaker is only available for PHP Version 5.3.0 and above."
+msgstr ""
+"Remarque: TaskBreaker n'est disponible que pour la version 5.3.0 et "
+"supérieure de PHP."
+
+#: task-breaker.php:79
+msgid "Notice: TaskBreaker requires BuddyPress Groups Component to be enabled."
+msgstr ""
+"Remarque: TaskBreaker requiert que le composant BuddyPress Groups soit "
+"activé."
+
+#: templates/email-notifications-settings.php:7
+msgid "Project Management"
+msgstr "Gestion de projet"
+
+#: templates/email-notifications-settings.php:12
+msgid "Yes"
+msgstr "Oui"
+
+#: templates/email-notifications-settings.php:17
+msgid "No"
+msgstr "Non"
+
+#: templates/email-notifications-settings.php:27
+msgid "A member of the project under the same task added a new update"
+msgstr ""
+"Un membre du projet sous la même tâche a ajouté une nouvelle mise à jour"
+
+#: templates/email-notifications-settings.php:40
+#: templates/email-notifications-settings.php:70
+msgid "Yes, send email"
+msgstr "Oui, envoyer un courriel"
+
+#: templates/email-notifications-settings.php:49
+#: templates/email-notifications-settings.php:79
+msgid "No, do not send email"
+msgstr "Non, ne pas envoyer de courrier électronique"
+
+#: templates/email-notifications-settings.php:57
+msgid "A new task is assigned to me"
+msgstr "Une nouvelle tâche est assignée à moi"
+
+#: templates/project-add-modal.php:37
+msgid "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form"
+msgstr ""
+"Astuce: appuyez sur la touche <em>'espace'</em> dans votre clavier pour "
+"cacher ce formulaire"
+
+#: templates/project-add.php:20 templates/project-settings.php:34
+msgid "Enter the new title for this project"
+msgstr "Entrez le nouveau titre pour ce projet"
+
+#: templates/project-add.php:24
+msgid "Project Name"
+msgstr "Nom du projet"
+
+#: templates/project-add.php:36
+msgid "Project Details"
+msgstr "Détails du projet"
+
+#: templates/project-add.php:41
+msgid "Describe what this project is all about. You can edit this later."
+msgstr "Décrivez ce qu'est ce projet. Vous pouvez éditer ceci plus tard."
+
+#: templates/project-add.php:61 templates/project-settings.php:58
+msgid "Assign to Group:"
+msgstr "Affecter au groupe:"
+
+#: templates/project-add.php:98
+msgid ""
+"You can only add projects into the group that you are either the "
+"administrator or one of the moderator."
+msgstr ""
+
+#: templates/project-add.php:111
+msgid "Save Project"
+msgstr "Sauvegarder le projet"
+
+#: templates/project-add.php:127
+#, php-format
+msgid ""
+"Only a group moderator or a group administrator can create a group project.\n"
+"\t\t\t\t\t\t%1$s Create your group %2$s or %3$s join an existing one %4$s to "
+"take part in projects."
+msgstr ""
+"Seul un modérateur de groupe ou un administrateur de groupe peut créer un "
+"projet de groupe. \n"
+"\t\t\t\t\t\t%1$s Créez votre groupe %2$s ou %3$s joignez un existant %4$s "
+"pour participer aux projets."
+
+#: templates/project-add.php:131
+msgid "Create Group"
+msgstr "Créer un groupe"
+
+#: templates/project-add.php:133
+msgid "Visit Groups"
+msgstr "Visiter des groupes"
+
+#: templates/project-add.php:143
+msgid "Please enable BuddyPress Groups Component to create new Project"
+msgstr ""
+"Remarque: TaskBreaker requiert que le composant BuddyPress Groups soit activé"
+
+#: templates/project-loop-content.php:68
+msgid "There are no Group Projects found at this time."
+msgstr "Il n'y a pas de projet de groupe trouvé en ce moment."
+
+#: templates/project-loop-content.php:77
+msgid "«"
+msgstr ""
+
+#: templates/project-loop-content.php:78
+msgid "»"
+msgstr ""
+
+#: templates/project-loop.php:27
+msgid "Please enable BuddyPress Groups Components to access the Projects."
+msgstr ""
+"Remarque: TaskBreaker requiert que le composant BuddyPress Groups soit "
+"activé."
+
+#: templates/project-navigation.php:20
+msgid "Page:"
+msgstr "Page:"
+
+#: templates/project-navigation.php:29
+#, php-format
+msgid "Go to page %d &raquo;"
+msgstr "Aller à la page %d &raquo;"
+
+#: templates/project-settings.php:48
+msgid "Explain what this project is all about"
+msgstr "Expliquez de quoi s'agit ce projet"
+
+#: templates/project-settings.php:93
+msgid "Update Project"
+msgstr "Projet de mise à jour"
+
+#: templates/project-settings.php:99 templates/task-edit.php:112
+msgid "Delete"
+msgstr "Effacer"
+
+#: templates/project-settings.php:114
+msgid ""
+"You cannot access this group project settings page. Only the administrators "
+"and the moderators of this group are allowed to access."
+msgstr ""
+"Vous n'êtes pas autorisé à supprimer cette tâche. Seuls les administrateurs "
+"de groupe ou les modérateurs de groupe sont autorisés."
+
+#: templates/project-single.php:37
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: templates/project-single.php:42 templates/task-filter.php:37
+#: templates/task-filter.php:39 templates/task-filter.php:46
+msgid "Tasks"
+msgstr "Tâches"
+
+#: templates/project-single.php:52 templates/task-single.php:109
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/project-single.php:58
+msgid "Settings"
+msgstr "Paramètres"
+
+#: templates/project-single.php:78
+msgid ""
+"This project can only be accessed by group members. Use the button below "
+"join the group and receive an access to this project."
+msgstr ""
+"Ce projet ne peut être consulté que par les membres du groupe. Utilisez le "
+"bouton ci-dessous pour rejoindre le groupe et recevoir un accès à ce projet."
+
+#: templates/project-single.php:89 templates/project-single.php:90
+msgid "Join Group"
+msgstr "Visiter des groupes"
+
+#: templates/project-single.php:97
+msgid "Please enable BuddyPress Groups Components."
+msgstr ""
+"Remarque: TaskBreaker requiert que le composant BuddyPress Groups soit "
+"activé."
+
+#: templates/project.php:38
+msgid "About"
+msgstr "Au sujet de"
+
+#: templates/project.php:57
+msgid "At a Glance"
+msgstr "En bref"
+
+#: templates/project.php:68
+msgid "Total Tasks"
+msgstr "Total des tâches"
+
+#: templates/project.php:80
+msgid "Task(s) remaining"
+msgstr "Tâche (s) restante"
+
+#: templates/project.php:91
+msgid "Task(s) Completed"
+msgstr "Tâche(s) terminée(s)"
+
+#: templates/task-add.php:31 templates/task-edit.php:31
+msgid "Task Summary"
+msgstr "Sommaire de la tâche"
+
+#: templates/task-add.php:60 templates/task-edit.php:56
+msgid "Priority:"
+msgstr "Priorité:"
+
+#: templates/task-add.php:73
+msgid "No File Selected"
+msgstr "Aucun fichier sélectionné"
+
+#: templates/task-add.php:76
+msgid "Click to attach a file"
+msgstr "Cliquez pour joindre un fichier"
+
+#: templates/task-add.php:77 templates/task-edit.php:75
+#, php-format
+msgid "(maximum file size: %d MB)"
+msgstr "(Taille maximale du fichier: %d MB)"
+
+#: templates/task-add.php:82 templates/task-edit.php:81
+msgid "Uploading"
+msgstr "Téléchargement"
+
+#: templates/task-add.php:84 templates/task-edit.php:83
+msgid ". File attached successfully."
+msgstr ". Fichier attaché avec succès."
+
+#: templates/task-add.php:87 templates/task-edit.php:86
+msgid ""
+". Upload successfully initiated, but the server was unable to process it. "
+"See message below."
+msgstr ""
+". Le téléchargement a été lancé avec succès, mais le serveur n'a pas pu le "
+"traiter. Voir le message ci-dessous."
+
+#: templates/task-add.php:101 templates/task-edit.php:102
+msgid ""
+"File attachment is disabled for this browser. Please update to latest version"
+msgstr ""
+"La connexion de fichier est désactivée pour ce navigateur. Veuillez mettre à "
+"jour la dernière version"
+
+#: templates/task-add.php:109
+msgid "Save Task"
+msgstr "Tâche de mise à jour"
+
+#: templates/task-add.php:115
+msgid ""
+"Ops! Only group administrator or group moderators can add tasks to this "
+"group project."
+msgstr ""
+"Ops! Seul l'administrateur de groupe ou les modérateurs de groupe peuvent "
+"ajouter des tâches à ce projet de groupe."
+
+#: templates/task-comment-item.php:7
+msgid ""
+"Unable to update the task. Please make sure you have the right privilege."
+msgstr ""
+"Impossible de mettre à jour la tâche. Assurez-vous d'avoir le bon privilège."
+
+#: templates/task-comment-item.php:27
+msgid "New Progress by"
+msgstr "Nouveau progrès par"
+
+#: templates/task-comment-item.php:33
+msgid "Completed by"
+msgstr "Terminé par"
+
+#: templates/task-comment-item.php:39
+msgid "Reopened by"
+msgstr "Réouverte par"
+
+#: templates/task-comment-item.php:65
+msgid "Delete comment"
+msgstr "Supprimer le commentaire"
+
+#: templates/task-comment-item.php:66
+msgid "Remove Comment"
+msgstr "Supprimer le commentaire"
+
+#: templates/task-edit.php:71
+msgid "Loading Attached Files..."
+msgstr "Chargement des fichiers joints ..."
+
+#: templates/task-edit.php:74
+msgid "Click to update file attachment"
+msgstr "Cliquez pour mettre à jour la pièce jointe du fichier"
+
+#: templates/task-edit.php:116 templates/task-single.php:223
+msgid "Update Task"
+msgstr "Tâche de mise à jour"
+
+#: templates/task-edit.php:124
+#, php-format
+msgid "Ops! Looks like you are lost. %s"
+msgstr "Ops! On dirait que vous êtes perdu. %s"
+
+#: templates/task-edit.php:124
+msgid "Go back to tasks."
+msgstr "Revenez aux tâches."
+
+#: templates/task-filter.php:57
+msgid "Create New Task"
+msgstr "Créer une nouvelle tâche"
+
+#: templates/task-filter.php:63
+msgid "Edit Task"
+msgstr "Modifier la tâche"
+
+#: templates/task-filter.php:72
+msgid "Show All"
+msgstr "Montrer tout"
+
+#: templates/task-filter.php:73
+msgid "Normal Priority"
+msgstr "Priorité normale"
+
+#: templates/task-filter.php:74
+msgid "High Priority"
+msgstr "Priorité élevé"
+
+#: templates/task-filter.php:75
+msgid "Critical Priority"
+msgstr "Priorité critique"
+
+#: templates/task-filter.php:82
+msgid "Search Tasks:"
+msgstr "Tâches de recherche:"
+
+#: templates/task-filter.php:85
+msgid "Search Task"
+msgstr "Tâche de recherche"
+
+#: templates/task-filter.php:86
+msgid "Apply"
+msgstr "Appliquer"
+
+#: templates/task-loop.php:88
+msgid "No tasks found. Try different keywords and filters."
+msgstr "Aucune tâche n'a été trouvée. Essayez différents mots clés et filtres."
+
+#: templates/task-loop.php:134
+msgid "of"
+msgstr "de"
+
+#: templates/task-loop.php:141
+msgid "Go to the next page!!!"
+msgstr "Aller à la page suivante!!!"
+
+#: templates/task-loop.php:154
+msgid "Only members of this group can see tasks."
+msgstr "Un membre d'un projet a mis à jour une tâche."
+
+#: templates/task-meta.php:8
+#, php-format
+msgid "%s Task"
+msgstr "%s Tâche"
+
+#: templates/task-single.php:15
+msgid ""
+"Unable to access the task details. Only group members can access this page."
+msgstr ""
+"Impossible d'accéder aux détails de la tâche. Seuls les membres du groupe "
+"peuvent accéder à cette page."
+
+#: templates/task-single.php:28
+msgid "Normal"
+msgstr "Normal"
+
+#: templates/task-single.php:29
+msgid "High"
+msgstr "Élevé"
+
+#: templates/task-single.php:30
+msgid "Critical"
+msgstr "Critique"
+
+#: templates/task-single.php:68
+msgid "This task is assigned to:"
+msgstr "Cette tâche est assignée à:"
+
+#: templates/task-single.php:92
+msgid "Download File"
+msgstr "Télécharger un fichier"
+
+#: templates/task-single.php:103
+msgid "Tasks List"
+msgstr "Liste des tâches"
+
+#: templates/task-single.php:104
+msgid "&larr; Tasks List"
+msgstr "&larr;  Liste des tâches"
+
+#: templates/task-single.php:124
+msgid "Discussion"
+msgstr "Discussion"
+
+#: templates/task-single.php:153 templates/task-single.php:193
+msgid "In Progress"
+msgstr "En cours"
+
+#: templates/task-single.php:167 templates/task-single.php:183
+msgid "Reopen Task"
+msgstr "Réouvrir la tâche"
+
+#: templates/task-single.php:199
+msgid "Complete"
+msgstr "Achevée"
+
+#: templates/task-single.php:208
+msgid "Explain what this update is all about"
+msgstr "Expliquez ce que cette mise à jour concerne"
+
+#: templates/task-single.php:213
+msgid "Update Priority:"
+msgstr "Priorité de mise à jour:"
+
+#: templates/task-single.php:231
+msgid ""
+"Only assigned members of this task or members with the right privilege are "
+"able to add progress to this task."
+msgstr ""
+"Seuls les membres assignés de cette tâche ou les membres ayant le bon "
+"privilège peuvent ajouter des progrès à cette tâche."
+
+#: templates/widget-recent-tasks.php:84
+msgid "There are no tasks assigned to you. Enjoy your day!"
+msgstr ""
+"Il n'y a pas de tâches qui vous sont assignées. Profitez de votre journée!"
+
+#: templates/widget-recent-tasks.php:86
+msgid "Please use the login form to sign in and view your tasks."
+msgstr ""
+"Veuillez utiliser le formulaire de connexion pour vous connecter et afficher "
+"vos tâches."
+
+#: transactions/controller.php:92
+msgid ""
+"Invalid Request. Your session has already expired (invalid nonce). Please go "
+"back and refresh your browser. Thanks!"
+msgstr ""
+"Requête invalide. Votre session a déjà expiré (invalide nonce). Veuillez "
+"revenir en arrière et rafraîchir votre navigateur. Merci!"
+
+#: transactions/controller.php:151
+#, php-format
+msgid "Cannot find the route: %s"
+msgstr "Impossible de trouver l'itinéraire: %s"
+
+#: transactions/routes/add-ticket.php:28
+msgid ""
+"Unable to add tasks. Only a group administrator or a group moderator can add "
+"tasks."
+msgstr ""
+"Vous n'êtes pas autorisé à supprimer cette tâche. Seuls les administrateurs "
+"de groupe ou les modérateurs de groupe sont autorisés."
+
+#: transactions/routes/add-ticket.php:58
+msgid ""
+"There was an error trying to add this task. Title and Description fields are "
+"required or there was an unexpected error."
+msgstr ""
+"Une erreur s'est produite en essayant d'ajouter cette tâche. Les champs de "
+"titre et de description sont requis ou il y a eu une erreur inattendue."
+
+#: transactions/routes/delete-project.php:34
+msgid "Permission Denied. Unauthorized."
+msgstr "Permission refusée. Non autorisé."
+
+#: transactions/routes/delete-ticket-attachment.php:25
+msgid "File attachment successfully deleted."
+msgstr "La connexion de fichier a été supprimée avec succès."
+
+#: transactions/routes/delete-ticket-attachment.php:32
+msgid "Fail to delete attachment"
+msgstr "Échec de suppression de la pièce jointe"
+
+#: transactions/routes/delete-ticket.php:50
+msgid ""
+"You are not allowed to delete this task. Only group administrators or group "
+"moderators are allowed."
+msgstr ""
+"Vous n'êtes pas autorisé à supprimer cette tâche. Seuls les administrateurs "
+"de groupe ou les modérateurs de groupe sont autorisés."
+
+#: transactions/routes/fetch-task.php:38
+msgid ""
+"Unable to access the task details. Only group members can access this page"
+msgstr ""
+"Impossible d'accéder aux détails de la tâche. Seuls les membres du groupe "
+"peuvent accéder à cette page"
+
+#: transactions/routes/fetch-task.php:41
+msgid "Unauthorized Access"
+msgstr "L'accès non autorisé"
+
+#: transactions/routes/task-file-attachment.php:44
+msgid "File upload success"
+msgstr "Succès du téléchargement de fichier"
+
+#: widgets/widgets.php:30
+msgid "Displays the current logged in user's latest tasks."
+msgstr "Affiche les dernières tâches de l'utilisateur connecté."
+
+#: widgets/widgets.php:33
+msgid "(TaskBreaker) My Recent Task"
+msgstr "(TaskBreaker) Ma tâche récente"
+
+#: widgets/widgets.php:85
+msgid "My Recent Tasks"
+msgstr "Mes tâches récentes"
+
+#: widgets/widgets.php:90
+msgid "Title:"
+msgstr "Titre:"
+
+#: widgets/widgets.php:97
+msgid "Number of Tasks:"
+msgstr "Nombre de tâches:"
+
+#: widgets/widgets.php:125
+msgid ""
+"Use this sidebar area in your theme to display all the Widgets related to "
+"Projects."
+msgstr ""
+"Utilisez cette zone de barre latérale dans votre thème pour afficher tous "
+"les Widgets liés aux Projets."
+
+#~ msgid ""
+#~ "There are no group projects found. You need to become a member of a group "
+#~ "to participate in its project."
+#~ msgstr ""
+#~ "Aucun projet de groupe n'a été trouvé. Vous devez devenir membre d'un "
+#~ "groupe pour participer à son projet."
+
+#~ msgid "My Projects"
+#~ msgstr "Mes Projets"
+
+#~ msgid "TaskBreaker - Group Project Management"
+#~ msgstr "TaskBreaker - Gestion de projet de groupe"
+
+#~ msgid ""
+#~ "A simple WordPress plugin for managing projects and tasks. Integrated "
+#~ "into BuddyPress Groups for best collaborative experience."
+#~ msgstr ""
+#~ "Un plugin WordPress simple pour gérer des projets et des tâches. Intégré "
+#~ "dans les groupes BuddyPress pour une meilleure expérience collaborative."
+
+#~ msgid "Dunhakdis"
+#~ msgstr "Dunhakdis"
+
+#~ msgid "http://dunhakdis.com"
+#~ msgstr "http://dunhakdis.com"

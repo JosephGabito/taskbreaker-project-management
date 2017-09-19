@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Task Description -->
 		<div class="task_breaker-form-field">
 
-		<?php 
+		<?php
 			$args = array(
 				'teeny' => true,
 				'editor_height' => 100,
@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="task_breaker-form-field">
 			<label for="task_breaker-task-priority-select">
 				<strong>
-					<?php _e( 'Priority:', 'task_breaker' ); ?> 
+					<?php _e( 'Priority:', 'task_breaker' ); ?>
 				</strong>
 				<?php $core->task_priority_select(); ?>
 			</label>
@@ -94,7 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<input type="hidden" name="taskbreaker-file-attachment-field" class="taskbreaker-file-attachment-field" value="" />
 		</div>
-		
+
 		<!--[if lte IE 9]>
 			<div class="task_breaker-form-field ie-fallback ie-10">
 				<label for="task_breaker-task-priority-select">
@@ -112,7 +112,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	<?php } else { ?>
 		<div class="task-breaker-message danger">
-			<?php esc_html_e( 'Ops! Only group administrator or group moderators can add tasks to this group project.', 'task-breaker' ); ?>
+			<?php esc_html_e( 'Ops! Only group administrator or group moderators can add tasks to this group project.', 'task_breaker' ); ?>
 		</div>
 	<?php } ?>
 </div>

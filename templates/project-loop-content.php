@@ -7,19 +7,19 @@
 <?php $projects = $core->get_user_groups_projects( get_current_user_id() ); ?>
 
 <?php if ( bp_is_user() ) { ?>
-	
+
 	<?php $projects = $core->get_displayed_user_groups_projects(); ?>
 
 <?php } ?>
 
 <?php if ( bp_is_group() ) { ?>
-		
+
 	<?php $projects = $core->get_group_projects( bp_get_group_id() ); ?>
 
 <?php } ?>
 
 <p id="group-projects-explainer" class="mg-top-15 no-mg-bottom">
-	<?php 
+	<?php
 		echo $projects['summary'];
 	?>
 </p>
@@ -43,7 +43,7 @@
 							</a>
 						</h3>
 					</div>
-				
+
 					<div class="task_breaker-project-meta">
 						<?php $template->the_project_meta( get_the_ID() ); ?>
 					</div>
@@ -55,7 +55,7 @@
 					<div class="task_breaker-project-author">
 						<?php $template->display_project_user( get_the_author_meta( 'ID' ), get_the_ID() ); ?>
 					</div>
-					
+
 				</div>
 
 			</li>
@@ -65,7 +65,7 @@
 
 <?php } else { ?>
 	<p id="message" class="info">
-		<?php esc_html_e( 'There are no Group Projects found at this time.', 'task-breaker' ); ?>
+		<?php esc_html_e( 'There are no Group Projects found at this time.', 'task_breaker' ); ?>
 	</p>
 <?php } ?>
 <div id="taskbreaker-project-navigation">

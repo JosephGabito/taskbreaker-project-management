@@ -63,7 +63,7 @@ final class TaskBreakerNotifications {
 	function tb_new_task_notification_text( $action, $item_id, $secondary_item_id, $total_items, $format = 'string' ) {
 
 		$core = new TaskBreakerCore();
-		
+
 		// New task_breaker_ua_notifications_name notifications.
 		if ( 'task_breaker_ua_action' === $action ) {
 
@@ -82,16 +82,16 @@ final class TaskBreakerNotifications {
 			$notification_text = sprintf(
 				'%s %s %s',
 				esc_attr( $secondary_item_user_name ),
-				__( ' assigned a new task for you &mdash; ', 'task-breaker' ),
+				__( ' assigned a new task for you &mdash; ', 'task_breaker' ),
 				esc_html( $task->title )
 			);
 
 			// Customized notification text for new task.
 			$notification_title = sprintf(
 				'%s %s %s',
-				__( ' You have a new task waiting for you under ', 'task-breaker' ),
+				__( ' You have a new task waiting for you under ', 'task_breaker' ),
 				get_the_title( $project_id ),
-				__( ' project', 'task-breaker' )
+				__( ' project', 'task_breaker' )
 			);
 
 			// The link of the task.

@@ -117,7 +117,7 @@ class TaskBreakerTemplate {
 
 		if ( ! empty( $search ) ) {
 
-			echo '<p id="task_breaker-view-info">' . sprintf( __( 'Search result for: "%s"', 'task-breaker' ), esc_html( $search ) ) . '</p>';
+			echo '<p id="task_breaker-view-info">' . sprintf( __( 'Search result for: "%s"', 'task_breaker' ), esc_html( $search ) ) . '</p>';
 
 		} else {
 
@@ -205,7 +205,7 @@ class TaskBreakerTemplate {
 							echo ' of <span class="total-pages">' . $total_page . '</span></span>';
 
 					echo '<a class="next-page" title="' . __( 'Go to the next page', 'task_breaker' ) . '" href="#">›</a>';
-					echo '<a class="last-page" title="' . __( 'Go to the last page', 'trive' ) . '" href="#tasks/page/' . $max_page . '">»</a></span>';
+					echo '<a class="last-page" title="' . __( 'Go to the last page', 'task_breaker' ) . '" href="#tasks/page/' . absint( $max_page ) . '">»</a></span>';
 				echo '</span>';
 			}
 
@@ -362,7 +362,7 @@ class TaskBreakerTemplate {
 
 		// Do no display pagination if there is only 1 project.
 		if ( 1 === $maximum_page ) { return; }
-		
+
 		include TASKBREAKER_DIRECTORY_PATH . 'templates/project-navigation.php';
 
 		return;
@@ -531,7 +531,7 @@ class TaskBreakerTemplate {
 		);
 
 		$editor_id = 'task_breakerProjectContent';
-		
+
 		return wp_editor( $content, $editor_id, $args );
 
 	}

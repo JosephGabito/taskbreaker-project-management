@@ -6,13 +6,13 @@
 
 <?php
 if ( ! empty( $args->user ) ) {
-	
+
 	// Only allow members who has an access view to view the task.
 	if ( ! $user_access->can_see_project_tasks( $args->project_id ) ) { ?>
 
 		<div id="task_breaker-single-task">
 			<p class="info" id="message">
-				<?php _e( 'Unable to access the task details. Only group members can access this page.', 'task-breaker' ); ?>
+				<?php _e( 'Unable to access the task details. Only group members can access this page.', 'task_breaker' ); ?>
 			</p>
 		</div>
 
@@ -83,9 +83,9 @@ if ( ! empty( $args->user ) ) {
 			<?php } ?>
 
 			<?php $attachments = TaskBreakerFileAttachment::task_get_attached_files( $args->id, $args->user ); ?>
-			
+
 			<?php if ( ! empty( $attachments ) ) { ?>
-				
+
 				<div id="taskbreaker-file-attachment">
 					<?php foreach( $attachments as $attachment ) { ?>
 						<div class="taskbreaker-file-attachment-item">
@@ -211,8 +211,8 @@ if ( ! empty( $args->user ) ) {
 				<div id="task-editor_update-priority" class="task_breaker-form-field">
 					<label for="task_breaker-task-priority-select" class="task_breaker-form-field">
 						<?php _e( 'Update Priority:', 'task_breaker' ); ?>
-						<?php $core->task_priority_select( absint( $args->priority ), 
-							'task_breaker-task-priority-update-select', 
+						<?php $core->task_priority_select( absint( $args->priority ),
+							'task_breaker-task-priority-update-select',
 							'task_breaker-task-priority-update-select' );
 						?>
 					</label>
@@ -228,7 +228,7 @@ if ( ! empty( $args->user ) ) {
 		<?php } else { ?>
 			<div id="task-editor">
 				<p class="error" id="message">
-					<?php esc_attr_e( 'Only assigned members of this task or members with the right privilege are able to add progress to this task.', 'task-breaker' ); ?>
+					<?php esc_attr_e( 'Only assigned members of this task or members with the right privilege are able to add progress to this task.', 'task_breaker' ); ?>
 				</p>
 			</div>
 		<?php } ?>

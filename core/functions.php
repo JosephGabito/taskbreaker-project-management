@@ -386,7 +386,7 @@ class TaskBreakerCore {
 				'total_pages' => ceil( $num_projects[0]->total / $limit ),
 				'total_user_groups' => $user_groups['total'],
 				'summary' => sprintf(
-					esc_html( 'There are a of total %s project(s) found in the %s group(s) that you have joined.', 'taskbreaker' ),
+					esc_html( 'There are a of total %s project(s) found in the %s group(s) that you have joined.', 'task_breaker' ),
 					'<strong>' . $total . '</strong>',
 					'<strong>' . $user_groups['total'] . '</strong>'
 				),
@@ -449,7 +449,7 @@ class TaskBreakerCore {
 				'total_pages' => ceil( $num_projects[0]->total / $limit ),
 				'total_user_groups' => $user_groups['total'],
 				'summary' => sprintf(
-					esc_html( 'There are a total of %s projects found in the %s group(s) of which %s is a member.', 'taskbreaker' ),
+					esc_html( 'There are a total of %s projects found in the %s group(s) of which %s is a member.', 'task_breaker' ),
 					'<strong>' . $total . '</strong>',
 					'<strong>' . $user_groups['total'] . '</strong>',
 					'<strong>' . get_userdata( absint( $user_id ) )->display_name . '</strong>'
@@ -501,7 +501,7 @@ class TaskBreakerCore {
 				'total' => $total,
 				'total_pages' => ceil( $total / $limit ),
 				'summary' => sprintf(
-					esc_html( 'There are a of total %s projects found in this group.', 'taskbreaker' ),
+					esc_html( 'There are a of total %s projects found in this group.', 'task_breaker' ),
 					'<strong>' . $total . '</strong>'
 				),
 			);
