@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Thrive Intranet l10n\n"
-"POT-Creation-Date: 2017-06-23 17:53+0800\n"
-"PO-Revision-Date: 2017-06-23 17:53+0800\n"
+"POT-Creation-Date: 2017-09-19 12:17+0800\n"
+"PO-Revision-Date: 2017-09-19 12:17+0800\n"
 "Last-Translator: \n"
 "Language-Team: Dunhakdis <codehaiku.io@gmail.com>\n"
 "Language: en\n"
@@ -10,8 +10,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.2\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__;_n;esc_attr_e;"
-"esc_attr__\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__;_n;esc_attr_e;esc_attr__;"
+"esc_html__\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -43,6 +43,25 @@ msgstr ""
 #: includes/project-group-component.php:29 includes/project-post-type.php:50
 #: includes/project-post-type.php:52 widgets/widgets.php:123
 msgid "Projects"
+msgstr ""
+
+#: core/functions.php:389
+#, php-format
+msgid ""
+"There are a of total %s project(s) found in the %s group(s) that you have "
+"joined."
+msgstr ""
+
+#: core/functions.php:452
+#, php-format
+msgid ""
+"There are a total of %s projects found in the %s group(s) of which %s is a "
+"member."
+msgstr ""
+
+#: core/functions.php:504
+#, php-format
+msgid "There are a of total %s projects found in this group."
 msgstr ""
 
 #: core/template-tags.php:120
@@ -141,6 +160,12 @@ msgstr ""
 
 #: includes/project-component.php:184 includes/project-post-type.php:56
 msgid "New Project"
+msgstr ""
+
+#: includes/project-notifications.php:73
+msgid ""
+"You were assigned a new task, but it was deleted. You can ignore this "
+"notification."
 msgstr ""
 
 #: includes/project-notifications.php:85
@@ -270,6 +295,14 @@ msgstr ""
 msgid "Save Project"
 msgstr ""
 
+#: templates/project-add.php:127
+#, php-format
+msgid ""
+"Only a group moderator or a group administrator can create a group project.\n"
+"\t\t\t\t\t\t%1$s Create your group %2$s or %3$s join an existing one %4$s to "
+"take part in projects."
+msgstr ""
+
 #: templates/project-add.php:131
 msgid "Create Group"
 msgstr ""
@@ -381,6 +414,11 @@ msgstr ""
 
 #: templates/task-edit.php:116 templates/task-single.php:223
 msgid "Update Task"
+msgstr ""
+
+#: templates/task-edit.php:124
+#, php-format
+msgid "Ops! Looks like you are lost. %s"
 msgstr ""
 
 #: templates/task-edit.php:124
@@ -533,6 +571,12 @@ msgstr ""
 msgid "Fail to delete attachment"
 msgstr ""
 
+#: transactions/routes/delete-ticket.php:50
+msgid ""
+"You are not allowed to delete this task. Only group administrators or group "
+"moderators are allowed."
+msgstr ""
+
 #: transactions/routes/fetch-task.php:38
 msgid ""
 "Unable to access the task details. Only group members can access this page"
@@ -552,6 +596,10 @@ msgstr ""
 
 #: widgets/widgets.php:33
 msgid "(TaskBreaker) My Recent Task"
+msgstr ""
+
+#: widgets/widgets.php:85
+msgid "My Recent Tasks"
 msgstr ""
 
 #: widgets/widgets.php:90
