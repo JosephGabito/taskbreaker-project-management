@@ -16,15 +16,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! empty( $user_tasks ) ) { ?>
 <ul>
-	<?php 
+	<?php
 		$priority = array(
-			'1' => 'Normal', 
-			'2' => 'High', 
+			'1' => 'Normal',
+			'2' => 'High',
 			'3' => 'Critical'
-		); 
+		);
 	?>
 	<?php foreach ( $user_tasks as $task ) { ?>
-	
+
 		<li class="task-breaker-recent-item">
 			<h5>
 				<span class="task-priority <?php echo sanitize_html_class( sanitize_title( $priority[$task->priority] ) ); ?>"></span>
@@ -36,7 +36,7 @@ if ( ! empty( $user_tasks ) ) { ?>
 
 				<?php $dated_added = new DateTime( $task->date_added ); ?>
 				<?php $time_since  = $dated_added->diff( new DateTime( date( "Y-m-d H:i:s", current_time( 'timestamp' ) ) ) );  ?>
-				<?php 
+				<?php
 					$time_since_stack = array(
 						array( 'type' => 'year', 'value' => $time_since->y ),
 						array( 'type' => 'month', 'value' => $time_since->m ),
@@ -69,8 +69,8 @@ if ( ! empty( $user_tasks ) ) { ?>
 					}
 
 				?>
-				
-				
+
+
 			</div>
 		</li>
 	<?php } ?>
@@ -81,9 +81,9 @@ if ( ! empty( $user_tasks ) ) { ?>
 	<div class="task-breaker-widget-no-task-assigned">
 
 		<?php if ( is_user_logged_in() ) { ?>
-			<?php esc_html_e( 'There are no tasks assigned to you. Enjoy your day!', 'tas_breaker' ); ?>
+			<?php esc_html_e( 'There are no tasks assigned to you. Enjoy your day!', 'task_breaker' ); ?>
 		<?php } else { ?>
-			<?php esc_html_e( 'Please use the login form to sign in and view your tasks.', 'tas_breaker' ); ?>
+			<?php esc_html_e( 'Please use the login form to sign in and view your tasks.', 'task_breaker' ); ?>
 		<?php } ?>
 
 	</div>
