@@ -403,7 +403,19 @@ class TaskBreakerCore {
 		$db = TaskBreaker::wpdb();
 
 		$user_id = bp_displayed_user_id();
-		$user_groups = groups_get_user_groups( $user_id );
+
+		// Bail out when buddypress groups components is not installed/activated.
+		if ( ! function_exists('groups_get_user_groups') ) {
+			return array(
+				'projects' => [],
+				'total' => 0,
+				'total_pages' => 1,
+				'total_user_groups' => 0,
+				'summary' => 'BP_GROUPS_COMPONENT_NOT_INSTALLED',
+			);
+		} else {
+			$user_groups = groups_get_user_groups( $user_id );
+		}
 
 		if ( empty( $user_groups['groups'] ) ) {
 			$user_groups['groups'] = array( 0 );
