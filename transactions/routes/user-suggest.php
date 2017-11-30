@@ -20,9 +20,11 @@ if ( ! is_user_logged_in() ) {
 
 $dbase = TaskBreaker::wpdb();
 
+$dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
+
 $term = filter_input( INPUT_GET, 'term', FILTER_SANITIZE_STRING );
 $group_id = filter_input( INPUT_GET, 'group_id', FILTER_SANITIZE_NUMBER_INT );
-$prefix = $dbase->prefix;
+$prefix = $dbase_prefix;
 
 $stmt = $dbase->prepare(
 	"SELECT {$prefix}bp_groups_members.user_id as id, {$prefix}users.display_name as text FROM {$prefix}bp_groups_members INNER JOIN {$prefix}users ON {$prefix}bp_groups_members.user_id = {$prefix}users.ID WHERE {$prefix}bp_groups_members.group_id = %d AND {$prefix}users.display_name LIKE %s ORDER BY {$prefix}users.display_name ASC LIMIT 10",

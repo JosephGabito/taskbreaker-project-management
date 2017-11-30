@@ -185,6 +185,24 @@ class TaskBreaker {
 
 	}
 
+    public static function bp_core_get_table_prefix() {
+
+        $prefix = '';
+
+        if ( function_exists( 'bp_core_get_table_prefix' ) ) {
+
+            $prefix = bp_core_get_table_prefix();
+
+        } else {
+
+            return;
+
+        }
+
+        return $prefix;
+
+    }
+
 	public static function get_post() {
 
 		global $post;

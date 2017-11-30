@@ -65,10 +65,17 @@ class TaskBreakerTaskComment {
 
 	/**
 	 * The object that will hold the wpdb class later on in construct.
-	 * 
+	 *
 	 * @var string
 	 */
 	private $dbase = '';
+
+	/**
+	 * The object that will hold the table prefix to be use later on in construct.
+	 *
+	 * @var string
+	 */
+	private $dbase_prefix = '';
 
 	// Set allowed status.
 	// 0 for 'In Progress'
@@ -83,7 +90,11 @@ class TaskBreakerTaskComment {
 	 */
 	public function __construct() {
 		$this->dbase = TaskBreaker::wpdb();
-		$this->model = $this->dbase->prefix . 'task_breaker_comments';
+
+		$this->dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
+
+		$this->model = $this->dbase_prefix . 'task_breaker_comments';
+
 		$this->date_added = date( 'Y-m-d g:i:s' );
 	}
 
@@ -181,7 +192,7 @@ class TaskBreakerTaskComment {
 		if ( empty( $this->ticket_id ) ) { return false; }
 
 		$table = $this->model;
-		
+
 		$core = new TaskBreakerCore();
 
 		$data = array(
@@ -247,10 +258,10 @@ class TaskBreakerTaskComment {
 						  $action_i18 = __( '%1$s %2$s the task %3$s %4$s', 'task_breaker' );
 
 						  $action_template = sprintf(
-							  
+
 							  $action_i18, // String.
 
-							  $bp_user_link, 
+							  $bp_user_link,
 							  $type,
 							  $task_permalink_template,
 							  $group_link_template
@@ -282,7 +293,7 @@ class TaskBreakerTaskComment {
 
 						    // Get all the assigned users.
 						    $users_assigned = $this->dbase->get_results( $this->dbase->prepare(
-						    		"SELECT task_id, member_id FROM {$this->dbase->prefix}task_breaker_tasks_user_assignment WHERE task_id = %d",
+						    		"SELECT task_id, member_id FROM {$this->dbase_prefix}task_breaker_tasks_user_assignment WHERE task_id = %d",
 						    		$this->ticket_id
 						    ), OBJECT );
 
@@ -300,7 +311,7 @@ class TaskBreakerTaskComment {
 			return $last_insert_id;
 
 		} else {
-			
+
 			return false;
 
 		}
@@ -438,7 +449,7 @@ class TaskBreakerTaskComment {
 		$current_user_id = get_current_user_id();
 
 		$comment_user = $dbase->get_var( "SELECT user FROM $this->model WHERE id = $comment_id" ); // Db call ok; no-cache pass.
-		
+
 		$comment_user = absint( $comment_user );
 
 		if ( ! empty( $comment_user ) ) {
@@ -459,4 +470,3 @@ class TaskBreakerTaskComment {
 		return false;
 	}
 }
-

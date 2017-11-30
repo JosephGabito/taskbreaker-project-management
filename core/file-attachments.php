@@ -141,8 +141,9 @@ class TaskBreakerFileAttachment {
 		}
 
 		$dbase = TaskBreaker::wpdb();
+        $dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
 
-		$stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta
+		$stmt = $dbase->prepare( "SELECT * FROM {$dbase_prefix}task_breaker_task_meta
 			WHERE task_id = %d", $task_id );
 
 		$files_attached = $dbase->get_row( $stmt, OBJECT );
@@ -154,13 +155,13 @@ class TaskBreakerFileAttachment {
 			$where = array( 'task_id' => $task_id );
 			$where_format = array( '%d' );
 
-			$dbase->update( "{$dbase->prefix}task_breaker_task_meta", $data, $where, $format, $where_format );
+			$dbase->update( "{$dbase_prefix}task_breaker_task_meta", $data, $where, $format, $where_format );
 
 		} else {
 
 			$data = array( 'task_id' => $task_id,'meta_key' => 'file_attachment', 'meta_value' => $name );
 			$format = array( '%s', '%s' );
-			$dbase->insert( "{$dbase->prefix}task_breaker_task_meta", $data, $format );
+			$dbase->insert( "{$dbase_prefix}task_breaker_task_meta", $data, $format );
 
 		}
 
@@ -225,12 +226,14 @@ class TaskBreakerFileAttachment {
 
 		$dbase = TaskBreaker::wpdb();
 
+        $dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
+
 		$path = wp_upload_dir();
 
 		$task_dir = $path['basedir'] . sprintf( '/taskbreaker/%d/tasks/%d', get_current_user_id(), $task_id );
 
 		if ( $fs->delete( $task_dir, true ) ) {
-			$dbase->delete( "{$dbase->prefix}task_breaker_task_meta", array( 'task_id' => absint( $task_id ) ), array( '%d' ) );
+			$dbase->delete( "{$dbase_prefix}task_breaker_task_meta", array( 'task_id' => absint( $task_id ) ), array( '%d' ) );
 			return true;
 		}
 
@@ -316,7 +319,10 @@ class TaskBreakerFileAttachment {
 
 		$dbase = TaskBreaker::wpdb();
 
-		$stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta
+        $dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
+
+
+		$stmt = $dbase->prepare( "SELECT * FROM {$dbase_prefix}task_breaker_task_meta
 			WHERE task_id = %d", $task_id );
 
 		$results = $dbase->get_results( $stmt, OBJECT );

@@ -8,18 +8,18 @@ final class TaskBreakerActions {
 	 * @return  void.
 	 */
 	public function __construct() {
-		
+
 		add_action( 'before_delete_post', array( $this, 'project_delete_garbage_collection') );
 
 	}
 
 	/**
 	 * Deletes all the task attachments inside a specific project
-	 * 
+	 *
 	 * @return void
 	 */
 	public function project_delete_garbage_collection( $project_id ) {
-		
+
 		if ( empty ( $project_id ) ) {
 			return;
 		}
@@ -28,16 +28,18 @@ final class TaskBreakerActions {
 
 		$dbase = TaskBreaker::wpdb();
 
+		$dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
+
 		$fs = new TaskBreakerFileAttachment( $set_upload_dir );
-		
-		$task_table = $dbase->prefix . 'task_breaker_tasks';
 
-		$task_meta_table = $dbase->prefix . 'task_breaker_task_meta';
+		$task_table = $dbase_prefix . 'task_breaker_tasks';
 
-		$task_comments_table = $dbase->prefix . 'task_breaker_comments';
+		$task_meta_table = $dbase_prefix . 'task_breaker_task_meta';
 
-		$task_user_assignment_table = $dbase->prefix . 'task_breaker_tasks_user_assignment';
-		
+		$task_comments_table = $dbase_prefix . 'task_breaker_comments';
+
+		$task_user_assignment_table = $dbase_prefix . 'task_breaker_tasks_user_assignment';
+
 		$stmt = $dbase->prepare("SELECT * FROM {$task_table} WHERE project_id = %d", $project_id, OBJECT );
 
 		$project_tasks = $dbase->get_results( $stmt );
@@ -60,7 +62,7 @@ final class TaskBreakerActions {
 
 								// Delete all user assignments.
 								if ( $dbase->delete( $task_user_assignment_table, array( 'task_id' => $task->id ), array( '%d' ) ) === FALSE  ) {
-									
+
 									TaskBreaker::stop('Unable to delete user assignments. There was an error in db query.');
 
 								}
