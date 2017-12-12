@@ -25,7 +25,7 @@ final class TaskBreakerNotifications {
 	public function __construct() {
 
 		add_filter( 'bp_notifications_get_registered_components', array( $this, 'tb_add_new_notification_component' ) );
-		add_filter( 'bp_notifications_get_notifications_for_user', array( $this, 'tb_new_task_notification_text' ), 10, 5 );
+		add_filter( 'bp_notifications_get_notifications_for_user', array( $this, 'tb_new_task_notification_text' ), 8, 5 );
 		add_filter( 'task_breaker_new_task', array( $this, 'bp_custom_add_notification' ), 99, 2 );
 
 		return;
@@ -66,6 +66,8 @@ final class TaskBreakerNotifications {
 
 		// New task_breaker_ua_notifications_name notifications.
 		if ( 'task_breaker_ua_action' === $action ) {
+
+            remove_filter( 'bp_notifications_get_notifications_for_user', 'bbp_format_buddypress_notifications', 10, 5 );
 
 			$task = $core->get_task( $item_id );
 
