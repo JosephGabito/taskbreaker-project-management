@@ -67,6 +67,11 @@ final class TaskBreakerNotifications {
 		// New task_breaker_ua_notifications_name notifications.
 		if ( 'task_breaker_ua_action' === $action ) {
 
+            // Removed the bbp_format_buddypress_notifications() function
+            // from the bp_notifications_get_notifications_for_user() filter
+            // when the tb_new_task_notification_text() function is present.
+            // To fix the TaskBreaker BuddyPress Notification Issue with bbPress
+            // via: http://support.dunhakdis.com/ticket/691
             remove_filter( 'bp_notifications_get_notifications_for_user', 'bbp_format_buddypress_notifications', 10, 5 );
 
 			$task = $core->get_task( $item_id );
@@ -76,6 +81,7 @@ final class TaskBreakerNotifications {
 				$out = sprintf( '<a href="#" title="%1$s">%1$s</a>', $text );
 				return $out;
 			}
+
 			$secondary_item_user = get_user_by( 'id', absint( $secondary_item_id ) );
 			$secondary_item_user_name = $secondary_item_user->display_name;
 			$project_id = absint( $task->project_id );
