@@ -116,7 +116,9 @@ class TaskBreakerCore {
 
 		$dbase = $taskbreaker->wpdb();
 
-		$stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_tasks WHERE id = %d", $task_id );
+		$dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
+
+		$stmt = $dbase->prepare( "SELECT * FROM {$dbase_prefix}task_breaker_tasks WHERE id = %d", $task_id );
 
 		$result = $dbase->get_row( $stmt, OBJECT );
 
@@ -136,7 +138,9 @@ class TaskBreakerCore {
 
 		$dbase = $taskbreaker->wpdb();
 
-		$query = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_comments WHERE ticket_id = %d", absint( $ticket_id ) );
+		$dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
+
+		$query = $dbase->prepare( "SELECT * FROM {$dbase_prefix}task_breaker_comments WHERE ticket_id = %d", absint( $ticket_id ) );
 
 		$results = $dbase->get_results( $query, 'ARRAY_A' );
 
@@ -164,7 +168,10 @@ class TaskBreakerCore {
 	function get_user_group_admin_mod() {
 
 		$taskbreaker = new TaskBreaker();
+
 		$dbase = $taskbreaker->wpdb();
+
+		$dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
 
 		if ( ! function_exists( 'buddypress' ) ) {
 			return array();
@@ -185,9 +192,9 @@ class TaskBreakerCore {
 	            group_member.is_mod,
 	            group_member.is_admin
 	            FROM
-	            {$dbase->prefix}bp_groups_members as group_member
+	            {$dbase_prefix}bp_groups_members as group_member
 	            INNER JOIN
-	            {$dbase->prefix}bp_groups as groups
+	            {$dbase_prefix}bp_groups as groups
 	            WHERE
 	            group_member.group_id = groups.id
 	            AND
@@ -214,7 +221,10 @@ class TaskBreakerCore {
 	function get_displayed_user_groups() {
 
 		$taskbreaker = new TaskBreaker();
+
 		$dbase = $taskbreaker->wpdb();
+
+		$dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
 
 		if ( ! function_exists( 'bp_displayed_user_id' ) ) {
 			return;
@@ -226,9 +236,9 @@ class TaskBreakerCore {
 			return array();
 		}
 
-		$bp_groups = $dbase->prefix . 'bp_groups';
+		$bp_groups = $dbase_prefix . 'bp_groups';
 
-		$bp_group_members = $dbase->prefix . 'bp_groups_members';
+		$bp_group_members = $dbase_prefix . 'bp_groups_members';
 
 		$stmt = sprintf( "SELECT {$bp_group_members}.group_id, {$bp_groups}.name
 				FROM {$bp_group_members }
@@ -256,13 +266,16 @@ class TaskBreakerCore {
 	function parse_assigned_users( $user_id_collection = '' ) {
 
 		$taskbreaker = new TaskBreaker();
+
 		$dbase = $taskbreaker->wpdb();
+
+        $dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
 
 		$users = new stdclass;
 
 		if ( ! empty( $user_id_collection ) ) {
 
-			$stmt = esc_sql( "SELECT ID, display_name FROM {$dbase->prefix}users WHERE ID IN({$user_id_collection})" );
+			$stmt = esc_sql( "SELECT ID, display_name FROM {$dbase_prefix}users WHERE ID IN({$user_id_collection})" );
 
 			$users = $dbase->get_results( $stmt );
 
@@ -304,11 +317,15 @@ class TaskBreakerCore {
 	function get_current_user_tasks( $args = array() ) {
 
 		$taskbreaker = new TaskBreaker();
+
 		$dbase = $taskbreaker->wpdb();
+
+		$dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
+
 		$user_id = get_current_user_id();
 
-		$user_assignment_tbl = "{$dbase->prefix}task_breaker_tasks_user_assignment as user_task_assignment";
-		$task_tbl = "{$dbase->prefix}task_breaker_tasks as task_table";
+		$user_assignment_tbl = "{$dbase_prefix}task_breaker_tasks_user_assignment as user_task_assignment";
+		$task_tbl = "{$dbase_prefix}task_breaker_tasks as task_table";
 		$limit = ( ! empty( $args['task_number'] ) ) ? absint( $args['task_number'] ): 5;
 
 		$stmt = $dbase->prepare( "SELECT * FROM {$user_assignment_tbl} INNER JOIN {$task_tbl} ON task_table.id = user_task_assignment.task_id WHERE user_task_assignment.member_id = %d ORDER BY task_table.id DESC LIMIT %d", $user_id, $limit );

@@ -91,8 +91,10 @@ class TaskBreakerTask {
 
 		$dbase = TaskBreaker::wpdb();
 
-		$this->model = sprintf( '%stask_breaker_tasks', $dbase->prefix );
-		
+        $dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
+
+		$this->model = sprintf( '%stask_breaker_tasks', $dbase_prefix );
+
 		// Set the date to general format using PHP timestamp not MYSQL.
 		$this->date = date( "Y-m-d H:i:s", current_time('timestamp') );
 
@@ -302,6 +304,8 @@ class TaskBreakerTask {
 		// fetch all tickets if there is no id specified
 		$dbase = TaskBreaker::wpdb();
 
+        $dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
+
 		$defaults = array(
 			'project_id' => 0,
 			'id' => 0,
@@ -459,7 +463,7 @@ class TaskBreakerTask {
 			if ( ! empty( $results ) ) {
 
 				$stats = array();
-				
+
 				$stats['total'] = $row_count;
 				$stats['total_page'] = ceil( $stats['total'] / $perpage );
 
@@ -528,8 +532,8 @@ class TaskBreakerTask {
 				$result->group_id = get_post_meta( $result->project_id, 'task_breaker_project_group_id', true );
 
 				// Meta
-				
-				$task_meta_stmt = $dbase->prepare( "SELECT * FROM {$dbase->prefix}task_breaker_task_meta WHERE task_id = %d", $id );
+
+				$task_meta_stmt = $dbase->prepare( "SELECT * FROM {$dbase_prefix}task_breaker_task_meta WHERE task_id = %d", $id );
 				$task_meta = $dbase->get_results( $task_meta_stmt, OBJECT);
 				if ( empty( $task_meta ) ) {
 					$result->meta = null;
@@ -711,6 +715,8 @@ class TaskBreakerTask {
 
 		$dbase = TaskBreaker::wpdb();
 
+        $dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
+
 		if ( 0 === $task_id ) {
 			return $this;
 		}
@@ -719,7 +725,7 @@ class TaskBreakerTask {
 			return $this;
 		}
 
-		$table = $dbase->prefix . TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE;
+		$table = $dbase_prefix . TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE;
 
 		// Clear any existing records.
 		$dbase->delete(
@@ -735,8 +741,8 @@ class TaskBreakerTask {
 			foreach ( $exp_members_assigned as $task_member_id ) {
 				$dbase->insert(
 					$table,
-					array( 
-						'task_id' => intval( $task_id ), 
+					array(
+						'task_id' => intval( $task_id ),
 						'member_id' => intval( $task_member_id ),
 						'date_added' => $this->date
 					),
@@ -773,7 +779,7 @@ class TaskBreakerTask {
 		$row_count_stmt = "SELECT COUNT(*) as count from {$this->model} {$where}";
 
 		$row = $dbase->get_row( $row_count_stmt, OBJECT );
-		
+
 		$row_count = intval( $row->count );
 
 		return $row_count;
@@ -814,19 +820,19 @@ class TaskBreakerTask {
 
 		// Make sure that user can delete this task.
 		if ( ! $user_access->can_delete_task( $this->project_id ) ) {
-			
+
 			return false;
 
 		}
 
 		if ( 0 === $this->id ) {
-			
+
 			return false;
 
 		} else {
-			
+
 			do_action('task_breaker_before_task_delete');
-			
+
 			$dbase->delete( $this->model, array( 'id' => $this->id ), array( '%d' ) );
 
 			return true;

@@ -44,7 +44,11 @@ function task_breaker_tasks_setup_table() {
 
 	global $wpdb;
 
-	$tasks_table_name = $wpdb->prefix . TASK_BREAKER_TASKS_TABLE;
+    $taskbreaker = new TaskBreaker();
+
+    $dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
+
+	$tasks_table_name = $dbase_prefix . TASK_BREAKER_TASKS_TABLE;
 
 	$charset_collate = $wpdb->get_charset_collate();
 
@@ -82,7 +86,11 @@ function task_breaker_comments_setup_table() {
 
 	global $wpdb;
 
-	$comments_table_name = $wpdb->prefix . TASK_BREAKER_COMMENTS_TABLE;
+    $taskbreaker = new TaskBreaker();
+
+    $dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
+
+	$comments_table_name = $dbase_prefix . TASK_BREAKER_COMMENTS_TABLE;
 
 	$charset_collate = $wpdb->get_charset_collate();
 
@@ -111,7 +119,11 @@ function task_breaker_tasks_user_assignment_setup_table() {
 
 	global $wpdb;
 
-	$task_user_assignment_table_name = $wpdb->prefix . TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE;
+    $taskbreaker = new TaskBreaker();
+
+    $dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
+
+	$task_user_assignment_table_name = $dbase_prefix . TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE;
 
 	$charset_collate = $wpdb->get_charset_collate();
 
@@ -138,8 +150,12 @@ function task_breaker_setup_task_meta_table() {
 
 	global $wpdb;
 
+    $taskbreaker = new TaskBreaker();
+
+    $dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
+
 	//TASK_BREAKER_META_TABLE_VERSION
-	$task_meta_table = $wpdb->prefix . TASK_BREAKER_META_TABLE;
+	$task_meta_table = $dbase_prefix . TASK_BREAKER_META_TABLE;
 
 	$charset_collate = $wpdb->get_charset_collate();
 

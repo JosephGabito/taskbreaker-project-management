@@ -26,12 +26,20 @@ class TaskBreakerCT {
 	var $dbase = '';
 
 	/**
+	 * This property will serve as holder for the table prefix later.
+	 *
+	 * @var string
+	 */
+	var $dbase_prefix = '';
+
+	/**
 	 * Class constructors. Initiates $wpdb to $_db property.
 	 *
 	 * @return object TaskBreakerCT
 	 */
 	private function __construct() {
 		$this->dbase = TaskBreaker::wpdb();
+        $this->dbase_prefix = TaskBreaker::bp_core_get_table_prefix();
 		return $this;
 	}
 
@@ -73,7 +81,7 @@ class TaskBreakerCT {
 		}
 
 		$stmt = $this->dbase->prepare(
-			"SELECT id FROM {$bp->groups->table_name_members} WHERE user_id = %d 
+			"SELECT id FROM {$bp->groups->table_name_members} WHERE user_id = %d
 			AND group_id = %d AND is_confirmed = 1 AND is_banned = 0", $user_id, $group_id
 		);
 
@@ -399,7 +407,7 @@ class TaskBreakerCT {
 		}
 
 		$stmt = $this->dbase->prepare(
-			"SELECT assign_users FROM {$this->dbase->prefix}task_breaker_tasks
+			"SELECT assign_users FROM {$this->dbase_prefix}task_breaker_tasks
 	        WHERE id = %d AND assign_users <> %s", absint( $task_id ), ''
 		);
 
@@ -424,7 +432,7 @@ class TaskBreakerCT {
 		$current_user_id = get_current_user_id();
 
 		$stmt = $this->dbase->prepare(
-			"SELECT task_id FROM {$this->dbase->prefix}task_breaker_tasks_user_assignment
+			"SELECT task_id FROM {$this->dbase_prefix}task_breaker_tasks_user_assignment
 	        WHERE task_id = %d AND member_id = %d", $task_id, $current_user_id
 		);
 
@@ -446,7 +454,7 @@ class TaskBreakerCT {
 	public function is_project_group_public( $project_id = 0 ) {
 
 		$core = new TaskBreakerCore();
-		
+
 		$public_status = 'public';
 
 		$group_id = $core->get_project_group_id( $project_id );
@@ -464,4 +472,3 @@ class TaskBreakerCT {
 	}
 
 }
-
