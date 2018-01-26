@@ -137,15 +137,19 @@ class TaskBreakerCT {
 		}
 
 		if ( current_user_can( 'manage_options' ) ) {
-			return true;
+    			return apply_filters( 'taskbreaker/core/conditional-tags/can_add_project_to_group/is-admin', __return_true() );
+		}
+
+		if ( groups_is_user_member( get_current_user_id(), $group_id ) ) {
+			return apply_filters( 'taskbreaker/core/conditional-tags/can_add_project_to_group/is-group-member', __return_false() );
 		}
 
 		if ( groups_is_user_mod( get_current_user_id(), $group_id ) ) {
-			return true;
+			return apply_filters( 'taskbreaker/core/conditional-tags/can_add_project_to_group/is-group-mod', __return_true() );
 		}
 
 		if ( groups_is_user_admin( get_current_user_id(), $group_id ) ) {
-			return true;
+			return apply_filters( 'taskbreaker/core/conditional-tags/can_add_project_to_group/is-group-admin', __return_true() );
 		}
 
 		return false;
