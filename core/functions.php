@@ -185,12 +185,22 @@ class TaskBreakerCore {
 
 		$user_id = get_current_user_id();
 
+        $group_member_project_creation = apply_filters( 'taskbreaker/core/functions/TaskBreakerCore/get_user_group_admin_mod/project-creation-for-group-member', __return_false() );
+        $group_member_is_confirmed = '';
+        $group_member_is_confirmed_value = '';
+
+        if ( true === $group_member_project_creation ) {
+            $group_member_is_confirmed = ", group_member.is_confirmed";
+            $group_member_is_confirmed_value = "OR group_member.is_confirmed = 1";
+        }
+
 		$group_results_stmt = "SELECT
 	            groups.id as group_id,
 	            group_member.user_id as user_id,
 	            groups.name as group_name,
 	            group_member.is_mod,
 	            group_member.is_admin
+                {$group_member_is_confirmed}
 	            FROM
 	            {$dbase_prefix}bp_groups_members as group_member
 	            INNER JOIN
@@ -198,7 +208,7 @@ class TaskBreakerCore {
 	            WHERE
 	            group_member.group_id = groups.id
 	            AND
-	            ( group_member.is_mod = 1 OR group_member.is_admin = 1 )
+	            ( group_member.is_mod = 1 OR group_member.is_admin = 1 {$group_member_is_confirmed_value} )
 	            AND
 	            group_member.user_id = %d GROUP BY groups.id;";
 
