@@ -4,7 +4,7 @@ Donate link:https://www.paypal.me/dunhakdis/25
 Tags: project, task, task discussion, collaboration
 Requires at least: 4.2.0
 Tested up to: 4.9.3
-Stable tag: 1.4.12
+Stable tag: 1.4.13
 
 A simple WordPress plugin for managing projects and tasks. Integrated into BuddyPress Groups for best collaborative experience.  
 
