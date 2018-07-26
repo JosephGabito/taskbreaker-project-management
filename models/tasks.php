@@ -39,6 +39,13 @@ class TaskBreakerTask {
 	var $description = '';
 
 	/**
+	 * The deadline of the task.
+	 * 
+	 * @var string
+	 */
+	var $deadline = '';
+
+	/**
 	 * The user id
 	*
 	 * @var integer
