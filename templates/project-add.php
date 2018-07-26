@@ -82,7 +82,7 @@
 
 									<option <?php echo esc_attr_e( $selected );?> value="<?php echo esc_attr_e( absint( $group->group_id ) ); ?>">
 
-										<?php echo esc_html( $group->group_name ); ?>
+										<?php echo esc_html( wp_unslash( $group->group_name ) ); ?>
 
 									</option>
 
