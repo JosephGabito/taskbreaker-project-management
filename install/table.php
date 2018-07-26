@@ -33,6 +33,12 @@ function task_breaker_install() {
 	// Setup task meta table
 	task_breaker_setup_task_meta_table();
 
+	// 'Refresh' permalinks.
+	$project_post_type = new TaskBreakerProjectPostType();
+	$project_post_type->register_post_type();
+	
+	flush_rewrite_rules();
+
 	return;
 }
 /**
