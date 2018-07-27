@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<!-- Task Deadline -->
 		<div class="task_breaker-form-field">
-			<input name="deadline" type="text" placeholder="<?php esc_attr_e('Deadline', 'task_breaker'); ?>" id="js-taskbreaker-task-deadline">
+			<input id="js-add-taskbreaker-deadline-field" name="deadline" type="text" placeholder="<?php esc_attr_e('Deadline', 'task_breaker'); ?>" class="js-taskbreaker-task-deadline">
 		</div>
 
 		<!-- Task User Assigned -->
