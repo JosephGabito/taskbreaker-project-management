@@ -28,8 +28,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Task Title -->
 		<div class="task_breaker-form-field">
 
-			<input placeholder="<?php esc_attr_e( 'Task Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskTitle" maxlength="160" name="title" class="widefat"/>
+			<input placeholder="<?php esc_attr_e( 'Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskTitle" maxlength="160" name="title"/>
 
+		</div>
+
+		<!-- Task Deadline -->
+		<div class="task_breaker-form-field">
+			<input name="deadline" type="text" placeholder="<?php esc_attr_e('Deadline', 'task_breaker'); ?>" id="js-taskbreaker-task-deadline">
 		</div>
 
 		<!-- Task User Assigned -->
