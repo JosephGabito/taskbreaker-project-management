@@ -374,7 +374,7 @@
 	list-style: none;
 	margin-bottom: 0;
 	display: table-cell;
-	vertical-align: middle;
+	vertical-align: top;
 }
 
 
@@ -406,6 +406,7 @@
 	margin-left: 0;
 	display: table;
 	width: 100%;
+	margin-top: 0;
 	margin-bottom: 0;
 }
 
@@ -504,6 +505,7 @@
 .single-project #task_breaker-project-tasks ul li.priority {
 	width: 10%;
 	margin-right: 2%;
+	vertical-align: top;
 	min-width: 70px;
 }
 	.task-priority,
