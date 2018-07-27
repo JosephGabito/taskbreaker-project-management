@@ -1,3 +1,3 @@
-$( "#js-taskbreaker-task-deadline" ).datetimepicker();
+$( ".js-taskbreaker-task-deadline" ).datetimepicker();
 }); // end $(window).load();
 }); // end jQuery(document).ready();
