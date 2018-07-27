@@ -16,7 +16,8 @@ if ( ! empty( $args->user ) ) {
 			</p>
 		</div>
 
-	<?php return;
+		<?php return;
+		
 	} ?>
 
 	<div id="task_breaker-single-task">
