@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $task_id = (int) filter_input( INPUT_POST, 'id', FILTER_VALIDATE_INT );
 $title = filter_input( INPUT_POST, 'title', FILTER_UNSAFE_RAW );
 $description = filter_input( INPUT_POST, 'description', FILTER_UNSAFE_RAW );
+$deadline = filter_input( INPUT_POST, 'deadline', FILTER_UNSAFE_RAW );
 $priority = filter_input( INPUT_POST, 'priority', FILTER_UNSAFE_RAW );
 $user_id = filter_input( INPUT_POST, 'user_id', FILTER_VALIDATE_INT );
 $project_id = filter_input( INPUT_POST, 'project_id', FILTER_VALIDATE_INT );
@@ -36,6 +37,7 @@ $args = array(
 	'title' => $title,
 	'id' => $task_id,
 	'description' => $description,
+	'deadline' => $deadline,
 	'priority' => $priority,
 	'user_id' => $user_id,
 	'project_id' => $project_id,
