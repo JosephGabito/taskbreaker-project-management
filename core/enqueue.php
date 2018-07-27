@@ -74,6 +74,29 @@ final class TaskBreakerEnqueue {
 				array( 'jquery', 'backbone' ),
 				$this->version, true
 			);
+			
+			// jQuery IU Date Picker.
+			wp_enqueue_script('jquery-ui-slider', array('jquery'));
+			wp_enqueue_script('jquery-ui-datepicker', array('jquery'));
+
+			wp_enqueue_style(
+				'jquery-ui-style',
+				TASK_BREAKER_ASSET_URL . 'css/jquery-ui.css',
+				false, 
+				'1.9.0'
+			);
+
+			// AddOn Time Picker
+			wp_enqueue_style( 'jquery-ui-timepicker-style', 
+				TASK_BREAKER_ASSET_URL . 'css/jquery-ui-timepicker-addon.min.css', 
+				array(), 
+				$this->version 
+			);
+			
+			wp_enqueue_script('jquery-ui-timepicker', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js', 
+				array('jquery', 'jquery-ui-datepicker'),
+				$this->version, true);
+			
 		}
 
 		// Project Archive JS.
