@@ -71,6 +71,7 @@ class TaskBreakerTasksController extends TaskBreakerTask {
 		$args = apply_filters( 'taskbreaker_controller_task_args', array(
 			'title' => '',
 			'description' => '',
+			'deadline' => '',
 			'milestone_id' => 0,
 			'project_id' => 0,
 			'user_id' => 0,
@@ -89,6 +90,7 @@ class TaskBreakerTasksController extends TaskBreakerTask {
 
 		$this->setTitle( $args['title'] )
 			 ->setDescription( $args['description'] )
+			 ->setDeadline( new \DateTime( $args['deadline'] ) )
 			 ->setMilestoneId( $args['milestone_id'] )
 			 ->setProjectId( $args['project_id'] )
 			 ->setUser( $args['user_id'] )
