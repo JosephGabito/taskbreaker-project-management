@@ -34,12 +34,45 @@
 					</li>
 					<li class="details">
 						<h3>
+							
 							<a href="#tasks/view/<?php echo intval( $task->id ); ?>">
 								<?php echo esc_html( stripslashes( $task->title ) ); ?>
 								 -
 								<span class="task-id"> #<?php echo intval( $task->id );?></span>
 							</a>
 						</h3>
+						<?php
+						$deadline = strtotime( $task->deadline );
+				
+						if ( $deadline > 0 ) 
+						{
+							$deadline_date = new DateTime( $task->deadline );
+							$task->deadline = $deadline_date->format( get_option('date_format') );
+							$task->deadline .= ' - ' . $deadline_date->format( get_option('time_format') );
+						} else {
+							$task->deadline = false;
+						}
+						?>
+						<span class="taskbreaker-deadline-icon"></span>
+						<span class="deadline-label">
+							<small>
+								<?php echo esc_html( $task->deadline ); ?>
+							</small>
+						</span>
+						<span class="deadline-human-time-diff">
+					 		<em>
+					 			<small>
+					 			<?php $task_deadline = strtotime( str_replace('-', '', $task->deadline ) ); ?>
+					 			<?php if ( current_time( 'timestamp' ) <= $task_deadline ) { ?>
+					 				<?php printf( _x( '%s left', '%s = human-readable time difference', 'task_breaker' ), human_time_diff( $task_deadline, current_time( 'timestamp' ) ) ); ?>
+					 			<?php } else { ?>
+					 				<strong>
+					 					<?php esc_html_e('Past Due', 'task_breaker'); ?>
+					 				</strong>
+					 			<?php } ?>
+					 			</small>
+					 		</em>
+					 	</span>
 					</li>
 					<li class="last-user-update">
 
