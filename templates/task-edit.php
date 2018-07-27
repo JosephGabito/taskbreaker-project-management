@@ -31,6 +31,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input placeholder="<?php esc_attr_e( 'Task Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskEditTitle" maxlength="160" name="title" class="widefat"/>
 		</div>
 
+		<!-- Task Deadline -->
+		<div class="task_breaker-form-field">
+			<input name="deadline" id="js-edit-taskbreaker-deadline-field" type="text" placeholder="<?php esc_attr_e('Deadline', 'task_breaker'); ?>" class="js-taskbreaker-task-deadline">
+		</div>
+
 		<!-- Task User Assigned -->
 		<div class="task_breaker-form-field">
 			<select multiple id="task-user-assigned-edit" class="task-breaker-select2"></select>
