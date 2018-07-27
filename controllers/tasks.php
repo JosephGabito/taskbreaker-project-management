@@ -149,9 +149,11 @@ class TaskBreakerTasksController extends TaskBreakerTask {
 
 		}
 
+
 		$this->setTitle( $args['title'] );
 		$this->setId( $id );
 		$this->setDescription( $args['description'] );
+		$this->setDeadline( new \DateTime( $args['deadline'] ) );
 		$this->setPriority( $args['priority'] );
 		$this->setUser( $args['user_id'] );
 		$this->setProjectId( $args['project_id'] );
