@@ -8,7 +8,7 @@
  */
 
 // @reference <https://codex.wordpress.org/Creating_Tables_with_Plugins>
-define( 'TASKBREAKER_DB_VERSION', '1.3.1231' );
+define( 'TASKBREAKER_DB_VERSION', '07.28.2018' );
 define( 'TASK_BREAKER_TASKS_TABLE', 'task_breaker_tasks' );
 define( 'TASK_BREAKER_TASKS_USER_ASSIGNMENT_TABLE', 'task_breaker_tasks_user_assignment' );
 define( 'TASK_BREAKER_COMMENTS_TABLE', 'task_breaker_comments' );
@@ -62,6 +62,7 @@ function task_breaker_tasks_setup_table() {
   		id int(10) NOT NULL AUTO_INCREMENT,
   		title varchar(255) NOT NULL,
   		description text NOT NULL,
+  		deadline datetime DEFAULT null,
   		user int(10) NOT NULL,
 		assign_users text NOT NULL,
   		milestone_id int(10) NOT NULL,
