@@ -700,6 +700,7 @@ $('#task_breaker-submit-btn').click(function(e) {
             method: 'task_breaker_transaction_add_ticket',
 
             description: taskDescription,
+            deadline: $('#js-taskbreaker-task-deadline').val(),
 
             title: $('#task_breakerTaskTitle').val(),
             milestone_id: $('#task_breakerTaskMilestone').val(),
@@ -1254,5 +1255,6 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
  });
 
+$( "#js-taskbreaker-task-deadline" ).datetimepicker();
 }); // end $(window).load();
 }); // end jQuery(document).ready();
