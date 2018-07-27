@@ -25,6 +25,7 @@ $('#task_breaker-edit-btn').click( function( e ) {
 
     var httpRequestParameters = {
         description: taskDescription,
+        deadline: $('#js-edit-taskbreaker-deadline-field').val(),
         nonce: task_breakerProjectSettings.nonce,
         project_id: task_breakerTaskConfig.currentProjectId,
         user_id: task_breakerTaskConfig.currentUserId,
