@@ -700,7 +700,7 @@ $('#task_breaker-submit-btn').click(function(e) {
             method: 'task_breaker_transaction_add_ticket',
 
             description: taskDescription,
-            deadline: $('#js-taskbreaker-task-deadline').val(),
+            deadline: $('#js-add-taskbreaker-deadline-field').val(),
 
             title: $('#task_breakerTaskTitle').val(),
             milestone_id: $('#task_breakerTaskMilestone').val(),
@@ -794,6 +794,7 @@ $('#task_breaker-edit-btn').click( function( e ) {
 
     var httpRequestParameters = {
         description: taskDescription,
+        deadline: $('#js-edit-taskbreaker-deadline-field').val(),
         nonce: task_breakerProjectSettings.nonce,
         project_id: task_breakerTaskConfig.currentProjectId,
         user_id: task_breakerTaskConfig.currentUserId,
@@ -1255,6 +1256,6 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
  });
 
-$( "#js-taskbreaker-task-deadline" ).datetimepicker();
+$( ".js-taskbreaker-task-deadline" ).datetimepicker();
 }); // end $(window).load();
 }); // end jQuery(document).ready();
