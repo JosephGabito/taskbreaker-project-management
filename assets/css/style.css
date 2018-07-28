@@ -1864,7 +1864,9 @@
     background-repeat: no-repeat;
     position: relative;
 }
-.taskbreaker-deadline-label {
+.single-project #task_breaker-project-tasks ul li.task_breaker-task-item:hover .taskbreaker-deadline-icon {
+	 background-position: 2px 3px;
 }
+
 /** End file Attachment */
 
