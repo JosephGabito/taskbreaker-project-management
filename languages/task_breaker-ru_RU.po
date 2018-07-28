@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TaskBreaker - Group Project Management\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-23 17:52+0800\n"
-"PO-Revision-Date: 2017-06-23 17:52+0800\n"
+"POT-Creation-Date: 2018-07-28 15:23+0800\n"
+"PO-Revision-Date: 2018-07-28 15:23+0800\n"
 "Last-Translator: Сергей Жигулев <sergori@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -12,11 +12,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && n"
 "%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.5\n"
 "X-Poedit-KeywordsList: __;gettext;gettext_noop;_e;__;_n;esc_attr_e;"
 "esc_attr__\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets/js/node_modules\n"
 
 #: core/file-attachments.php:75
 msgid "Authentication issues. Terminating..."
@@ -88,16 +89,16 @@ msgstr "Дата"
 msgid "N/A"
 msgstr "н/д"
 
-#: core/template-tags.php:196 templates/task-loop.php:117
+#: core/template-tags.php:196 templates/task-loop.php:154
 #, php-format
 msgid "%s task"
 msgstr ""
 
-#: core/template-tags.php:200 templates/task-loop.php:124
+#: core/template-tags.php:200 templates/task-loop.php:161
 msgid "Go to the first page"
 msgstr "На первую страницу"
 
-#: core/template-tags.php:201 templates/task-loop.php:125
+#: core/template-tags.php:201 templates/task-loop.php:162
 msgid "Go to the previous page"
 msgstr "На предыдущую страницу"
 
@@ -109,7 +110,7 @@ msgstr ""
 msgid "Go to the next page"
 msgstr "Следующая страница"
 
-#: core/template-tags.php:208 templates/task-loop.php:142
+#: core/template-tags.php:208 templates/task-loop.php:179
 msgid "Go to the last page"
 msgstr "Последняя страница"
 
@@ -146,15 +147,15 @@ msgstr "%s Проекты"
 msgid "New Project"
 msgstr "Новый проект"
 
-#: includes/project-notifications.php:85
+#: includes/project-notifications.php:93
 msgid " assigned a new task for you &mdash; "
 msgstr ""
 
-#: includes/project-notifications.php:92
+#: includes/project-notifications.php:100
 msgid " You have a new task waiting for you under "
 msgstr " [{{{site.name}}}] для вас есть новые задачи "
 
-#: includes/project-notifications.php:94
+#: includes/project-notifications.php:102
 msgid " project"
 msgstr " Проект"
 
@@ -202,48 +203,48 @@ msgstr "В корзине нет проектов."
 msgid "Projects Directory"
 msgstr "Список проектов"
 
-#: models/comments.php:215
+#: models/comments.php:226
 msgid "posted a new update in"
 msgstr ""
 
-#: models/comments.php:216
+#: models/comments.php:227
 msgid "completed"
 msgstr "выполнено"
 
-#: models/comments.php:217
+#: models/comments.php:228
 msgid "reopened"
 msgstr "переоткрыта"
 
-#: models/comments.php:220
+#: models/comments.php:231
 msgid "Updated"
 msgstr "Обновлено"
 
-#: models/comments.php:220 models/tasks.php:879 templates/task-filter.php:48
-#: templates/task-meta.php:15 templates/task-single.php:160
-#: templates/task-single.php:177
+#: models/comments.php:231 models/tasks.php:918 templates/task-filter.php:48
+#: templates/task-meta.php:15 templates/task-single.php:185
+#: templates/task-single.php:202
 msgid "Completed"
 msgstr "Выполнено"
 
-#: models/comments.php:220
+#: models/comments.php:231
 msgid "Reopened"
 msgstr "Переоткрыта"
 
-#: models/comments.php:247
+#: models/comments.php:258
 #, php-format
 msgid "%1$s %2$s the task %3$s %4$s"
 msgstr ""
 
-#: models/tasks.php:652
+#: models/tasks.php:689
 #, php-format
 msgid "%1$s added new task under %2$s"
 msgstr "%1$s добавил(а) новую задачу в проекте %2$s"
 
-#: models/tasks.php:861
+#: models/tasks.php:900
 #, php-format
 msgid "%s Completed"
 msgstr "%s Выполнено"
 
-#: models/tasks.php:875
+#: models/tasks.php:914
 msgid "Open"
 msgstr "Открыто"
 
@@ -305,17 +306,17 @@ msgstr "Страница:"
 msgid "Go to page %d &raquo;"
 msgstr "Перейти на %d страницу &raquo;"
 
-#: templates/project-single.php:78
+#: templates/project-single.php:85
 msgid ""
 "This project can only be accessed by group members. Use the button below "
 "join the group and receive an access to this project."
 msgstr ""
 
-#: templates/project-single.php:89 templates/project-single.php:90
+#: templates/project-single.php:96 templates/project-single.php:97
 msgid "Join Group"
 msgstr "Посетить группы"
 
-#: templates/project-single.php:97
+#: templates/project-single.php:104
 #, fuzzy
 #| msgid ""
 #| "Notice: TaskBreaker requires BuddyPress Groups Component to be enabled."
@@ -342,20 +343,26 @@ msgstr "Задач осталось"
 msgid "Task(s) Completed"
 msgstr "Задач выполнено"
 
-#: templates/task-add.php:31 templates/task-edit.php:31
-msgid "Task Summary"
+#: templates/task-add.php:31
+#, fuzzy
+#| msgid "Task Summary"
+msgid "Summary"
 msgstr "Заголовок задачи"
 
-#: templates/task-add.php:60 templates/task-edit.php:56
+#: templates/task-add.php:37 templates/task-edit.php:37
+msgid "Deadline"
+msgstr ""
+
+#: templates/task-add.php:65 templates/task-edit.php:62
 msgid "Priority:"
 msgstr "Приоритет:"
 
-#: templates/task-add.php:77 templates/task-edit.php:75
+#: templates/task-add.php:82 templates/task-edit.php:81
 #, php-format
 msgid "(maximum file size: %d MB)"
 msgstr "(макс. размер: %d Мбайт)"
 
-#: templates/task-add.php:109
+#: templates/task-add.php:114
 #, fuzzy
 #| msgid "Update Task"
 msgid "Save Task"
@@ -386,15 +393,19 @@ msgstr ""
 msgid "Remove Comment"
 msgstr "Удалить комментарий"
 
-#: templates/task-edit.php:112
+#: templates/task-edit.php:32
+msgid "Task Summary"
+msgstr "Заголовок задачи"
+
+#: templates/task-edit.php:118
 msgid "Delete"
 msgstr "Удалить"
 
-#: templates/task-edit.php:116 templates/task-single.php:223
+#: templates/task-edit.php:122 templates/task-single.php:248
 msgid "Update Task"
 msgstr "Обновить задачу"
 
-#: templates/task-edit.php:124
+#: templates/task-edit.php:130
 msgid "Go back to tasks."
 msgstr "Вернуться в задачи."
 
@@ -431,15 +442,15 @@ msgstr "Найти задачу"
 msgid "Apply"
 msgstr ""
 
-#: templates/task-loop.php:134
+#: templates/task-loop.php:171
 msgid "of"
 msgstr ""
 
-#: templates/task-loop.php:141
+#: templates/task-loop.php:178
 msgid "Go to the next page!!!"
 msgstr "Следующая страница!"
 
-#: templates/task-loop.php:154
+#: templates/task-loop.php:191
 #, fuzzy
 #| msgid "A member of a project updated a task."
 msgid "Only members of this group can see tasks."
@@ -457,63 +468,63 @@ msgid ""
 "Unable to access the task details. Only group members can access this page."
 msgstr ""
 
-#: templates/task-single.php:28
+#: templates/task-single.php:29
 msgid "Normal"
 msgstr "Средний"
 
-#: templates/task-single.php:29
+#: templates/task-single.php:30
 msgid "High"
 msgstr "Высокий"
 
-#: templates/task-single.php:30
+#: templates/task-single.php:31
 msgid "Critical"
 msgstr "Критичный"
 
-#: templates/task-single.php:68
+#: templates/task-single.php:93
 msgid "This task is assigned to:"
 msgstr "Исполнитель:"
 
-#: templates/task-single.php:92
+#: templates/task-single.php:117
 msgid "Download File"
 msgstr ""
 
-#: templates/task-single.php:103
+#: templates/task-single.php:128
 msgid "Tasks List"
 msgstr "Список задач"
 
-#: templates/task-single.php:104
+#: templates/task-single.php:129
 msgid "&larr; Tasks List"
 msgstr "&larr; Список задач"
 
-#: templates/task-single.php:109
+#: templates/task-single.php:134
 msgid "Edit"
 msgstr "Редактировать"
 
-#: templates/task-single.php:124
+#: templates/task-single.php:149
 msgid "Discussion"
 msgstr "Обсуждение задачи"
 
-#: templates/task-single.php:153 templates/task-single.php:193
+#: templates/task-single.php:178 templates/task-single.php:218
 msgid "In Progress"
 msgstr "Выполняется"
 
-#: templates/task-single.php:167 templates/task-single.php:183
+#: templates/task-single.php:192 templates/task-single.php:208
 msgid "Reopen Task"
 msgstr "Открыть заново"
 
-#: templates/task-single.php:199
+#: templates/task-single.php:224
 msgid "Complete"
 msgstr ""
 
-#: templates/task-single.php:208
+#: templates/task-single.php:233
 msgid "Explain what this update is all about"
 msgstr "Ваши замечания, предложения и т.д. по задаче"
 
-#: templates/task-single.php:213
+#: templates/task-single.php:238
 msgid "Update Priority:"
 msgstr "Обновить приоритет:"
 
-#: templates/task-single.php:231
+#: templates/task-single.php:256
 msgid ""
 "Only assigned members of this task or members with the right privilege are "
 "able to add progress to this task."
