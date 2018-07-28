@@ -25,6 +25,7 @@ $('#task_breaker-edit-btn').click( function( e ) {
 
     var httpRequestParameters = {
         description: taskDescription,
+        deadline: $('#js-edit-taskbreaker-deadline-field').val(),
         nonce: task_breakerProjectSettings.nonce,
         project_id: task_breakerTaskConfig.currentProjectId,
         user_id: task_breakerTaskConfig.currentUserId,
@@ -44,9 +45,7 @@ $('#task_breaker-edit-btn').click( function( e ) {
 
         url: ajaxurl,
         data: httpRequestParameters,
-
         method: 'post',
-
         success: function( response ) {
 
             var message = "<p class='task-breaker-message success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";

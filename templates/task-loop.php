@@ -34,12 +34,48 @@
 					</li>
 					<li class="details">
 						<h3>
+							
 							<a href="#tasks/view/<?php echo intval( $task->id ); ?>">
 								<?php echo esc_html( stripslashes( $task->title ) ); ?>
 								 -
 								<span class="task-id"> #<?php echo intval( $task->id );?></span>
 							</a>
 						</h3>
+						<?php
+						
+						$deadline = strtotime( $task->deadline );
+				
+						if ( $deadline > 0 ) 
+						{
+							$deadline_date = new DateTime( $task->deadline );
+							$task->deadline = $deadline_date->format( get_option('date_format') );
+							$task->deadline .= ' - ' . $deadline_date->format( get_option('time_format') );
+							?>
+							<span class="taskbreaker-deadline-icon"></span>
+							<span class="deadline-label">
+								<small>
+									<?php echo esc_html( $task->deadline ); ?>
+								</small>
+							</span>
+							<span class="deadline-human-time-diff">
+						 		<em>
+						 			<small>
+						 			<?php $task_deadline = strtotime( str_replace('-', '', $task->deadline ) ); ?>
+						 			<?php if ( current_time( 'timestamp' ) <= $task_deadline ) { ?>
+						 				<?php printf( _x( '%s left', '%s = human-readable time difference', 'task_breaker' ), human_time_diff( $task_deadline, current_time( 'timestamp' ) ) ); ?>
+						 			<?php } else { ?>
+						 				<strong>
+						 					<?php esc_html_e('Past Due', 'task_breaker'); ?>
+						 				</strong>
+						 			<?php } ?>
+						 			</small>
+						 		</em>
+						 	</span>
+							<?php
+						}
+						?>
+
+						
 					</li>
 					<li class="last-user-update">
 
@@ -48,10 +84,11 @@
 							<?php $user = get_userdata( $task->user ); ?>
 
 							<div class="task-members">
-								<?php
-									$assign_users = $core->parse_assigned_users( $task->assign_users );
-								?>
-								<?php $assigned_users_count = count( $assign_users ); ?>
+								<?php $assign_users = $core->parse_assigned_users( $task->assign_users ); ?>
+								<?php $assigned_users_count = 0; ?>
+								<?php if ( is_array( $assign_users ) || $assign_users instanceof Countable ){ ?>
+									<?php $assigned_users_count = count( $assign_users ); ?>
+								<?php } ?>
 								<?php $assigned_users_limit = 4; ?>
 
 								<ul class="task-members-items">

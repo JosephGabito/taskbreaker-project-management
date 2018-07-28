@@ -182,6 +182,9 @@ var __ThriveProjectView = Backbone.View.extend({
 
                 $('#task_breakerTaskEditTitle').val(task.title).removeAttr("disabled");
 
+                // Deadline.
+                $('#js-edit-taskbreaker-deadline-field').val(task.deadline.replace('-', ''));
+                
                 if ( taskEditor )
                 {
                     taskEditor.setContent( task.description );

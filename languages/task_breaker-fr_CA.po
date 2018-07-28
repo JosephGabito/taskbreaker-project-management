@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TaskBreaker - Group Project Management\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-23 17:52+0800\n"
-"PO-Revision-Date: 2017-06-23 17:52+0800\n"
+"POT-Creation-Date: 2018-07-28 15:21+0800\n"
+"PO-Revision-Date: 2018-07-28 15:21+0800\n"
 "Last-Translator: Justine Mathieu <justine.mathieu@therriencout2ure.com>\n"
 "Language-Team: French (Canada)\n"
 "Language: fr_CA\n"
@@ -11,11 +11,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.5\n"
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr_e;_n;_x;_ex;_nx;"
 "esc_attr__;esc_attr_x;esc_html_x;_n_noop\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets/js/node_modules\n"
 
 #: core/file-attachments.php:75
 msgid "Authentication issues. Terminating..."
@@ -49,6 +50,26 @@ msgstr "Impossible de gérer le téléchargement de fichiers."
 #: includes/project-post-type.php:52 widgets/widgets.php:123
 msgid "Projects"
 msgstr "Projets"
+
+#: core/functions.php:428
+#, php-format
+msgid ""
+"There are a of total %s project(s) found in the %s group(s) that you have "
+"joined."
+msgstr ""
+
+#: core/functions.php:503
+#, php-format
+msgid ""
+"There are a total of %s projects found in the %s group(s) of which %s is a "
+"member."
+msgstr ""
+
+#: core/functions.php:555
+#, fuzzy, php-format
+#| msgid "There are no Group Projects found at this time."
+msgid "There are a of total %s projects found in this group."
+msgstr "Il n'y a pas de projet de groupe trouvé en ce moment."
 
 #: core/template-tags.php:120
 #, php-format
@@ -91,20 +112,20 @@ msgstr "Date"
 msgid "N/A"
 msgstr "N/A"
 
-#: core/template-tags.php:196 templates/task-loop.php:117
+#: core/template-tags.php:196 templates/task-loop.php:154
 #, php-format
 msgid "%s task"
 msgstr "%s tâche"
 
-#: core/template-tags.php:200 templates/task-loop.php:124
+#: core/template-tags.php:200 templates/task-loop.php:161
 msgid "Go to the first page"
 msgstr "Aller à la première page"
 
-#: core/template-tags.php:201 templates/task-loop.php:125
+#: core/template-tags.php:201 templates/task-loop.php:162
 msgid "Go to the previous page"
 msgstr "Aller à la page précédente"
 
-#: core/template-tags.php:203 templates/task-loop.php:129
+#: core/template-tags.php:203 templates/task-loop.php:166
 msgid "Select Page"
 msgstr "Sélectionnez la page"
 
@@ -112,7 +133,7 @@ msgstr "Sélectionnez la page"
 msgid "Go to the next page"
 msgstr "Aller à la page suivante"
 
-#: core/template-tags.php:208 templates/task-loop.php:142
+#: core/template-tags.php:208 templates/task-loop.php:179
 msgid "Go to the last page"
 msgstr "Aller à la dernière page"
 
@@ -158,7 +179,7 @@ msgstr "Rechercher des projets ..."
 msgid "%s Projects"
 msgstr "%s Projets"
 
-#: includes/project-notifications.php:73
+#: includes/project-notifications.php:80
 msgid ""
 "You were assigned a new task, but it was deleted. You can ignore this "
 "notification."
@@ -166,15 +187,15 @@ msgstr ""
 "On vous a assigné une nouvelle tâche, mais elle a été supprimée. Vous pouvez "
 "ignorer cette notification."
 
-#: includes/project-notifications.php:85
+#: includes/project-notifications.php:93
 msgid " assigned a new task for you &mdash; "
 msgstr " Vous a assigné une nouvelle tâche &mdash; "
 
-#: includes/project-notifications.php:92
+#: includes/project-notifications.php:100
 msgid " You have a new task waiting for you under "
 msgstr " [{{{nom.site}}}] Il y a une nouvelle tâche qui vous attend "
 
-#: includes/project-notifications.php:94
+#: includes/project-notifications.php:102
 msgid " project"
 msgstr " projet"
 
@@ -182,7 +203,7 @@ msgstr " projet"
 msgid "Project"
 msgstr "Projet"
 
-#: includes/project-post-type.php:54 templates/project-single.php:47
+#: includes/project-post-type.php:54 templates/project-single.php:54
 msgid "Add New"
 msgstr "Ajouter nouveau"
 
@@ -230,48 +251,48 @@ msgstr "Tous les projets"
 msgid "Projects Directory"
 msgstr "Répertoire des projets"
 
-#: models/comments.php:215
+#: models/comments.php:226
 msgid "posted a new update in"
 msgstr "a publié une nouvelle mise à jour"
 
-#: models/comments.php:216
+#: models/comments.php:227
 msgid "completed"
 msgstr "terminé"
 
-#: models/comments.php:217
+#: models/comments.php:228
 msgid "reopened"
 msgstr "rouvert"
 
-#: models/comments.php:220
+#: models/comments.php:231
 msgid "Updated"
 msgstr "Actualisé"
 
-#: models/comments.php:220 models/tasks.php:879 templates/task-filter.php:48
-#: templates/task-meta.php:15 templates/task-single.php:42
-#: templates/task-single.php:160 templates/task-single.php:177
+#: models/comments.php:231 models/tasks.php:918 templates/task-filter.php:48
+#: templates/task-meta.php:15 templates/task-single.php:43
+#: templates/task-single.php:185 templates/task-single.php:202
 msgid "Completed"
 msgstr "Terminé"
 
-#: models/comments.php:220
+#: models/comments.php:231
 msgid "Reopened"
 msgstr "Réouverture"
 
-#: models/comments.php:247
+#: models/comments.php:258
 #, php-format
 msgid "%1$s %2$s the task %3$s %4$s"
 msgstr "%1$s %2$s la tâche %3$s %4$s"
 
-#: models/tasks.php:652
+#: models/tasks.php:689
 #, php-format
 msgid "%1$s added new task under %2$s"
 msgstr "%1$s ajoutée nouvelle tâche sous %2$s"
 
-#: models/tasks.php:861
+#: models/tasks.php:900
 #, php-format
 msgid "%s Completed"
 msgstr "%s Completed"
 
-#: models/tasks.php:875 templates/task-single.php:46
+#: models/tasks.php:914 templates/task-single.php:47
 msgid "Open"
 msgstr "Ouvrir"
 
@@ -414,7 +435,7 @@ msgstr "Expliquez de quoi s'agit ce projet"
 msgid "Update Project"
 msgstr "Projet de mise à jour"
 
-#: templates/project-settings.php:99 templates/task-edit.php:112
+#: templates/project-settings.php:99 templates/task-edit.php:118
 msgid "Delete"
 msgstr "Effacer"
 
@@ -426,24 +447,28 @@ msgstr ""
 "Vous n'êtes pas autorisé à supprimer cette tâche. Seuls les administrateurs "
 "de groupe ou les modérateurs de groupe sont autorisés."
 
-#: templates/project-single.php:37
+#: templates/project-single.php:19
+msgid "Please install and activate BuddyPress to use this feature."
+msgstr ""
+
+#: templates/project-single.php:44
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: templates/project-single.php:42 templates/task-filter.php:37
+#: templates/project-single.php:49 templates/task-filter.php:37
 #: templates/task-filter.php:39 templates/task-filter.php:46
 msgid "Tasks"
 msgstr "Tâches"
 
-#: templates/project-single.php:52 templates/task-single.php:109
+#: templates/project-single.php:59 templates/task-single.php:134
 msgid "Edit"
 msgstr "Modifier"
 
-#: templates/project-single.php:58
+#: templates/project-single.php:65
 msgid "Settings"
 msgstr "Paramètres"
 
-#: templates/project-single.php:78
+#: templates/project-single.php:85
 msgid ""
 "This project can only be accessed by group members. Use the button below "
 "join the group and receive an access to this project."
@@ -451,11 +476,11 @@ msgstr ""
 "Ce projet ne peut être consulté que par les membres du groupe. Utilisez le "
 "bouton ci-dessous pour rejoindre le groupe et recevoir un accès à ce projet."
 
-#: templates/project-single.php:89 templates/project-single.php:90
+#: templates/project-single.php:96 templates/project-single.php:97
 msgid "Join Group"
 msgstr "Visiter des groupes"
 
-#: templates/project-single.php:97
+#: templates/project-single.php:104
 msgid "Please enable BuddyPress Groups Components."
 msgstr ""
 "Remarque: TaskBreaker requiert que le composant BuddyPress Groups soit "
@@ -481,36 +506,42 @@ msgstr "Tâche (s) restante"
 msgid "Task(s) Completed"
 msgstr "Tâche(s) terminée(s)"
 
-#: templates/task-add.php:31 templates/task-edit.php:31
-msgid "Task Summary"
+#: templates/task-add.php:31
+#, fuzzy
+#| msgid "Task Summary"
+msgid "Summary"
 msgstr "Sommaire de la tâche"
 
-#: templates/task-add.php:60 templates/task-edit.php:56
+#: templates/task-add.php:37 templates/task-edit.php:37
+msgid "Deadline"
+msgstr ""
+
+#: templates/task-add.php:65 templates/task-edit.php:62
 msgid "Priority:"
 msgstr "Priorité:"
 
-#: templates/task-add.php:73
+#: templates/task-add.php:78
 msgid "No File Selected"
 msgstr "Aucun fichier sélectionné"
 
-#: templates/task-add.php:76
+#: templates/task-add.php:81
 msgid "Click to attach a file"
 msgstr "Cliquez pour joindre un fichier"
 
-#: templates/task-add.php:77 templates/task-edit.php:75
+#: templates/task-add.php:82 templates/task-edit.php:81
 #, php-format
 msgid "(maximum file size: %d MB)"
 msgstr "(Taille maximale du fichier: %d MB)"
 
-#: templates/task-add.php:82 templates/task-edit.php:81
+#: templates/task-add.php:87 templates/task-edit.php:87
 msgid "Uploading"
 msgstr "Téléchargement"
 
-#: templates/task-add.php:84 templates/task-edit.php:83
+#: templates/task-add.php:89 templates/task-edit.php:89
 msgid ". File attached successfully."
 msgstr ". Fichier attaché avec succès."
 
-#: templates/task-add.php:87 templates/task-edit.php:86
+#: templates/task-add.php:92 templates/task-edit.php:92
 msgid ""
 ". Upload successfully initiated, but the server was unable to process it. "
 "See message below."
@@ -518,18 +549,18 @@ msgstr ""
 ". Le téléchargement a été lancé avec succès, mais le serveur n'a pas pu le "
 "traiter. Voir le message ci-dessous."
 
-#: templates/task-add.php:101 templates/task-edit.php:102
+#: templates/task-add.php:106 templates/task-edit.php:108
 msgid ""
 "File attachment is disabled for this browser. Please update to latest version"
 msgstr ""
 "La connexion de fichier est désactivée pour ce navigateur. Veuillez mettre à "
 "jour la dernière version"
 
-#: templates/task-add.php:109
+#: templates/task-add.php:114
 msgid "Save Task"
 msgstr "Tâche de mise à jour"
 
-#: templates/task-add.php:115
+#: templates/task-add.php:120
 msgid ""
 "Ops! Only group administrator or group moderators can add tasks to this "
 "group project."
@@ -563,24 +594,28 @@ msgstr "Supprimer le commentaire"
 msgid "Remove Comment"
 msgstr "Supprimer le commentaire"
 
-#: templates/task-edit.php:71
+#: templates/task-edit.php:32
+msgid "Task Summary"
+msgstr "Sommaire de la tâche"
+
+#: templates/task-edit.php:77
 msgid "Loading Attached Files..."
 msgstr "Chargement des fichiers joints ..."
 
-#: templates/task-edit.php:74
+#: templates/task-edit.php:80
 msgid "Click to update file attachment"
 msgstr "Cliquez pour mettre à jour la pièce jointe du fichier"
 
-#: templates/task-edit.php:116 templates/task-single.php:223
+#: templates/task-edit.php:122 templates/task-single.php:248
 msgid "Update Task"
 msgstr "Tâche de mise à jour"
 
-#: templates/task-edit.php:124
+#: templates/task-edit.php:130
 #, php-format
 msgid "Ops! Looks like you are lost. %s"
 msgstr "Ops! On dirait que vous êtes perdu. %s"
 
-#: templates/task-edit.php:124
+#: templates/task-edit.php:130
 msgid "Go back to tasks."
 msgstr "Revenez aux tâches."
 
@@ -620,19 +655,28 @@ msgstr "Tâche de recherche"
 msgid "Apply"
 msgstr "Appliquer"
 
-#: templates/task-loop.php:88
+#: templates/task-loop.php:65 templates/task-single.php:69
+#, php-format
+msgid "%s left"
+msgstr ""
+
+#: templates/task-loop.php:68
+msgid "Past Due"
+msgstr ""
+
+#: templates/task-loop.php:125
 msgid "No tasks found. Try different keywords and filters."
 msgstr "Aucune tâche n'a été trouvée. Essayez différents mots clés et filtres."
 
-#: templates/task-loop.php:134
+#: templates/task-loop.php:171
 msgid "of"
 msgstr "de"
 
-#: templates/task-loop.php:141
+#: templates/task-loop.php:178
 msgid "Go to the next page!!!"
 msgstr "Aller à la page suivante!!!"
 
-#: templates/task-loop.php:154
+#: templates/task-loop.php:191
 msgid "Only members of this group can see tasks."
 msgstr "Un membre d'un projet a mis à jour une tâche."
 
@@ -648,59 +692,67 @@ msgstr ""
 "Impossible d'accéder aux détails de la tâche. Seuls les membres du groupe "
 "peuvent accéder à cette page."
 
-#: templates/task-single.php:28
+#: templates/task-single.php:29
 msgid "Normal"
 msgstr "Normal"
 
-#: templates/task-single.php:29
+#: templates/task-single.php:30
 msgid "High"
 msgstr "Élevé"
 
-#: templates/task-single.php:30
+#: templates/task-single.php:31
 msgid "Critical"
 msgstr "Critique"
 
-#: templates/task-single.php:68
+#: templates/task-single.php:61
+msgid "Deadline: "
+msgstr ""
+
+#: templates/task-single.php:72
+msgid "This task has already reached its deadline"
+msgstr ""
+
+#: templates/task-single.php:93
 msgid "This task is assigned to:"
 msgstr "Cette tâche est assignée à:"
 
-#: templates/task-single.php:92
+#: templates/task-single.php:117
 msgid "Download File"
 msgstr "Télécharger un fichier"
 
-#: templates/task-single.php:103
+#: templates/task-single.php:128
 msgid "Tasks List"
 msgstr "Liste des tâches"
 
-#: templates/task-single.php:104
+#: templates/task-single.php:129
 msgid "&larr; Tasks List"
 msgstr "&larr;  Liste des tâches"
 
-#: templates/task-single.php:124
+#: templates/task-single.php:149
 msgid "Discussion"
 msgstr "Discussion"
 
-#: templates/task-single.php:153 templates/task-single.php:193
+#: templates/task-single.php:178 templates/task-single.php:218
 msgid "In Progress"
 msgstr "En cours"
 
-#: templates/task-single.php:167 templates/task-single.php:183
+#: templates/task-single.php:192 templates/task-single.php:208
 msgid "Reopen Task"
 msgstr "Réouvrir la tâche"
 
-#: templates/task-single.php:199
+#: templates/task-single.php:224
 msgid "Complete"
 msgstr "Achevée"
 
-#: templates/task-single.php:208
+#: templates/task-single.php:233
 msgid "Explain what this update is all about"
 msgstr "Expliquez ce que cette mise à jour concerne"
 
-#: templates/task-single.php:213
+#: templates/task-single.php:238
 msgid "Update Priority:"
 msgstr "Priorité de mise à jour:"
 
-#: templates/task-single.php:231
+#: templates/task-single.php:256
 msgid ""
 "Only assigned members of this task or members with the right privilege are "
 "able to add progress to this task."

@@ -28,6 +28,7 @@ $('#task_breaker-submit-btn').click(function(e) {
             method: 'task_breaker_transaction_add_ticket',
 
             description: taskDescription,
+            deadline: $('#js-add-taskbreaker-deadline-field').val(),
 
             title: $('#task_breakerTaskTitle').val(),
             milestone_id: $('#task_breakerTaskMilestone').val(),

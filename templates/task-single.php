@@ -16,7 +16,8 @@ if ( ! empty( $args->user ) ) {
 			</p>
 		</div>
 
-	<?php return;
+		<?php return;
+		
 	} ?>
 
 	<div id="task_breaker-single-task">
@@ -47,12 +48,36 @@ if ( ! empty( $args->user ) ) {
 				</div>
 			<?php } ?>
 
-			<?php
-			// Task Title.
-			?>
+			<!-- Task Title. -->
 			<h2>
 				<?php echo esc_html( $args->title ); ?>
 			</h2>
+			<!-- Task Title End. -->
+			
+			<!-- Task Deadline. -->
+			<?php if ( $args->deadline ) { ?>
+				<h5 id="single-task-deadline">
+					<span class="deadline-label">
+						<?php esc_html_e('Deadline: ', 'task_breaker') ?>
+						<?php echo esc_html( $args->deadline ); ?>
+					</span>
+					<span class="deadline-human-time-diff">
+						<br/>
+				 		<em>
+				 			<?php $task_deadline = strtotime( str_replace('-', '', $args->deadline ) ); ?>
+				 			<?php if ( current_time( 'timestamp' ) <= $task_deadline ) { ?>
+				 				<?php printf( _x( '%s left', '%s = human-readable time difference', 'task_breaker' ), human_time_diff( $task_deadline, current_time( 'timestamp' ) ) ); ?>
+				 			<?php } else { ?>
+				 				<strong>
+				 					<?php esc_html_e('This task has already reached its deadline', 'task_breaker'); ?>
+				 				</strong>
+				 			<?php } ?>
+				 		</em>
+				 	</span>
+				</h5>
+			<?php } ?>
+			<!-- Task Deadline End. -->
+
 			<span class="clearfix"></span>
 
 			<?php

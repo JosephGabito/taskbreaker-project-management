@@ -39,6 +39,13 @@ class TaskBreakerTask {
 	var $description = '';
 
 	/**
+	 * The deadline of the task.
+	 * 
+	 * @var string
+	 */
+	var $deadline = '';
+
+	/**
 	 * The user id
 	*
 	 * @var integer
@@ -140,6 +147,13 @@ class TaskBreakerTask {
 	public function setDescription( $description = '' ) {
 
 		$this->description = $description;
+
+		return $this;
+	}
+
+	public function setDeadline ( \DateTime $date ) {
+
+		$this->deadline = $date->format('Y-m-d H:i:s');
 
 		return $this;
 	}
@@ -300,6 +314,7 @@ class TaskBreakerTask {
 	}
 
 	public function fetch( $args = array() ) {
+
 
 		// fetch all tickets if there is no id specified
 		$dbase = TaskBreaker::wpdb();
@@ -479,9 +494,11 @@ class TaskBreakerTask {
 			}
 		}
 
+
+		// Fetch single task.
 		if ( $id !== 0 ) {
 
-			$stmt = sprintf( "SELECT * FROM {$this->model} WHERE id = {$id} order by priority desc, date_added desc" );
+			$stmt = sprintf( "SELECT * FROM {$this->model} WHERE id = {$id} order by priority desc, deadline desc" );
 
 			$result = $dbase->get_row( $stmt );
 
@@ -494,6 +511,19 @@ class TaskBreakerTask {
 
 				// Sanitize the description to prevent XSS.
 				$result->description = wp_kses( $result->description, $allowed_html );
+
+				// Convert deadline into readable format.
+				
+				$deadline = strtotime( $result->deadline );
+				
+				if ( $deadline > 0 ) 
+				{
+					$deadline_date = new DateTime( $result->deadline );
+					$result->deadline = $deadline_date->format( get_option('date_format') );
+					$result->deadline .= ' - ' . $deadline_date->format( get_option('time_format') );
+				} else {
+					$result->deadline = false;
+				}
 
 				// Let's assign custom meta for assigned users so that we can fetch the result easier later on.
 				$members_stack = array();
@@ -564,6 +594,7 @@ class TaskBreakerTask {
 		$args = array(
 			'title' => $this->title,
 			'description' => $this->description,
+			'deadline' => $this->deadline,
 			'user' => $this->user_id,
 			'milestone_id' => $this->milestone_id,
 			'project_id' => $this->project_id,
@@ -571,6 +602,7 @@ class TaskBreakerTask {
 			'date_added' => $this->date,
 			'assign_users' => $this->group_members_assigned,
 		);
+
 
 		$trimmed_title = trim( $this->title );
 
@@ -591,6 +623,7 @@ class TaskBreakerTask {
 		$format = array(
 			'%s', // Title.
 			'%s', // Description.
+			'%s', // Deadline.
 			'%d', // User.
 			'%d', // Milestone Id.
 			'%d', // Project Id.

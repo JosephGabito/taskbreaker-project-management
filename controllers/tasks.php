@@ -71,6 +71,7 @@ class TaskBreakerTasksController extends TaskBreakerTask {
 		$args = apply_filters( 'taskbreaker_controller_task_args', array(
 			'title' => '',
 			'description' => '',
+			'deadline' => '',
 			'milestone_id' => 0,
 			'project_id' => 0,
 			'user_id' => 0,
@@ -87,8 +88,13 @@ class TaskBreakerTasksController extends TaskBreakerTask {
 			}
 		}
 
+		if ( empty( $args['deadline'] ) ) {
+			$args['deadline'] = "0000-00-00 00:00:00";
+		}
+
 		$this->setTitle( $args['title'] )
 			 ->setDescription( $args['description'] )
+			 ->setDeadline( new \DateTime( $args['deadline'] ) )
 			 ->setMilestoneId( $args['milestone_id'] )
 			 ->setProjectId( $args['project_id'] )
 			 ->setUser( $args['user_id'] )
@@ -147,9 +153,14 @@ class TaskBreakerTasksController extends TaskBreakerTask {
 
 		}
 
+		if ( empty( $args['deadline'] ) ) {
+			$args['deadline'] = "0000-00-00 00:00:00";
+		}
+		
 		$this->setTitle( $args['title'] );
 		$this->setId( $id );
 		$this->setDescription( $args['description'] );
+		$this->setDeadline( new \DateTime( $args['deadline'] ) );
 		$this->setPriority( $args['priority'] );
 		$this->setUser( $args['user_id'] );
 		$this->setProjectId( $args['project_id'] );

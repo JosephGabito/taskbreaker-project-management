@@ -361,6 +361,9 @@ var __ThriveProjectView = Backbone.View.extend({
 
                 $('#task_breakerTaskEditTitle').val(task.title).removeAttr("disabled");
 
+                // Deadline.
+                $('#js-edit-taskbreaker-deadline-field').val(task.deadline.replace('-', ''));
+                
                 if ( taskEditor )
                 {
                     taskEditor.setContent( task.description );
@@ -624,6 +627,8 @@ var __ThriveProjectRoute = Backbone.Router.extend({
 
         $('#task_breaker-project-add-new').css('display', 'block');
         $('#task-user-assigned').val("");
+        $('#js-edit-taskbreaker-deadline-field').val("");
+        
         this.view.autoSuggestMembers( $("#task-user-assigned"), true, null );
 
         if ( tinymce.editors.task_breakerTaskDescription ) {
@@ -700,6 +705,7 @@ $('#task_breaker-submit-btn').click(function(e) {
             method: 'task_breaker_transaction_add_ticket',
 
             description: taskDescription,
+            deadline: $('#js-add-taskbreaker-deadline-field').val(),
 
             title: $('#task_breakerTaskTitle').val(),
             milestone_id: $('#task_breakerTaskMilestone').val(),
@@ -793,6 +799,7 @@ $('#task_breaker-edit-btn').click( function( e ) {
 
     var httpRequestParameters = {
         description: taskDescription,
+        deadline: $('#js-edit-taskbreaker-deadline-field').val(),
         nonce: task_breakerProjectSettings.nonce,
         project_id: task_breakerTaskConfig.currentProjectId,
         user_id: task_breakerTaskConfig.currentUserId,
@@ -812,9 +819,7 @@ $('#task_breaker-edit-btn').click( function( e ) {
 
         url: ajaxurl,
         data: httpRequestParameters,
-
         method: 'post',
-
         success: function( response ) {
 
             var message = "<p class='task-breaker-message success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
@@ -1254,5 +1259,8 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
  });
 
+$( ".js-taskbreaker-task-deadline" ).datetimepicker({
+	minDate: -20
+});
 }); // end $(window).load();
 }); // end jQuery(document).ready();

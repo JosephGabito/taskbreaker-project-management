@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
 <?php $__post = TaskBreaker::get_post(); ?>
 <?php $core = new TaskBreakerCore(); ?>
+
 <div id="task-breaker-task-edit-form" class="form-wrap">
 
 	<?php if ( $user_access->can_update_task( $__post->ID ) ) { ?>
@@ -29,6 +30,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Task Title -->
 		<div class="task_breaker-form-field">
 			<input placeholder="<?php esc_attr_e( 'Task Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskEditTitle" maxlength="160" name="title" class="widefat"/>
+		</div>
+
+		<!-- Task Deadline -->
+		<div class="task_breaker-form-field">
+			<input name="deadline" id="js-edit-taskbreaker-deadline-field" type="text" placeholder="<?php esc_attr_e('Deadline', 'task_breaker'); ?>" class="js-taskbreaker-task-deadline">
 		</div>
 
 		<!-- Task User Assigned -->

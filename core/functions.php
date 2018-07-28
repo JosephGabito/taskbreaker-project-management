@@ -236,6 +236,12 @@ class TaskBreakerCore {
 
 		$dbase_prefix = $taskbreaker->bp_core_get_table_prefix();
 
+		// Bail out when buddypress group component is disabled.
+		if ( ! function_exists( 'groups_get_user_groups' ) ) 
+		{
+			return;
+		}
+
 		if ( ! function_exists( 'bp_displayed_user_id' ) ) {
 			return;
 		}
@@ -368,6 +374,12 @@ class TaskBreakerCore {
 
 		$db = TaskBreaker::wpdb();
 
+		// Bail out if groups is not activated.
+		if ( ! function_exists( 'groups_get_user_groups' ) ) 
+		{
+			return array();
+		}
+
 		$user_groups = groups_get_user_groups( $user_id );
 
 		if ( empty( $user_groups['groups'] ) ) {
@@ -438,7 +450,7 @@ class TaskBreakerCore {
 				'total' => 0,
 				'total_pages' => 1,
 				'total_user_groups' => 0,
-				'summary' => 'BP_GROUPS_COMPONENT_NOT_INSTALLED',
+				'summary' => "Please go to your WordPress administration page (wp-admin), then  go to 'Settings' > 'BuddyPress' and enable 'User Groups' to activate project management feature.",
 			);
 		} else {
 			$user_groups = groups_get_user_groups( $user_id );
