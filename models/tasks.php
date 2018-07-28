@@ -498,7 +498,7 @@ class TaskBreakerTask {
 		// Fetch single task.
 		if ( $id !== 0 ) {
 
-			$stmt = sprintf( "SELECT * FROM {$this->model} WHERE id = {$id} order by priority desc, date_added desc" );
+			$stmt = sprintf( "SELECT * FROM {$this->model} WHERE id = {$id} order by priority desc, deadline desc" );
 
 			$result = $dbase->get_row( $stmt );
 
