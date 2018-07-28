@@ -48,12 +48,13 @@ if ( ! empty( $args->user ) ) {
 				</div>
 			<?php } ?>
 
-			<?php
-			// Task Title.
-			?>
+			<!-- Task Title. -->
 			<h2>
 				<?php echo esc_html( $args->title ); ?>
 			</h2>
+			<!-- Task Title End. -->
+			
+			<!-- Task Deadline. -->
 			<?php if ( $args->deadline ) { ?>
 				<h5 id="single-task-deadline">
 					<span class="deadline-label">
@@ -75,6 +76,7 @@ if ( ! empty( $args->user ) ) {
 				 	</span>
 				</h5>
 			<?php } ?>
+			<!-- Task Deadline End. -->
 
 			<span class="clearfix"></span>
 
