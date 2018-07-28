@@ -1,7 +1,7 @@
 === TaskBreaker - Group Project Management ===
-Contributors: dunhakdis,boonebgorges,wpjasper
+Contributors: dunhakdis,wpjasper,boonebgorges
 Donate link:https://www.paypal.me/dunhakdis/25
-Tags: project, task, task discussion, collaboration
+Tags: project, task, task discussion, collaboration, project management, buddypress
 Requires at least: 4.2.0
 Tested up to: 4.9.3
 Stable tag: 1.4.13
@@ -10,13 +10,51 @@ A simple WordPress plugin for managing projects and tasks. Integrated into Buddy
 
 == Description ==
 
-<h3>Group Project and Task Management</h3>
 
-Manage your Projects and assign a Task to each of the Group's Members. You can set the priority for each task (Normal, High, Critical). TaskBreaker also sends an email to members when there is a new task update available or if they are assigned to a new task.
+<h3>BuddyPress Group Project and Task Management</h3>
 
-<h4>Introducing File Attachments</h4>
+TaskBreaker is small project management plugin for WordPress. This project management plugin is built as an add-on for BuddyPress. 
 
-File attachments for Tasks are now available for version 1.4.1 and above. We are still working to integrate the File Attachment feature inside the Task Comments. The primary goal is to make it easier for group members to share files with each other in a particular task.
+TaskBreaker contains the following set of features:
+
+<h4>General</h4>
+<ul>
+<li>Shows a progress bar for each project</li>
+<li>Ability to assign multiple users for each task</li>
+<li>Ability to assign a BuddyPress Group into a project</li>
+<li>Smart task sorting base on priority and deadline</li>
+</ul>
+<h4>Project Dashboard </h4>
+<ul>
+<li>See the total number of tasks inside the project</li>
+<li>See the total number of tasks remaining</li>
+<li>See the total number of tasks completed</li>
+</ul>
+<h4>Tasks</h4>
+<ul>
+<li>Ability to search multiple tasks</li>
+<li>Filter tasks by priority and by completion</li>
+<li>Set deadline for each task</li>
+<li>Upload multiple file attachment for each task</li>
+</ul>
+<h4>Tasks Discussion</h4>
+<ul>
+<li>Ability to add comments to each task</li>
+<li>Update the progress of a task</li>
+<li>Update the priority of a task</li>
+<li>Set the task as 'Completed' or 'In Progress'</li>
+</ul>
+<h4>Email Notifications</h4>
+<ul>
+<li>Sends a notification email to the person assigned in the task</li>
+<li>Sends a notification email when a member of the project under the same task added a new update</li>
+<li>Each user can to turn off email notifications via BuddyPress settings</li>
+</ul>
+<h4>BP Activity Stream Integration</h4>
+<ul>
+<li>Records the activity when a user added a new task</li>
+<li>Records the activity when a user posted an update in the task</li>
+</ul>
 
 Your feedback is highly appreciated.
 
