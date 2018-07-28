@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php $user_access = TaskBreakerCT::get_instance(); ?>
 <?php $__post = TaskBreaker::get_post(); ?>
 <?php $core = new TaskBreakerCore(); ?>
+
 <div id="task-breaker-task-edit-form" class="form-wrap">
 
 	<?php if ( $user_access->can_update_task( $__post->ID ) ) { ?>
