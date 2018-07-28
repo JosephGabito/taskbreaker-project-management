@@ -35,6 +35,8 @@ var __ThriveProjectRoute = Backbone.Router.extend({
 
         $('#task_breaker-project-add-new').css('display', 'block');
         $('#task-user-assigned').val("");
+        $('#js-edit-taskbreaker-deadline-field').val("");
+        
         this.view.autoSuggestMembers( $("#task-user-assigned"), true, null );
 
         if ( tinymce.editors.task_breakerTaskDescription ) {
