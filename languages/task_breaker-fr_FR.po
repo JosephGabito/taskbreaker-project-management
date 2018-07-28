@@ -1,19 +1,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Thrive Intranet l10n\n"
-"POT-Creation-Date: 2017-06-23 17:54+0800\n"
-"PO-Revision-Date: 2017-06-23 17:54+0800\n"
+"POT-Creation-Date: 2018-07-28 15:22+0800\n"
+"PO-Revision-Date: 2018-07-28 15:22+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.5\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__;_n;esc_attr_e;"
 "esc_attr__\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets/js/node_modules\n"
 
 #: core/file-attachments.php:75
 msgid "Authentication issues. Terminating..."
@@ -85,16 +86,16 @@ msgstr ""
 msgid "N/A"
 msgstr ""
 
-#: core/template-tags.php:196 templates/task-loop.php:117
+#: core/template-tags.php:196 templates/task-loop.php:154
 #, php-format
 msgid "%s task"
 msgstr ""
 
-#: core/template-tags.php:200 templates/task-loop.php:124
+#: core/template-tags.php:200 templates/task-loop.php:161
 msgid "Go to the first page"
 msgstr ""
 
-#: core/template-tags.php:201 templates/task-loop.php:125
+#: core/template-tags.php:201 templates/task-loop.php:162
 msgid "Go to the previous page"
 msgstr ""
 
@@ -106,7 +107,7 @@ msgstr ""
 msgid "Go to the next page"
 msgstr ""
 
-#: core/template-tags.php:208 templates/task-loop.php:142
+#: core/template-tags.php:208 templates/task-loop.php:179
 msgid "Go to the last page"
 msgstr ""
 
@@ -143,15 +144,15 @@ msgstr ""
 msgid "New Project"
 msgstr ""
 
-#: includes/project-notifications.php:85
+#: includes/project-notifications.php:93
 msgid " assigned a new task for you &mdash; "
 msgstr ""
 
-#: includes/project-notifications.php:92
+#: includes/project-notifications.php:100
 msgid " You have a new task waiting for you under "
 msgstr ""
 
-#: includes/project-notifications.php:94
+#: includes/project-notifications.php:102
 msgid " project"
 msgstr ""
 
@@ -199,48 +200,48 @@ msgstr ""
 msgid "Projects Directory"
 msgstr ""
 
-#: models/comments.php:215
+#: models/comments.php:226
 msgid "posted a new update in"
 msgstr ""
 
-#: models/comments.php:216
+#: models/comments.php:227
 msgid "completed"
 msgstr ""
 
-#: models/comments.php:217
+#: models/comments.php:228
 msgid "reopened"
 msgstr ""
 
-#: models/comments.php:220
+#: models/comments.php:231
 msgid "Updated"
 msgstr ""
 
-#: models/comments.php:220 models/tasks.php:879 templates/task-filter.php:48
-#: templates/task-meta.php:15 templates/task-single.php:160
-#: templates/task-single.php:177
+#: models/comments.php:231 models/tasks.php:918 templates/task-filter.php:48
+#: templates/task-meta.php:15 templates/task-single.php:185
+#: templates/task-single.php:202
 msgid "Completed"
 msgstr ""
 
-#: models/comments.php:220
+#: models/comments.php:231
 msgid "Reopened"
 msgstr ""
 
-#: models/comments.php:247
+#: models/comments.php:258
 #, php-format
 msgid "%1$s %2$s the task %3$s %4$s"
 msgstr ""
 
-#: models/tasks.php:652
+#: models/tasks.php:689
 #, php-format
 msgid "%1$s added new task under %2$s"
 msgstr ""
 
-#: models/tasks.php:861
+#: models/tasks.php:900
 #, php-format
 msgid "%s Completed"
 msgstr ""
 
-#: models/tasks.php:875
+#: models/tasks.php:914
 msgid "Open"
 msgstr ""
 
@@ -299,17 +300,17 @@ msgstr ""
 msgid "Go to page %d &raquo;"
 msgstr ""
 
-#: templates/project-single.php:78
+#: templates/project-single.php:85
 msgid ""
 "This project can only be accessed by group members. Use the button below "
 "join the group and receive an access to this project."
 msgstr ""
 
-#: templates/project-single.php:89 templates/project-single.php:90
+#: templates/project-single.php:96 templates/project-single.php:97
 msgid "Join Group"
 msgstr ""
 
-#: templates/project-single.php:97
+#: templates/project-single.php:104
 msgid "Please enable BuddyPress Groups Components."
 msgstr ""
 
@@ -333,20 +334,24 @@ msgstr ""
 msgid "Task(s) Completed"
 msgstr ""
 
-#: templates/task-add.php:31 templates/task-edit.php:31
-msgid "Task Summary"
+#: templates/task-add.php:31
+msgid "Summary"
 msgstr ""
 
-#: templates/task-add.php:60 templates/task-edit.php:56
+#: templates/task-add.php:37 templates/task-edit.php:37
+msgid "Deadline"
+msgstr ""
+
+#: templates/task-add.php:65 templates/task-edit.php:62
 msgid "Priority:"
 msgstr ""
 
-#: templates/task-add.php:77 templates/task-edit.php:75
+#: templates/task-add.php:82 templates/task-edit.php:81
 #, php-format
 msgid "(maximum file size: %d MB)"
 msgstr ""
 
-#: templates/task-add.php:109
+#: templates/task-add.php:114
 msgid "Save Task"
 msgstr ""
 
@@ -375,15 +380,19 @@ msgstr ""
 msgid "Remove Comment"
 msgstr ""
 
-#: templates/task-edit.php:112
+#: templates/task-edit.php:32
+msgid "Task Summary"
+msgstr ""
+
+#: templates/task-edit.php:118
 msgid "Delete"
 msgstr ""
 
-#: templates/task-edit.php:116 templates/task-single.php:223
+#: templates/task-edit.php:122 templates/task-single.php:248
 msgid "Update Task"
 msgstr ""
 
-#: templates/task-edit.php:124
+#: templates/task-edit.php:130
 msgid "Go back to tasks."
 msgstr ""
 
@@ -420,15 +429,15 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: templates/task-loop.php:134
+#: templates/task-loop.php:171
 msgid "of"
 msgstr ""
 
-#: templates/task-loop.php:141
+#: templates/task-loop.php:178
 msgid "Go to the next page!!!"
 msgstr ""
 
-#: templates/task-loop.php:154
+#: templates/task-loop.php:191
 msgid "Only members of this group can see tasks."
 msgstr ""
 
@@ -442,63 +451,63 @@ msgid ""
 "Unable to access the task details. Only group members can access this page."
 msgstr ""
 
-#: templates/task-single.php:28
+#: templates/task-single.php:29
 msgid "Normal"
 msgstr ""
 
-#: templates/task-single.php:29
+#: templates/task-single.php:30
 msgid "High"
 msgstr ""
 
-#: templates/task-single.php:30
+#: templates/task-single.php:31
 msgid "Critical"
 msgstr ""
 
-#: templates/task-single.php:68
+#: templates/task-single.php:93
 msgid "This task is assigned to:"
 msgstr ""
 
-#: templates/task-single.php:92
+#: templates/task-single.php:117
 msgid "Download File"
 msgstr ""
 
-#: templates/task-single.php:103
+#: templates/task-single.php:128
 msgid "Tasks List"
 msgstr ""
 
-#: templates/task-single.php:104
+#: templates/task-single.php:129
 msgid "&larr; Tasks List"
 msgstr ""
 
-#: templates/task-single.php:109
+#: templates/task-single.php:134
 msgid "Edit"
 msgstr ""
 
-#: templates/task-single.php:124
+#: templates/task-single.php:149
 msgid "Discussion"
 msgstr ""
 
-#: templates/task-single.php:153 templates/task-single.php:193
+#: templates/task-single.php:178 templates/task-single.php:218
 msgid "In Progress"
 msgstr ""
 
-#: templates/task-single.php:167 templates/task-single.php:183
+#: templates/task-single.php:192 templates/task-single.php:208
 msgid "Reopen Task"
 msgstr ""
 
-#: templates/task-single.php:199
+#: templates/task-single.php:224
 msgid "Complete"
 msgstr ""
 
-#: templates/task-single.php:208
+#: templates/task-single.php:233
 msgid "Explain what this update is all about"
 msgstr ""
 
-#: templates/task-single.php:213
+#: templates/task-single.php:238
 msgid "Update Priority:"
 msgstr ""
 
-#: templates/task-single.php:231
+#: templates/task-single.php:256
 msgid ""
 "Only assigned members of this task or members with the right privilege are "
 "able to add progress to this task."
