@@ -12,7 +12,7 @@
 
 			<h5 class="alignleft">
 
-				<?php _e( 'Add New Project', 'task_breaker' ); ?>
+				<?php _e( 'Add New Project', 'taskbreaker-project-management' ); ?>
 
 			</h5>
 
@@ -34,7 +34,7 @@
 
 			<small>
 
-				<?php _e( "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form", 'task_breaker' ); ?>
+				<?php _e( "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form", 'taskbreaker-project-management' ); ?>
 
 			</small>
 
