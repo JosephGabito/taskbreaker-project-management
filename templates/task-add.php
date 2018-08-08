@@ -28,13 +28,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Task Title -->
 		<div class="task_breaker-form-field">
 
-			<input placeholder="<?php esc_attr_e( 'Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskTitle" maxlength="160" name="title"/>
+			<input placeholder="<?php esc_attr_e( 'Summary', 'taskbreaker-project-management' ); ?>" type="text" id="task_breakerTaskTitle" maxlength="160" name="title"/>
 
 		</div>
 
 		<!-- Task Deadline -->
 		<div class="task_breaker-form-field">
-			<input id="js-add-taskbreaker-deadline-field" name="deadline" type="text" placeholder="<?php esc_attr_e('Deadline', 'task_breaker'); ?>" class="js-taskbreaker-task-deadline">
+			<input id="js-add-taskbreaker-deadline-field" name="deadline" type="text" placeholder="<?php esc_attr_e('Deadline', 'taskbreaker-project-management'); ?>" class="js-taskbreaker-task-deadline">
 		</div>
 
 		<!-- Task User Assigned -->
@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="task_breaker-form-field">
 			<label for="task_breaker-task-priority-select">
 				<strong>
-					<?php _e( 'Priority:', 'task_breaker' ); ?>
+					<?php _e( 'Priority:', 'taskbreaker-project-management' ); ?>
 				</strong>
 				<?php $core->task_priority_select(); ?>
 			</label>
@@ -75,21 +75,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<input type="file" name="file" id="task-breaker-form-file-attachment-field" />
 					<label for="task-breaker-form-file-attachment-field">
 						<strong class="tasbreaker-file-attached">
-							<?php esc_html_e( 'No File Selected', 'task_breaker' ); ?>
+							<?php esc_html_e( 'No File Selected', 'taskbreaker-project-management' ); ?>
 						</strong>
 						<div class="taskbreaker-task-attached-file"></div>
-						<?php esc_html_e('Click to attach a file', 'task_breaker'); ?>
-						<?php echo sprintf( __('(maximum file size: %d MB)', 'task_breaker'), absint( $core->get_wp_max_upload_size() ) ); ?>
+						<?php esc_html_e('Click to attach a file', 'taskbreaker-project-management'); ?>
+						<?php echo sprintf( __('(maximum file size: %d MB)', 'taskbreaker-project-management'), absint( $core->get_wp_max_upload_size() ) ); ?>
 					</label>
 				</div>
 				<div class="tb-file-attachment-progress-wrap">
 					<div class="tb-file-attachment-progress-text">
-						<?php esc_html_e('Uploading', 'task_breaker'); ?>&hellip;<span class="taskbreaker-upload-progress-value">(0%)</span>
+						<?php esc_html_e('Uploading', 'taskbreaker-project-management'); ?>&hellip;<span class="taskbreaker-upload-progress-value">(0%)</span>
 						<span class="taskbreaker-upload-success-text-helper">
-							<?php esc_html_e('. File attached successfully.', 'task_breaker'); ?>
+							<?php esc_html_e('. File attached successfully.', 'taskbreaker-project-management'); ?>
 						</span>
 						<span class="taskbreaker-upload-error-text-helper">
-							<?php esc_html_e('. Upload successfully initiated, but the server was unable to process it. See message below.', 'task_breaker'); ?>
+							<?php esc_html_e('. Upload successfully initiated, but the server was unable to process it. See message below.', 'taskbreaker-project-management'); ?>
 						</span>
 					</div>
 					<div class="tb-file-attachment-progress">
@@ -103,7 +103,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!--[if lte IE 9]>
 			<div class="task_breaker-form-field ie-fallback ie-10">
 				<label for="task_breaker-task-priority-select">
-					<?php esc_html_e('File attachment is disabled for this browser. Please update to latest version', 'task_breaker'); ?>
+					<?php esc_html_e('File attachment is disabled for this browser. Please update to latest version', 'taskbreaker-project-management'); ?>
 				</label>
 			</div>
 		<![endif]-->
@@ -117,7 +117,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	<?php } else { ?>
 		<div class="task-breaker-message danger">
-			<?php esc_html_e( 'Ops! Only group administrator or group moderators can add tasks to this group project.', 'task_breaker' ); ?>
+			<?php esc_html_e( 'Ops! Only group administrator or group moderators can add tasks to this group project.', 'taskbreaker-project-management' ); ?>
 		</div>
 	<?php } ?>
 </div>
