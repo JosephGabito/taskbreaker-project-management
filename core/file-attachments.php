@@ -72,7 +72,7 @@ class TaskBreakerFileAttachment {
 	public function process_http_file() {
 
 		if ( ! is_user_logged_in() ) {
-			return array( 'error' => __( 'Authentication issues. Terminating...', 'task_breaker' ) );
+			return array( 'error' => __( 'Authentication issues. Terminating...', 'taskbreaker-project-management' ) );
 		}
 
 		if ( ! class_exists( 'WP_Filesystem_Direct' ) ) {
@@ -89,11 +89,11 @@ class TaskBreakerFileAttachment {
 		}
 
 		if ( empty( $file ) ) {
-			return array( 'error' => __( 'Did not received any http file. Terminating...', 'task_breaker' ) );
+			return array( 'error' => __( 'Did not received any http file. Terminating...', 'taskbreaker-project-management' ) );
 		}
 
 		if ( ! is_uploaded_file( $file['tmp_name'] ) ) {
-			return array( 'error' => __( 'An error occured. Please check maximum size and maximum header size.', 'task_breaker' ) );
+			return array( 'error' => __( 'An error occured. Please check maximum size and maximum header size.', 'taskbreaker-project-management' ) );
 		}
 
 		$upload_overwrites = array( 'test_form' => false );
@@ -112,14 +112,14 @@ class TaskBreakerFileAttachment {
 
 			} else {
 
-				return array( 'error' => __( 'Unable to create temporary directory. Permission error.', 'task_breaker' ) );
+				return array( 'error' => __( 'Unable to create temporary directory. Permission error.', 'taskbreaker-project-management' ) );
 			}
 
 		} else {
-			return array( 'error' => __( 'Unable to clear temporary directory. Permission error.', 'task_breaker' ) );
+			return array( 'error' => __( 'Unable to clear temporary directory. Permission error.', 'taskbreaker-project-management' ) );
 		}
 
-		return array( 'error' => __( 'Unable to handle file upload.', 'task_breaker' ) );
+		return array( 'error' => __( 'Unable to handle file upload.', 'taskbreaker-project-management' ) );
 
 	}
 
