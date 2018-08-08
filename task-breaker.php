@@ -2,10 +2,11 @@
 /**
  * Plugin Name: TaskBreaker - Group Project Management
  * Description: A simple WordPress plugin for managing projects and tasks. Integrated into BuddyPress Groups for best collaborative experience.
- * Version: 1.4.13
+ * Version: 1.5.0
  * Author: Dunhakdis
- * Author URI: http://dunhakdis.com
- * Text Domain: task_breaker
+ * Author URI: http://dunhakdis.com/
+ * Text Domain: taskbreaker-project-management
+ * Domain Path: /languages
  * License: GPL2
  *
  * PHP version 5.6+
@@ -60,7 +61,7 @@ if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
 	function taskbreaker_admin_notice() {
 	?>
 		<div class="notice notice-error is-dismissible">
-	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.4.0 and above.', 'task_breaker' ); ?></strong></p>
+	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.4.0 and above.', ' taskbreaker-project-management' ); ?></strong></p>
 	    </div>
 	<?php }
 }
@@ -76,7 +77,7 @@ function taskbreaker_is_group_active() {
 function taskbreaker_admin_notice_group_required() {
 	?>
 	<div class="notice notice-warning is-dismissible">
-		<p><strong><?php _e( 'Notice: TaskBreaker requires BuddyPress Groups Component to be enabled.', 'task_breaker' ); ?></strong></p>
+		<p><strong><?php _e( 'Notice: TaskBreaker requires BuddyPress Groups Component to be enabled.', ' taskbreaker-project-management' ); ?></strong></p>
 	</div>
 <?php }
 
@@ -114,7 +115,7 @@ function task_breaker_localize_plugin() {
 
 	$rel_path = basename( dirname( __FILE__ ) ) . '/languages';
 
-	load_plugin_textdomain( 'task_breaker', false, $rel_path );
+	load_plugin_textdomain( 'taskbreaker-project-management', false, $rel_path );
 
 	return;
 }
