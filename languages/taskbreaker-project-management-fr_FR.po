@@ -1,23 +1,40 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: TaskBreaker - Group Project Management\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-28 15:23+0800\n"
-"PO-Revision-Date: 2018-07-28 15:23+0800\n"
-"Last-Translator: Сергей Жигулев <sergori@gmail.com>\n"
-"Language-Team: Russian\n"
-"Language: ru_RU\n"
+"Project-Id-Version: Thrive Intranet l10n\n"
+"POT-Creation-Date: 2018-08-08 20:23+0800\n"
+"PO-Revision-Date: 2018-08-08 20:24+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && n"
-"%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "X-Generator: Poedit 2.0.5\n"
-"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e;__;_n;esc_attr_e;"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__;_n;esc_attr_e;"
 "esc_attr__\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: assets/js/node_modules\n"
+
+#: actions/actions.php:66
+msgid "Unable to delete user assignments. There was an error in db query."
+msgstr ""
+
+#: actions/actions.php:72
+msgid "Unable to delete task comments. There was an error in db query."
+msgstr ""
+
+#: actions/actions.php:79
+msgid "Unable to delete attachments meta. There was an error in db query."
+msgstr ""
+
+#: actions/actions.php:85
+msgid "Unable to delete attachments. There was an error in db query."
+msgstr ""
+
+#: actions/actions.php:94
+msgid "Unable to delete tasks. There was an error in db query. "
+msgstr ""
 
 #: core/file-attachments.php:75
 msgid "Authentication issues. Terminating..."
@@ -47,7 +64,7 @@ msgstr ""
 #: includes/project-group-component.php:29 includes/project-post-type.php:50
 #: includes/project-post-type.php:52 widgets/widgets.php:123
 msgid "Projects"
-msgstr "Проекты"
+msgstr ""
 
 #: core/template-tags.php:120
 #, php-format
@@ -57,37 +74,37 @@ msgstr ""
 #: core/template-tags.php:125
 #, php-format
 msgid "Currently showing %d task "
-msgstr "Сейчас отображается %d задача "
+msgstr ""
 
 #: core/template-tags.php:126 core/template-tags.php:131
 #, php-format
 msgid "out of %d"
-msgstr "из %d"
+msgstr ""
 
 #: core/template-tags.php:130
 #, php-format
 msgid "Currently showing %d completed task "
-msgstr "Сейчас отображается %d выполненная задача "
+msgstr ""
 
 #: core/template-tags.php:138
 msgid "No results found. Try another filter or add new task."
-msgstr "Нет результатов. Используйте другой фильтр или добавьте новую задачу."
+msgstr ""
 
 #: core/template-tags.php:145
 msgid "Title"
-msgstr "Заголовок"
+msgstr ""
 
 #: core/template-tags.php:146
 msgid "Priority"
-msgstr "Приоритет"
+msgstr ""
 
 #: core/template-tags.php:147
 msgid "Date"
-msgstr "Дата"
+msgstr ""
 
 #: core/template-tags.php:182
 msgid "N/A"
-msgstr "н/д"
+msgstr ""
 
 #: core/template-tags.php:196 templates/task-loop.php:154
 #, php-format
@@ -96,23 +113,23 @@ msgstr ""
 
 #: core/template-tags.php:200 templates/task-loop.php:161
 msgid "Go to the first page"
-msgstr "На первую страницу"
+msgstr ""
 
 #: core/template-tags.php:201 templates/task-loop.php:162
 msgid "Go to the previous page"
-msgstr "На предыдущую страницу"
+msgstr ""
 
 #: core/template-tags.php:203
 msgid "Select Page"
 msgstr ""
 
-#: core/template-tags.php:207
+#: core/template-tags.php:207 templates/task-loop.php:178
 msgid "Go to the next page"
-msgstr "Следующая страница"
+msgstr ""
 
 #: core/template-tags.php:208 templates/task-loop.php:179
 msgid "Go to the last page"
-msgstr "Последняя страница"
+msgstr ""
 
 #: core/template-tags.php:445
 msgid "Visit User Profile"
@@ -120,32 +137,32 @@ msgstr ""
 
 #: emails/class-buddypress-mail-register.php:57
 msgid "[{{{site.name}}}] There is a new task waiting for you."
-msgstr "[{{{site.name}}}] для вас есть новые задачи."
+msgstr ""
 
 #: emails/class-buddypress-mail-register.php:79
 msgid "A member of a project received a new ask."
-msgstr "Участник проекта прислал новый вопрос."
+msgstr ""
 
 #: emails/class-buddypress-mail-register.php:112
 msgid "[{{{site.name}}}] New task update."
-msgstr "[{{{site.name}}}] Новое обновление задачи."
+msgstr ""
 
 #: emails/class-buddypress-mail-register.php:134
 msgid "A member of a project updated a task."
-msgstr "Участник проекта обновил задачу."
+msgstr ""
 
 #: includes/project-component.php:130
 msgid "Search Projects..."
-msgstr "Поиск проектов..."
+msgstr ""
 
 #: includes/project-component.php:174
 #, php-format
 msgid "%s Projects"
-msgstr "%s Проекты"
+msgstr ""
 
 #: includes/project-component.php:184 includes/project-post-type.php:56
 msgid "New Project"
-msgstr "Новый проект"
+msgstr ""
 
 #: includes/project-notifications.php:93
 msgid " assigned a new task for you &mdash; "
@@ -153,55 +170,55 @@ msgstr ""
 
 #: includes/project-notifications.php:100
 msgid " You have a new task waiting for you under "
-msgstr " [{{{site.name}}}] для вас есть новые задачи "
+msgstr ""
 
 #: includes/project-notifications.php:102
 msgid " project"
-msgstr " Проект"
+msgstr ""
 
 #: includes/project-post-type.php:51 includes/project-post-type.php:53
 msgid "Project"
-msgstr "Проект"
+msgstr ""
 
 #: includes/project-post-type.php:54
 msgid "Add New"
-msgstr "Добавить новый"
+msgstr ""
 
 #: includes/project-post-type.php:55 templates/project-add-modal.php:15
 msgid "Add New Project"
-msgstr "Добавить новый проект"
+msgstr ""
 
 #: includes/project-post-type.php:57
 msgid "Edit Project"
-msgstr "Редактировать"
+msgstr ""
 
 #: includes/project-post-type.php:58
 msgid "View Project"
-msgstr "Просмотр"
+msgstr ""
 
 #: includes/project-post-type.php:59
 msgid "All Projects"
-msgstr "Все проекты"
+msgstr ""
 
 #: includes/project-post-type.php:60
 msgid "Search Projects"
-msgstr "Поиск проектов"
+msgstr ""
 
 #: includes/project-post-type.php:61
 msgid "Parent Projects:"
-msgstr "Родительские проекты:"
+msgstr ""
 
 #: includes/project-post-type.php:62
 msgid "No projects found."
-msgstr "Нет проектов."
+msgstr ""
 
 #: includes/project-post-type.php:63
 msgid "No projects found in Trash."
-msgstr "В корзине нет проектов."
+msgstr ""
 
 #: includes/project-theme-compat.php:38
 msgid "Projects Directory"
-msgstr "Список проектов"
+msgstr ""
 
 #: models/comments.php:226
 msgid "posted a new update in"
@@ -209,60 +226,75 @@ msgstr ""
 
 #: models/comments.php:227
 msgid "completed"
-msgstr "выполнено"
+msgstr ""
 
 #: models/comments.php:228
 msgid "reopened"
-msgstr "переоткрыта"
+msgstr ""
 
 #: models/comments.php:231
 msgid "Updated"
-msgstr "Обновлено"
+msgstr ""
 
 #: models/comments.php:231 models/tasks.php:918 templates/task-filter.php:48
 #: templates/task-meta.php:15 templates/task-single.php:185
 #: templates/task-single.php:202
 msgid "Completed"
-msgstr "Выполнено"
+msgstr ""
 
 #: models/comments.php:231
 msgid "Reopened"
-msgstr "Переоткрыта"
+msgstr ""
 
 #: models/comments.php:258
 #, php-format
 msgid "%1$s %2$s the task %3$s %4$s"
 msgstr ""
 
+#: models/tasks.php:219 templates/task-single.php:29
+#: templates/widget-recent-tasks.php:21
+msgid "Normal"
+msgstr ""
+
+#: models/tasks.php:220 templates/task-single.php:30
+#: templates/widget-recent-tasks.php:22
+msgid "High"
+msgstr ""
+
+#: models/tasks.php:221 templates/task-single.php:31
+#: templates/widget-recent-tasks.php:23
+msgid "Critical"
+msgstr ""
+
 #: models/tasks.php:689
 #, php-format
 msgid "%1$s added new task under %2$s"
-msgstr "%1$s добавил(а) новую задачу в проекте %2$s"
+msgstr ""
 
 #: models/tasks.php:900
 #, php-format
 msgid "%s Completed"
-msgstr "%s Выполнено"
+msgstr ""
 
 #: models/tasks.php:914
 msgid "Open"
-msgstr "Открыто"
+msgstr ""
 
-#: task-breaker.php:63
-msgid "Notice: TaskBreaker is only available for PHP Version 5.3.0 and above."
-msgstr "Внимание!: TaskBreaker работает только на PHP версии 5.3.0 и выше."
+#: task-breaker.php:64
+msgid "Notice: TaskBreaker is only available for PHP Version 5.4.0 and above."
+msgstr ""
 
-#: task-breaker.php:79
+#: task-breaker.php:80
 msgid "Notice: TaskBreaker requires BuddyPress Groups Component to be enabled."
-msgstr "Внимание!: TaskBreaker нужно чтобы группы в BuddyPress были включены."
+msgstr ""
 
 #: templates/project-add-modal.php:37
 msgid "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form"
-msgstr "Совет: Нажмите клавишу <em>'escape'</em> чтобы скрыть эту форму"
+msgstr ""
 
 #: templates/project-add.php:20 templates/project-settings.php:34
 msgid "Enter the new title for this project"
-msgstr "Напишите заголовок проекта"
+msgstr "Entrez le nouveau titre pour ce projet"
 
 #: templates/project-add.php:98
 msgid ""
@@ -272,15 +304,15 @@ msgstr ""
 
 #: templates/project-add.php:111
 msgid "Save Project"
-msgstr "Сохранить проект"
+msgstr ""
 
 #: templates/project-add.php:131
 msgid "Create Group"
-msgstr "Создать группу"
+msgstr ""
 
 #: templates/project-add.php:133
 msgid "Visit Groups"
-msgstr "Посетить группы"
+msgstr ""
 
 #: templates/project-loop-content.php:77
 msgid "«"
@@ -291,20 +323,17 @@ msgid "»"
 msgstr ""
 
 #: templates/project-loop.php:27
-#, fuzzy
-#| msgid ""
-#| "Notice: TaskBreaker requires BuddyPress Groups Component to be enabled."
 msgid "Please enable BuddyPress Groups Components to access the Projects."
-msgstr "Внимание!: TaskBreaker нужно чтобы группы в BuddyPress были включены."
+msgstr ""
 
 #: templates/project-navigation.php:20
 msgid "Page:"
-msgstr "Страница:"
+msgstr ""
 
 #: templates/project-navigation.php:29
 #, php-format
 msgid "Go to page %d &raquo;"
-msgstr "Перейти на %d страницу &raquo;"
+msgstr ""
 
 #: templates/project-single.php:85
 msgid ""
@@ -314,40 +343,31 @@ msgstr ""
 
 #: templates/project-single.php:96 templates/project-single.php:97
 msgid "Join Group"
-msgstr "Посетить группы"
+msgstr ""
 
 #: templates/project-single.php:104
-#, fuzzy
-#| msgid ""
-#| "Notice: TaskBreaker requires BuddyPress Groups Component to be enabled."
 msgid "Please enable BuddyPress Groups Components."
-msgstr "Внимание!: TaskBreaker нужно чтобы группы в BuddyPress были включены."
+msgstr ""
 
-#: templates/project.php:38
-msgid "About"
-msgstr "Описание"
-
-#: templates/project.php:57
+#: templates/project.php:58
 msgid "At a Glance"
-msgstr "Краткая сводка"
+msgstr ""
 
-#: templates/project.php:68
+#: templates/project.php:69
 msgid "Total Tasks"
-msgstr "Всего задач"
+msgstr ""
 
-#: templates/project.php:80
+#: templates/project.php:81
 msgid "Task(s) remaining"
-msgstr "Задач осталось"
+msgstr ""
 
-#: templates/project.php:91
+#: templates/project.php:92
 msgid "Task(s) Completed"
-msgstr "Задач выполнено"
+msgstr ""
 
 #: templates/task-add.php:31
-#, fuzzy
-#| msgid "Task Summary"
 msgid "Summary"
-msgstr "Заголовок задачи"
+msgstr ""
 
 #: templates/task-add.php:37 templates/task-edit.php:37
 msgid "Deadline"
@@ -355,18 +375,16 @@ msgstr ""
 
 #: templates/task-add.php:65 templates/task-edit.php:62
 msgid "Priority:"
-msgstr "Приоритет:"
+msgstr ""
 
 #: templates/task-add.php:82 templates/task-edit.php:81
 #, php-format
 msgid "(maximum file size: %d MB)"
-msgstr "(макс. размер: %d Мбайт)"
+msgstr ""
 
 #: templates/task-add.php:114
-#, fuzzy
-#| msgid "Update Task"
 msgid "Save Task"
-msgstr "Обновить задачу"
+msgstr ""
 
 #: templates/task-comment-item.php:7
 msgid ""
@@ -375,15 +393,15 @@ msgstr ""
 
 #: templates/task-comment-item.php:27
 msgid "New Progress by"
-msgstr "Обновление задачи от"
+msgstr ""
 
 #: templates/task-comment-item.php:33
 msgid "Completed by"
-msgstr "Задачу выполнил"
+msgstr ""
 
 #: templates/task-comment-item.php:39
 msgid "Reopened by"
-msgstr "Заново открыта"
+msgstr ""
 
 #: templates/task-comment-item.php:65
 msgid "Delete comment"
@@ -391,52 +409,52 @@ msgstr ""
 
 #: templates/task-comment-item.php:66
 msgid "Remove Comment"
-msgstr "Удалить комментарий"
+msgstr ""
 
 #: templates/task-edit.php:32
 msgid "Task Summary"
-msgstr "Заголовок задачи"
+msgstr ""
 
 #: templates/task-edit.php:118
 msgid "Delete"
-msgstr "Удалить"
+msgstr ""
 
 #: templates/task-edit.php:122 templates/task-single.php:248
 msgid "Update Task"
-msgstr "Обновить задачу"
+msgstr ""
 
 #: templates/task-edit.php:130
 msgid "Go back to tasks."
-msgstr "Вернуться в задачи."
+msgstr ""
 
 #: templates/task-filter.php:37 templates/task-filter.php:39
 #: templates/task-filter.php:46
 msgid "Tasks"
-msgstr "Все задачи"
+msgstr ""
 
 #: templates/task-filter.php:72
 msgid "Show All"
-msgstr "Показать всё"
+msgstr ""
 
 #: templates/task-filter.php:73
 msgid "Normal Priority"
-msgstr "Средний"
+msgstr ""
 
 #: templates/task-filter.php:74
 msgid "High Priority"
-msgstr "Высокий"
+msgstr ""
 
 #: templates/task-filter.php:75
 msgid "Critical Priority"
-msgstr "Критичный"
+msgstr ""
 
 #: templates/task-filter.php:82
 msgid "Search Tasks:"
-msgstr "Найти задачи:"
+msgstr ""
 
 #: templates/task-filter.php:85
 msgid "Search Task"
-msgstr "Найти задачу"
+msgstr ""
 
 #: templates/task-filter.php:86
 msgid "Apply"
@@ -446,43 +464,23 @@ msgstr ""
 msgid "of"
 msgstr ""
 
-#: templates/task-loop.php:178
-msgid "Go to the next page!!!"
-msgstr "Следующая страница!"
-
 #: templates/task-loop.php:191
-#, fuzzy
-#| msgid "A member of a project updated a task."
 msgid "Only members of this group can see tasks."
-msgstr "Участник проекта обновил задачу."
+msgstr ""
 
 #: templates/task-meta.php:8
-#, fuzzy, php-format
-#| msgid "%s Task"
-#| msgid_plural "%s Tasks"
+#, php-format
 msgid "%s Task"
-msgstr "%s Задача"
+msgstr ""
 
 #: templates/task-single.php:15
 msgid ""
 "Unable to access the task details. Only group members can access this page."
 msgstr ""
 
-#: templates/task-single.php:29
-msgid "Normal"
-msgstr "Средний"
-
-#: templates/task-single.php:30
-msgid "High"
-msgstr "Высокий"
-
-#: templates/task-single.php:31
-msgid "Critical"
-msgstr "Критичный"
-
 #: templates/task-single.php:93
 msgid "This task is assigned to:"
-msgstr "Исполнитель:"
+msgstr ""
 
 #: templates/task-single.php:117
 msgid "Download File"
@@ -490,27 +488,27 @@ msgstr ""
 
 #: templates/task-single.php:128
 msgid "Tasks List"
-msgstr "Список задач"
+msgstr ""
 
 #: templates/task-single.php:129
 msgid "&larr; Tasks List"
-msgstr "&larr; Список задач"
+msgstr ""
 
 #: templates/task-single.php:134
 msgid "Edit"
-msgstr "Редактировать"
+msgstr ""
 
 #: templates/task-single.php:149
 msgid "Discussion"
-msgstr "Обсуждение задачи"
+msgstr ""
 
 #: templates/task-single.php:178 templates/task-single.php:218
 msgid "In Progress"
-msgstr "Выполняется"
+msgstr ""
 
 #: templates/task-single.php:192 templates/task-single.php:208
 msgid "Reopen Task"
-msgstr "Открыть заново"
+msgstr ""
 
 #: templates/task-single.php:224
 msgid "Complete"
@@ -518,11 +516,11 @@ msgstr ""
 
 #: templates/task-single.php:233
 msgid "Explain what this update is all about"
-msgstr "Ваши замечания, предложения и т.д. по задаче"
+msgstr ""
 
 #: templates/task-single.php:238
 msgid "Update Priority:"
-msgstr "Обновить приоритет:"
+msgstr ""
 
 #: templates/task-single.php:256
 msgid ""
@@ -536,16 +534,10 @@ msgid "Cannot find the route: %s"
 msgstr ""
 
 #: transactions/routes/add-ticket.php:28
-#, fuzzy
-#| msgid ""
-#| "You are not allowed to delete this task. Only group administrators or "
-#| "group moderators are allowed."
 msgid ""
 "Unable to add tasks. Only a group administrator or a group moderator can add "
 "tasks."
 msgstr ""
-"Вы не можете удалить эту задачу. Это могут сделать только администраторы или "
-"модераторы группы."
 
 #: transactions/routes/add-ticket.php:58
 msgid ""
@@ -559,11 +551,11 @@ msgstr ""
 
 #: transactions/routes/delete-ticket-attachment.php:25
 msgid "File attachment successfully deleted."
-msgstr "Файл успешно удален."
+msgstr ""
 
 #: transactions/routes/delete-ticket-attachment.php:32
 msgid "Fail to delete attachment"
-msgstr "Ошибка удаления вложения"
+msgstr ""
 
 #: transactions/routes/fetch-task.php:38
 msgid ""
@@ -576,7 +568,7 @@ msgstr ""
 
 #: transactions/routes/task-file-attachment.php:44
 msgid "File upload success"
-msgstr "Файл загружен"
+msgstr ""
 
 #: widgets/widgets.php:30
 msgid "Displays the current logged in user's latest tasks."
@@ -584,15 +576,15 @@ msgstr ""
 
 #: widgets/widgets.php:33
 msgid "(TaskBreaker) My Recent Task"
-msgstr "(TaskBreaker) My Recent Task"
+msgstr ""
 
 #: widgets/widgets.php:90
 msgid "Title:"
-msgstr "Заголовок:"
+msgstr ""
 
 #: widgets/widgets.php:97
 msgid "Number of Tasks:"
-msgstr "Кол-во задач:"
+msgstr ""
 
 #: widgets/widgets.php:125
 msgid ""
@@ -600,110 +592,8 @@ msgid ""
 "Projects."
 msgstr ""
 
-#~ msgid "A new task is assigned to me"
-#~ msgstr "Новая задача назначена мне"
+#~ msgid "Oops! Looks like you need to login in order to view the page."
+#~ msgstr "哎呀！看起来你需要，以查看该页面登录。"
 
-#~ msgid "Edit Task"
-#~ msgstr "Редакт. задачу"
-
-#~ msgid "Started by "
-#~ msgstr "Создал"
-
-#~ msgid "under &raquo;"
-#~ msgstr "для  &raquo;"
-
-#~ msgid "Menu Header"
-#~ msgstr "Заголовок меню"
-
-#~ msgid ""
-#~ "You were assigned a new task, but it was deleted. You can ignore this "
-#~ "notification."
-#~ msgstr ""
-#~ "Вам была поставлена новая задача, но потом удалена. Вы можете "
-#~ "проигнорировать это оповещение."
-
-#~ msgid "My Projects"
-#~ msgstr "Мои проекты"
-
-#~ msgid "Project Name"
-#~ msgstr "Название проекта"
-
-#~ msgid "Project Details"
-#~ msgstr "Описание проекта"
-
-#~ msgid "Describe what this project is all about. You can edit this later."
-#~ msgstr ""
-#~ "В паре предложений опишите цел вашего проекта. Описание можно потом "
-#~ "отредактировать."
-
-#~ msgid "Assign to Group:"
-#~ msgstr "Исполнители:"
-
-#~ msgid ""
-#~ "Only a group moderator or a group administrator can create a group "
-#~ "project. \n"
-#~ "\t\t\t\t\t\t%1$s Create your group %2$s or %3$s join an existing one %4$s "
-#~ "to take part in projects."
-#~ msgstr ""
-#~ "Только модераторы и администраторы этой группы могут создавать для неё "
-#~ "проекты. \n"
-#~ "\t\t\t\t\t\t%1$s Создайте свою группе %2$s или %3$s вступите в "
-#~ "существующую %4$s чтобы принять участие в проекте."
-
-#~ msgid "Explain what this project is all about"
-#~ msgstr "В паре предложений опишите проект и его цель."
-
-#~ msgid "Update Project"
-#~ msgstr "Обновить проект"
-
-#~ msgid "No File Selected"
-#~ msgstr "Файл не выбран"
-
-#~ msgid "Click to attach a file"
-#~ msgstr "Нажмите и прикрепите файл"
-
-#~ msgid "Uploading"
-#~ msgstr "Загрузка"
-
-#~ msgid ". File attached successfully."
-#~ msgstr ". Файл прикреплён."
-
-#~ msgid ""
-#~ ". Upload successfully initiated, but the server was unable to process it. "
-#~ "See message below."
-#~ msgstr ""
-#~ ". Загрузка началась, но сервер не смог завершить её. См. сообщение ниже."
-
-#~ msgid ""
-#~ "File attachment is disabled for this browser. Please update to latest "
-#~ "version"
-#~ msgstr "Загрузка файлов выключена в этом браузере. Обновите это старьё!"
-
-#~ msgid "Create New Task"
-#~ msgstr "Новая задача"
-
-#~ msgid "No tasks found. Try different keywords and filters."
-#~ msgstr "Не найдено задач. Используйте другие ключевые слова и фильтры"
-
-#~ msgid "Yes"
-#~ msgstr "Да"
-
-#~ msgid "No"
-#~ msgstr "Нет"
-
-#~ msgid "TaskBreaker - Group Project Management"
-#~ msgstr "TaskBreaker - Групповое управление проектами"
-
-#~ msgid ""
-#~ "A simple WordPress plugin for managing projects and tasks. Integrated "
-#~ "into BuddyPress Groups for best collaborative experience."
-#~ msgstr ""
-#~ "Простой плагин управления проектами и задачами для WordPress . "
-#~ "Интегрирован с компонентом Группы BuddyPress, для получения лучшего опыта "
-#~ "совместной работы."
-
-#~ msgid "Dunhakdis"
-#~ msgstr "Dunhakdis"
-
-#~ msgid "http://dunhakdis.com"
-#~ msgstr "http://dunhakdis.com"
+#~ msgid "Enter the title of this task. Max 160 characters"
+#~ msgstr "Entrez le titre de cette tâche . Max 160 caractères"

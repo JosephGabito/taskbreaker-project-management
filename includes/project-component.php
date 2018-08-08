@@ -100,7 +100,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 	public function includes( $includes = array() ) {
 
 		$includes = array(
-		 'project-screens.php'
+			'project-screens.php'
 		);
 
 		parent::includes( $includes );
@@ -126,8 +126,8 @@ class TaskBreakerProjectsComponent extends BP_Component {
 			'slug' => BP_PROJECTS_SLUG,
 			'root_slug' => isset( buddypress()->pages->{$this->id}->slug ) ? buddypress()->pages->{$this->id}->slug : BP_PROJECTS_SLUG,
 		 	'has_directory' => true,
-		 	'directory_title' => __( 'Projects', 'task_breaker' ),
-		 	'search_string' => __( 'Search Projects...', 'task_breaker' ),
+		 	'directory_title' => __( 'Projects', 'taskbreaker-project-management' ),
+		 	'search_string' => __( 'Search Projects...', 'taskbreaker-project-management' ),
 		);
 
 		parent::setup_globals( $globals );
@@ -154,7 +154,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 		}
 
 		$main_nav = array(
-			'name' => sprintf( esc_html( 'Projects %s', 'task_breaker' ), '<span class="count">' . absint( $count ) . '</span>' ),
+			'name' => sprintf( esc_html( 'Projects %s', 'taskbreaker-project-management' ), '<span class="count">' . absint( $count ) . '</span>' ),
 			'slug' => $this->id,
 			'position' => 80,
 			'screen_function' => array( 'TaskBreakerProjectScreens', 'bp_projects_main_screen_function' ),
@@ -171,7 +171,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 		}
 
 		$sub_nav[] = array(
-			'name'            => sprintf( __( '%s Projects', 'task_breaker' ), $displayed_user_name ),
+			'name'            => sprintf( __( '%s Projects', 'taskbreaker-project-management' ), $displayed_user_name ),
 			'slug'            => 'all',
 			'parent_url'      => bp_loggedin_user_domain() . $this->id . '/',
 			'parent_slug'     => 'projects',
@@ -181,7 +181,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 
 		// Edit subnav.
 		$sub_nav[] = array(
-			'name'            => __( 'New Project', 'task_breaker' ),
+			'name'            => __( 'New Project', 'taskbreaker-project-management' ),
 			'slug'            => 'new',
 			'parent_url'      => bp_loggedin_user_domain() . '' . $this->id . '/',
 			'parent_slug'     => 'projects',

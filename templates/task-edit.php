@@ -29,12 +29,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<!-- Task Title -->
 		<div class="task_breaker-form-field">
-			<input placeholder="<?php esc_attr_e( 'Task Summary', 'task_breaker' ); ?>" type="text" id="task_breakerTaskEditTitle" maxlength="160" name="title" class="widefat"/>
+			<input placeholder="<?php esc_attr_e( 'Task Summary', 'taskbreaker-project-management' ); ?>" type="text" id="task_breakerTaskEditTitle" maxlength="160" name="title" class="widefat"/>
 		</div>
 
 		<!-- Task Deadline -->
 		<div class="task_breaker-form-field">
-			<input name="deadline" id="js-edit-taskbreaker-deadline-field" type="text" placeholder="<?php esc_attr_e('Deadline', 'task_breaker'); ?>" class="js-taskbreaker-task-deadline">
+			<input name="deadline" id="js-edit-taskbreaker-deadline-field" type="text" placeholder="<?php esc_attr_e('Deadline', 'taskbreaker-project-management'); ?>" class="js-taskbreaker-task-deadline">
 		</div>
 
 		<!-- Task User Assigned -->
@@ -59,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="task_breaker-form-field">
 			<label for="task_breaker-task-priority-select">
 				<strong>
-					<?php _e( 'Priority:', 'task_breaker' ); ?>
+					<?php _e( 'Priority:', 'taskbreaker-project-management' ); ?>
 				</strong>
 				<?php
 					$core->task_priority_select( 1, 'task_breaker-task-edit-priority', 'task_breaker-task-edit-select-id' );
@@ -74,22 +74,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<input disabled type="file" name="file" id="task-breaker-form-file-attachment-edit-field" />
 					<label for="task-breaker-form-file-attachment-edit-field">
 						<strong class="tasbreaker-file-attached">
-							<?php esc_html_e( 'Loading Attached Files...', 'task_breaker' ); ?>
+							<?php esc_html_e( 'Loading Attached Files...', 'taskbreaker-project-management' ); ?>
 						</strong>
 						<div class="taskbreaker-task-attached-file"></div>
-						<?php esc_html_e('Click to update file attachment', 'task_breaker'); ?>
-						<?php echo sprintf( __('(maximum file size: %d MB)', 'task_breaker'), absint( $core->get_wp_max_upload_size() ) ); ?>
+						<?php esc_html_e('Click to update file attachment', 'taskbreaker-project-management'); ?>
+						<?php echo sprintf( __('(maximum file size: %d MB)', 'taskbreaker-project-management'), absint( $core->get_wp_max_upload_size() ) ); ?>
 					</label>
 
 				</div>
 				<div class="tb-file-attachment-progress-wrap">
 					<div class="tb-file-attachment-progress-text">
-						<?php esc_html_e('Uploading', 'task_breaker'); ?>&hellip;<span class="taskbreaker-upload-progress-value">(0%)</span>
+						<?php esc_html_e('Uploading', 'taskbreaker-project-management'); ?>&hellip;<span class="taskbreaker-upload-progress-value">(0%)</span>
 						<span class="taskbreaker-upload-success-text-helper">
-							<?php esc_html_e('. File attached successfully.', 'task_breaker'); ?>
+							<?php esc_html_e('. File attached successfully.', 'taskbreaker-project-management'); ?>
 						</span>
 						<span class="taskbreaker-upload-error-text-helper">
-							<?php esc_html_e('. Upload successfully initiated, but the server was unable to process it. See message below.', 'task_breaker'); ?>
+							<?php esc_html_e('. Upload successfully initiated, but the server was unable to process it. See message below.', 'taskbreaker-project-management'); ?>
 						</span>
 					</div>
 					<div class="tb-file-attachment-progress">
@@ -105,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!--[if lte IE 9]>
 			<div class="task_breaker-form-field ie-fallback ie-10">
 				<label for="task_breaker-task-priority-select">
-					<?php esc_html_e('File attachment is disabled for this browser. Please update to latest version', 'task_breaker'); ?>
+					<?php esc_html_e('File attachment is disabled for this browser. Please update to latest version', 'taskbreaker-project-management'); ?>
 				</label>
 			</div>
 		<![endif]-->
@@ -115,11 +115,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="task_breaker-form-field">
 
 			<button id="task_breaker-delete-btn" class="button button-primary button-large" style="float:right; margin-left: 10px;">
-				<?php esc_attr_e( 'Delete', 'task_breaker' ); ?>
+				<?php esc_attr_e( 'Delete', 'taskbreaker-project-management' ); ?>
 			</button>
 
 			<button id="task_breaker-edit-btn" class="button button-primary button-large" style="float:right">
-				<?php esc_attr_e( 'Update Task', 'task_breaker' ); ?>
+				<?php esc_attr_e( 'Update Task', 'taskbreaker-project-management' ); ?>
 			</button>
 
 			<div style="clear:both"></div>
@@ -127,7 +127,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php }  else { ?>
 		<p class="task-breaker-message info">
-			<?php echo sprintf( esc_html__('Ops! Looks like you are lost. %s', 'task_breaker'), '<a href="#tasks">'.__('Go back to tasks.', 'task_breaker').'</a>'); ?>
+			<?php echo sprintf( esc_html__('Ops! Looks like you are lost. %s', 'taskbreaker-project-management'), '<a href="#tasks">'.__('Go back to tasks.', 'taskbreaker-project-management').'</a>'); ?>
 		</p>
 	<?php } ?>
 

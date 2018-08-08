@@ -27,10 +27,10 @@ class TaskBreakerWidgets extends WP_Widget {
 
 		$widget_ops = array(
 			'classname' => 'taskbreaker_user_recent_tasks',
-			'description' => __('Displays the current logged in user\'s latest tasks.', 'task_breaker'),
+			'description' => __('Displays the current logged in user\'s latest tasks.', 'taskbreaker-project-management'),
 		);
 
-		parent::__construct( 'taskbreaker_user_recent_tasks', __('(TaskBreaker) My Recent Task', 'task_breaker'), $widget_ops );
+		parent::__construct( 'taskbreaker_user_recent_tasks', __('(TaskBreaker) My Recent Task', 'taskbreaker-project-management'), $widget_ops );
 		$this->register_sidebar();
 
 	}
@@ -82,19 +82,19 @@ class TaskBreakerWidgets extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'My Recent Tasks', 'task_breaker' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'My Recent Tasks', 'taskbreaker-project-management' );
 		$task_number = ! empty( $instance['task_number'] ) ? $instance['task_number'] : absint( $this->task_number ); ?>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
-				<?php esc_attr_e( 'Title:', 'task_breaker' ); ?>
+				<?php esc_attr_e( 'Title:', 'taskbreaker-project-management' ); ?>
 			</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'task_number' ) ); ?>">
-				<?php esc_attr_e( 'Number of Tasks:', 'task_breaker' ); ?>
+				<?php esc_attr_e( 'Number of Tasks:', 'taskbreaker-project-management' ); ?>
 			</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'task_number' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'task_number' ) ); ?>" type="text" value="<?php echo esc_attr( $task_number ); ?>">
 		</p>
@@ -120,9 +120,9 @@ class TaskBreakerWidgets extends WP_Widget {
 	public function register_sidebar() {
 	    register_sidebar(
 	    	array(
-		        'name' => __( 'Projects', 'task_breaker' ),
+		        'name' => __( 'Projects', 'taskbreaker-project-management' ),
 		        'id' => 'taskbreaker-projects',
-		        'description' => __( 'Use this sidebar area in your theme to display all the Widgets related to Projects.', 'task_breaker' ),
+		        'description' => __( 'Use this sidebar area in your theme to display all the Widgets related to Projects.', 'taskbreaker-project-management' ),
 		        'before_widget' => '<aside id="%1$s" class="sidebar-widgets widget %2$s">',
 				'after_widget'  => '</aside>',
 				'before_title'  => '<h3 class="widget-title">',

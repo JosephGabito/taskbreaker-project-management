@@ -4,7 +4,7 @@
 
 	<li class="task-lists-item comment">
 		<p id="message" class="message error">
-			<?php _e( 'Unable to update the task. Please make sure you have the right privilege.', 'task_breaker' ); ?>
+			<?php _e( 'Unable to update the task. Please make sure you have the right privilege.', 'taskbreaker-project-management' ); ?>
 		</p>
 	</li>
 
@@ -24,19 +24,19 @@
 
 				<div class="task-meta">
 
-					<?php $progress_label = __( 'New Progress by', 'task_breaker' ); ?>
+					<?php $progress_label = __( 'New Progress by', 'taskbreaker-project-management' ); ?>
 
 					<?php $task_progress = absint( $args['status'] ); ?>
 
 					<?php if ( 1 === $task_progress ) { ?>
 
-					<?php $progress_label = __( 'Completed by', 'task_breaker' );?>
+					<?php $progress_label = __( 'Completed by', 'taskbreaker-project-management' );?>
 
 					<?php } ?>
 
 					<?php if ( 2 === $task_progress ) { ?>
 
-					<?php $progress_label = __( 'Reopened by', 'task_breaker' );?>
+					<?php $progress_label = __( 'Reopened by', 'taskbreaker-project-management' );?>
 
 					<?php } ?>
 
@@ -62,8 +62,8 @@
 		<?php // Check if current user can delete the comment ?>
 		<?php if ( $current_user_id == $args['user'] || current_user_can( 'administrator' ) ) { ?>
 		<?php // Delete link. ?>
-			<a href="#" title="<?php _e( 'Delete comment', 'task_breaker' ); ?>" data-comment-id="<?php echo absint( $args['id'] ); ?>" class="task_breaker-delete-comment">
-				<?php _e( 'Remove Comment', 'task_breaker' ); ?>
+			<a href="#" title="<?php _e( 'Delete comment', 'taskbreaker-project-management' ); ?>" data-comment-id="<?php echo absint( $args['id'] ); ?>" class="task_breaker-delete-comment">
+				<?php _e( 'Remove Comment', 'taskbreaker-project-management' ); ?>
 			</a>
 
 		<?php } ?>

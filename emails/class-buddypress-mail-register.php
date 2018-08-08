@@ -54,7 +54,7 @@ final class Task_Breaker_BP_Mail_Register {
 
 		// Create post object.
 		$task_update_email_post = array(
-			 'post_title' => __( '[{{{site.name}}}] There is a new task waiting for you.', 'task_breaker' ),
+			 'post_title' => __( '[{{{site.name}}}] There is a new task waiting for you.', 'taskbreaker-project-management' ),
 			 'post_content' => $email_content, // HTML email content.
 			 'post_excerpt' => $email_content, // Plain text email content.
 			 'post_status' => 'publish',
@@ -76,7 +76,7 @@ final class Task_Breaker_BP_Mail_Register {
 
 				wp_update_term(
 					absint( $term->term_id ), bp_get_email_tax_type(), array(
-					'description' => __( 'A member of a project received a new ask.', 'task_breaker' ),
+					'description' => __( 'A member of a project received a new ask.', 'taskbreaker-project-management' ),
 					)
 				);
 
@@ -109,7 +109,7 @@ final class Task_Breaker_BP_Mail_Register {
 
 		// Create post object.
 		$task_update_email_post = array(
-			 'post_title' => __( '[{{{site.name}}}] New task update.', 'task_breaker' ),
+			 'post_title' => __( '[{{{site.name}}}] New task update.', 'taskbreaker-project-management' ),
 			 'post_content' => $email_content, // HTML email content.
 			 'post_excerpt' => $email_content, // Plain text email content.
 			 'post_status' => 'publish',
@@ -131,7 +131,7 @@ final class Task_Breaker_BP_Mail_Register {
 
 				wp_update_term(
 					absint( $term->term_id ), bp_get_email_tax_type(), array(
-					'description' => __( 'A member of a project updated a task.', 'task_breaker' ),
+					'description' => __( 'A member of a project updated a task.', 'taskbreaker-project-management' ),
 					)
 				);
 

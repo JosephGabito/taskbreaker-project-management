@@ -24,7 +24,7 @@ do_action( 'task_breaker_before_projects_directory' ); ?>
 
 			<p id="message" class="info">
 
-				<?php _e( 'Please enable BuddyPress Groups Components to access the Projects.', 'task_breaker' ); ?>
+				<?php _e( 'Please enable BuddyPress Groups Components to access the Projects.', 'taskbreaker-project-management' ); ?>
 
 			</p>
 

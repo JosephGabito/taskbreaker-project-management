@@ -26,7 +26,7 @@ class TaskBreakerProjectsGroupExtension extends BP_Group_Extension {
 
 		$args = array(
 			'slug' => 'projects',
-			'name' => __( 'Projects', 'task_breaker' ),
+			'name' => __( 'Projects', 'taskbreaker-project-management' ),
 			'nav_item_position' => 105,
 			'screens' => array(
 			'edit' => array(
@@ -61,7 +61,7 @@ class TaskBreakerProjectsGroupExtension extends BP_Group_Extension {
 		$template = new TaskBreakerTemplate();
 		?>
 
-		<h3><?php esc_html_e( 'Projects', 'task_breaker' ); ?></h3>
+		<h3><?php esc_html_e( 'Projects', 'taskbreaker-project-management' ); ?></h3>
 
 		<div id="task_breaker-intranet-projects">
 

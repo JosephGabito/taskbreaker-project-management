@@ -36,7 +36,7 @@ class TaskBreakerCore {
 	 * @return string The Project Name.
 	 */
 	function get_component_name() {
-		return apply_filters( 'task_breaker_component_name', __( 'Projects', 'task_breaker' ) );
+		return apply_filters( 'task_breaker_component_name', __( 'Projects', 'taskbreaker-project-management' ) );
 	}
 
 	/**
@@ -425,7 +425,7 @@ class TaskBreakerCore {
 				'total_pages' => ceil( $num_projects[0]->total / $limit ),
 				'total_user_groups' => $user_groups['total'],
 				'summary' => sprintf(
-					esc_html__( 'There are a of total %s project(s) found in the %s group(s) that you have joined.', 'task_breaker' ),
+					esc_html__( 'There are a of total %s project(s) found in the %s group(s) that you have joined.', 'taskbreaker-project-management' ),
 					'<strong>' . $total . '</strong>',
 					'<strong>' . $user_groups['total'] . '</strong>'
 				),
@@ -500,7 +500,7 @@ class TaskBreakerCore {
 				'total_pages' => ceil( $num_projects[0]->total / $limit ),
 				'total_user_groups' => $user_groups['total'],
 				'summary' => sprintf(
-					esc_html__( 'There are a total of %s projects found in the %s group(s) of which %s is a member.', 'task_breaker' ),
+					esc_html__( 'There are a total of %s projects found in the %s group(s) of which %s is a member.', 'taskbreaker-project-management' ),
 					'<strong>' . $total . '</strong>',
 					'<strong>' . $user_groups['total'] . '</strong>',
 					'<strong>' . get_userdata( absint( $user_id ) )->display_name . '</strong>'
@@ -552,8 +552,8 @@ class TaskBreakerCore {
 				'total' => $total,
 				'total_pages' => ceil( $total / $limit ),
 				'summary' => sprintf(
-					esc_html__( 'There are a of total %s projects found in this group.', 'task_breaker' ),
-					'<strong>' . $total . '</strong>'
+					esc_html__( 'There are a of total %s projects found in this group.', 'taskbreaker-project-management' ),
+					'<strong>' . absint( $total ) . '</strong>'
 				),
 			);
 	}

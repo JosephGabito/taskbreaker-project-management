@@ -89,7 +89,7 @@ class TaskBreakerTransactions {
 
 		if ( ! wp_verify_nonce( $nonce, 'task_breaker-transaction-request' ) ) {
 
-			esc_html_e( 'Invalid Request. Your session has already expired (invalid nonce). Please go back and refresh your browser. Thanks!', 'task_breaker' );
+			esc_html_e( 'Invalid Request. Your session has already expired (invalid nonce). Please go back and refresh your browser. Thanks!', 'taskbreaker-project-management' );
 			return;
 
 		}
@@ -148,7 +148,7 @@ class TaskBreakerTransactions {
 				$this->task_breaker_api_message
 				(
 					array(
-						'message' => sprintf( __( 'Cannot find the route: %s', 'task_breaker' ), $method ),
+						'message' => sprintf( __( 'Cannot find the route: %s', 'taskbreaker-project-management' ), $method ),
 					)
 				);
 			}

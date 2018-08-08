@@ -223,12 +223,12 @@ class TaskBreakerTaskComment {
 				}
 
 				 $status_label = array(
-				  	__( 'posted a new update in', 'task_breaker' ),
-				   	__( 'completed', 'task_breaker' ),
-				   	__( 'reopened', 'task_breaker' ),
+				  	__( 'posted a new update in', 'taskbreaker-project-management' ),
+				   	__( 'completed', 'taskbreaker-project-management' ),
+				   	__( 'reopened', 'taskbreaker-project-management' ),
 				  );
 
-				 $status_content_label = array( __( 'Updated', 'task_breaker' ), __( 'Completed', 'task_breaker' ), __( 'Reopened', 'task_breaker' ) );
+				 $status_content_label = array( __( 'Updated', 'taskbreaker-project-management' ), __( 'Completed', 'taskbreaker-project-management' ), __( 'Reopened', 'taskbreaker-project-management' ) );
 
 				 $type = $status_label[ $this->get_status() ];
 
@@ -255,7 +255,7 @@ class TaskBreakerTaskComment {
 
 						  $task_permalink_template = sprintf( '<a href="%2$s" title="%1$d">(#%1$d)</a>',  $this->ticket_id, $task_permalink_uri );
 
-						  $action_i18 = __( '%1$s %2$s the task %3$s %4$s', 'task_breaker' );
+						  $action_i18 = __( '%1$s %2$s the task %3$s %4$s', 'taskbreaker-project-management' );
 
 						  $action_template = sprintf(
 

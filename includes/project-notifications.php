@@ -77,7 +77,7 @@ final class TaskBreakerNotifications {
 			$task = $core->get_task( $item_id );
 
 			if ( empty ( $task ) ) {
-				$text = esc_html__('You were assigned a new task, but it was deleted. You can ignore this notification.', 'task_breaker');
+				$text = esc_html__('You were assigned a new task, but it was deleted. You can ignore this notification.', 'taskbreaker-project-management');
 				$out = sprintf( '<a href="#" title="%1$s">%1$s</a>', $text );
 				return $out;
 			}
@@ -90,16 +90,16 @@ final class TaskBreakerNotifications {
 			$notification_text = sprintf(
 				'%s %s %s',
 				esc_attr( $secondary_item_user_name ),
-				__( ' assigned a new task for you &mdash; ', 'task_breaker' ),
+				__( ' assigned a new task for you &mdash; ', 'taskbreaker-project-management' ),
 				esc_html( $task->title )
 			);
 
 			// Customized notification text for new task.
 			$notification_title = sprintf(
 				'%s %s %s',
-				__( ' You have a new task waiting for you under ', 'task_breaker' ),
+				__( ' You have a new task waiting for you under ', 'taskbreaker-project-management' ),
 				get_the_title( $project_id ),
-				__( ' project', 'task_breaker' )
+				__( ' project', 'taskbreaker-project-management' )
 			);
 
 			// The link of the task.

@@ -63,26 +63,26 @@ final class TaskBreakerActions {
 								// Delete all user assignments.
 								if ( $dbase->delete( $task_user_assignment_table, array( 'task_id' => $task->id ), array( '%d' ) ) === FALSE  ) {
 
-									TaskBreaker::stop('Unable to delete user assignments. There was an error in db query.');
+									TaskBreaker::stop(__('Unable to delete user assignments. There was an error in db query.','taskbreaker-project-management'));
 
 								}
 
 							} else {
 
-								TaskBreaker::stop('Unable to delete task comments. There was an error in db query.');
+								TaskBreaker::stop(__('Unable to delete task comments. There was an error in db query.', 'taskbreaker-project-management'));
 
 							}
 
 						// End task meta deletion.
 						} else {
 
-							TaskBreaker::stop('Unable to delete attachments meta. There was an error in db query.');
+							TaskBreaker::stop(__('Unable to delete attachments meta. There was an error in db query.', 'taskbreaker-project-management'));
 
 						}
 					// End Delete all task attachments under the task inside a specific project.
 					} else {
 
-						TaskBreaker::stop('Unable to delete attachments. There was an error in db query.');
+						TaskBreaker::stop(__('Unable to delete attachments. There was an error in db query.','taskbreaker-project-management'));
 
 					}
 
@@ -91,7 +91,7 @@ final class TaskBreakerActions {
 			// End Delete all the tasks under the project.
 			} else {
 
-				TaskBreaker::stop('Unable to delete tasks. There was an error in db query. ');
+				TaskBreaker::stop(__('Unable to delete tasks. There was an error in db query. ','taskbreaker-project-management'));
 
 			}
 		} // End not empty.

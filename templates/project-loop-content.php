@@ -65,7 +65,7 @@
 
 <?php } else { ?>
 	<p id="message" class="info">
-		<?php esc_html_e( 'There are no Group Projects found at this time.', 'task_breaker' ); ?>
+		<?php esc_html_e( 'There are no Group Projects found at this time.', 'taskbreaker-project-management' ); ?>
 	</p>
 <?php } ?>
 <div id="taskbreaker-project-navigation">

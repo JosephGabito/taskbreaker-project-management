@@ -225,7 +225,7 @@ final class TaskBreakerProjectScreens {
 	 */
 	public function bp_projects_menu_header() {
 
-		esc_html_e( 'Menu Header', 'task_breaker' );
+		esc_html_e( 'Menu Header', 'taskbreaker-project-management' );
 
 		return;
 	}
@@ -237,7 +237,7 @@ final class TaskBreakerProjectScreens {
 	 */
 	public static function bp_projects_title() {
 
-		esc_html_e( 'Public Group Projects', 'task_breaker' );
+		esc_html_e( 'Public Group Projects', 'taskbreaker-project-management' );
 
 		return;
 	}
@@ -300,7 +300,7 @@ final class TaskBreakerProjectScreens {
 	 */
 	public static function bp_projects_add_new_title() {
 
-		esc_html_e( 'New Project', 'task_breaker' );
+		esc_html_e( 'New Project', 'taskbreaker-project-management' );
 
 		return;
 	}

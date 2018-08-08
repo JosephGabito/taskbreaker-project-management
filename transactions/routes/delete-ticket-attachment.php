@@ -22,14 +22,14 @@ if ( $fileAttachment->delete_task_attachments( $ticket_id ) ) {
 	$this->task_breaker_api_message(
 		array(
 			'message' => 'success',
-			'response' => __( 'File attachment successfully deleted.', 'task_breaker' ),
+			'response' => __( 'File attachment successfully deleted.', 'taskbreaker-project-management' ),
 		)
 	);	
 } else {
 	$this->task_breaker_api_message(
 		array(
 			'message' => 'fail',
-			'response' => __( 'Fail to delete attachment', 'task_breaker' ),
+			'response' => __( 'Fail to delete attachment', 'taskbreaker-project-management' ),
 		)
 	);	
 }

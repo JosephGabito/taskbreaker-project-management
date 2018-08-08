@@ -396,9 +396,9 @@
 }
 
 .single-project #task_breaker-project-tasks h3 {
-	font-size: 14px;
-	font-weight: normal;
-	line-height: 1.3;
+    font-size: 1.15rem;
+    font-weight: bold;
+    line-height: 1em;
 }
 
 .single-project #task_breaker-project-tasks ul {
@@ -623,13 +623,6 @@
 /**
  * Single View
  */
-#task_breaker-single-task h2 {
-	line-height: 1.3;
-	font-weight: normal;
-	font-size: 24px;
-}
-
-
 #task_breaker-single-task .task-content ul,
 #task_breaker-single-task .task-content ol {
 	padding-left: 0;

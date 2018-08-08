@@ -31,7 +31,7 @@ if ( ! $user_access->can_delete_project( $project_id ) ) {
 	$this->task_breaker_api_message(
 		array(
 			'message' => 'fail',
-			'response' => __( 'Permission Denied. Unauthorized.' ),
+			'response' => __( 'Permission Denied. Unauthorized.', 'taskbreaker-project-management' ),
 		)
 	);
 

@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <div class="task_breaker-form-field">
 
-        <?php $placeholder = __( 'Enter the new title for this project', 'task_breaker' ); ?>
+        <?php $placeholder = __( 'Enter the new title for this project', 'taskbreaker-project-management' ); ?>
 
         <?php $title = $__post->post_title; ?>
 
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <span class="description">
 
-            <?php esc_html_e( 'Explain what this project is all about', 'task_breaker' ); ?>
+            <?php esc_html_e( 'Explain what this project is all about', 'taskbreaker-project-management' ); ?>
 
 		</span>
 
@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <label for="task_breaker-project-assigned-group">
 
-            <?php esc_html_e( 'Assign to Group:', 'task_breaker' ); ?>
+            <?php esc_html_e( 'Assign to Group:', 'taskbreaker-project-management' ); ?>
 
         </label>
 
@@ -90,13 +90,13 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="alignright">
 
             <button id="task_breakerUpdateProjectBtn" type="button" class="button">
-                <?php esc_html_e( 'Update Project', 'task_breaker' ); ?>
+                <?php esc_html_e( 'Update Project', 'taskbreaker-project-management' ); ?>
             </button>
 
             <?php if ( $user_access->can_delete_project( $__post->ID ) ) { ?>
 
                 <button id="task_breakerDeleteProjectBtn" type="button" class="button button-danger">
-                    <?php esc_html_e( 'Delete', 'task_breaker' ); ?>
+                    <?php esc_html_e( 'Delete', 'taskbreaker-project-management' ); ?>
                 </button>
 
             <?php } ?>
@@ -111,7 +111,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php } else { ?>
 
 <p id="message" class="danger task-breaker-message">
-    <?php esc_html_e( 'You cannot access this group project settings page. Only the administrators and the moderators of this group are allowed to access.', 'task_breaker' ); ?>
+    <?php esc_html_e( 'You cannot access this group project settings page. Only the administrators and the moderators of this group are allowed to access.', 'taskbreaker-project-management' ); ?>
 </p>
 
 <?php } ?>
