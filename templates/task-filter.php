@@ -34,9 +34,9 @@ $user_access = TaskBreakerCT::get_instance();
 			<div class="task_breaker-tabs-tabs">
 				<ul>
 					<li id="task_breaker-task-list-tab" class="task_breaker-task-tabs active">
-						<a href="#tasks" title="<?php _e( 'Tasks', 'task_breaker' ); ?>">
+						<a href="#tasks" title="<?php _e( 'Tasks', 'taskbreaker-project-management' ); ?>">
 							<span class="dashicons dashicons-list-view"></span>
-								<?php _e( 'Tasks', 'task_breaker' ); ?>
+								<?php _e( 'Tasks', 'taskbreaker-project-management' ); ?>
 							<span class="task_breaker-remaining-tasks-count task_breaker-task-count">
 								<?php echo esc_html( $remaining ); ?>
 							</span>
@@ -45,7 +45,7 @@ $user_access = TaskBreakerCT::get_instance();
 					<li id="task_breaker-task-completed-tab" class="task_breaker-task-tabs">
 						<a href="#tasks/completed" title="<?php _e( 'Tasks', 'tasl_breaker' ); ?>">
 							<span class="dashicons dashicons-yes"></span>
-								<?php _e( 'Completed', 'task_breaker' ); ?>
+								<?php _e( 'Completed', 'taskbreaker-project-management' ); ?>
 							<span class="task-progress-completed task_breaker-task-count">
 								<?php echo esc_html( $completed ); ?>
 							</span>
@@ -54,13 +54,13 @@ $user_access = TaskBreakerCT::get_instance();
 					<?php if ( $user_access->can_update_task( $__post->ID ) ) { ?>
 					<li id="task_breaker-task-add-tab" class="task_breaker-task-tabs"><a href="#tasks/add">
 						<span class="dashicons dashicons-plus"></span>
-							<?php esc_html_e('Create New Task', 'task_breaker'); ?>
+							<?php esc_html_e('Create New Task', 'taskbreaker-project-management'); ?>
 						</a>
 					</li>
 					<?php } ?>
 					<li id="task_breaker-task-edit-tab" class="task_breaker-task-tabs hidden" style="display: none;">
 						<a href="#task_breaker-edit-task">
-							<?php esc_html_e('Edit Task', 'task_breaker'); ?>
+							<?php esc_html_e('Edit Task', 'taskbreaker-project-management'); ?>
 						</a>
 					</li>
 				</ul>
@@ -69,21 +69,21 @@ $user_access = TaskBreakerCT::get_instance();
 		<div class="clearfix">
 			<div class="alignleft">
 				<select name="task_breaker-task-filter-select-action" id="task_breaker-task-filter-select">
-					<option value="-1" selected="selected"><?php _e( 'Show All', 'task_breaker' ); ?></option>
-					<option value="1"><?php _e( 'Normal Priority', 'task_breaker' ); ?></option>
-					<option value="2"><?php _e( 'High Priority', 'task_breaker' ); ?></option>
-					<option value="3"><?php _e( 'Critical Priority', 'task_breaker' ); ?></option>
+					<option value="-1" selected="selected"><?php _e( 'Show All', 'taskbreaker-project-management' ); ?></option>
+					<option value="1"><?php _e( 'Normal Priority', 'taskbreaker-project-management' ); ?></option>
+					<option value="2"><?php _e( 'High Priority', 'taskbreaker-project-management' ); ?></option>
+					<option value="3"><?php _e( 'Critical Priority', 'taskbreaker-project-management' ); ?></option>
 				</select>
 			</div><!--.alignleft actions bulkactions-->
 
 			<div class="alignright">
 				<p class="task_breaker-search-box screen-reader-text">
 					<label class="screen-reader-text">
-						<?php _e( 'Search Tasks:', 'task_breaker' ); ?>
+						<?php _e( 'Search Tasks:', 'taskbreaker-project-management' ); ?>
 					</label>
 					<form action="" method="get" id="task-breaker-search-task-form">
-						<input maxlength="160" placeholder="<?php _e( 'Search Task', 'task_breaker' ); ?>" type="search" id="task_breaker-task-search-field" name="task_breaker-task-search" value="">
-						<input type="submit" id="task_breaker-task-search-submit" class="button screen-reader-text sr-only" value="<?php _e( 'Apply', 'task_breaker' ); ?>">
+						<input maxlength="160" placeholder="<?php _e( 'Search Task', 'taskbreaker-project-management' ); ?>" type="search" id="task_breaker-task-search-field" name="task_breaker-task-search" value="">
+						<input type="submit" id="task_breaker-task-search-submit" class="button screen-reader-text sr-only" value="<?php _e( 'Apply', 'taskbreaker-project-management' ); ?>">
 					</form>
 				</p><!--.search box-->
 			</div>
