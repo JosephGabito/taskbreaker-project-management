@@ -5,14 +5,14 @@
 			<div class="task-progress-task-count-wrap">
 				<div class="task-progress-task-count">
 					<?php
-						printf( _n( '%s Task', '%s Tasks', $args['tasks_total'], 'task_breaker' ), '<span class="task_breaker-total-tasks">' . $args['tasks_total'] . '</span>' );
+						printf( _n( '%s Task', '%s Tasks', $args['tasks_total'], 'taskbreaker-project-management' ), '<span class="task_breaker-total-tasks">' . $args['tasks_total'] . '</span>' );
 					?>
 				</div>
 			</div>
 			<div class="task-progress-percentage-label">
 				<span>
 					<?php echo absint( $args['tasks_progress'] ); ?>%
-					<?php _e( 'Completed', 'task_breaker' ); ?>
+					<?php _e( 'Completed', 'taskbreaker-project-management' ); ?>
 				</span>
 			</div>
 		</div>
