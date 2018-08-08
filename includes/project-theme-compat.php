@@ -35,7 +35,7 @@ class TaskBreakerThemeCompatibility {
 		bp_theme_compat_reset_post(
 			array(
 				'ID'             => 0,
-				'post_title'     => apply_filters( 'task_breaker_projects_dir_title', __( 'Projects Directory', 'task_breaker' ) ),
+				'post_title'     => apply_filters( 'task_breaker_projects_dir_title', __( 'Projects Directory', 'taskbreaker-project-management' ) ),
 				'post_author'    => 0,
 				'post_date'      => 0,
 				'post_content'   => '',
