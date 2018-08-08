@@ -100,7 +100,7 @@ class TaskBreakerProjectsComponent extends BP_Component {
 	public function includes( $includes = array() ) {
 
 		$includes = array(
-		 'project-screens.php'
+			'project-screens.php'
 		);
 
 		parent::includes( $includes );
