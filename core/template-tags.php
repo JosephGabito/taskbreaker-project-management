@@ -117,34 +117,34 @@ class TaskBreakerTemplate {
 
 		if ( ! empty( $search ) ) {
 
-			echo '<p id="task_breaker-view-info">' . sprintf( __( 'Search result for: "%s"', 'task_breaker' ), esc_html( $search ) ) . '</p>';
+			echo '<p id="task_breaker-view-info">' . sprintf( __( 'Search result for: "%s"', 'taskbreaker-project-management' ), esc_html( $search ) ) . '</p>';
 
 		} else {
 
 			if ( 'no' === $show_completed ) {
-				echo '<p id="task_breaker-view-info">' . sprintf( _n( 'Currently showing %d task ', 'Currently showing %d tasks ', $open_tasks_no, 'task_breaker' ), $open_tasks_no );
-				echo sprintf( __( 'out of %d', 'task_breaker' ), $all_tasks_no ) . '</p>';
+				echo '<p id="task_breaker-view-info">' . sprintf( _n( 'Currently showing %d task ', 'Currently showing %d tasks ', $open_tasks_no, 'taskbreaker-project-management' ), $open_tasks_no );
+				echo sprintf( __( 'out of %d', 'taskbreaker-project-management' ), $all_tasks_no ) . '</p>';
 			}
 
 			if ( $show_completed == 'yes' ) {
-				echo '<p id="task_breaker-view-info">' . sprintf( _n( 'Currently showing %d completed task ', 'Currently showing %d completed tasks ', $completed_task_no, 'task_breaker' ), $completed_task_no );
-				echo sprintf( __( 'out of %d', 'task_breaker' ), $all_tasks_no ) . '</p>';
+				echo '<p id="task_breaker-view-info">' . sprintf( _n( 'Currently showing %d completed task ', 'Currently showing %d completed tasks ', $completed_task_no, 'taskbreaker-project-management' ), $completed_task_no );
+				echo sprintf( __( 'out of %d', 'taskbreaker-project-management' ), $all_tasks_no ) . '</p>';
 			}
 		}
 
 		if ( empty( $tasks ) ) {
 
 			echo '<p class="bp-template-notice error" id="task_breaker-message">';
-				echo __( 'No results found. Try another filter or add new task.', 'task_breaker' );
+				echo __( 'No results found. Try another filter or add new task.', 'taskbreaker-project-management' );
 			echo '</p>';
 
 		} else {
 
 			echo '<table class="wp-list-table widefat fixed striped pages" id="task_breaker-core-functions-render-task">';
 			echo '<tr>';
-				echo '<th width="70%">' . __( 'Title', 'task_breaker' ) . '</th>';
-				echo '<th>' . __( 'Priority', 'task_breaker' ) . '</th>';
-				echo '<th>' . __( 'Date', 'task_breaker' ) . '</th>';
+				echo '<th width="70%">' . __( 'Title', 'taskbreaker-project-management' ) . '</th>';
+				echo '<th>' . __( 'Priority', 'taskbreaker-project-management' ) . '</th>';
+				echo '<th>' . __( 'Date', 'taskbreaker-project-management' ) . '</th>';
 			echo '</tr>';
 
 			foreach ( (array) $tasks as $task ) {
@@ -162,7 +162,7 @@ class TaskBreakerTemplate {
 				$classes = implode( ' ', array( esc_attr( sanitize_title( $priority_label ) ), $completed ) );
 
 				$row_actions = '<div class="row-actions">';
-					$row_actions .= '<span class="edit"><a href="#tasks/edit/' . intval( $task->id ) . '">Edit</a> | </span>';
+					$row_actions .= '<span class="edit"><a href="#tasks/edit/' . intval( $task->id ) . '">'.esc_html__('Edit', 'taskbreaker-project-management').'</a> | </span>';
 				if ( empty( $completed ) ) {
 					$row_actions .= '<span data-user_id="' . intval( $current_user_id ) . '" data-task_id="' . intval( $task->id ) . '" class="task_breaker-complete-ticket"><a href="#">Complete</a> | </span>';
 				} else {
@@ -179,7 +179,7 @@ class TaskBreakerTemplate {
 				if ( '0000-00-00 00:00:00' !== $task->date_added ) {
 					echo '<td>' . esc_html( date( 'M d, o @H:i', strtotime( $task->date_added ) ) ) . '</h3></td>';
 				} else {
-					echo '<td>' . __( 'N/A','task_breaker' ) . '</td>';
+					echo '<td>' . __( 'N/A','taskbreaker-project-management' ) . '</td>';
 				}
 
 				echo '</tr>';
@@ -193,19 +193,19 @@ class TaskBreakerTemplate {
 			$max_page   = intval( $stats['max_page'] );
 
 			echo '<div class="tablenav"><div class="tablenav-pages">';
-			echo '<span class="displaying-num">' . sprintf( _n( '%s task', '%s tasks', $total, 'task_breaker' ),$total ) . '</span>';
+			echo '<span class="displaying-num">' . sprintf( _n( '%s task', '%s tasks', $total, 'taskbreaker-project-management' ),$total ) . '</span>';
 
 			if ( $total_page >= 1 ) {
 				echo '<span id="trive-task-paging" class="pagination-links">';
-					echo '<a class="first-page disabled" title="' . __( 'Go to the first page', 'task_breaker' ) . '" href="#tasks/page/' . $min_page . '">«</a>';
-					echo '<a class="prev-page disabled" title="' . __( 'Go to the previous page', 'task_breaker' ) . '" href="#">‹</a>';
+					echo '<a class="first-page disabled" title="' . __( 'Go to the first page', 'taskbreaker-project-management' ) . '" href="#tasks/page/' . $min_page . '">«</a>';
+					echo '<a class="prev-page disabled" title="' . __( 'Go to the previous page', 'taskbreaker-project-management' ) . '" href="#">‹</a>';
 
-							echo '<span class="paging-input"><label for="task_breaker-task-current-page-selector" class="screen-reader-text">' . __( 'Select Page', 'task_breaker' ) . '</label>';
+							echo '<span class="paging-input"><label for="task_breaker-task-current-page-selector" class="screen-reader-text">' . __( 'Select Page', 'taskbreaker-project-management' ) . '</label>';
 							echo '<input readonly class="current-page" id="task_breaker-task-current-page-selector" type="text" maxlength="' . strlen( $total_page ) . '" size="' . strlen( $total_page ) . '"value="' . intval( $currpage ) . '">';
 							echo ' of <span class="total-pages">' . $total_page . '</span></span>';
 
-					echo '<a class="next-page" title="' . __( 'Go to the next page', 'task_breaker' ) . '" href="#">›</a>';
-					echo '<a class="last-page" title="' . __( 'Go to the last page', 'task_breaker' ) . '" href="#tasks/page/' . absint( $max_page ) . '">»</a></span>';
+					echo '<a class="next-page" title="' . __( 'Go to the next page', 'taskbreaker-project-management' ) . '" href="#">›</a>';
+					echo '<a class="last-page" title="' . __( 'Go to the last page', 'taskbreaker-project-management' ) . '" href="#tasks/page/' . absint( $max_page ) . '">»</a></span>';
 				echo '</span>';
 			}
 
@@ -440,9 +440,9 @@ class TaskBreakerTemplate {
 			$user_profile_url = bp_core_get_user_domain( $user_id );
 		}
 
-			esc_html_e( 'Started by ', 'task_breaker' ); ?>
+			esc_html_e( 'Started by ', 'taskbreaker-project-management' ); ?>
 
-			<a href="<?php echo esc_url( $user_profile_url ); ?>" title="<?php esc_attr_e( 'Visit User Profile', 'task_breaker' ); ?>">
+			<a href="<?php echo esc_url( $user_profile_url ); ?>" title="<?php esc_attr_e( 'Visit User Profile', 'taskbreaker-project-management' ); ?>">
 				<?php echo get_avatar( $user_id, 32 ); ?>
 				<?php echo esc_html( get_the_author_meta( 'display_name' ) ); ?>
 			</a>
@@ -456,7 +456,7 @@ class TaskBreakerTemplate {
 
 			if ( ! empty( $group->id ) ) {
 
-				esc_html_e( 'under &raquo;', 'task_breaker' ); ?>
+				esc_html_e( 'under &raquo;', 'taskbreaker-project-management' ); ?>
 
 				<a href="<?php echo esc_url( bp_get_group_permalink( $group ) ); ?>" title="<?php echo esc_attr( $group->name ); ?>">
 
@@ -544,7 +544,7 @@ class TaskBreakerTemplate {
 	function display_new_project_modal_button() {
 		if ( is_user_logged_in() ) { ?>
 			<a id="task_breaker-new-project-btn" class="<?php echo esc_attr( apply_filters( 'task_breaker_new_project_modal_button_class', 'button' ) ); ?>" href="#">
-			    <?php esc_html_e( 'New Project', 'task_breaker' ); ?>
+			    <?php esc_html_e( 'New Project', 'taskbreaker-project-management' ); ?>
 			</a>
 		<?php
 		}
