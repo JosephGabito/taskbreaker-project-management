@@ -36,7 +36,7 @@ data-content="task_breaker-project-dashboard" id="task_breaker-project-dashboard
 
 	<div id="task_breaker-dashboard-about">
 
-		<h3><?php esc_html_e( 'About', 'task_breaker' ); ?></h3>
+		<h3><?php esc_html_e( 'About', 'taskbreaker-project-management' ); ?></h3>
 
 			<?php echo wp_kses_post( wpautop( do_shortcode( $__post->post_content ), true ) ); ?>
 
@@ -55,7 +55,7 @@ data-content="task_breaker-project-dashboard" id="task_breaker-project-dashboard
 		$remaining = absint( $total - $completed );
 		?>
 		<h3>
-			<?php _e( 'At a Glance', 'task_breaker' ); ?>
+			<?php _e( 'At a Glance', 'taskbreaker-project-management' ); ?>
 		</h3>
 		<ul>
 			<li>
@@ -66,7 +66,7 @@ data-content="task_breaker-project-dashboard" id="task_breaker-project-dashboard
 						</span>
 					</h4>
 					<p>
-						<?php _e( 'Total Tasks', 'task_breaker' ); ?>
+						<?php _e( 'Total Tasks', 'taskbreaker-project-management' ); ?>
 					</p>
 				</div>
 			</li>
@@ -78,7 +78,7 @@ data-content="task_breaker-project-dashboard" id="task_breaker-project-dashboard
 							<?php printf( '%d', $remaining ); ?>
 						</span>
 					</h4>
-					<p><?php _e( 'Task(s) remaining', 'task_breaker' ); ?></p>
+					<p><?php _e( 'Task(s) remaining', 'taskbreaker-project-management' ); ?></p>
 				</a>
 			</li>
 
@@ -89,7 +89,7 @@ data-content="task_breaker-project-dashboard" id="task_breaker-project-dashboard
 							<?php printf( '%d', $completed ); ?>
 						</span>
 					</h4>
-					<p><?php _e( 'Task(s) Completed', 'task_breaker' ); ?></p>
+					<p><?php _e( 'Task(s) Completed', 'taskbreaker-project-management' ); ?></p>
 				</a>
 			</li>
 
