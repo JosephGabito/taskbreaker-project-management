@@ -24,11 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'TASK_BREAKER_PROFILER', false );
 
-define( 'TASK_BREAKER_VERSION', '1.4.13' );
+define( 'TASK_BREAKER_VERSION', '1.5.0' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
 
-define( 'TASK_BREAKER_PROJECT_SLUG', 'project' );
+define( 'TASK_BREAKER_PROJECT_SLUG', apply_filters('TASK_BREAKER_PROJECT_SLUG', 'project') );
 
 define( 'TASK_BREAKER_ASSET_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 
@@ -60,7 +60,7 @@ if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
 	function taskbreaker_admin_notice() {
 	?>
 		<div class="notice notice-error is-dismissible">
-	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.3.0 and above.', 'task_breaker' ); ?></strong></p>
+	        <p><strong><?php _e( 'Notice: TaskBreaker is only available for PHP Version 5.4.0 and above.', 'task_breaker' ); ?></strong></p>
 	    </div>
 	<?php }
 }
