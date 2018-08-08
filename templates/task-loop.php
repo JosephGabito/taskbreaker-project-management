@@ -62,10 +62,10 @@
 						 			<small>
 						 			<?php $task_deadline = strtotime( str_replace('-', '', $task->deadline ) ); ?>
 						 			<?php if ( current_time( 'timestamp' ) <= $task_deadline ) { ?>
-						 				<?php printf( _x( '%s left', '%s = human-readable time difference', 'task_breaker' ), human_time_diff( $task_deadline, current_time( 'timestamp' ) ) ); ?>
+						 				<?php printf( _x( '%s left', '%s = human-readable time difference', 'taskbreaker-project-management' ), human_time_diff( $task_deadline, current_time( 'timestamp' ) ) ); ?>
 						 			<?php } else { ?>
 						 				<strong>
-						 					<?php esc_html_e('Past Due', 'task_breaker'); ?>
+						 					<?php esc_html_e('Past Due', 'taskbreaker-project-management'); ?>
 						 				</strong>
 						 			<?php } ?>
 						 			</small>
@@ -122,7 +122,7 @@
 		</ul>
 	<?php } else { ?>
 		<div class="task-breaker-message info">
-			<?php esc_html_e( 'No tasks found. Try different keywords and filters.', 'task_breaker' ); ?>
+			<?php esc_html_e( 'No tasks found. Try different keywords and filters.', 'taskbreaker-project-management' ); ?>
 		</div>
 	<?php } ?>
 
@@ -151,32 +151,32 @@
 			<div class="tablenav-pages">
 
 				<span class="displaying-num">
-					<?php sprintf( _n( '%s task', '%s tasks', $total, 'task_breaker' ), $total ); ?>
+					<?php sprintf( _n( '%s task', '%s tasks', $total, 'taskbreaker-project-management' ), $total ); ?>
 				</span>
 
 				<?php if ( $total_page >= 1 ) { ?>
 
 					<span id="task_breaker-task-paging" class="pagination-links">
 
-						<a class="first-page disabled" title="<?php esc_attr_e( 'Go to the first page', 'task_breaker' );?>" href="#tasks/page/'.$min_page.'">«</a>
-						<a class="prev-page disabled" title="<?php esc_attr_e( 'Go to the previous page', 'task_breaker' );?>" href="#">‹</a>
+						<a class="first-page disabled" title="<?php esc_attr_e( 'Go to the first page', 'taskbreaker-project-management' );?>" href="#tasks/page/'.$min_page.'">«</a>
+						<a class="prev-page disabled" title="<?php esc_attr_e( 'Go to the previous page', 'taskbreaker-project-management' );?>" href="#">‹</a>
 
 						<span class="paging-input">
 							<label for="task_breaker-task-current-page-selector" class="screen-reader-text">
-								<?php esc_html_e( 'Select Page', 'task_breaker' ); ?>
+								<?php esc_html_e( 'Select Page', 'taskbreaker-project-management' ); ?>
 							</label>
 							<input readonly class="current-page" id="task_breaker-task-current-page-selector" type="text" maxlength="<?php echo esc_attr( strlen( $total_page ) ); ?>"
 								size="<?php echo esc_attr( strlen( $total_page ) ); ?>" value="<?php echo esc_attr( intval( $currpage ) ); ?>" />
 
-							<?php esc_attr_e( 'of', 'task_breaker' ); ?>
+							<?php esc_attr_e( 'of', 'taskbreaker-project-management' ); ?>
 
 							<span class="total-pages">
 								<?php echo esc_html( $total_page ); ?>
 							</span><!--.total-pages-->
 						</span><!--.paging-input-->
 
-						<a class="next-page" title="<?php esc_attr_e( 'Go to the next page!!!', 'task_breaker' ); ?>" href="#">›</a>
-						<a class="last-page" title="<?php esc_attr_e( 'Go to the last page', 'task_breaker' );?>" href="#tasks/page/<?php echo intval( $max_page ); ?>">»</a>
+						<a class="next-page" title="<?php esc_attr_e( 'Go to the next page', 'taskbreaker-project-management' ); ?>" href="#">›</a>
+						<a class="last-page" title="<?php esc_attr_e( 'Go to the last page', 'taskbreaker-project-management' );?>" href="#tasks/page/<?php echo intval( $max_page ); ?>">»</a>
 
 					</span><!--#task_breaker-task-paging-->
 
@@ -188,7 +188,7 @@
 	<?php } // End if ( 0 !== $total ). ?>
 <?php } else { ?>
 	<p class="info" id="message">
-		<?php esc_attr_e( 'Only members of this group can see tasks.', 'task_breaker' ); ?>
+		<?php esc_attr_e( 'Only members of this group can see tasks.', 'taskbreaker-project-management' ); ?>
 	</p>
 	<p>
 		<a class="button" href="#">
