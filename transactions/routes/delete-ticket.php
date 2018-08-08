@@ -47,7 +47,7 @@ if ( $delete_task ) {
 			'response' => array(
 				'id' => absint( $ticket_id ),
 			),
-			'message_text' => esc_html__( 'You are not allowed to delete this task. Only group administrators or group moderators are allowed.', 'task_breaker' ),
+			'message_text' => esc_html__( 'You are not allowed to delete this task. Only group administrators or group moderators are allowed.', 'taskbreaker-project-management' ),
 			'stats' => $task->getTaskStatistics( absint( $project_id ) ),
 		)
 	);
