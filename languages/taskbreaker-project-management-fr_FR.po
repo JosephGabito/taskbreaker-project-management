@@ -1,0 +1,599 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Thrive Intranet l10n\n"
+"POT-Creation-Date: 2018-08-08 20:23+0800\n"
+"PO-Revision-Date: 2018-08-08 20:24+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.5\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__;_n;esc_attr_e;"
+"esc_attr__\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets/js/node_modules\n"
+
+#: actions/actions.php:66
+msgid "Unable to delete user assignments. There was an error in db query."
+msgstr ""
+
+#: actions/actions.php:72
+msgid "Unable to delete task comments. There was an error in db query."
+msgstr ""
+
+#: actions/actions.php:79
+msgid "Unable to delete attachments meta. There was an error in db query."
+msgstr ""
+
+#: actions/actions.php:85
+msgid "Unable to delete attachments. There was an error in db query."
+msgstr ""
+
+#: actions/actions.php:94
+msgid "Unable to delete tasks. There was an error in db query. "
+msgstr ""
+
+#: core/file-attachments.php:75
+msgid "Authentication issues. Terminating..."
+msgstr ""
+
+#: core/file-attachments.php:92
+msgid "Did not received any http file. Terminating..."
+msgstr ""
+
+#: core/file-attachments.php:96
+msgid "An error occured. Please check maximum size and maximum header size."
+msgstr ""
+
+#: core/file-attachments.php:115
+msgid "Unable to create temporary directory. Permission error."
+msgstr ""
+
+#: core/file-attachments.php:119
+msgid "Unable to clear temporary directory. Permission error."
+msgstr ""
+
+#: core/file-attachments.php:122
+msgid "Unable to handle file upload."
+msgstr ""
+
+#: core/functions.php:39 includes/project-component.php:129
+#: includes/project-group-component.php:29 includes/project-post-type.php:50
+#: includes/project-post-type.php:52 widgets/widgets.php:123
+msgid "Projects"
+msgstr ""
+
+#: core/template-tags.php:120
+#, php-format
+msgid "Search result for: \"%s\""
+msgstr ""
+
+#: core/template-tags.php:125
+#, php-format
+msgid "Currently showing %d task "
+msgstr ""
+
+#: core/template-tags.php:126 core/template-tags.php:131
+#, php-format
+msgid "out of %d"
+msgstr ""
+
+#: core/template-tags.php:130
+#, php-format
+msgid "Currently showing %d completed task "
+msgstr ""
+
+#: core/template-tags.php:138
+msgid "No results found. Try another filter or add new task."
+msgstr ""
+
+#: core/template-tags.php:145
+msgid "Title"
+msgstr ""
+
+#: core/template-tags.php:146
+msgid "Priority"
+msgstr ""
+
+#: core/template-tags.php:147
+msgid "Date"
+msgstr ""
+
+#: core/template-tags.php:182
+msgid "N/A"
+msgstr ""
+
+#: core/template-tags.php:196 templates/task-loop.php:154
+#, php-format
+msgid "%s task"
+msgstr ""
+
+#: core/template-tags.php:200 templates/task-loop.php:161
+msgid "Go to the first page"
+msgstr ""
+
+#: core/template-tags.php:201 templates/task-loop.php:162
+msgid "Go to the previous page"
+msgstr ""
+
+#: core/template-tags.php:203
+msgid "Select Page"
+msgstr ""
+
+#: core/template-tags.php:207 templates/task-loop.php:178
+msgid "Go to the next page"
+msgstr ""
+
+#: core/template-tags.php:208 templates/task-loop.php:179
+msgid "Go to the last page"
+msgstr ""
+
+#: core/template-tags.php:445
+msgid "Visit User Profile"
+msgstr ""
+
+#: emails/class-buddypress-mail-register.php:57
+msgid "[{{{site.name}}}] There is a new task waiting for you."
+msgstr ""
+
+#: emails/class-buddypress-mail-register.php:79
+msgid "A member of a project received a new ask."
+msgstr ""
+
+#: emails/class-buddypress-mail-register.php:112
+msgid "[{{{site.name}}}] New task update."
+msgstr ""
+
+#: emails/class-buddypress-mail-register.php:134
+msgid "A member of a project updated a task."
+msgstr ""
+
+#: includes/project-component.php:130
+msgid "Search Projects..."
+msgstr ""
+
+#: includes/project-component.php:174
+#, php-format
+msgid "%s Projects"
+msgstr ""
+
+#: includes/project-component.php:184 includes/project-post-type.php:56
+msgid "New Project"
+msgstr ""
+
+#: includes/project-notifications.php:93
+msgid " assigned a new task for you &mdash; "
+msgstr ""
+
+#: includes/project-notifications.php:100
+msgid " You have a new task waiting for you under "
+msgstr ""
+
+#: includes/project-notifications.php:102
+msgid " project"
+msgstr ""
+
+#: includes/project-post-type.php:51 includes/project-post-type.php:53
+msgid "Project"
+msgstr ""
+
+#: includes/project-post-type.php:54
+msgid "Add New"
+msgstr ""
+
+#: includes/project-post-type.php:55 templates/project-add-modal.php:15
+msgid "Add New Project"
+msgstr ""
+
+#: includes/project-post-type.php:57
+msgid "Edit Project"
+msgstr ""
+
+#: includes/project-post-type.php:58
+msgid "View Project"
+msgstr ""
+
+#: includes/project-post-type.php:59
+msgid "All Projects"
+msgstr ""
+
+#: includes/project-post-type.php:60
+msgid "Search Projects"
+msgstr ""
+
+#: includes/project-post-type.php:61
+msgid "Parent Projects:"
+msgstr ""
+
+#: includes/project-post-type.php:62
+msgid "No projects found."
+msgstr ""
+
+#: includes/project-post-type.php:63
+msgid "No projects found in Trash."
+msgstr ""
+
+#: includes/project-theme-compat.php:38
+msgid "Projects Directory"
+msgstr ""
+
+#: models/comments.php:226
+msgid "posted a new update in"
+msgstr ""
+
+#: models/comments.php:227
+msgid "completed"
+msgstr ""
+
+#: models/comments.php:228
+msgid "reopened"
+msgstr ""
+
+#: models/comments.php:231
+msgid "Updated"
+msgstr ""
+
+#: models/comments.php:231 models/tasks.php:918 templates/task-filter.php:48
+#: templates/task-meta.php:15 templates/task-single.php:185
+#: templates/task-single.php:202
+msgid "Completed"
+msgstr ""
+
+#: models/comments.php:231
+msgid "Reopened"
+msgstr ""
+
+#: models/comments.php:258
+#, php-format
+msgid "%1$s %2$s the task %3$s %4$s"
+msgstr ""
+
+#: models/tasks.php:219 templates/task-single.php:29
+#: templates/widget-recent-tasks.php:21
+msgid "Normal"
+msgstr ""
+
+#: models/tasks.php:220 templates/task-single.php:30
+#: templates/widget-recent-tasks.php:22
+msgid "High"
+msgstr ""
+
+#: models/tasks.php:221 templates/task-single.php:31
+#: templates/widget-recent-tasks.php:23
+msgid "Critical"
+msgstr ""
+
+#: models/tasks.php:689
+#, php-format
+msgid "%1$s added new task under %2$s"
+msgstr ""
+
+#: models/tasks.php:900
+#, php-format
+msgid "%s Completed"
+msgstr ""
+
+#: models/tasks.php:914
+msgid "Open"
+msgstr ""
+
+#: task-breaker.php:64
+msgid "Notice: TaskBreaker is only available for PHP Version 5.4.0 and above."
+msgstr ""
+
+#: task-breaker.php:80
+msgid "Notice: TaskBreaker requires BuddyPress Groups Component to be enabled."
+msgstr ""
+
+#: templates/project-add-modal.php:37
+msgid "Tip: Press the <em>'escape'</em> key in your keyboard to hide this form"
+msgstr ""
+
+#: templates/project-add.php:20 templates/project-settings.php:34
+msgid "Enter the new title for this project"
+msgstr "Entrez le nouveau titre pour ce projet"
+
+#: templates/project-add.php:98
+msgid ""
+"You can only add projects into the group that you are either the "
+"administrator or one of the moderator."
+msgstr ""
+
+#: templates/project-add.php:111
+msgid "Save Project"
+msgstr ""
+
+#: templates/project-add.php:131
+msgid "Create Group"
+msgstr ""
+
+#: templates/project-add.php:133
+msgid "Visit Groups"
+msgstr ""
+
+#: templates/project-loop-content.php:77
+msgid "«"
+msgstr ""
+
+#: templates/project-loop-content.php:78
+msgid "»"
+msgstr ""
+
+#: templates/project-loop.php:27
+msgid "Please enable BuddyPress Groups Components to access the Projects."
+msgstr ""
+
+#: templates/project-navigation.php:20
+msgid "Page:"
+msgstr ""
+
+#: templates/project-navigation.php:29
+#, php-format
+msgid "Go to page %d &raquo;"
+msgstr ""
+
+#: templates/project-single.php:85
+msgid ""
+"This project can only be accessed by group members. Use the button below "
+"join the group and receive an access to this project."
+msgstr ""
+
+#: templates/project-single.php:96 templates/project-single.php:97
+msgid "Join Group"
+msgstr ""
+
+#: templates/project-single.php:104
+msgid "Please enable BuddyPress Groups Components."
+msgstr ""
+
+#: templates/project.php:58
+msgid "At a Glance"
+msgstr ""
+
+#: templates/project.php:69
+msgid "Total Tasks"
+msgstr ""
+
+#: templates/project.php:81
+msgid "Task(s) remaining"
+msgstr ""
+
+#: templates/project.php:92
+msgid "Task(s) Completed"
+msgstr ""
+
+#: templates/task-add.php:31
+msgid "Summary"
+msgstr ""
+
+#: templates/task-add.php:37 templates/task-edit.php:37
+msgid "Deadline"
+msgstr ""
+
+#: templates/task-add.php:65 templates/task-edit.php:62
+msgid "Priority:"
+msgstr ""
+
+#: templates/task-add.php:82 templates/task-edit.php:81
+#, php-format
+msgid "(maximum file size: %d MB)"
+msgstr ""
+
+#: templates/task-add.php:114
+msgid "Save Task"
+msgstr ""
+
+#: templates/task-comment-item.php:7
+msgid ""
+"Unable to update the task. Please make sure you have the right privilege."
+msgstr ""
+
+#: templates/task-comment-item.php:27
+msgid "New Progress by"
+msgstr ""
+
+#: templates/task-comment-item.php:33
+msgid "Completed by"
+msgstr ""
+
+#: templates/task-comment-item.php:39
+msgid "Reopened by"
+msgstr ""
+
+#: templates/task-comment-item.php:65
+msgid "Delete comment"
+msgstr ""
+
+#: templates/task-comment-item.php:66
+msgid "Remove Comment"
+msgstr ""
+
+#: templates/task-edit.php:32
+msgid "Task Summary"
+msgstr ""
+
+#: templates/task-edit.php:118
+msgid "Delete"
+msgstr ""
+
+#: templates/task-edit.php:122 templates/task-single.php:248
+msgid "Update Task"
+msgstr ""
+
+#: templates/task-edit.php:130
+msgid "Go back to tasks."
+msgstr ""
+
+#: templates/task-filter.php:37 templates/task-filter.php:39
+#: templates/task-filter.php:46
+msgid "Tasks"
+msgstr ""
+
+#: templates/task-filter.php:72
+msgid "Show All"
+msgstr ""
+
+#: templates/task-filter.php:73
+msgid "Normal Priority"
+msgstr ""
+
+#: templates/task-filter.php:74
+msgid "High Priority"
+msgstr ""
+
+#: templates/task-filter.php:75
+msgid "Critical Priority"
+msgstr ""
+
+#: templates/task-filter.php:82
+msgid "Search Tasks:"
+msgstr ""
+
+#: templates/task-filter.php:85
+msgid "Search Task"
+msgstr ""
+
+#: templates/task-filter.php:86
+msgid "Apply"
+msgstr ""
+
+#: templates/task-loop.php:171
+msgid "of"
+msgstr ""
+
+#: templates/task-loop.php:191
+msgid "Only members of this group can see tasks."
+msgstr ""
+
+#: templates/task-meta.php:8
+#, php-format
+msgid "%s Task"
+msgstr ""
+
+#: templates/task-single.php:15
+msgid ""
+"Unable to access the task details. Only group members can access this page."
+msgstr ""
+
+#: templates/task-single.php:93
+msgid "This task is assigned to:"
+msgstr ""
+
+#: templates/task-single.php:117
+msgid "Download File"
+msgstr ""
+
+#: templates/task-single.php:128
+msgid "Tasks List"
+msgstr ""
+
+#: templates/task-single.php:129
+msgid "&larr; Tasks List"
+msgstr ""
+
+#: templates/task-single.php:134
+msgid "Edit"
+msgstr ""
+
+#: templates/task-single.php:149
+msgid "Discussion"
+msgstr ""
+
+#: templates/task-single.php:178 templates/task-single.php:218
+msgid "In Progress"
+msgstr ""
+
+#: templates/task-single.php:192 templates/task-single.php:208
+msgid "Reopen Task"
+msgstr ""
+
+#: templates/task-single.php:224
+msgid "Complete"
+msgstr ""
+
+#: templates/task-single.php:233
+msgid "Explain what this update is all about"
+msgstr ""
+
+#: templates/task-single.php:238
+msgid "Update Priority:"
+msgstr ""
+
+#: templates/task-single.php:256
+msgid ""
+"Only assigned members of this task or members with the right privilege are "
+"able to add progress to this task."
+msgstr ""
+
+#: transactions/controller.php:151
+#, php-format
+msgid "Cannot find the route: %s"
+msgstr ""
+
+#: transactions/routes/add-ticket.php:28
+msgid ""
+"Unable to add tasks. Only a group administrator or a group moderator can add "
+"tasks."
+msgstr ""
+
+#: transactions/routes/add-ticket.php:58
+msgid ""
+"There was an error trying to add this task. Title and Description fields are "
+"required or there was an unexpected error."
+msgstr ""
+
+#: transactions/routes/delete-project.php:34
+msgid "Permission Denied. Unauthorized."
+msgstr ""
+
+#: transactions/routes/delete-ticket-attachment.php:25
+msgid "File attachment successfully deleted."
+msgstr ""
+
+#: transactions/routes/delete-ticket-attachment.php:32
+msgid "Fail to delete attachment"
+msgstr ""
+
+#: transactions/routes/fetch-task.php:38
+msgid ""
+"Unable to access the task details. Only group members can access this page"
+msgstr ""
+
+#: transactions/routes/fetch-task.php:41
+msgid "Unauthorized Access"
+msgstr ""
+
+#: transactions/routes/task-file-attachment.php:44
+msgid "File upload success"
+msgstr ""
+
+#: widgets/widgets.php:30
+msgid "Displays the current logged in user's latest tasks."
+msgstr ""
+
+#: widgets/widgets.php:33
+msgid "(TaskBreaker) My Recent Task"
+msgstr ""
+
+#: widgets/widgets.php:90
+msgid "Title:"
+msgstr ""
+
+#: widgets/widgets.php:97
+msgid "Number of Tasks:"
+msgstr ""
+
+#: widgets/widgets.php:125
+msgid ""
+"Use this sidebar area in your theme to display all the Widgets related to "
+"Projects."
+msgstr ""
+
+#~ msgid "Oops! Looks like you need to login in order to view the page."
+#~ msgstr "哎呀！看起来你需要，以查看该页面登录。"
+
+#~ msgid "Enter the title of this task. Max 160 characters"
+#~ msgstr "Entrez le titre de cette tâche . Max 160 caractères"
