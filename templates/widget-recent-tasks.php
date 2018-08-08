@@ -18,9 +18,9 @@ if ( ! empty( $user_tasks ) ) { ?>
 <ul>
 	<?php
 		$priority = array(
-			'1' => 'Normal',
-			'2' => 'High',
-			'3' => 'Critical'
+			'1' => __('Normal', 'taskbreaker-project-management'),
+			'2' => __('High', 'taskbreaker-project-management'),
+			'3' => __('Critical', 'taskbreaker-project-management')
 		);
 	?>
 	<?php foreach ( $user_tasks as $task ) { ?>
@@ -81,9 +81,9 @@ if ( ! empty( $user_tasks ) ) { ?>
 	<div class="task-breaker-widget-no-task-assigned">
 
 		<?php if ( is_user_logged_in() ) { ?>
-			<?php esc_html_e( 'There are no tasks assigned to you. Enjoy your day!', 'task_breaker' ); ?>
+			<?php esc_html_e( 'There are no tasks assigned to you. Enjoy your day!', 'taskbreaker-project-management' ); ?>
 		<?php } else { ?>
-			<?php esc_html_e( 'Please use the login form to sign in and view your tasks.', 'task_breaker' ); ?>
+			<?php esc_html_e( 'Please use the login form to sign in and view your tasks.', 'taskbreaker-project-management' ); ?>
 		<?php } ?>
 
 	</div>
