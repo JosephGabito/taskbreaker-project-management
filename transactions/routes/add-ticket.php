@@ -25,7 +25,7 @@ if ( ! $user_access->can_add_task( (int) $_POST['project_id'] ) ) {
 	$this->task_breaker_api_message(
 		array(
 			'message' => 'fail',
-			'response' => __( 'Unable to add tasks. Only a group administrator or a group moderator can add tasks.', ' task_breaker' ),
+			'response' => __( 'Unable to add tasks. Only a group administrator or a group moderator can add tasks.', 'taskbreaker-project-management' ),
 		)
 	);
 }
