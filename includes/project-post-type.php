@@ -47,20 +47,20 @@ final class TaskBreakerProjectPostType {
 	function register_post_type() {
 
 		$labels = array(
-			'name'               => __( 'Projects', 'task_breaker' ),
-			'singular_name'      => __( 'Project', 'task_breaker' ),
-			'menu_name'          => __( 'Projects', 'task_breaker' ),
-			'name_admin_bar'     => __( 'Project', 'task_breaker' ),
-			'add_new'            => __( 'Add New', 'task_breaker' ),
-			'add_new_item'       => __( 'Add New Project', 'task_breaker' ),
-			'new_item'           => __( 'New Project', 'task_breaker' ),
-			'edit_item'          => __( 'Edit Project', 'task_breaker' ),
-			'view_item'          => __( 'View Project', 'task_breaker' ),
-			'all_items'          => __( 'All Projects', 'task_breaker' ),
-			'search_items'       => __( 'Search Projects', 'task_breaker' ),
-			'parent_item_colon'  => __( 'Parent Projects:', 'task_breaker' ),
-			'not_found'          => __( 'No projects found.', 'task_breaker' ),
-			'not_found_in_trash' => __( 'No projects found in Trash.', 'task_breaker' ),
+			'name'               => __( 'Projects', 'taskbreaker-project-management' ),
+			'singular_name'      => __( 'Project', 'taskbreaker-project-management' ),
+			'menu_name'          => __( 'Projects', 'taskbreaker-project-management' ),
+			'name_admin_bar'     => __( 'Project', 'taskbreaker-project-management' ),
+			'add_new'            => __( 'Add New', 'taskbreaker-project-management' ),
+			'add_new_item'       => __( 'Add New Project', 'taskbreaker-project-management' ),
+			'new_item'           => __( 'New Project', 'taskbreaker-project-management' ),
+			'edit_item'          => __( 'Edit Project', 'taskbreaker-project-management' ),
+			'view_item'          => __( 'View Project', 'taskbreaker-project-management' ),
+			'all_items'          => __( 'All Projects', 'taskbreaker-project-management' ),
+			'search_items'       => __( 'Search Projects', 'taskbreaker-project-management' ),
+			'parent_item_colon'  => __( 'Parent Projects:', 'taskbreaker-project-management' ),
+			'not_found'          => __( 'No projects found.', 'taskbreaker-project-management' ),
+			'not_found_in_trash' => __( 'No projects found in Trash.', 'taskbreaker-project-management' ),
 		);
 
 		$args = array(
