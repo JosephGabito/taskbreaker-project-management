@@ -41,7 +41,7 @@ if ( ! empty ( $file ) ) {
 		$this->task_breaker_api_message(
 			array(
 				'message' => 'success',
-				'response' => __( 'File upload success', 'task_breaker' ),
+				'response' => __( 'File upload success', 'taskbreaker-project-management' ),
 				'file' => $file_name
 			)
 		);
