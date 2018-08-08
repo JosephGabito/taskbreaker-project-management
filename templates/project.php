@@ -31,11 +31,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 </div>
 
-<div class="active task_breaker-project-tab-content-item" data-content="task_breaker-project-dashboard" id="task_breaker-project-dashboard-context">
+<div class="active task_breaker-project-tab-content-item" 
+data-content="task_breaker-project-dashboard" id="task_breaker-project-dashboard-context">
 
 	<div id="task_breaker-dashboard-about">
 
-		<h3><?php _e( 'About', 'task_breaker' ); ?></h3>
+		<h3><?php esc_html_e( 'About', 'task_breaker' ); ?></h3>
 
 			<?php echo wp_kses_post( wpautop( do_shortcode( $__post->post_content ), true ) ); ?>
 
