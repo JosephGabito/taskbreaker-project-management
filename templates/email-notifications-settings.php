@@ -4,17 +4,17 @@
             <th class="icon"></th>
             <th class="title">
                 <?php
-                    esc_html_e( 'Project Management', 'task_breaker' ); 
+                    esc_html_e( 'Project Management', 'taskbreaker-project-management' ); 
                  ?>
             </th>
             <th class="yes">
                 <?php
-                    esc_html_e( 'Yes', 'task_breaker' ); 
+                    esc_html_e( 'Yes', 'taskbreaker-project-management' ); 
                 ?>
             </th>
             <th class="no">
                 <?php
-                    esc_html_e( 'No', 'task_breaker' ); 
+                    esc_html_e( 'No', 'taskbreaker-project-management' ); 
                 ?>
             </th>
         </tr>
@@ -24,7 +24,7 @@
             <td></td>
             <td>
                 <?php
-                    esc_html_e( 'A member of the project under the same task added a new update', 'task_breaker' ); ?>
+                    esc_html_e( 'A member of the project under the same task added a new update', 'taskbreaker-project-management' ); ?>
             </td>
             <?php
                 $task_breaker_comment_new = bp_get_user_meta( bp_displayed_user_id(), 'task_breaker_comment_new', true ); ?>
@@ -37,7 +37,7 @@
                         checked( $task_breaker_comment_new, 'yes', true ) ?> />
                 <label for="task-breaker-comment-new-yes" class="bp-screen-reader-text">
                 <?php
-                    esc_html_e( 'Yes, send email', 'task_breaker' ); ?>
+                    esc_html_e( 'Yes, send email', 'taskbreaker-project-management' ); ?>
                 </label>
             </td>
             <td class="no">
@@ -46,7 +46,7 @@
                         checked( $task_breaker_comment_new, 'no', true ) ?> />
                 <label for="task-breaker-comment-new-no" class="bp-screen-reader-text">
                 <?php
-                    esc_html_e( 'No, do not send email', 'task_breaker' ); ?>
+                    esc_html_e( 'No, do not send email', 'taskbreaker-project-management' ); ?>
                 </label>
             </td>
         </tr>
@@ -54,7 +54,7 @@
             <td></td>
             <td>
                 <?php
-                    esc_html_e( 'A new task is assigned to me', 'task_breaker' ); ?>
+                    esc_html_e( 'A new task is assigned to me', 'taskbreaker-project-management' ); ?>
             </td>
             <?php
                 $task_breaker_task_new = bp_get_user_meta( bp_displayed_user_id(), 'task_breaker_task_new', true ); ?>
@@ -67,7 +67,7 @@
                         checked( $task_breaker_task_new, 'yes', true ) ?> />
                 <label for="task-breaker-task-new-yes" class="bp-screen-reader-text">
                 <?php
-                    esc_html_e( 'Yes, send email', 'task_breaker' ); ?>
+                    esc_html_e( 'Yes, send email', 'taskbreaker-project-management' ); ?>
                 </label>
             </td>
             <td class="no">
@@ -76,7 +76,7 @@
                         checked( $task_breaker_task_new, 'no', true ) ?> />
                 <label for="task-breaker-task-new-no" class="bp-screen-reader-text">
                 <?php
-                    esc_html_e( 'No, do not send email', 'task_breaker' ); ?>
+                    esc_html_e( 'No, do not send email', 'taskbreaker-project-management' ); ?>
                 </label>
             </td>
         </tr>
