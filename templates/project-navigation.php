@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <nav>
 
-	<?php echo esc_html( apply_filters( 'task_breaker_projects_page_label', __( 'Page:', 'task_breaker' ) ) ); ?>
+	<?php echo esc_html( apply_filters( 'task_breaker_projects_page_label', __( 'Page:', 'taskbreaker-project-management' ) ) ); ?>
 	
 	<?php for ( $page = 1; $page <= $maximum_page; $page++ ) { ?>
 		
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php if ( $page === $current_page ) { $active = 'active '; } ?> 
 
 		<a class="<?php echo sanitize_html_class( $active );?>project-nav-link" 
-			title="<?php echo sprintf( esc_attr__( 'Go to page %d &raquo;', 'task_breaker' ), absint( $page ) ); ?>" 
+			title="<?php echo sprintf( esc_attr__( 'Go to page %d &raquo;', 'taskbreaker-project-management' ), absint( $page ) ); ?>" 
 			href="?paged=<?php echo absint( $page ); ?>">
 
 			<?php echo esc_html( $page ); ?>
