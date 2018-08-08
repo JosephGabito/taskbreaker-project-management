@@ -10,7 +10,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
         if ( __projectContentObj ) {
 
             projectContent = __projectContentObj.getContent();
-
+  
         } else {
 
             projectContent = $('#task_breakerProjectContent').val();
