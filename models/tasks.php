@@ -216,9 +216,9 @@ class TaskBreakerTask {
 
 	public function getPriorityCollection() {
 		return array(
-		 '1' => apply_filters( 'task_breaker_task_priority_1_label', 'Normal' ),
-		 '2' => apply_filters( 'task_breaker_task_priority_2_label', 'High' ),
-		 '3' => apply_filters( 'task_breaker_task_priority_3_label', 'Critical' ),
+		 '1' => apply_filters( 'task_breaker_task_priority_1_label', __('Normal','taskbreaker-project-management') ),
+		 '2' => apply_filters( 'task_breaker_task_priority_2_label', __('High','taskbreaker-project-management') ),
+		 '3' => apply_filters( 'task_breaker_task_priority_3_label', __('Critical', 'taskbreaker-project-management') ),
 		);
 	}
 
@@ -686,7 +686,7 @@ class TaskBreakerTask {
 
 					}
 
-					$action = sprintf( __( '%1$s added new task under %2$s', 'task_breaker' ), $bp_user_link, $task_breaker_project_name );
+					$action = sprintf( __( '%1$s added new task under %2$s', 'taskbreaker-project-management' ), $bp_user_link, $task_breaker_project_name );
 
 					$task_permalink = $permalink . '#tasks/view/' . $last_insert_id;
 
@@ -897,7 +897,7 @@ class TaskBreakerTask {
 		  'completed' => $task_total_completed,
 		  'remaining' => $task_total_open,
 		  'status'    => null,
-		  'progress'  => sprintf( __( '%s Completed', 'task_breaker' ), $task_progress ),
+		  'progress'  => sprintf( __( '%s Completed', 'taskbreaker-project-management' ), $task_progress ),
 		 );
 
 		// If there is a task id, fetch the task using its ID
@@ -911,11 +911,11 @@ class TaskBreakerTask {
 
 				$completed_by = $the_task->completed_by;
 
-				$task_status = __( 'Open', 'task_breaker' );
+				$task_status = __( 'Open', 'taskbreaker-project-management' );
 
 				if ( $completed_by >= 1 ) {
 
-					$task_status = __( 'Completed', 'task_breaker' );
+					$task_status = __( 'Completed', 'taskbreaker-project-management' );
 
 				}
 
