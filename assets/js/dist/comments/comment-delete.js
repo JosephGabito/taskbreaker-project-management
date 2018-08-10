@@ -4,7 +4,7 @@ $('body').on('click', 'a.task_breaker-delete-comment', function(e) {
     e.preventDefault();
 
     // Ask the user to confirm if he/she really wanted to delete the task comment.
-    var confirm_delete = confirm("Are you sure you want to delete this comment? This action is irreversible. ");
+    var confirm_delete = confirm( taskbreaker_strings.comment_confirm_delete );
 
     // Exit if the user decided to cancel the task comment.
     if (!confirm_delete) {
@@ -47,7 +47,7 @@ $('body').on('click', 'a.task_breaker-delete-comment', function(e) {
         },
         error: function() {
             ThriveProjectView.progress(false);
-            $element.parent().append('<p class="error">Transaction Error: There was an error trying to delete this comment.</p>');
+            $element.parent().append('<p class="error">'+taskbreaker_strings.comment_error+'</p>');
         }
     });
 }); // end Delete Comment
