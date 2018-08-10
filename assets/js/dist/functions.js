@@ -37,7 +37,7 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
     }
 
     if ( file_errors >= 1 ) {
-        alert('There was an error uploading your file. File size exceeded the allowed number of bytes per request.');
+        alert( taskbreaker_strings.file_error );
         return;
     }
 
@@ -99,7 +99,7 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
                 } else {
                     $( container + '.taskbreaker-upload-error-text-helper').addClass('active');
                     $( container + '.taskbreaker-upload-success-text-helper').removeClass('active');
-                    $( container + '.tb-file-attachment-progress').parent().append('<div class="taskbreaker-upload-error">The application did not received any response from the server. Try uploading smaller files.</div>');
+                    $( container + '.tb-file-attachment-progress').parent().append('<div class="taskbreaker-upload-error">'+taskbreaker_strings.file_attachment_error+'</div>');
                     taskbreaker_file_attachments.attached_files = '';
                 }
                 
