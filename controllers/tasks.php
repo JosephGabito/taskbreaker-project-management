@@ -91,7 +91,7 @@ class TaskBreakerTasksController extends TaskBreakerTask {
 		if ( empty( $args['deadline'] ) ) {
 			$args['deadline'] = "0000-00-00 00:00:00";
 		}
-
+		
 		$this->setTitle( $args['title'] )
 			 ->setDescription( $args['description'] )
 			 ->setDeadline( new \DateTime( $args['deadline'] ) )

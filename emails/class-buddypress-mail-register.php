@@ -175,15 +175,11 @@ final class Task_Breaker_BP_Mail_Register {
                         // New users who have not yet save the settings in the email settings.
                         // have blank value. It means, it is not either 'yes' or 'no'.
                         if ( ! $user_subscribed ) {
-
                             $user_subscribed = 'yes';
-
                         }
 
                         if ( 'yes' === $user_subscribed ) {
-
                             bp_send_email( 'user_assigned_a_task', (int) $user_id, $args );
-
                         }
                     }
                 }
