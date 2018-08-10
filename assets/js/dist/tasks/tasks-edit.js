@@ -48,17 +48,17 @@ $('#task_breaker-edit-btn').click( function( e ) {
         method: 'post',
         success: function( response ) {
 
-            var message = "<p class='task-breaker-message success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
+            var message = "<p class='task-breaker-message success'>"+taskbreaker_strings.task_updated+" <a href='#tasks/view/" + response.id + "'>&#65515; "+taskbreaker_strings.task_view+"</a></p>";
 
             if ( 'fail' === response.message && 'no_changes' !== response.type ) {
 
-                message = "<p class='task-breaker-message danger'>There was an error updating the task. All fields are required.</a></p>";
+                message = "<p class='task-breaker-message danger'>"+taskbreaker_strings.task_update_error+"</a></p>";
 
             }
 
             if ( 'fail' === response.message && 'unauthorized' === response.type ) {
 
-                message = "<p class='task-breaker-message danger'>You are not allowed to modify this task. Only group project administrators and group projects moderators are allowed.</a></p>";
+                message = "<p class='task-breaker-message danger'>"+taskbreaker_strings.task_unauthorized_error+"</a></p>";
 
             }
 
@@ -102,7 +102,7 @@ $('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event
 
 $('#task_breaker-project').on('click', '#taskbreaker-unlink-file-btn > a', function(e){
     e.preventDefault();
-    var __confirm = confirm("Are you sure you want to delete this file attachment? This process is not reversible.");
+    var __confirm = confirm( taskbreaker_strings.file_attachment_delete );
         if ( __confirm ) {
             console.log('deleting file...');
         }
