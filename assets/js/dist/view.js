@@ -292,7 +292,7 @@ var __ThriveProjectView = Backbone.View.extend({
                 }
 
                 if ( 0 === response.task.length ) {
-                    $('#task_breaker-project-tasks').html('<div class="task-breaker-message danger">No tasks found. Try different keywords and filters.</div>');
+                    $('#task_breaker-project-tasks').html('<div class="task-breaker-message danger">'+taskbreaker_strings.tasks_not_found+'</div>');
                 }
 
             },
