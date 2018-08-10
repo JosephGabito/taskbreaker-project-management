@@ -1267,7 +1267,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
 $( ".js-taskbreaker-task-deadline" ).datetimepicker({
 	minDate: -20,
-	dateFormat: "mm-dd-yy"
+	dateFormat: "mm/dd/yy"
 });
 }); // end $(window).load();
 }); // end jQuery(document).ready();
