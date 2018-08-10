@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Thrive Intranet l10n\n"
-"POT-Creation-Date: 2018-08-08 20:08+0800\n"
-"PO-Revision-Date: 2018-08-08 20:08+0800\n"
+"POT-Creation-Date: 2018-08-10 16:17+0800\n"
+"PO-Revision-Date: 2018-08-10 16:18+0800\n"
 "Last-Translator: \n"
 "Language-Team: Dunhakdis <codehaiku.io@gmail.com>\n"
 "Language: en\n"
@@ -34,6 +34,90 @@ msgstr ""
 
 #: actions/actions.php:94
 msgid "Unable to delete tasks. There was an error in db query. "
+msgstr ""
+
+#: core/enqueue.php:74
+msgid ""
+"There was an error uploading your file. File size exceeded the allowed "
+"number of bytes per request"
+msgstr ""
+
+#: core/enqueue.php:75
+msgid ""
+"The application did not received any response from the server. Try uploading "
+"smaller files."
+msgstr ""
+
+#: core/enqueue.php:76 templates/task-loop.php:125
+msgid "No tasks found. Try different keywords and filters."
+msgstr ""
+
+#: core/enqueue.php:77
+msgid ""
+"Are you sure you want to delete this comment? This action is irreversible."
+msgstr ""
+
+#: core/enqueue.php:78
+msgid "Transaction Error: There was an error trying to delete this comment."
+msgstr ""
+
+#: core/enqueue.php:79
+msgid ""
+"Are you sure you want to delete this project? All the tickets under this "
+"project will be deleted as well. This action cannot be undone."
+msgstr ""
+
+#: core/enqueue.php:80
+msgid "There was an error trying to delete this post. Try again later."
+msgstr ""
+
+#: core/enqueue.php:81 templates/project-settings.php:93
+msgid "Update Project"
+msgstr ""
+
+#: core/enqueue.php:82
+msgid ""
+"Only group administrators and moderators can update the project settings."
+msgstr ""
+
+#: core/enqueue.php:83
+msgid "There was an error saving the project. All fields are required."
+msgstr ""
+
+#: core/enqueue.php:84
+msgid "Unexpected Error (500)"
+msgstr ""
+
+#: core/enqueue.php:85
+msgid "Unexpected Error Encountered During Request"
+msgstr ""
+
+#: core/enqueue.php:86
+msgid "Are you sure you want to delete this task? This action is irreversible"
+msgstr ""
+
+#: core/enqueue.php:87
+msgid "Task successfully updated"
+msgstr ""
+
+#: core/enqueue.php:88
+msgid "View"
+msgstr ""
+
+#: core/enqueue.php:89
+msgid "There was an error updating the task. All fields are required."
+msgstr ""
+
+#: core/enqueue.php:90
+msgid ""
+"You are not allowed to modify this task. Only group project administrators "
+"and group projects moderators are allowed."
+msgstr ""
+
+#: core/enqueue.php:91
+msgid ""
+"Are you sure you want to delete this file attachment? This process is not "
+"reversible."
 msgstr ""
 
 #: core/file-attachments.php:75
@@ -299,6 +383,21 @@ msgstr ""
 msgid "%1$s %2$s the task %3$s %4$s"
 msgstr ""
 
+#: models/tasks.php:219 templates/task-single.php:29
+#: templates/widget-recent-tasks.php:21
+msgid "Normal"
+msgstr ""
+
+#: models/tasks.php:220 templates/task-single.php:30
+#: templates/widget-recent-tasks.php:22
+msgid "High"
+msgstr ""
+
+#: models/tasks.php:221 templates/task-single.php:31
+#: templates/widget-recent-tasks.php:23
+msgid "Critical"
+msgstr ""
+
 #: models/tasks.php:689
 #, php-format
 msgid "%1$s added new task under %2$s"
@@ -432,10 +531,6 @@ msgstr ""
 
 #: templates/project-settings.php:48
 msgid "Explain what this project is all about"
-msgstr ""
-
-#: templates/project-settings.php:93
-msgid "Update Project"
 msgstr ""
 
 #: templates/project-settings.php:99 templates/task-edit.php:118
@@ -643,10 +738,6 @@ msgstr ""
 msgid "Past Due"
 msgstr ""
 
-#: templates/task-loop.php:125
-msgid "No tasks found. Try different keywords and filters."
-msgstr ""
-
 #: templates/task-loop.php:171
 msgid "of"
 msgstr ""
@@ -663,18 +754,6 @@ msgstr ""
 #: templates/task-single.php:15
 msgid ""
 "Unable to access the task details. Only group members can access this page."
-msgstr ""
-
-#: templates/task-single.php:29
-msgid "Normal"
-msgstr ""
-
-#: templates/task-single.php:30
-msgid "High"
-msgstr ""
-
-#: templates/task-single.php:31
-msgid "Critical"
 msgstr ""
 
 #: templates/task-single.php:61
