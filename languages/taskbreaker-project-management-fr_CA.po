@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TaskBreaker - Group Project Management\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-08 20:24+0800\n"
-"PO-Revision-Date: 2018-08-08 20:24+0800\n"
+"POT-Creation-Date: 2018-08-10 16:18+0800\n"
+"PO-Revision-Date: 2018-08-10 16:18+0800\n"
 "Last-Translator: Justine Mathieu <justine.mathieu@therriencout2ure.com>\n"
 "Language-Team: French (Canada)\n"
 "Language: fr_CA\n"
@@ -47,6 +47,110 @@ msgid "Unable to delete tasks. There was an error in db query. "
 msgstr ""
 "Impossible de supprimer des tâches. Il y avait une erreur dans la requête de "
 "base de données. "
+
+#: core/enqueue.php:74
+msgid ""
+"There was an error uploading your file. File size exceeded the allowed "
+"number of bytes per request"
+msgstr ""
+
+#: core/enqueue.php:75
+msgid ""
+"The application did not received any response from the server. Try uploading "
+"smaller files."
+msgstr ""
+
+#: core/enqueue.php:76 templates/task-loop.php:125
+msgid "No tasks found. Try different keywords and filters."
+msgstr "Aucune tâche n'a été trouvée. Essayez différents mots clés et filtres."
+
+#: core/enqueue.php:77
+msgid ""
+"Are you sure you want to delete this comment? This action is irreversible."
+msgstr ""
+
+#: core/enqueue.php:78
+msgid "Transaction Error: There was an error trying to delete this comment."
+msgstr ""
+
+#: core/enqueue.php:79
+msgid ""
+"Are you sure you want to delete this project? All the tickets under this "
+"project will be deleted as well. This action cannot be undone."
+msgstr ""
+
+#: core/enqueue.php:80
+msgid "There was an error trying to delete this post. Try again later."
+msgstr ""
+
+#: core/enqueue.php:81 templates/project-settings.php:93
+msgid "Update Project"
+msgstr "Projet de mise à jour"
+
+#: core/enqueue.php:82
+#, fuzzy
+#| msgid ""
+#| "Ops! Only group administrator or group moderators can add tasks to this "
+#| "group project."
+msgid ""
+"Only group administrators and moderators can update the project settings."
+msgstr ""
+"Ops! Seul l'administrateur de groupe ou les modérateurs de groupe peuvent "
+"ajouter des tâches à ce projet de groupe."
+
+#: core/enqueue.php:83
+msgid "There was an error saving the project. All fields are required."
+msgstr ""
+
+#: core/enqueue.php:84
+msgid "Unexpected Error (500)"
+msgstr ""
+
+#: core/enqueue.php:85
+msgid "Unexpected Error Encountered During Request"
+msgstr ""
+
+#: core/enqueue.php:86
+msgid "Are you sure you want to delete this task? This action is irreversible"
+msgstr ""
+
+#: core/enqueue.php:87
+#, fuzzy
+#| msgid "File attachment successfully deleted."
+msgid "Task successfully updated"
+msgstr "La connexion de fichier a été supprimée avec succès."
+
+#: core/enqueue.php:88
+msgid "View"
+msgstr ""
+
+#: core/enqueue.php:89
+#, fuzzy
+#| msgid ""
+#| "There was an error trying to add this task. Title and Description fields "
+#| "are required or there was an unexpected error."
+msgid "There was an error updating the task. All fields are required."
+msgstr ""
+"Une erreur s'est produite en essayant d'ajouter cette tâche. Les champs de "
+"titre et de description sont requis ou il y a eu une erreur inattendue."
+
+#: core/enqueue.php:90
+#, fuzzy
+#| msgid ""
+#| "You are not allowed to delete this task. Only group administrators or "
+#| "group moderators are allowed."
+msgid ""
+"You are not allowed to modify this task. Only group project administrators "
+"and group projects moderators are allowed."
+msgstr ""
+"Vous n'êtes pas autorisé à supprimer cette tâche. Seuls les administrateurs "
+"de groupe ou les modérateurs de groupe sont autorisés."
+
+#: core/enqueue.php:91
+msgid ""
+"Are you sure you want to delete this file attachment? This process is not "
+"reversible."
+msgstr ""
 
 #: core/file-attachments.php:75
 msgid "Authentication issues. Terminating..."
@@ -483,10 +587,6 @@ msgstr "Aller à la page %d &raquo;"
 msgid "Explain what this project is all about"
 msgstr "Expliquez de quoi s'agit ce projet"
 
-#: templates/project-settings.php:93
-msgid "Update Project"
-msgstr "Projet de mise à jour"
-
 #: templates/project-settings.php:99 templates/task-edit.php:118
 msgid "Delete"
 msgstr "Effacer"
@@ -712,10 +812,6 @@ msgstr ""
 #: templates/task-loop.php:68
 msgid "Past Due"
 msgstr "En souffrance"
-
-#: templates/task-loop.php:125
-msgid "No tasks found. Try different keywords and filters."
-msgstr "Aucune tâche n'a été trouvée. Essayez différents mots clés et filtres."
 
 #: templates/task-loop.php:171
 msgid "of"

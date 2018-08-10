@@ -79,13 +79,13 @@ $('#task_breaker-submit-btn').click(function(e) {
         },
         statusCode: {
             500: function() {
-                $('#task_breaker-add-task-message').html('<p class="error">Unexpected Error (500)</p>').show().addClass('error');
+                $('#task_breaker-add-task-message').html('<p class="error">'+taskbreaker_strings.task_error_500+'</p>').show().addClass('error');
                 element.text('Save Task');
                 element.removeAttr('disabled');
             }
         },
         error: function( error, errorMessage ) {
-            $('#task_breaker-add-task-message').html('<p class="error">Unexpected Error Encountered During Request</p>').show().addClass('error');
+            $('#task_breaker-add-task-message').html('<p class="error">'+taskbreaker_strings.task_unexpected_error+'</p>').show().addClass('error');
         }
     }); // End $.ajax call.
 }); // End $('#task_breaker-submit-btn').click() call.

@@ -1,7 +1,7 @@
  // Delete Task Single
  $('body').on('click', '#task_breaker-delete-btn', function() {
 
-    var _delete_confirm = confirm("Are you sure you want to delete this task? This action is irreversible");
+    var _delete_confirm = confirm( taskbreaker_strings.task_confirm_delete );
 
     if (!_delete_confirm) {
        return;
