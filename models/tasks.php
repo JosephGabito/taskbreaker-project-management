@@ -726,7 +726,7 @@ class TaskBreakerTask {
 
 					}
 
-					// Send them ssome snazzy email!
+					// Send email.
 					$task_email_object = new stdClass;
 					$task_email_object->task_url = $task_permalink;
 					$task_email_object->task_assigned_members = $exploded_members;
