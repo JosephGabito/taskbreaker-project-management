@@ -41,7 +41,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
             ThriveProjectView.progress(false);
 
-            element.attr('disabled', false).text('Update Project');
+            element.attr('disabled', false).text( taskbreaker_strings.project_label_btn_update );
 
             if (response.message === 'success') {
 
@@ -62,7 +62,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
                     element.parent().parent().prepend(
                         '<div id="message" class="task_breaker-project-updated error updated">' +
-                        '<p>Only group administrators and moderators can update the project settings.</p>' +
+                        '<p>'+ taskbreaker_strings.project_authentication_error +'</p>' +
                         '</div>'
                     );
 
@@ -70,7 +70,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
                     element.parent().parent().prepend(
                         '<div id="message" class="task_breaker-project-updated success updated">' +
-                        '<p>There was an error saving the project. All fields are required.</p>' +
+                        '<p>'+taskbreaker_strings.project_all_fields_required+'</p>' +
                         '</div>'
                     );
 
