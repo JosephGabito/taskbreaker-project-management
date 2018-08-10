@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'TASK_BREAKER_PROFILER', false );
 
-define( 'TASK_BREAKER_VERSION', '1.5.0' );
+define( 'TASK_BREAKER_VERSION', '1.5.1' );
 
 define( 'TASK_BREAKER_PROJECT_LIMIT', 10 );
 
