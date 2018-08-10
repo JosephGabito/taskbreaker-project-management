@@ -41,7 +41,7 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
     }
 
     if ( file_errors >= 1 ) {
-        alert('There was an error uploading your file. File size exceeded the allowed number of bytes per request.');
+        alert( taskbreaker_strings.file_error );
         return;
     }
 
@@ -103,7 +103,7 @@ var taskbreaker_process_file_attachment = function ( event, container_id, __form
                 } else {
                     $( container + '.taskbreaker-upload-error-text-helper').addClass('active');
                     $( container + '.taskbreaker-upload-success-text-helper').removeClass('active');
-                    $( container + '.tb-file-attachment-progress').parent().append('<div class="taskbreaker-upload-error">The application did not received any response from the server. Try uploading smaller files.</div>');
+                    $( container + '.tb-file-attachment-progress').parent().append('<div class="taskbreaker-upload-error">'+taskbreaker_strings.file_attachment_error+'</div>');
                     taskbreaker_file_attachments.attached_files = '';
                 }
                 
@@ -471,7 +471,7 @@ var __ThriveProjectView = Backbone.View.extend({
                 }
 
                 if ( 0 === response.task.length ) {
-                    $('#task_breaker-project-tasks').html('<div class="task-breaker-message danger">No tasks found. Try different keywords and filters.</div>');
+                    $('#task_breaker-project-tasks').html('<div class="task-breaker-message danger">'+taskbreaker_strings.tasks_not_found+'</div>');
                 }
 
             },
@@ -756,13 +756,13 @@ $('#task_breaker-submit-btn').click(function(e) {
         },
         statusCode: {
             500: function() {
-                $('#task_breaker-add-task-message').html('<p class="error">Unexpected Error (500)</p>').show().addClass('error');
+                $('#task_breaker-add-task-message').html('<p class="error">'+taskbreaker_strings.task_error_500+'</p>').show().addClass('error');
                 element.text('Save Task');
                 element.removeAttr('disabled');
             }
         },
         error: function( error, errorMessage ) {
-            $('#task_breaker-add-task-message').html('<p class="error">Unexpected Error Encountered During Request</p>').show().addClass('error');
+            $('#task_breaker-add-task-message').html('<p class="error">'+taskbreaker_strings.task_unexpected_error+'</p>').show().addClass('error');
         }
     }); // End $.ajax call.
 }); // End $('#task_breaker-submit-btn').click() call.
@@ -828,17 +828,17 @@ $('#task_breaker-edit-btn').click( function( e ) {
         method: 'post',
         success: function( response ) {
 
-            var message = "<p class='task-breaker-message success'>Task successfully updated <a href='#tasks/view/" + response.id + "'>&#65515; View</a></p>";
+            var message = "<p class='task-breaker-message success'>"+taskbreaker_strings.task_updated+" <a href='#tasks/view/" + response.id + "'>&#65515; "+taskbreaker_strings.task_view+"</a></p>";
 
             if ( 'fail' === response.message && 'no_changes' !== response.type ) {
 
-                message = "<p class='task-breaker-message danger'>There was an error updating the task. All fields are required.</a></p>";
+                message = "<p class='task-breaker-message danger'>"+taskbreaker_strings.task_update_error+"</a></p>";
 
             }
 
             if ( 'fail' === response.message && 'unauthorized' === response.type ) {
 
-                message = "<p class='task-breaker-message danger'>You are not allowed to modify this task. Only group project administrators and group projects moderators are allowed.</a></p>";
+                message = "<p class='task-breaker-message danger'>"+taskbreaker_strings.task_unauthorized_error+"</a></p>";
 
             }
 
@@ -882,7 +882,7 @@ $('#task-breaker-form-file-attachment-edit-field').on( 'change', function( event
 
 $('#task_breaker-project').on('click', '#taskbreaker-unlink-file-btn > a', function(e){
     e.preventDefault();
-    var __confirm = confirm("Are you sure you want to delete this file attachment? This process is not reversible.");
+    var __confirm = confirm( taskbreaker_strings.file_attachment_delete );
         if ( __confirm ) {
             console.log('deleting file...');
         }
@@ -908,7 +908,7 @@ $('#task_breaker-project').on('click', '#taskbreaker-unlink-file-btn > a', funct
  // Delete Task Single
  $('body').on('click', '#task_breaker-delete-btn', function() {
 
-    var _delete_confirm = confirm("Are you sure you want to delete this task? This action is irreversible");
+    var _delete_confirm = confirm( taskbreaker_strings.task_confirm_delete );
 
     if (!_delete_confirm) {
        return;
@@ -1059,7 +1059,7 @@ $('body').on('click', 'a.task_breaker-delete-comment', function(e) {
     e.preventDefault();
 
     // Ask the user to confirm if he/she really wanted to delete the task comment.
-    var confirm_delete = confirm("Are you sure you want to delete this comment? This action is irreversible. ");
+    var confirm_delete = confirm( taskbreaker_strings.comment_confirm_delete );
 
     // Exit if the user decided to cancel the task comment.
     if (!confirm_delete) {
@@ -1102,7 +1102,7 @@ $('body').on('click', 'a.task_breaker-delete-comment', function(e) {
         },
         error: function() {
             ThriveProjectView.progress(false);
-            $element.parent().append('<p class="error">Transaction Error: There was an error trying to delete this comment.</p>');
+            $element.parent().append('<p class="error">'+taskbreaker_strings.comment_error+'</p>');
         }
     });
 }); // end Delete Comment
@@ -1156,7 +1156,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
             ThriveProjectView.progress(false);
 
-            element.attr('disabled', false).text('Update Project');
+            element.attr('disabled', false).text( taskbreaker_strings.project_label_btn_update );
 
             if (response.message === 'success') {
 
@@ -1177,7 +1177,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
                     element.parent().parent().prepend(
                         '<div id="message" class="task_breaker-project-updated error updated">' +
-                        '<p>Only group administrators and moderators can update the project settings.</p>' +
+                        '<p>'+ taskbreaker_strings.project_authentication_error +'</p>' +
                         '</div>'
                     );
 
@@ -1185,7 +1185,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
                     element.parent().parent().prepend(
                         '<div id="message" class="task_breaker-project-updated success updated">' +
-                        '<p>There was an error saving the project. All fields are required.</p>' +
+                        '<p>'+taskbreaker_strings.project_all_fields_required+'</p>' +
                         '</div>'
                     );
 
@@ -1216,8 +1216,8 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
  $('body').on('click', '#task_breakerDeleteProjectBtn', function() {
 
-
-     if ( !confirm('Are you sure you want to delete this project? All the tickets under this project will be deleted as well. This action cannot be undone.')) {
+     if ( ! confirm( taskbreaker_strings.project_confirm_delete ) ) 
+     {
          return;
      }
 
@@ -1258,7 +1258,7 @@ $('body').on('click', '#task_breakerUpdateProjectBtn', function() {
 
          error: function() {
 
-            alert('There was an error trying to delete this post. Try again later.');
+            alert(taskbreaker_strings.project_error);
 
          }
      });
