@@ -1,7 +1,7 @@
  $('body').on('click', '#task_breakerDeleteProjectBtn', function() {
 
-
-     if ( !confirm('Are you sure you want to delete this project? All the tickets under this project will be deleted as well. This action cannot be undone.')) {
+     if ( ! confirm( taskbreaker_strings.project_confirm_delete ) ) 
+     {
          return;
      }
 
@@ -42,7 +42,7 @@
 
          error: function() {
 
-            alert('There was an error trying to delete this post. Try again later.');
+            alert(taskbreaker_strings.project_error);
 
          }
      });
