@@ -300,7 +300,6 @@
 	background: #fff;
 	position: relative;
 	border-bottom: 0;
-	z-index: 2;
 	margin-bottom: -1px;
 	border-top: 1px solid;
 }
@@ -515,7 +514,7 @@
 		color: #FFF;
 		display: block;
 		padding: 2.5px 10px;
-		border-radius: 0;
+		border-radius: 2px;
 		text-align: center;
 	}
 
@@ -1631,6 +1630,7 @@
 #task_breakerTaskEditTitle,
 #task_breakerTaskTitle,
 #task_breaker-project-content,
+#js-add-taskbreaker-deadline-field,
 #task_breaker-project-name {
 	width: 100%;
 	display: block;
