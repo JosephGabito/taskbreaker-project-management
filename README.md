@@ -1,4 +1,4 @@
-<h1>TaskBreaker Group Project Management</h1>
+<h1>:rainbow: TaskBreaker Group Project Management</h1>
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/118e1366-fbab-4ef8-bc07-0fffc4bc2f59/big.png)](https://insight.sensiolabs.com/projects/118e1366-fbab-4ef8-bc07-0fffc4bc2f59)
 
