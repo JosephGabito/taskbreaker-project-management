@@ -70,9 +70,9 @@ class TaskBreakerCT {
 			return false;
 		}
 
-		if ( current_user_can( 'manage_options' ) ) {
+		/*if ( current_user_can( 'manage_options' ) ) {
 			return true;
-		}
+		}*/
 
 		$user_id = get_current_user_id();
 
