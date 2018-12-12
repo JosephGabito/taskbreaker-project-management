@@ -70,10 +70,6 @@ class TaskBreakerCT {
 			return false;
 		}
 
-		/*if ( current_user_can( 'manage_options' ) ) {
-			return true;
-		}*/
-
 		$user_id = get_current_user_id();
 
 		if ( empty( $user_id ) ) {
@@ -109,10 +105,6 @@ class TaskBreakerCT {
 			return false;
 		}
 
-		if ( current_user_can( 'manage_options' ) ) {
-			return true;
-		}
-
 		$group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
 
 		if ( $this->is_group_member( $group_id ) ) {
@@ -134,10 +126,6 @@ class TaskBreakerCT {
 
 		if ( ! is_user_logged_in() ) {
 			return false;
-		}
-
-		if ( current_user_can( 'manage_options' ) ) {
-    			return apply_filters( 'taskbreaker/core/conditional-tags/can_add_project_to_group/is-admin', __return_true() );
 		}
 
 		if ( groups_is_user_member( get_current_user_id(), $group_id ) ) {
@@ -168,10 +156,6 @@ class TaskBreakerCT {
 			return false;
 		}
 
-		if ( current_user_can( 'manage_options' ) ) {
-			return true;
-		}
-
 		$group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
 
 		if ( groups_is_user_mod( get_current_user_id(), $group_id ) ) {
@@ -199,10 +183,6 @@ class TaskBreakerCT {
 			return false;
 		}
 
-		if ( current_user_can( 'manage_options' ) ) {
-			return true;
-		}
-
 		$project_object = get_post( $project_id );
 
 		if ( empty( $project_object ) ) {
@@ -215,11 +195,6 @@ class TaskBreakerCT {
 
 		// Return true if the current owner is the author of project post.
 		if ( $project_owner === $current_user_id ) {
-			return true;
-		}
-
-		// Return true if it's admin.
-		if ( current_user_can( 'manage_options' ) ) {
 			return true;
 		}
 
@@ -237,10 +212,6 @@ class TaskBreakerCT {
 
 		if ( ! is_user_logged_in() ) {
 			return false;
-		}
-
-		if ( current_user_can( 'manage_options' ) ) {
-			return true;
 		}
 
 		// Only members of the group can the project tasks.
@@ -266,10 +237,6 @@ class TaskBreakerCT {
 
 		if ( ! is_user_logged_in() ) {
 			return false;
-		}
-
-		if ( current_user_can( 'manage_options' ) ) {
-			return true;
 		}
 
 		$group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
@@ -299,10 +266,6 @@ class TaskBreakerCT {
 
 		if ( empty( $project_id ) ) {
 			return false;
-		}
-
-		if ( current_user_can( 'manage_options' ) ) {
-			return true;
 		}
 
 		$group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
@@ -335,10 +298,6 @@ class TaskBreakerCT {
 			return false;
 		}
 
-		if ( current_user_can( 'manage_options' ) ) {
-			return true;
-		}
-
 		$group_id = absint( get_post_meta( $project_id, 'task_breaker_project_group_id', true ) );
 
 		if ( groups_is_user_mod( get_current_user_id(), $group_id ) ) {
@@ -367,11 +326,6 @@ class TaskBreakerCT {
 
 		if ( ! is_user_logged_in() ) {
 			return false;
-		}
-
-		// Return true if the current user is an administrator.
-		if ( current_user_can( 'manage_options' ) ) {
-			return true;
 		}
 
 		// Return true if the current user is a moderator of the group.
