@@ -136,7 +136,7 @@ class TaskBreakerCT {
 			return false;
 		}
 
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'publish_posts' ) ) {
     			return apply_filters( 'taskbreaker/core/conditional-tags/can_add_project_to_group/is-admin', __return_true() );
 		}
 
